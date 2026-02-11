@@ -34,6 +34,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="./css/base.css" rel="stylesheet">
     <title>Whiskey Valor Volunteer Management | Dashboard</title>
+    <?php require_once('universal.inc') ?>
     <style>
         * {
             box-sizing: border-box;
@@ -657,7 +658,7 @@
     <footer class="footer" style="margin-top: 100px;">
         <!-- Left Side: Logo & Socials -->
         <div class="footer-left">
-            <img src="images/whiskeyLogoBlack.png" alt="Logo" class="footer-logo">
+            <img src="<?php include('logo.php'); ?>" alt="Logo" class="footer-logo">
             <div class="social-icons">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
@@ -816,7 +817,7 @@
     <footer class="footer" style="margin-top: 100px;">
         <!-- Left Side: Logo & Socials -->
         <div class="footer-left">
-            <img src="images/whiskeyLogoBlack.png" alt="Logo" class="footer-logo">
+            <img src="<?php include('logo.php'); ?>" alt="Logo" class="footer-logo">
             <div class="social-icons">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>

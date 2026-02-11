@@ -17,7 +17,7 @@ session_write_close();
         <nav>
             <span id="nav-top">
                 <span class="logo">
-                    <img src="images/whiskeyLogo.png">
+                    <img src="<?php include('logo.php'); ?>">
                         <span id="vms-logo"> Whiskey Valor Foundation </span>
                         </span>
                     <img id="menu-toggle" src="images/menu.png">

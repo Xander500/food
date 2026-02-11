@@ -49,7 +49,7 @@ $loggedIn = false;
         <nav>
             <span id="nav-top">
                 <span class="logo">
-                    <img src="images/whiskeyLogo.png">
+                    <img src="<?php include('logo.php'); ?>">
                         <span id="vms-logo"> Whiskey Valor User </span>
                         </span>
                     <img id="menu-toggle" src="images/menu.png">
