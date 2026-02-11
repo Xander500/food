@@ -1,9 +1,10 @@
 # Student Names
-Michael Glanzmann  
-Blue Shojinaga
-Jake Lipinski
-Kassandra Williams
-Alia Carmicheal 
+Joshua LaMoy
+Claire Davis
+Erick Niyonkuru
+Laura Rider
+Mustafa Adnan
+Timothy Moore
 
 # Fredericksburg SPCA Volunteer Management Web Application 
 
