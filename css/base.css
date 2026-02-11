@@ -49,7 +49,7 @@ table, td, tr, th, form, fieldset, em, button, a {
 
 :root {
     /* CSS variables that will be used across the page */
-    --page-background-color: rgb(31, 31, 33);
+    --page-background-color: rgb(255, 255, 255);
     --page-font-color: white;
     --inactive-font-color: #d0d0d0;
     --inactive-background-color: rgb(31,31,33);
@@ -559,7 +559,7 @@ main.calendar-view th {
 
 h1.calendar-header {
     background-color: var(--accent-color);
-    color: white;
+    color: rgb(40, 251, 255);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -569,7 +569,7 @@ h1.calendar-header {
 }
 
 h1.calendar-header a {
-    color: white;
+    color: rgb(40, 251, 255);
     text-decoration: none;
     word-wrap: none;
     z-index: 20;
