@@ -21,7 +21,8 @@
 
 
 include_once('dbinfo.php');
-include_once(dirname(__FILE__).'/../domain/Event.php');
+include_once(dirname(__FILE__).'/../domain/Event.php'); //!defunct this
+include_once(dirname(__FILE__).'/../domain/VolunteerActivity.php');
 //Added to send emails to users when they are removed or signed up to an event.
 include_once(dirname(__FILE__).'/../email.php');
 
@@ -348,6 +349,25 @@ function update_event_date($id, $new_event_date) {
 	return $result;
 }
 
+function make_a_volunteer_activity($result_row) {
+	/*
+	 ($en, $v, $sd, $description, $ev))
+	 */
+
+    $theLog = new VolunteerActivity(
+                    $result_row['id'],
+                    $result_row['date'],
+                    $result_row['volunteerID'],
+                    $result_row['hours'],
+                    $result_row['poundsOfFood'],
+                    $result_row['organizationID'],
+                    $result_row['location'],
+                    $result_row['description'] 
+                ); 
+    return $theLog;
+}
+
+//! defunct this
 function make_an_event($result_row) {
 	/*
 	 ($en, $v, $sd, $description, $ev))
@@ -393,11 +413,11 @@ function get_all_events() {
     $result = mysqli_query($con,$query);
     $theLogs = array();
     while ($result_row = mysqli_fetch_assoc($result)) {
-        $theLog = make_an_event($result_row);
+        $theLog = make_a_volunteer_activity($result_row);
         $theLogs[] = $theLog;
     }
     mysqli_close($con);
-    return $theEvents;
+    return $theLogs;
  }
 
 //! defunct this as legacy once calls are removed
