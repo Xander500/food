@@ -83,6 +83,21 @@
                                     $location = $log->getLocation();
                                     $pounds = $log->getPoundsOfFood();
                                     $description = $log->getDescription();
+
+                                    $LEN = 25;
+                                    $descriptionPreview;
+                                    if (strlen((string)$description) <= $LEN) {
+                                        $descriptionPreview = $description;
+                                    } else {
+                                        $descriptionPreview = substr($description, 0, $LEN) . "..." ;
+                                    }
+
+                                    $locationPreview;
+                                    if (strlen((string)$location) <= $LEN) {
+                                        $locationPreview = $location;
+                                    } else {
+                                        $locationPreview = substr($location, 0, $LEN) . "..." ;
+                                    }
                                     
                                     echo "
                                     <tr data-event-id='$logID'>
@@ -90,9 +105,9 @@
                                         <td>$date</td>
                                         <td>$organizationID</td>
                                         <td>$hours</td>
-                                        <td>$location</td>
+                                        <td>$locationPreview</td>
                                         <td>$pounds</td>
-                                        <td>$description</td
+                                        <td>$descriptionPreview</td
                                     </tr>";
                                 }
                             ?>
