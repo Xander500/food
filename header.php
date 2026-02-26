@@ -714,7 +714,9 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['selectvotm.php'] = 1;
         $permission_array['volunteerviewgroupmembers.php'] = 1;
         //pages only managers can view
+        //! get rid of viewallevents
         $permission_array['viewallevents.php'] = 0; //WVF - For admins to do view 
+        $permission_array['viewalllogs.php'] = 0; //WVF - For admins to do view 
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
         $permission_array['viewschedule.php'] = 2;
