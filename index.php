@@ -33,7 +33,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="./css/base.css" rel="stylesheet">
-    <title>Whiskey Valor Volunteer Management | Dashboard</title>
+    <title>UMW Alleviating Food Waste Volunteer Tracking | Dashboard</title>
     <?php require_once('universal.inc') ?>
     <style>
         * {
@@ -158,7 +158,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background: #C9AB81;
+            background-color: var(--page-background-color);
             box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
             display: flex;
             align-items: center;

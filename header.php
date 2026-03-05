@@ -22,6 +22,7 @@ if (date("H:i:s") > "18:19:59") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="./css/base.css" rel="stylesheet">
     <style>
 <?php if (empty($tailwind_mode)): ?>
         * {
@@ -177,7 +178,7 @@ if (date("H:i:s") > "18:19:59") {
             position: fixed;
             top: 0;
             left: 0;
-            background: rgb(31,31,33);
+            background: var(--page-background-color);
             box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
             display: flex;
             align-items: center;
@@ -194,14 +195,14 @@ if (date("H:i:s") > "18:19:59") {
 
         /* Logo */
         .logo-container {
-            background: rgb(31,31,33);
+            background: var(--page-background-color);
             padding: 10px 20px;
             border-radius: 50px;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
         }
 
         .logo-container img {
-            width: 52px;
+            width: 60px;
             height: 60px;
             display: block;
         }
@@ -215,7 +216,7 @@ if (date("H:i:s") > "18:19:59") {
         .nav-links div {
             font-size: 24px;
             font-weight: 700;
-            color: white;
+            color: var(--page-font-color);
             cursor: pointer;
         }
 
@@ -259,8 +260,8 @@ if (date("H:i:s") > "18:19:59") {
         }
 
         .nav-item:hover, .nav-item.active {
-            color: #f5ce7aff;
-            outline: 1px solid #f5d07aff;
+            color: var(--accent-color);
+            outline: 1px solid var(--accent-color);
             outline-offset: 7px;
         }
 
@@ -464,7 +465,7 @@ if (date("H:i:s") > "18:19:59") {
 
         .nav-item img {
             border-radius: 15px;
-            transition: filter 0.3s, background-color 0.3s;
+            transition: filter 0.05s, background-color 0.05s;
         }
 
         .nav-item:hover img, .nav-item.active img {
@@ -558,7 +559,7 @@ if (date("H:i:s") > "18:19:59") {
         .modal-header { display:flex; justify-content:space-between; align-items:center; }
         .nav-link { color: white; text-decoration: none; }
         .dropdown-link { color: inherit; text-decoration: none; display:block; }
-        .icon-img { filter: invert(1); }
+        .icon-img {filter: brightness(0) saturate(100%) invert(14%) sepia(89%) saturate(465%) hue-rotate(167deg) brightness(103%) contrast(84%);}
         .modal-close { background:transparent;border:none;color:white;font-size:30px;cursor:pointer; }
         .modal-desc { color: rgba(255,255,255,0.7); }
         .accessibility-row { display:flex; gap:12px; align-items:center; margin:10px 0; }
@@ -714,7 +715,9 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['selectvotm.php'] = 1;
         $permission_array['volunteerviewgroupmembers.php'] = 1;
         //pages only managers can view
+        //! get rid of viewallevents
         $permission_array['viewallevents.php'] = 0; //WVF - For admins to do view 
+        $permission_array['viewalllogs.php'] = 0; //WVF - For admins to do view 
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
         $permission_array['viewschedule.php'] = 2;
