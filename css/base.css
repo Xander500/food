@@ -49,11 +49,11 @@ table, td, tr, th, form, fieldset, em, button, a {
 
 :root {
     /* CSS variables that will be used across the page */
-    --page-background-color: rgb(31, 31, 33);
-    --page-font-color: white;
-    --inactive-font-color: #d0d0d0;
-    --inactive-background-color: rgb(31,31,33);
-    --standout-background: #fafafa;
+    --page-background-color: white;
+    --page-font-color: #213e57;
+    --inactive-font-color: #213e57;
+    --inactive-background-color: white;
+    --standout-background: white;
 
     --happy-toast-background-color: #5D7E61;
     --happy-toast-font-color: rgb(255, 255, 255);
@@ -69,7 +69,7 @@ table, td, tr, th, form, fieldset, em, button, a {
 
     --main-color: #2A435A; 
 
-    --accent-color: rgb(201, 171, 129);
+    --accent-color: #92c44c;
  
     --secondary-accent-color: rgb(175, 141, 92);
 
