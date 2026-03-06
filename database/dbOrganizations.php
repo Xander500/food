@@ -11,26 +11,23 @@
  */
 
 include_once('dbinfo.php');
-include_once(dirname(__FILE__).'/../domain/User.php');
+include_once(dirname(__FILE__).'/../domain/Organization.php');
 
-function make_a_user($result_row) {
+function make_an_organization($result_row) {
     //takes sql query results
-    $thePerson = new User(
+    $theOrg = new Organization(
     @$result_row['id'],
-    @$result_row['start_date'],
-    @$result_row['first_name'],
-    @$result_row['last_name'],
+    @$result_row['name'],
     @$result_row['email'],
-    @$result_row['password'],
-    @$result_row['role'],
-    @$result_row['semester']
+    @$result_row['location'],
+    @$result_row['description'],
 );
-    return $thePerson;
+    return $theOrg;
 }
 
-function get_user_full_name_from_id($id) {
+function get_organization_name_from_id($id) {
     $con=connect();
-    $query = 'SELECT first_name,last_name,username FROM dbusers WHERE id = "' . $id . '"';
+    $query = 'SELECT name FROM dborganizations WHERE id = "' . $id . '"';
     $result = mysqli_query($con,$query);
     if ($result == null || mysqli_num_rows($result) == 0) {
         mysqli_close($con);
@@ -38,5 +35,5 @@ function get_user_full_name_from_id($id) {
     }
     $result_row = mysqli_fetch_assoc($result);
     mysqli_close($con);
-    return $result_row['first_name'] . " " . $result_row['last_name'];
+    return $result_row['name'];
 }
