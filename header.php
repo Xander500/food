@@ -22,6 +22,7 @@ if (date("H:i:s") > "18:19:59") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="./css/base.css" rel="stylesheet">
     <style>
 <?php if (empty($tailwind_mode)): ?>
         * {
@@ -59,19 +60,19 @@ if (date("H:i:s") > "18:19:59") {
             text-align: center;
             position: relative;
             cursor: pointer;
-            border: 0.1px solid black;
+            /* border: 0.1px solid var(--page-font-color); */
             transition: border 0.3s;
             border-radius: 10px;
-            border-bottom-right-radius: 50px;
+            /* border-bottom-right-radius: 50px; */
         }
          .content-box-test:hover {
-            border: 4px solid #fdd05eff;
+            border: 4px solid var(--page-font-color);
         }
 /*END STYLE TEST*/
 
         .full-width-bar {
             width: 100%;
-            background: rgb(31,31,33);
+            background: var(--page-background-color);
             padding: 17px 5%;
             display: flex;
             flex-wrap: wrap;
@@ -89,6 +90,7 @@ if (date("H:i:s") > "18:19:59") {
         }
 
         .content-box {
+            background-color: var(--accent-color);
             flex: 1 1 280px; /* Adjusts width dynamically */
             max-width: 375px;
             padding: 10px 2px; /* Altered padding to make closer */
@@ -97,6 +99,8 @@ if (date("H:i:s") > "18:19:59") {
             align-items: center;
             text-align: center;
             position: relative;
+            height: 260px;
+            border-radius: 12px;
         }
 
         .content-box-sub {
@@ -134,7 +138,7 @@ if (date("H:i:s") > "18:19:59") {
             left: 30px;
             font-size: 14px;
             font-weight: 700;
-            color: #297760ff;
+            color: var(--page-font-color);
         }
 
         .large-text {
@@ -145,6 +149,7 @@ if (date("H:i:s") > "18:19:59") {
             font-weight: 700;
             color: black;
             max-width: 90%;
+            color: var(--page-font-color);
         }
 
         .large-text-sub {
@@ -154,7 +159,7 @@ if (date("H:i:s") > "18:19:59") {
             left: 10%;
             font-size: 22px;
             font-weight: 700;
-            color: black;
+            color: var(--page-font-color);
             max-width: 90%;
         }
 
@@ -164,7 +169,7 @@ if (date("H:i:s") > "18:19:59") {
             left: 10%;
             font-size: 14px;
             font-weight: 700;
-            color: #712977ff;
+            color: var(--page-font-color);
             max-width: 90%;
             margin-bottom: 80px;
         }
@@ -177,7 +182,7 @@ if (date("H:i:s") > "18:19:59") {
             position: fixed;
             top: 0;
             left: 0;
-            background: rgb(31,31,33);
+            background: var(--page-background-color);
             box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
             display: flex;
             align-items: center;
@@ -194,14 +199,14 @@ if (date("H:i:s") > "18:19:59") {
 
         /* Logo */
         .logo-container {
-            background: rgb(31,31,33);
+            background: var(--page-background-color);
             padding: 10px 20px;
             border-radius: 50px;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25) inset;
         }
 
         .logo-container img {
-            width: 52px;
+            width: 60px;
             height: 60px;
             display: block;
         }
@@ -215,7 +220,7 @@ if (date("H:i:s") > "18:19:59") {
         .nav-links div {
             font-size: 24px;
             font-weight: 700;
-            color: white;
+            color: var(--page-font-color);
             cursor: pointer;
         }
 
@@ -259,8 +264,8 @@ if (date("H:i:s") > "18:19:59") {
         }
 
         .nav-item:hover, .nav-item.active {
-            color: #f5ce7aff;
-            outline: 1px solid #f5d07aff;
+            color: var(--accent-color);
+            outline: 1px solid var(--accent-color);
             outline-offset: 7px;
         }
 
@@ -351,7 +356,7 @@ if (date("H:i:s") > "18:19:59") {
             border: none;
             font-size: 23px;
             font-weight: bold;
-            color: black;
+            color: var(--page-font-color);
             cursor: pointer;
             transition: transform 0.3s ease;
             padding: 0;
@@ -447,7 +452,7 @@ if (date("H:i:s") > "18:19:59") {
             top: 40px; /* Adjust as needed */
             left: 50%;
             transform: translateX(-50%);
-            background: rgb(31,31,33); /* Optional background for better visibility */
+            background: var(--page-font-color); /* Optional background for better visibility */
             padding: 10px;
             border-radius: 50%;
             display: flex;
@@ -464,7 +469,7 @@ if (date("H:i:s") > "18:19:59") {
 
         .nav-item img {
             border-radius: 15px;
-            transition: filter 0.3s, background-color 0.3s;
+            transition: filter 0.05s, background-color 0.05s;
         }
 
         .nav-item:hover img, .nav-item.active img {
@@ -558,7 +563,7 @@ if (date("H:i:s") > "18:19:59") {
         .modal-header { display:flex; justify-content:space-between; align-items:center; }
         .nav-link { color: white; text-decoration: none; }
         .dropdown-link { color: inherit; text-decoration: none; display:block; }
-        .icon-img { filter: invert(1); }
+        .icon-img {filter: brightness(0) saturate(100%) invert(14%) sepia(89%) saturate(465%) hue-rotate(167deg) brightness(103%) contrast(84%);}
         .modal-close { background:transparent;border:none;color:white;font-size:30px;cursor:pointer; }
         .modal-desc { color: rgba(255,255,255,0.7); }
         .accessibility-row { display:flex; gap:12px; align-items:center; margin:10px 0; }

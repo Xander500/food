@@ -100,7 +100,7 @@
 }
 * { font-family: Quicksand, sans-serif; }
 	</style>
-        <title>Whiskey Valor Foundation | Log In</title>
+        <title>UMW Alleviating Food Waste Volunteer Tracking | Log In</title>
     </head>
     <body>
 <div class="h-screen flex">
@@ -127,7 +127,7 @@
       </div>
 
       <h2 class="text-3xl font-bold mb-6 text-gray-800 text-center">
-	<span class="wave">👋</span> Nice to see you again.
+	<!-- <span class="wave">👋</span> Nice to see you again. -->
       </h2>
 
       <form class="w-full" method="post">
@@ -143,18 +143,18 @@
 		    } 
                 ?>
         <div class="mb-4">
-          <label class="block text-gray-700 font-medium mb-2" for="username">Login</label>
-          <input class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400" type="text" name="username" placeholder="Enter your username" required>
+          <label class="block text-[#213e57] font-medium mb-2" for="username">Login</label>
+          <input class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#92c44c]" type="text" name="username" placeholder="Enter your username" required>
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700 font-medium mb-2" for="password">Password</label>
-          <input class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400" type="password" name="password" placeholder="Enter your password" required>
+          <label class="block text-[#213e57] font-medium mb-2" for="password">Password</label>
+          <input class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#92c44c]" type="password" name="password" placeholder="Enter your password" required>
         </div>
         <div class="flex justify-between items-center mb-4">
-          <a href="#" class="text-[#22654D] text-sm hover:underline">Forgot password?</a>
-          <a href="https://whiskeyvalor.org" class="text-[#22654D] text-sm hover:underline">Whiskey Valor Website</a>
+          <a href="#" class="text-[#769c3d] text-sm hover:underline">Forgot password?</a>
+          <!-- <a href="https://whiskeyvalor.org" class="text-[#22654D] text-sm hover:underline">Whiskey Valor Website</a> -->
         </div>
-        <button class="cursor-pointer w-full bg-[#C9AB81] hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition duration-300">Login</button>
+        <button class="cursor-pointer w-full bg-[#213e57] hover:bg-[#92c44c] text-white font-semibold py-3 rounded-lg transition duration-300">Login</button>
       </form>
 
       <!-- Divider -->
@@ -167,7 +167,7 @@
       <!-- Sign Up Section -->
       <p class="text-center text-gray-700">
         Don’t have an account?
-        <a href="VolunteerRegister.php" class="text-[#22654D] font-semibold hover:underline">Sign Up Now</a>
+        <a href="VolunteerRegister.php" class="text-[#769c3d] font-semibold hover:underline">Sign Up Now</a>
       </p>
 
     </div>
