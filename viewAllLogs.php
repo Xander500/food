@@ -16,6 +16,8 @@
         $userID = $_SESSION['_id'];
     }  
     include 'database/dbVolunteerActivity.php';
+    include 'database/dbUsers.php';
+    include 'database/dbOrganizations.php';
     
     //include 'domain/Event.php';
 ?>
@@ -84,11 +86,14 @@
                                     $pounds = $log->getPoundsOfFood();
                                     $description = $log->getDescription();
                                     
+                                    $studentName = get_user_full_name_from_id($studentID);
+                                    $organizationName = get_organization_name_from_id($organizationID);
+
                                     echo "
                                     <tr data-event-id='$logID'>
-                                        <td>$studentID</td>
+                                        <td>$studentName</td>
                                         <td>$date</td>
-                                        <td>$organizationID</td>
+                                        <td>$organizationName</td>
                                         <td>$hours</td>
                                         <td>$location</td>
                                         <td>$pounds</td>
