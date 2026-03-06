@@ -16,6 +16,7 @@
         $userID = $_SESSION['_id'];
     }  
     include 'database/dbVolunteerActivity.php';
+    include 'database/dbUsers.php';
     
     //include 'domain/Event.php';
 ?>
@@ -83,31 +84,18 @@
                                     $location = $log->getLocation();
                                     $pounds = $log->getPoundsOfFood();
                                     $description = $log->getDescription();
-
-                                    $LEN = 25;
-                                    $descriptionPreview;
-                                    if (strlen((string)$description) <= $LEN) {
-                                        $descriptionPreview = $description;
-                                    } else {
-                                        $descriptionPreview = substr($description, 0, $LEN) . "..." ;
-                                    }
-
-                                    $locationPreview;
-                                    if (strlen((string)$location) <= $LEN) {
-                                        $locationPreview = $location;
-                                    } else {
-                                        $locationPreview = substr($location, 0, $LEN) . "..." ;
-                                    }
                                     
+                                    $studentName = get_full_name_from_id($studentID);
+
                                     echo "
                                     <tr data-event-id='$logID'>
-                                        <td>$studentID</td>
+                                        <td>$studentName</td>
                                         <td>$date</td>
                                         <td>$organizationID</td>
                                         <td>$hours</td>
-                                        <td>$locationPreview</td>
+                                        <td>$location</td>
                                         <td>$pounds</td>
-                                        <td>$descriptionPreview</td
+                                        <td>$description</td
                                     </tr>";
                                 }
                             ?>
