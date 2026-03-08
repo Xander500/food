@@ -33,7 +33,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="./css/base.css" rel="stylesheet">
-    <title>Whiskey Valor Volunteer Management | Dashboard</title>
+    <title>UMW Alleviating Food Waste Volunteer Tracking | Dashboard</title>
     <?php require_once('universal.inc') ?>
     <style>
         * {
@@ -63,7 +63,7 @@
         }
         .full-width-bar-sub {
             width: 100%;
-            background: #1F1F21;
+            background: var(--page-background-color);
             padding: 17px 5%;
             display: flex;
             flex-wrap: wrap;
@@ -137,7 +137,7 @@
             left: 10%;
             font-size: 22px;
             font-weight: 700;
-            color: black;
+            color: var(--page-font-color);
             max-width: 90%;
         }
 
@@ -147,7 +147,7 @@
             left: 10%;
             font-size: 14px;
             font-weight: 700;
-            color: #C9AB81;
+            color: var(--page-font-color);
             max-width: 90%;
         }
 
@@ -158,7 +158,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background: #C9AB81;
+            background-color: var(--page-background-color);
             box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.25);
             display: flex;
             align-items: center;
@@ -254,7 +254,7 @@
         font-size: 20px;
         font-family: Quicksand, sans-serif;
         font-weight: bold;
-        color: black;
+        color: var(--page-font-color);
         cursor: pointer;
         transition: transform 0.3s ease;
     }
@@ -263,7 +263,7 @@
         width: 30px;
         height: 30px;
         /*background-color:; /* Blue color */
-        background-color: #C9AB81;
+        background-color: var(--page-font-color);
         color: white;
         border-radius: 50%;
         display: flex;
@@ -377,7 +377,7 @@
             top: 40px; /* Adjust as needed */
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.8); /* Optional background for better visibility */
+            background: var(--page-font-color); /* Optional background for better visibility */
             padding: 10px;
             border-radius: 50%;
             display: flex;
@@ -402,20 +402,20 @@
     
         .content-box-test {
             position: relative;
-            background-color: #C9AB81;   /* tan background */
+            background-color: var(--accent-color);   /* tan background */
             border-radius: 12px;
             padding: 20px;
-            color: black;                 /* default text color */
+            color: var(--page-font-color);                 /* default text color */
             flex: 1 1 280px;
             max-width: 375px;
             min-height: 250px;            /* keeps all boxes same height even without bg image */
             }
 
 
-        .content-box-test .large-text-sub,
+        /* .content-box-test .large-text-sub,
         .content-box-test .graph-text {
             color: black;
-            }
+        } */
 
 
         .background-image {
@@ -423,9 +423,9 @@
         }
 
         
-        .full-width-bar-sub{
+        /* .full-width-bar-sub{
             background-color: #1F1F21 !important;
-            }
+        } */
 
 
         /* Responsive Design */
@@ -551,8 +551,8 @@
             <img style="border-radius: 5px;" src="images/view-calendar.svg" alt="Calendar Icon">
         </div>
         
-        <div class="large-text-sub" style="color:#black;">Calendar</div>
-        <div class="graph-text" style="color:#3A3A3A;">See upcoming events/trainings.</div>
+        <div class="large-text-sub">Calendar</div>
+        <div class="graph-text">See upcoming events/trainings.</div>
         <button class="arrow-button">→</button>
     </div>
 
@@ -562,8 +562,8 @@
             <img style="border-radius: 5px;" src="images/file-regular.svg" alt="Document Icon">
         </div>
        
-        <div class="large-text-sub" style="color:black;">View Pending IDs </div>
-        <div class="graph-text" style="color:#3A3A3A;">View pending and arbitrate user submitted IDs.</div>
+        <div class="large-text-sub">View Pending IDs </div>
+        <div class="graph-text">View pending and arbitrate user submitted IDs.</div>
         <button class="arrow-button">→</button>
     </div>
 
@@ -580,12 +580,12 @@
                 }
             ?>
         </div>
-        <div class="graph-text" style="color:#3A3A3A;">Stay up to date.</div>
+        <div class="graph-text">Stay up to date.</div>
         <button class="arrow-button">→</button>
     </div>
 
     <!-- Generate Report -->
-    <div class="content-box-test" onclick="window.location.href='generateReport.php'" style="background-color: #C9AB81; border-radius: 12px; padding: 20px; color: black;">
+    <div class="content-box-test" onclick="window.location.href='generateReport.php'">
         <div class="icon-overlay">
             <img style="border-radius: 5px;" src="images/create-report.svg" alt="Report Icon">
         </div>
@@ -601,8 +601,8 @@
             <img style="border-radius: 5px;" src="images/inbox.svg" alt="Email Icon">
         </div>
         
-        <div class="large-text-sub" style="color:black;">Create Email</div>
-        <div class="graph-text" style="color:#3A3A3A;">Send new messages to volunteers.</div>
+        <div class="large-text-sub">Create Email</div>
+        <div class="graph-text">Send new messages to volunteers.</div>
         <button class="arrow-button">→</button>
     </div>
 
@@ -612,8 +612,8 @@
             <img style="border-radius: 5px;" src="images/search.svg" alt="Drafts Icon">
         </div>
         
-        <div class="large-text-sub" style="color:black;">View Drafts</div>
-        <div class="graph-text" style="color:#3A3A3A;">Check saved email drafts.</div>
+        <div class="large-text-sub">View Drafts</div>
+        <div class="graph-text">Check saved email drafts.</div>
         <button class="arrow-button">→</button>
     </div>
 
@@ -623,8 +623,8 @@
             <img style="border-radius: 5px;" src="images/send.png" alt="Email List Icon">
         </div>
          
-        <div class="large-text-sub" style="color:black;">Generate Email List</div>
-        <div class="graph-text" style="color:#3A3A3A;">Volunteer Emails</div>
+        <div class="large-text-sub">Generate Email List</div>
+        <div class="graph-text">Volunteer Emails</div>
         <button class="arrow-button">→</button>
     </div>
 
@@ -634,8 +634,8 @@
             <img style="border-radius: 5px;" src="images/clipboard-regular.svg" alt="Discussions Icon">
         </div>
         
-        <div class="large-text-sub" style="color:black;">User Suggestions</div>
-        <div class="graph-text" style="color:#3A3A3A;">View user submitted suggestions.</div>
+        <div class="large-text-sub">User Suggestions</div>
+        <div class="graph-text">View user submitted suggestions.</div>
         <button class="arrow-button">→</button>
     </div>
 
@@ -647,16 +647,16 @@
 
 <div style="width: 90%; /* Stops before page ends */
             height: 100%;
-            outline: 1px #828282 solid;
+            outline: 1px var(--page-font-color) solid;
             outline-offset: -0.5px;
             margin: 70px auto; /* Adds vertical space and centers */
             padding: 1px 0;"> <!-- Adds spacing inside the div -->
 </div>
 
 
-    <footer class="footer" style="margin-top: 100px;">
+    <!-- <footer class="footer" style="margin-top: 100px;"> -->
         <!-- Left Side: Logo & Socials -->
-        <div class="footer-left">
+        <!-- <div class="footer-left">
             <img src="<?php include('logo.php'); ?>" alt="Logo" class="footer-logo">
             <div class="social-icons">
                 <a href="#"><i class="fab fa-facebook"></i></a>
@@ -664,10 +664,10 @@
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-linkedin"></i></a>
             </div>
-        </div>
+        </div> -->
 
         <!-- Right Side: Page Links -->
-        <div class="footer-right">
+        <!-- <div class="footer-right">
             <div class="footer-section">
                 <div class="footer-topic">Connect</div>
                 <a href="https://www.facebook.com/profile.php?id=61566628001672&mibextid=LQQJ4d">Facebook</a>
@@ -676,11 +676,11 @@
             </div>
             <div class="footer-section">
                 <div class="footer-topic">Contact Us</div>
-                <a href="https://whiskeyvalor.org/pages/contact">Send Us An Email</a>
+                <a href="https://whiskeyvalor.org/pages/contact">Send Us An Email</a> -->
                 <!-- <a href="tel:5408981500">540-898-1500 (ext 117)</a> -->
-            </div>
+            <!-- </div>
         </div>
-    </footer>
+    </footer> -->
 
     <!-- Font Awesome for Icons -->
     <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
