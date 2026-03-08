@@ -26,25 +26,14 @@
         require_once('database/dbEvents.php');
         $args = sanitize($_POST, null);
         $required = array(
-            "name", "date", "start-time", "end-time", "description", "type"
+            "name", "date", "hours", "description", "food", "organization"
         );
         if (!wereRequiredFieldsSubmitted($args, $required)) {
             echo 'bad form data';
             die();
         } else {
             // Accept either HTML5 24h time (HH:MM) or 12h times with am/pm
-            if (validate24hTimeRange($args['start-time'], $args['end-time'])) {
-                $startTime = $args['start-time'];
-                $endTime = $args['end-time'];
-            } else {
-                $validated = validate12hTimeRangeAndConvertTo24h($args["start-time"], $args["end-time"]);
-                if (!$validated) {
-                    echo 'bad time range';
-                    die();
-                }
-                $startTime = $args['start-time'] = $validated[0];
-                $endTime = $args['end-time'] = $validated[1];
-            }
+            
             $date = $args['date'] = validateDate($args["date"]);
             $args["training_level_required"] = $_POST['training_level_required'] ?? 'None';
     
@@ -157,50 +146,40 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1 style="color: white;">Create Event</h1>
+        <h1 style="color: white;">Create Activity</h1>
         <main class="date">
-            <h2>New Event Form</h2>
+            <h2>New Activity Form</h2>
             <form id="new-event-form" method="POST">
                 <div class="event-sect">
-                <label for="name">* Event Name </label>
+                <label for="name">* Activity Name </label>
                 <input type="text" id="name" name="name" required placeholder="Enter name"> 
                 </div>
 
                 <div class="event-sect">
-                <div class="event-datetime">
-                    <div class="event-time">
+                    <div class="event-datetime">
                         <div class="event-date">
-                        <label for="name">* Start Date </label>
-                        <input type="date" id="date" name="date" <?php if ($date) echo 'value="' . $date . '"'; ?> min="<?php echo date('Y-m-d'); ?>" required>
+                            <label for="date">* Date </label>
+                            <input type="date" id="date" name="date" 
+                                <?php if ($date) echo 'value="' . $date . '"'; ?> 
+                                required>
                         </div>
                         <div class="event-date">
-                        <label for="name">* Start Time </label>
-                        <input type="time" id="start-time" name="start-time" required>
-                        </div>
-                    </div>
-                    <div class="event-time">
-                        <div class="event-date">
-                        <label for="name">* End Date</label>
-                        <input type="date" id="end-date" name="end-date" <?php if ($date) echo 'value="' . $date . '"'; ?> min="<?php echo date('Y-m-d'); ?>" required>
-                        </div>
-                        <div class="event-date">
-                        <label for="name">* End Time </label>
-                        <input type="time" id="end-time" name="end-time" required>
+                            <label for="hours">* Duration (hours) </label>
+                            <input type="number" id="hours" name="hours" 
+                                in="1" max="99" required placeholder="e.g. 2">
                         </div>
                     </div>
                 </div>
-                </div>
+
                 <div class="event-sect">
                 <label for="name">* Description </label>
                 <input type="text" id="description" name="description" required placeholder="Enter description">
 
-                <label for="name">* Event Type </label>
-                <select id="type" name="type">
-                    <option value="Normal">Normal</option>
-                    <option value="Retreat">Retreat</option>
-                </select>
+                <label for="food">* Pounds of Food </label>
+                <input type="number" id="food" name="food" min="0" step="0.1" required placeholder="Enter pounds of food">
                 </div>
 
+                <!--   Event visibility checkbox, not sure if we need it at all
                 <div class="event-sect">
                 <label for="name">* Event Visibility</label>
                 <p class="sub-text" style="margin-bottom: 1rem;">Visibility controls who can see the event listing on the calendar.</p>
@@ -217,72 +196,17 @@
                     </div>
                 </div>
                 </div>
-
-                <div class="event-sect">
-                <label for="name">* Sign-up Restrictions</label>
-                <p class="sub-text">Restrictions control who can sign up for your event.</p>
-                <div class="dropdown-group">
-                    <div class="dd">
-                    <label for="branch">Branch</label>
-                    <select  name="branch" id="branch">
-                        <option value="all">(any)</option>
-                        <option value="air force">Air Force</option>
-                        <option value="army">Army</option>
-                        <option value="coast guard">Coast Guard</option>
-                        <option value="marine">Marine Corp</option>
-                        <option value="navy">Navy</option>
-                        <option value="space force">Space Force</option>
-                    </select>
-                    </div>
-                    <div class="dd">
-                    <label for="affiliation">Affiliation</label>
-                    <select  name="affiliation" id="affiliation">
-                        <option value="all">(any)</option>
-                        <option value="active duty">Active duty</option>
-                        <option value="family">Family member (spouse, child, or parent)</option>
-                        <option value="reserve">Reservist</option>
-                        <option value="veteran">Veteran</option>
-                        <option value="civilian">Civilian</option>
-                    </select>
-                    </div>
-                </div>
-                </div>
+--> 
 
                 <div class="event-sect">
                 <label for="name">Location </label>
                 <input type="text" id="location" name="location" placeholder="Enter location">
 
-                <label for="name">* Capacity </label>
-                <input type="number" id="capacity" name="capacity" required placeholder="Enter capacity (e.g. 1-99)">
+                <label for="name">* Organization </label>
+                <input type="text" id="organization" name="organization" required placeholder="Enter Organization Name">
                 </div>
 
-                <fieldset style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-                    <legend>Make this a recurring event</legend>
-
-                    <label style="margin-top:12px; padding:12px; border:1px solid #e0e0e0; border-radius:8px;">
-                        <input type="checkbox" id="recurring" name="recurring" value="1">
-                        Recurring
-                    </label>
-
-                    <div id="recurring-options" style="display:none; margin-top:6px;">
-                        <label for="recurrence_type">Recurrence:</label>
-                        <select name="recurrence_type" id="recurrence_type">
-                            <option value="">-- Select --</option>
-                            <option value="daily">Daily</option>
-                            <option value="weekly">Weekly</option>
-                            <option value="monthly">Monthly</option>
-                            <option value="custom">Custom</option>
-                        </select>
-
-                        <div id="custom-interval" style="display:none; margin-top:8px;">
-                            <label for="custom_days">Repeat every:</label>
-                            <input type="number" min="1" id="custom_days" name="custom_days" placeholder="e.g. 10">
-                            <span>days</span>
-                        </div>
-                    </div>
-                </fieldset>
-                
-                <input type="submit" value="Create Event" style="width:100%;">
+                <input type="submit" value="Create Activity" style="width:100%;">
                 
             </form>
                 <script>
@@ -317,6 +241,8 @@
                 <?php endif ?>
 
                 <script type="text/javascript">
+
+                    /* for checkboxes if we need them
                     $(document).ready(function(){
                         var checkboxes = $('.checkboxes');
                         checkboxes.change(function(){
@@ -327,7 +253,9 @@
                             }
                         });
                     });
+                    */
 
+                    /* Recurring event/activity options
                     (function(){
                         const recurring = document.getElementById('recurring');
                         const options = document.getElementById('recurring-options');
@@ -358,7 +286,7 @@
                             recurrenceType.addEventListener('change', toggleCustom);
                             toggleCustom();
                         }
-                    })();
+                    })(); */
                 </script>
         </main>
     </body>
