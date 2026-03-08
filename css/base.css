@@ -324,7 +324,7 @@ input[type=submit], button, .button, a.button-signup {
 }
 
 input[type=submit]:hover, button:hover, .button:hover, a.button-signup:hover {
-    background-color: var(--accent-color);
+    background-color: var(--page-font-color);
 }
 
 /* Disabled submit/button appearance for attendance logging */
