@@ -51,22 +51,22 @@ require_once('header.php');
 	    }
         
         body{
-        background-color: #ffffff;
+        background-color: #1F1F21;
         }
         .button-section button{
-        background-color:#92c44c;
+        background-color: #C9AB81;
         color: black !important;
         }
 
         .button-left-gray{
-        background-color: #92c44c;
+        background-color: #C9AB81;
         }
 
         .button-section .button-icon{
         filter: none
         }
     .top-bar {
-      background-color: #92c44c;   /* gold color */
+      background-color: #C9AB81;   /* gold color */
       height: calc(var(--spacing) * 40);
       width: 100%;              /* full width */
       position: relative;
@@ -97,7 +97,7 @@ require_once('header.php');
 
         <button onclick="window.location.href='addEvent.php';">
 	  <div class="button-left-gray"></div>
-	  <div>Add Activity</div>
+	  <div>Create Event</div>
 	  <img class="button-icon h-12 w-12 left-4" src="images/plus-solid.svg" alt="Calendar Icon">
         </button>
 
@@ -131,7 +131,7 @@ require_once('header.php');
 
         <button onclick="window.location.href='adminViewingEvents.php';">
 	  <div class="button-left-gray"></div>
-	  <div>Edit Activities</div>
+	  <div>Edit Event</div>
 	  <img class="button-icon h-10 w-10 left-5" src="images/users-solid.svg" alt="Calendar Icon">
         </button>
 

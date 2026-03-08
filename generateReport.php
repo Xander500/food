@@ -39,7 +39,7 @@ $fiscalYearEnd = $fiscalYearStart + 1;
                 <!-- Info Section -->
         <section class="section-box">
             <p style="margin-top: 1rem;text-align:center;">
-                Use this tool to generate reports on volunteer activity. Reports can be exported in Excel or CSV format.
+                Use this tool to generate monthly or annual reports on volunteer activity. Reports are available in Excel or CSV format.
             </p>
         </section>
 
@@ -54,7 +54,7 @@ $fiscalYearEnd = $fiscalYearStart + 1;
             <form method="POST" action="processReport.php">
                 <!-- Event ID -->
                 <div style="margin-bottom: 1.5rem;">
-                    <label for="eventID" style="font-weight: 600;">Select Volunteer Activity</label>
+                    <label for="eventID" style="font-weight: 600;">Select Event</label>
                     <select name="eventID" id="eventID">
                         <?php foreach ($events as $event) {
                             $eventID = $event->getID();
