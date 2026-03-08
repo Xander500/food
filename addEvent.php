@@ -23,10 +23,10 @@
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once('include/input-validation.php');
-        require_once('database/dbEvents.php');
+        require_once('database/dbVolunteerActivity.php');
         $args = sanitize($_POST, null);
         $required = array(
-            "name", "date", "hours", "description", "food", "organization"
+            "date", "hours", "description", "poundsOfFood", "organizationID", "location"
         );
         if (!wereRequiredFieldsSubmitted($args, $required)) {
             echo 'bad form data';
@@ -35,88 +35,17 @@
             // Accept either HTML5 24h time (HH:MM) or 12h times with am/pm
             
             $date = $args['date'] = validateDate($args["date"]);
-            $args["training_level_required"] = $_POST['training_level_required'] ?? 'None';
     
-            $args['startDate'] = $date;
-            $args['endDate']   = $date;   
-            $args['startTime'] = $startTime;
-            $args['endTime']   = $endTime;
-
-
-            //1. Start of use case #8 recurring, etc
-            $isRecurring = isset($_POST['recurring']) ? 1 : 0;
-            $recurrenceType = $isRecurring ? ($_POST['recurrence_type'] ?? '') : '';
-            $customDays = ($isRecurring && $recurrenceType === 'custom') ? (int)($_POST['custom_days'] ?? 0) : null;
-
-            
-            if ($isRecurring) {
-                if (!in_array($recurrenceType, ['daily','weekly','monthly','custom'], true)) {
-                    echo 'invalid recurrence type';
-                    die();
-                }
-                if ($recurrenceType === 'custom' && (!$customDays || $customDays < 1)) {
-                    echo 'invalid custom interval';
-                    die();
-                }
-                $args['is_recurring'] = 1;
-                $args['recurrence_type'] = $recurrenceType;                  // daily|weekly|monthly|custom
-                $args['recurrence_interval_days'] = ($recurrenceType === 'custom') ? $customDays : null;
-            } else {
-                $args['is_recurring'] = 0;
-                $args['recurrence_type'] = null;
-                $args['recurrence_interval_days'] = null;
-            }
-            //1. Start of use case #8 recurring, etc
 
             // FIXED: Replaced the broken check "if (!$date > 11)"
-            if (!$startTime || !$endTime || !$date){
-                echo 'bad args';
-                die();
-            }
+        
 
             $args['series_id'] = bin2hex(random_bytes(16)); // new new
 
-            $id = create_event($args);
+            $id = create_activitylog($args);
             if (!$id) {
                 die();
             } else {
-    
-                $counts = [
-                    'daily'   => 30,  // next 30 days
-                    'weekly'  => 12,  // next 12 weeks
-                    'monthly' => 6,   // next 6 months
-                    'custom'  => 12,  // 12 custom intervals
-                ];
-                
-                $intervalMap = [
-                    'daily'   => 'P1D',
-                    'weekly'  => 'P1W',
-                    'monthly' => 'P1M',
-                ];
-                if ($recurrenceType === 'custom') {
-                    $customDays = max(1, $customDays);
-                    $intervalSpec = 'P' . $customDays . 'D';
-                } else {
-                    $intervalSpec = $intervalMap[$recurrenceType] ?? null;
-                }
-
-                if ($isRecurring && $intervalSpec && isset($counts[$recurrenceType])) {
-                    $current = new DateTime($args['startDate']);  
-                    $step    = new DateInterval($intervalSpec);
-                    $times   = $counts[$recurrenceType];
-
-                    for ($i = 0; $i < $times; $i++) {
-                        $current->add($step);
-                        $ymd = $current->format('Y-m-d');
-
-                        $dup = $args;                 
-                        $dup['startDate'] = $ymd;
-                        $dup['endDate']   = $ymd;
-                        $dup['date']      = $ymd;    
-
-                        create_event($dup);
-                    }
-                }
                 
                 header('Location: eventSuccess.php');
                 exit();
@@ -150,10 +79,12 @@
         <main class="date">
             <h2>New Activity Form</h2>
             <form id="new-event-form" method="POST">
+                <!--
                 <div class="event-sect">
                 <label for="name">* Activity Name </label>
                 <input type="text" id="name" name="name" required placeholder="Enter name"> 
                 </div>
+-->
 
                 <div class="event-sect">
                     <div class="event-datetime">
@@ -172,11 +103,11 @@
                 </div>
 
                 <div class="event-sect">
-                <label for="name">* Description </label>
+                <label for="description">* Description </label>
                 <input type="text" id="description" name="description" required placeholder="Enter description">
 
-                <label for="food">* Pounds of Food </label>
-                <input type="number" id="food" name="food" min="0" step="0.1" required placeholder="Enter pounds of food">
+                <label for="poundsOfFood">* Pounds of Food </label>
+                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.1" required placeholder="Enter pounds of food">
                 </div>
 
                 <!--   Event visibility checkbox, not sure if we need it at all
@@ -199,11 +130,11 @@
 --> 
 
                 <div class="event-sect">
-                <label for="name">Location </label>
+                <label for="location">Location </label>
                 <input type="text" id="location" name="location" placeholder="Enter location">
 
-                <label for="name">* Organization </label>
-                <input type="text" id="organization" name="organization" required placeholder="Enter Organization Name">
+                <label for="organizationID">* Organization </label>
+                <input type="number" id="organizationID" name="organizationID" required placeholder="Enter Organization ID">
                 </div>
 
                 <input type="submit" value="Create Activity" style="width:100%;">
