@@ -96,10 +96,10 @@
         .content-box img {
             width: 100%;
             height: auto;
-            background: white;
+            /* background: white; */
             border-radius: 5px;
-            border-bottom-right-radius: 50px;
-            border: 0.5px solid #828282;
+            /* border-bottom-right-radius: 50px;
+            border: 0.5px solid #828282; */
         }
 
         .content-box-sub img {
@@ -212,7 +212,7 @@
             background: #C9AB81;
             padding: 10px 30px;
             border-radius: 50px;
-            box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.25) inset;
+            /* box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.25) inset; */
             color: white;
             font-size: 24px;
             font-weight: 700;
@@ -224,7 +224,6 @@
             height: 47px;
             /*background: #292D32;*/
             border-radius: 50%;
-
         }
 
         /* Button Control */
@@ -715,16 +714,16 @@
 
     <div class="full-width-bar">
     <div class="content-box">
-    <img src="images/VolM.png" />   
+    <!-- <img src="images/VolM.png" />    -->
         <div class="small-text">Make a difference.</div>
         <div class="large-text">My Profile</div>
         <div class="nav-buttons">
             <button class="nav-button" onclick="window.location.href='viewProfile.php'">
-                <span class="arrow"><img src="images/view-profile.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 20px;"></span>
+                <span class="arrow"><img src="images/view-profile.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">View</span>
             </button>
             <button class="nav-button" onclick="window.location.href='editProfile.php'">
-                <span class="arrow"><img src="images/manage-account.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 20px;"></span>
+                <span class="arrow"><img src="images/manage-account.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">Edit</span>
             </button>
             
@@ -732,16 +731,16 @@
     </div>
 
     <div class="content-box">
-        <img src="images/EvM.png" />
+        <!-- <img src="images/EvM.png" /> -->
         <div class="small-text">Let’s have some fun!</div>
         <div class="large-text">My Events</div>
         <div class="nav-buttons">
             <button class="nav-button" onclick="window.location.href='viewAllEvents.php'">
-                <span class="arrow"><img src="images/new-event.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 10px;"></span>
+                <span class="arrow"><img src="images/new-event.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">Sign-Up</span>
             </button>
             <button class="nav-button" onclick="window.location.href='viewMyUpcomingEvents.php'">
-                <span class="arrow"><img src="images/list-solid.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 10px;"></span>
+                <span class="arrow"><img src="images/list-solid.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">Upcoming</span>
             </button>
             
@@ -814,9 +813,9 @@
             padding: 1px 0;"> <!-- Adds spacing inside the div -->
 </div>
 
-    <footer class="footer" style="margin-top: 100px;">
+    <!-- <footer class="footer" style="margin-top: 100px;"> -->
         <!-- Left Side: Logo & Socials -->
-        <div class="footer-left">
+        <!-- <div class="footer-left">
             <img src="<?php include('logo.php'); ?>" alt="Logo" class="footer-logo">
             <div class="social-icons">
                 <a href="#"><i class="fab fa-facebook"></i></a>
@@ -824,10 +823,10 @@
                 <a href="#"><i class="fab fa-instagram"></i></a>
                 <a href="#"><i class="fab fa-linkedin"></i></a>
             </div>
-        </div>
+        </div> -->
 
         <!-- Right Side: Page Links -->
-        <div class="footer-right">
+        <!-- <div class="footer-right">
             <div class="footer-section">
                 <div class="footer-topic">Connect</div>
                 <a href="https://www.facebook.com/profile.php?id=61566628001672&mibextid=LQQJ4d">Facebook</a>
@@ -836,12 +835,12 @@
             </div>
             <div class="footer-section">
                 <div class="footer-topic">Contact Us</div>
-                <a href="https://whiskeyvalor.org/pages/contact">Send Us An Email</a>
+                <a href="https://whiskeyvalor.org/pages/contact">Send Us An Email</a> -->
                 <!-- <a href="tel:5408981500">540-898-1500 (ext 117)</a> -->
-            </div>
+            <!-- </div>
         </div>
     </footer>
-    <p>_</p>
+    <p>_</p> -->
 
     <!-- Font Awesome for Icons -->
     <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
