@@ -246,13 +246,13 @@ if (date("H:i:s") > "18:19:59") {
             position: absolute;
             top: 150%;
             left: -10%;
-            background-color: rgb(31,31,33);
-            border: 1px solid rgb(31,31,33);
+            background-color: var(--page-background-color);
+            border: 1px solid var(--page-font-color);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             min-width: 150px;
             padding: 10px;
-            color: white;
+            color: var(--page-font-color);
         }
         .dropdown div {
             padding: 8px;
