@@ -2,6 +2,7 @@
 
     session_cache_expire(30);
     session_start();
+    $_SESSION['access_level'] = 2;
 
     // Ensure user is logged in
     if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
@@ -172,7 +173,7 @@
         
         <?php
             require_once('include/output.php');
-            $log_date = date('l, F j, Y', strtotime($log_info['date']));
+            $log_date = date('l F j, Y', strtotime($log_info['date']));
             $log_hours = $log_info['hours'];
             $log_id = $log_info['id'];
             $log_poundsOfFood = $log_info['poundsOfFood'];
@@ -240,96 +241,10 @@
             </table>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="action-buttons">
-
-            <!--@@@ Check-In and Check-Out Buttons by Thomas -->
-            <?php if (isset($user) && can_check_in($user->get_id(), $log_info))  : ?>
-                <form method="POST" action="">
-                    <input type="hidden" name="checking_in" value="1">
-                    <input type="hidden" name="personID" value="<?php echo $user->get_id(); ?>">
-                    <input type="hidden" name="eventID" value="<?php echo $log_info['id']; ?>">
-                    <input type="hidden" name="timestamp" value="<?php echo date("Y-m-d H:i:s", time()); ?>">
-                    <input type="hidden" name="id" value="<?php echo $log_info['id']; ?>">
-                    <button type="submit" class="button success">Check-In</button>
-                </form>
-            <?php endif ?>
-
-            <?php if (isset($user) && can_check_out($user->get_id(), $log_info))  : ?>
-                <form method="POST" action="">
-                    <input type="hidden" name="checking_out" value="1">
-                    <input type="hidden" name="personID" value="<?php echo $user->get_id(); ?>">
-                    <input type="hidden" name="eventID" value="<?php echo $log_info['id']; ?>">
-                    <input type="hidden" name="timestamp" value="<?php echo date("Y-m-d H:i:s", time()); ?>">
-                    <input type="hidden" name="id" value="<?php echo $log_info['id']; ?>">
-                    <button type="submit" class="button danger">Check-Out</button>
-                </form>
-            <?php endif ?>
-
-            <!-- end of Thomas's work-->
-
-            <?php /*if ($access_level < 2) : ?>
-                <?php if ($log_info["completed"] == "no") : ?>
-                    <button onclick="showCancelConfirmation()" class="button danger">Cancel My Sign-Up</button>
-                <?php endif ?>
-            <?php endif*/ ?>
-
-            <form action="eventSignUp.php" method="get">
-                <input type="hidden" name="event_name" value="<?php echo htmlspecialchars($log_info['name']); ?>">
-                <input type="hidden" name="event_id" value="<?php echo htmlspecialchars($log_info['id']); ?>">
-                <input type="hidden" name="type" value="<?php echo htmlspecialchars($log_info['type']); ?>">
-                <button type="submit" class="button primary">Sign Up!</button>
-            </form>
-            <?php if (isset($_SESSION['access_level']) && $access_level >= 2) : ?>
-
-                <a href="viewEventSignUps.php?id=<?php echo $id; ?>"class = "button signup">View Event Signups</a>
-
-                <!-- Archive and Unarchive buttons by Thomas -->
-
-                <?php if (is_archived($log_info['id']))  : ?>
-                    <form method="POST" action="" onsubmit="return confirmAction('unarchive')">
-                        <input type="hidden" name="unarchiving" value="1">
-                        <input type="hidden" name="eventID" value="<?php echo $log_info['id']; ?>">
-                        <input type="hidden" name="id" value="<?php echo $log_info['id']; ?>">
-                        <button type="submit" class="button">Unarchive</button>
-                    </form>
-
-                <?php else : ?>
-                    <form method="POST" action="" onsubmit="return confirmAction('archive')">
-                        <input type="hidden" name="archiving" value="1">
-                        <input type="hidden" name="eventID" value="<?php echo $log_info['id']; ?>">
-                        <input type="hidden" name="id" value="<?php echo $log_info['id']; ?>">
-                        <button type="submit" class="button">Archive</button>
-                    </form>
-
-                <?php endif ?>
-
-                <!-- end of Thomas's work -->
-
-                <a href="logAttendees.php?id=<?php echo urlencode($id); ?>" class="button signup">Log Event Attendees</a>
-
-
-                <!-- <a href="editEvent.php?id=<?= $id ?>" class="button cancel">Edit Event Details</a> -->
-                
-
-            <?php endif ?>
-
-            <a href="calendar.php?month=<?= substr($log_info['startDate'], 0, 7) ?>" class="button cancel">Back to Calendar</a>
-
-        </div>
-
-         <!-- Share Event on Facebook Button -->
-            <!--<?php
-                $page_link = (isset($_SERVER['HTTPS']) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-            ?>
-            <meta property="og:image" content="https://jenniferp160.sg-host.com/images/FredSPCAlogo.png">
-            <div class="fb-share-button" data-href= $page_link data-layout="" data-size=""><a target="_blank" 
-                href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2FfredSPCA%2FviewAllEvents.php&amp;src=sdkpreparse" 
-                class="fb-xfbml-parse-ignore">Share</a>
-            </div>-->
-
-        <!-- Confirmation Modals -->
-        <?php if (isset($_SESSION['access_level']) && $access_level >= 2) : ?>
+        <?php
+        
+        //! check
+        if (isset($_SESSION['access_level']) && $access_level >= 2) : ?>
             <div id="delete-confirmation-wrapper" class="modal hidden">
                 <div class="modal-content">
                     <p>Are you sure you want to delete this event?</p>
@@ -372,7 +287,7 @@
             </div>
             <?php
         ?>
-            <?php endif ?>
+        <?php endif ?>
 
             
 
