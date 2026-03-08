@@ -578,41 +578,36 @@ function fetch_num_attendees($id) {
 function create_activitylog($log) {
     $connection = connect();
 
-    $id = $log["id"]; //will be overwritten
-    $date    = $log["date"];
-    $volunteerID = $log["volunteerID"];
-    $hours = $log["hours"];
+    $date         = $log["date"];
+    //$volunteerID  = $log["volunteerID"];
+    $volunteerID  = 4;
+    $hours        = $log["hours"];
     $poundsOfFood = $log["poundsOfFood"];
     $organizationID = $log["organizationID"];
-    $location = $log['location'];
-    $description = $log["description"];
-
-    //$id = isset($log['id']) ? mysqli_real_escape_string($connection, $log['_id']) : null;
-    //how we get the next increment
-    //$id = mysqli_insert_id($connection);
+    $location     = $log['location'];
+    $description  = $log["description"];
 
     $query = "
-    INSERT INTO dbvolunteeractivity (id, date, volunteerID, hours, poundsOfFood, organizationID, location, description)
-    VALUES (
-        '$id',
-        '$date',
-        '$volunteerID',
-        '$hours',
-        '$poundsOfFood',
-        '$organizationID',
-        '$location',
-        '$description'
-    )";
+        INSERT INTO dbvolunteeractivity 
+            (date, volunteerID, hours, poundsOfFood, organizationID, location, description)
+        VALUES (
+            '$date',
+            '$volunteerID',
+            '$hours',
+            '$poundsOfFood',
+            '$organizationID',
+            '$location',
+            '$description'
+        )";
 
     $result = mysqli_query($connection, $query);
-    if (!$result) {
-        return null;
-    }
 
-    //add_services_to_event($id, $services);
-    mysqli_commit($connection);
-    mysqli_close($connection);
-    return $id;
+    if ($result) {
+        $id = mysqli_insert_id($connection);
+        return $id;
+    } else {
+        return false;
+    }
 }
 
 
