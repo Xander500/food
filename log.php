@@ -312,6 +312,11 @@
                 document.getElementById('complete-confirmation-wrapper').classList.add('hidden');
             };
         </script>
+        <a class="button cancel" href="viewAllLogs.php">View All Volunteer Activity</a>
+        <a class="button cancel" href="addEvent.php">Add Volunteer Actitvity</a>
+        <a class="button cancel" href="index.php">Return to Dashboard</a>
+
+
     </main>
 </body>
 </html>
