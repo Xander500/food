@@ -24,12 +24,12 @@
         <?php require_once('universal.inc') ?>
         <link rel="stylesheet" href="css/messages.css"></link>
         <script src="js/messages.js"></script>
-        <title>Whiskey Valor | Events</title>
+        <title>Edit Activities</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
         <?php require_once('database/dbEvents.php');?>
-        <h1>Events</h1>
+        <h1>Edit Activities</h1>
         <main class="general">
             <?php 
                 //require_once('database/dbMessages.php');

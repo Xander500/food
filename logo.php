@@ -1,2 +1,2 @@
 <?php
-echo 'images/alleviatingFoodWasteLogo.png';
+echo 'images/food_eagle_temp_logo.png';
