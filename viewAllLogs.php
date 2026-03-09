@@ -54,6 +54,7 @@
                     <table class="general">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th style="width:1px">Student</th>
                                 <th style="width:1px">Date</th>
                                 <th style="width:1px">Organization</th>
@@ -83,6 +84,7 @@
 
                                     echo "
                                     <tr data-event-id='$logID'>
+                                        <td><a href='log.php?id=$logID' class='event-link'>👁</a></td>
                                         <td>$studentName</td>
                                         <td>$date</td>
                                         <td>$organizationName</td>
