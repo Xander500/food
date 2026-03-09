@@ -524,17 +524,20 @@ function fetch_events_on_date($startDate, $loggedIn) {
     return $events;
 }
 
-function fetch_event_by_id($id) {
+function fetch_volunteer_activity_by_id($id) {
     $connection = connect();
     $id = mysqli_real_escape_string($connection, $id);
-    $query = "select * from dbevents where id = '$id'";
-    $result = mysqli_query($connection, $query);
-    $event = mysqli_fetch_assoc($result);
-    if ($event) {
+    $query = $connection->prepare("select * from dbvolunteeractivity where id = ?"); 
+    $query->bind_param("i", $id); //protect from sql injection
+    $query->execute();
+
+    $result = $query->get_result();
+    $log = mysqli_fetch_assoc($result);
+    if ($log) {
         require_once('include/output.php');
-        $event = hsc($event);
+        $log = hsc($log);
         mysqli_close($connection);
-        return $event;
+        return $log;
     }
     mysqli_close($connection);
     return null;
