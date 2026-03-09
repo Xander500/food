@@ -71,7 +71,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Whiskey Valor | Create Event</title>
+        <title>UMW Alleviating Food Waste | Create Activity</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
