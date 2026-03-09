@@ -227,8 +227,8 @@ a:hover {
 }
 
 #vms-logo {
-    color: var(--main-color);
-    font-weight: 300;
+    color: var(--page-font-color);
+    font-weight: 450;
     font-size: 1.5rem;
 }
 
@@ -295,7 +295,7 @@ input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
     margin-bottom: 0.5rem;
     scroll-margin: 7.5rem;
     box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-    color: white;
+    color: var(--page-font-color);
 
 }
 
@@ -324,7 +324,7 @@ input[type=submit], button, .button, a.button-signup {
 }
 
 input[type=submit]:hover, button:hover, .button:hover, a.button-signup:hover {
-    background-color: var(--accent-color);
+    background-color: var(--page-font-color);
 }
 
 /* Disabled submit/button appearance for attendance logging */
@@ -433,8 +433,9 @@ h3:not(:first-of-type) {
 }
 
 .happy-toast {
-    background-color: var(--happy-toast-background-color);
-    color: var(--happy-toast-font-color);
+    background-color: var(--accent-color);
+    color: var(--page-font-color);
+    font-weight: 450;
     padding: 1rem;
     border-radius: 1rem;
     margin-bottom: 1rem;

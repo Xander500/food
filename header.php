@@ -60,19 +60,19 @@ if (date("H:i:s") > "18:19:59") {
             text-align: center;
             position: relative;
             cursor: pointer;
-            border: 0.1px solid black;
+            /* border: 0.1px solid var(--page-font-color); */
             transition: border 0.3s;
             border-radius: 10px;
-            border-bottom-right-radius: 50px;
+            /* border-bottom-right-radius: 50px; */
         }
          .content-box-test:hover {
-            border: 4px solid #fdd05eff;
+            border: 4px solid var(--page-font-color);
         }
 /*END STYLE TEST*/
 
         .full-width-bar {
             width: 100%;
-            background: rgb(31,31,33);
+            background: var(--page-background-color);
             padding: 17px 5%;
             display: flex;
             flex-wrap: wrap;
@@ -90,6 +90,7 @@ if (date("H:i:s") > "18:19:59") {
         }
 
         .content-box {
+            background-color: var(--accent-color);
             flex: 1 1 280px; /* Adjusts width dynamically */
             max-width: 375px;
             padding: 10px 2px; /* Altered padding to make closer */
@@ -98,6 +99,8 @@ if (date("H:i:s") > "18:19:59") {
             align-items: center;
             text-align: center;
             position: relative;
+            height: 260px;
+            border-radius: 12px;
         }
 
         .content-box-sub {
@@ -114,10 +117,10 @@ if (date("H:i:s") > "18:19:59") {
         .content-box img {
             width: 100%;
             height: auto;
-            background: white;
+            /* background: white; */
             border-radius: 5px;
-            border-bottom-right-radius: 50px;
-            border: 0.5px solid #828282;
+            /* border-bottom-right-radius: 50px; */
+            /* border: 0.5px solid #828282; */
         }
 
         .content-box-sub img {
@@ -135,7 +138,7 @@ if (date("H:i:s") > "18:19:59") {
             left: 30px;
             font-size: 14px;
             font-weight: 700;
-            color: #297760ff;
+            color: var(--page-font-color);
         }
 
         .large-text {
@@ -146,6 +149,7 @@ if (date("H:i:s") > "18:19:59") {
             font-weight: 700;
             color: black;
             max-width: 90%;
+            color: var(--page-font-color);
         }
 
         .large-text-sub {
@@ -155,7 +159,7 @@ if (date("H:i:s") > "18:19:59") {
             left: 10%;
             font-size: 22px;
             font-weight: 700;
-            color: black;
+            color: var(--page-font-color);
             max-width: 90%;
         }
 
@@ -165,7 +169,7 @@ if (date("H:i:s") > "18:19:59") {
             left: 10%;
             font-size: 14px;
             font-weight: 700;
-            color: #712977ff;
+            color: var(--page-font-color);
             max-width: 90%;
             margin-bottom: 80px;
         }
@@ -242,13 +246,13 @@ if (date("H:i:s") > "18:19:59") {
             position: absolute;
             top: 150%;
             left: -10%;
-            background-color: rgb(31,31,33);
-            border: 1px solid rgb(31,31,33);
+            background-color: var(--page-background-color);
+            border: 1px solid var(--page-font-color);
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             min-width: 150px;
             padding: 10px;
-            color: white;
+            color: var(--page-font-color);
         }
         .dropdown div {
             padding: 8px;
@@ -261,16 +265,16 @@ if (date("H:i:s") > "18:19:59") {
 
         .nav-item:hover, .nav-item.active {
             color: var(--accent-color);
-            outline: 1px solid var(--accent-color);
+            /* outline: 1px solid var(--accent-color); */
             outline-offset: 7px;
         }
 
         .date-box {
-            background: #2B2B2E;
+            background: var(--accent-color);
             padding: 10px 30px;
             border-radius: 50px;
-            box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.25) inset;
-            color: white;
+            /* box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.25) inset; */
+            color: var(--page-font-color);
             font-size: 24px;
             font-weight: 700;
             text-align: center;
@@ -281,7 +285,6 @@ if (date("H:i:s") > "18:19:59") {
             height: 47px;
             /*background: #292D32;*/
             border-radius: 50%;
-
         }
 .nav-buttons {
     position: absolute;
@@ -296,7 +299,7 @@ if (date("H:i:s") > "18:19:59") {
 
 /* Button Styling */
 .nav-button {
-    background: rgb(201, 171, 129);
+    background: var(--page-font-color);
     border: none;
     color: white;
     font-size: 20px;
@@ -338,6 +341,7 @@ if (date("H:i:s") > "18:19:59") {
 .nav-button .arrow {
     display: inline-block;
     transition: transform 0.3s ease;
+    filter:invert(1);
 }
 
 .nav-button:hover .arrow {
@@ -352,7 +356,7 @@ if (date("H:i:s") > "18:19:59") {
             border: none;
             font-size: 23px;
             font-weight: bold;
-            color: black;
+            color: var(--page-font-color);
             cursor: pointer;
             transition: transform 0.3s ease;
             padding: 0;
@@ -448,7 +452,7 @@ if (date("H:i:s") > "18:19:59") {
             top: 40px; /* Adjust as needed */
             left: 50%;
             transform: translateX(-50%);
-            background: rgb(31,31,33); /* Optional background for better visibility */
+            background: var(--page-font-color); /* Optional background for better visibility */
             padding: 10px;
             border-radius: 50%;
             display: flex;
@@ -469,7 +473,7 @@ if (date("H:i:s") > "18:19:59") {
         }
 
         .nav-item:hover img, .nav-item.active img {
-            filter: none;
+            filter: invert(68%) sepia(66%) saturate(345%) hue-rotate(43deg) brightness(90%) contrast(95%);
         }
        
         .icon .dropdown{
@@ -489,9 +493,9 @@ if (date("H:i:s") > "18:19:59") {
 	.in-nav img {
             width: 40px;
             height: 40px;
-            border-radius: 5px;
-            border-bottom-right-radius: 20px;
-            filter: invert(1) !important;
+            border-radius: 0px;
+            /* border-bottom-right-radius: 20px; */
+            filter: brightness(0) saturate(100%) invert(14%) sepia(89%) saturate(465%) hue-rotate(167deg) brightness(103%) contrast(84%) !important;
         }
 
 /* for calendar */
@@ -502,7 +506,7 @@ if (date("H:i:s") > "18:19:59") {
 
     .icon-butt:hover svg {
         transform: scale(1.1) rotate(5deg); /* Slight enlarge & tilt effect */
-        fill: #7aacf5; /* Changes to a blue shade */
+        fill: var(--accent-color); /* Changes to a blue shade */
     }
 
     .font-change {
@@ -926,7 +930,7 @@ if (date("H:i:s") > "18:19:59") {
         <!-- Left Section: Logo & Nav Links -->
         <div class="left-section">
             <div class="logo-container">
-                <a href="index.php"><img src=src="' . $logo . '" alt="Logo"></a>
+                <a href="index.php"><img src="' . $logo . '" alt="Logo"></a>
             </div>
             <div class="nav-links">
                 <div class="nav-item">Events
@@ -968,7 +972,7 @@ if (date("H:i:s") > "18:19:59") {
         <div class="right-section">
 <a href="calendar.php">
 <div class="icon-butt">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="#C9AB81" xmlns="http://www.w3.org/2000/svg">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill=var(--page-font-color) xmlns="http://www.w3.org/2000/svg">
             <path d="M3 4C3 3.44772 3.44772 3 4 3H6V2C6 1.44772 6.44772 1 7 1C7.55228 1 8 1.44772 8 2V3H16V2C16 1.44772 16.4477 1 17 1C17.5523 1 18 1.44772 18 2V3H20C20.5523 3 21 3.44772 21 4V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V4ZM5 5V20H19V5H5ZM7 10H9V12H7V10ZM11 10H13V12H11V10ZM15 10H17V12H15V10ZM7 14H9V16H7V14ZM11 14H13V16H11V14ZM15 14H17V16H15V14Z"/>
         </svg>
 </div>
@@ -977,7 +981,7 @@ if (date("H:i:s") > "18:19:59") {
             <div class="nav-links">
                 <div class="nav-item" style="outline:none;">
                     <div class="icon">
-                        <img src="images/usaicon.png" alt="User Icon">
+                        <img src="images/usaicon.png" alt="User Icon" class="icon-img in-nav-img">
                         <div class="dropdown">
                             <a href="viewProfile.php" style="text-decoration: none;"><div>View Profile</div></a>
                             <a href="editProfile.php" style="text-decoration: none;"><div>Edit Profile</div></a>

@@ -18,7 +18,7 @@ session_write_close();
             <span id="nav-top">
                 <span class="logo">
                     <img src="<?php include('logo.php'); ?>">
-                        <span id="vms-logo"> Whiskey Valor Foundation </span>
+                        <span id="vms-logo">UMW Alleviating Food Waste</span>
                         </span>
                     <img id="menu-toggle" src="images/menu.png">
                 </span>
