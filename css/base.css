@@ -67,7 +67,8 @@ table, td, tr, th, form, fieldset, em, button, a {
 
     --shadow-and-border-color: #e8e8e8;
 
-    --main-color: #2A435A; 
+    --main-color: #2A435A;
+    --main-color-hover: #4d6579;
 
     --accent-color: #92c44c;
  
@@ -324,7 +325,7 @@ input[type=submit], button, .button, a.button-signup {
 }
 
 input[type=submit]:hover, button:hover, .button:hover, a.button-signup:hover {
-    background-color: var(--page-font-color);
+    background-color: var(--main-color-hover);
 }
 
 /* Disabled submit/button appearance for attendance logging */
@@ -341,7 +342,7 @@ input[type="submit"].disabled-btn {
 } */
 
 label {
-    color: var(--accent-color);
+    color: var(--page-font-color);
     font-weight: 600;
     width: 100%;
     text-align: left;
@@ -736,12 +737,12 @@ img.filter-button {
 }
 
 button.cancel, a.cancel {
-    background-color: var(--cancel-button-background-color);
+    background-color: var(--page-font-color);
     color: white;
 }
 
 button.cancel:hover, a.cancel:hover {
-    background-color: var(--accent-color);
+    background-color: var(--main-color-hover);
 }
 
 #calendar-heading-month {
@@ -1516,5 +1517,5 @@ div .dd {
     border-radius: 15px;
     margin: 1rem;
     padding: 1rem;
-    background-color: rgba(0,0,0,0.15);
+    background-color: var(--accent-color);
 }
