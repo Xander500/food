@@ -71,11 +71,11 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Whiskey Valor | Create Event</title>
+        <title>UMW Alleviating Food Waste | Create Activity</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1 style="color: white;">Create Activity</h1>
+        <h1>Create Activity</h1>
         <main class="date">
             <h2>New Activity Form</h2>
             <form id="new-event-form" method="POST">

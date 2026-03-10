@@ -15,6 +15,12 @@
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }  
+        // Require admin privileges
+    if ($accessLevel < 2) {
+        header('Location: login.php');
+        //echo 'bad access level';
+        die();
+    }
     include 'database/dbVolunteerActivity.php';
     include 'database/dbUsers.php';
     include 'database/dbOrganizations.php';
@@ -27,30 +33,16 @@
         <?php require_once('universal.inc') ?>
         <link rel="stylesheet" href="css/event.css">
         <script src="js/messages.js"></script>
-        <title>Viewing All Events | Whiskey Valor Foundation</title>
+        <title>View All Volunteer Activity</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
         <?php require_once('database/dbVolunteerActivity.php');?>
         <?php require_once('database/dbPersons.php');?>
-        <h1>Events</h1>
+        <h1>Volunteer Activity</h1>
         <main class="general">
             <?php 
-                //require_once('database/dbMessages.php');
-                //$messages = get_user_messages($userID);
-                //require_once('database/dbVolunteerActivity.php');
-                //require_once('domain/Event.php');
-                //$events = get_all_events();
                 $logs = get_all_volunteer_activities_sorted_by_date();
-                //! no need for archivedevent
-                $archivedevents = get_all_events_sorted_by_date_and_archived();
-                $today = new DateTime(); // Current date
-                
-                //!
-                $upcomingArchivedEvents = array_filter($archivedevents, function($event) use ($today) {
-                    $eventDate = new DateTime($event->getStartDate());
-                    return $eventDate >= $today; // Only include events on or after today
-                });
 
                 if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != 'guest') {
                     $user = retrieve_person($userID);
@@ -58,10 +50,11 @@
 
                 if (sizeof($logs) > 0): ?>
                 <div class="table-wrapper">
-                    <h2>Upcoming Events</h2>
+                    <h2>View All Volunteer Activity</h2>
                     <table class="general">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th style="width:1px">Student</th>
                                 <th style="width:1px">Date</th>
                                 <th style="width:1px">Organization</th>
@@ -91,6 +84,7 @@
 
                                     echo "
                                     <tr data-event-id='$logID'>
+                                        <td><a href='log.php?id=$logID' class='event-link'>👁</a></td>
                                         <td>$studentName</td>
                                         <td>$date</td>
                                         <td>$organizationName</td>
@@ -108,7 +102,7 @@
 
 
                 <?php else: ?>
-                <p class="no-events standout">There are currently no events available to view.<a class="button add" href="addEvent.php">Create a New Event</a> </p>
+                <p class="no-events standout">There are currently no logs available to view.<a class="button add" href="addEvent.php">Create a New Event</a> </p>
             <?php endif ?>
             <a class="button cancel" href="index.php">Return to Dashboard</a>
         </main>

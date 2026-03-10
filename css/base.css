@@ -378,8 +378,8 @@ h1 {
     font-weight: 500;
     margin-bottom: 2rem;
 
-    background-color: var(#C9AB81);
-    color: var(--page-background-color);
+    /* background-color: var(#C9AB81); */
+    color: var(--page-font-color);
     width: 100%;
     text-align: center;
     padding: 1rem;
