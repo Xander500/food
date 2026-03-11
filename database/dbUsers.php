@@ -30,7 +30,7 @@ function make_a_user($result_row) {
 
 function get_user_full_name_from_id($id) {
     $con=connect();
-    $query = 'SELECT first_name,last_name,username FROM dbusers WHERE id = "' . $id . '"';
+    $query = 'SELECT first_name,last_name,id FROM dbusers WHERE id = "' . $id . '"';
     $result = mysqli_query($con,$query);
     if ($result == null || mysqli_num_rows($result) == 0) {
         mysqli_close($con);
