@@ -1,3 +1,3 @@
 <?php
-    echo "images/alleviatingFoodWasteLogo.png";
+echo 'images/alleviatingFoodWasteLogo.png';
 ?>
