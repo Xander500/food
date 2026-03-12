@@ -25,17 +25,29 @@
     include 'database/dbUsers.php';
     include 'database/dbOrganizations.php';
 
-    //check for sorting preferences
-    $sortby = null;
-    $order = null;
+    //check for sorting 
+    //no sql injections
+    $sortby = null; $order = null;
+    //echo $_GET['sortby'] . " " . $_GET['order'] . "\n";
     if (isset($_GET['sort']) && isset($_GET['sortby']) && $_GET['sort'] === 'true') {
-        $sortby = $_GET['sortby'];
-        //check if order is desc
-        if (isset($_GET['order']) && $order === null) {
-            $order = $_GET['order'];
+        switch ($_GET['sortby']) {
+            case 'student': $sortby = 'last_name'; $order = 'asc'; break;
+            case 'date': $sortby = 'date'; $order = 'desc'; break;
+            case 'organization': $sortby = 'organization_name'; $order = 'asc'; break;
+            case 'hours': $sortby = 'hours'; $order = 'asc'; break;
+            case 'location': $sortby = 'location'; $order = 'asc'; break;
+            case 'poundsoffood': $sortby = 'poundsOfFood'; $order = 'asc'; break;
+            case 'description': $sortby = 'description'; $order = 'asc'; break;
         }
     }
-
+        //check if order is desc
+    if (isset($_GET['order'])) {
+        switch ($_GET['order']) {
+            case 'desc': $order = 'desc'; break;
+            case 'asc': $order = 'asc'; break;
+        }
+    }
+    
     //default sort by date desc
 
     $logs = get_all_volunteer_activities_custom_sort($sortby, $order);

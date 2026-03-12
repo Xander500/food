@@ -423,31 +423,23 @@ function get_all_events() {
   function get_all_volunteer_activities_custom_sort($sortby_input, $order_input) {
     $con=connect();
     //check valid options
-    //no sql injections
-    $order = 'desc';
-    $sortby = 'date';
-    switch ($sortby_input) {
-        case 'student': $sortby = 'volunteerID'; break;
-        case 'date': $sortby = 'date'; break;
-        case 'organization': $sortby = 'organizationID'; break;
-        case 'hours': $sortby = 'hours'; break;
-        case 'location': $sortby = 'location'; break;
-        case 'poundsoffood': $sortby = 'poundsOfFood'; break;
-        case 'description': $sortby = 'description'; break;
-    }
-    //check if order is desc
-    switch ($order_input) {
-        case 'desc': $order = 'desc'; break;
-        default: $order = 'asc'; break;
-    }
-    //default sort
-    if ($sortby === 'date' && $order_input === null) {
-        $order = 'desc';
-        $sortby = 'date';
+    $sortby = 'date'; $order = 'desc';
+    if (in_array($sortby_input, ['last_name', 'date', 'organization_name', 'hours',
+        'location', 'poundsOfFood', 'description'])){
+        $sortby = $sortby_input;
     }
 
-    $query = "SELECT * FROM dbvolunteeractivity ORDER BY $sortby $order";
-    echo $query;
+    if (in_array($order_input, ['asc', 'desc'])){
+        $order = $order_input;
+    }
+
+    $query = "SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
+            " va.organizationID, va.location, va.description," .
+            " u.first_name, u.last_name, o.name AS organization_name" .
+            " FROM dbvolunteeractivity AS va" .
+            " JOIN dbusers AS u ON u.id = va.volunteerID" .
+            " JOIN dborganizations AS o ON o.id = va.organizationID" .
+            " ORDER BY $sortby $order";
     $result = mysqli_query($con,$query);
     $theLogs = array();
     while ($result_row = mysqli_fetch_assoc($result)) {
