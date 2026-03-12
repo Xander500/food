@@ -67,7 +67,8 @@ table, td, tr, th, form, fieldset, em, button, a {
 
     --shadow-and-border-color: #e8e8e8;
 
-    --main-color: #2A435A; 
+    --main-color: #2A435A;
+    --main-color-hover: #4d6579;
 
     --accent-color: #92c44c;
  
@@ -299,6 +300,11 @@ input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
 
 }
 
+input[type=text]::placeholder, input[type=password]::placeholder, input[type=date]::placeholder, input[type=email]::placeholder, input[type=number]::placeholder, 
+input[type=tel]::placeholder {
+    color: var(--main-color-hover);
+}
+
 input[type=text]:disabled, input[type=password]:disabled, input[type=date]:disabled, input[type=number]:disabled,
 input[type=email]:disabled, input[type=tel]:disabled, select:disabled, textarea:disabled,
 .pseudo-input-disabled {
@@ -314,7 +320,7 @@ input[type=submit], button, .button, a.button-signup {
     color: var(--button-font-color);
     background-color: var(--main-color);
     padding: var(--button-padding);
-    border: 3px solid rgba(255, 255, 255, 0.295);
+    border: 3px solid var(--main-color-hover);
     border-radius: var(--button-border-radius);
     font-weight: 500;
     width: 94%;
@@ -324,7 +330,8 @@ input[type=submit], button, .button, a.button-signup {
 }
 
 input[type=submit]:hover, button:hover, .button:hover, a.button-signup:hover {
-    background-color: var(--page-font-color);
+    background-color: var(--main-color-hover);
+    border-color: var(--main-color);
 }
 
 /* Disabled submit/button appearance for attendance logging */
@@ -341,7 +348,7 @@ input[type="submit"].disabled-btn {
 } */
 
 label {
-    color: var(--accent-color);
+    color: var(--page-font-color);
     font-weight: 600;
     width: 100%;
     text-align: left;
@@ -378,8 +385,8 @@ h1 {
     font-weight: 500;
     margin-bottom: 2rem;
 
-    background-color: var(#C9AB81);
-    color: var(--page-background-color);
+    /* background-color: var(#C9AB81); */
+    color: var(--page-font-color);
     width: 100%;
     text-align: center;
     padding: 1rem;
@@ -736,12 +743,12 @@ img.filter-button {
 }
 
 button.cancel, a.cancel {
-    background-color: var(--cancel-button-background-color);
+    background-color: var(--page-font-color);
     color: white;
 }
 
 button.cancel:hover, a.cancel:hover {
-    background-color: var(--accent-color);
+    background-color: var(--main-color-hover);
 }
 
 #calendar-heading-month {
@@ -1516,5 +1523,5 @@ div .dd {
     border-radius: 15px;
     margin: 1rem;
     padding: 1rem;
-    background-color: rgba(0,0,0,0.15);
+    background-color: var(--accent-color);
 }
