@@ -25,32 +25,7 @@
     include 'database/dbUsers.php';
     include 'database/dbOrganizations.php';
 
-    //check for sorting 
-    //no sql injections
-    $sortby = null; $order = null;
-    //echo $_GET['sortby'] . " " . $_GET['order'] . "\n";
-    if (isset($_GET['sort']) && isset($_GET['sortby']) && $_GET['sort'] === 'true') {
-        switch ($_GET['sortby']) {
-            case 'student': $sortby = 'last_name'; $order = 'asc'; break;
-            case 'date': $sortby = 'date'; $order = 'desc'; break;
-            case 'organization': $sortby = 'organization_name'; $order = 'asc'; break;
-            case 'hours': $sortby = 'hours'; $order = 'asc'; break;
-            case 'location': $sortby = 'location'; $order = 'asc'; break;
-            case 'poundsoffood': $sortby = 'poundsOfFood'; $order = 'asc'; break;
-            case 'description': $sortby = 'description'; $order = 'asc'; break;
-        }
-    }
-        //check if order is desc
-    if (isset($_GET['order'])) {
-        switch ($_GET['order']) {
-            case 'desc': $order = 'desc'; break;
-            case 'asc': $order = 'asc'; break;
-        }
-    }
-    
-    //default sort by date desc
-
-    $logs = get_all_volunteer_activities_custom_sort($sortby, $order);
+    $logs = get_all_volunteer_activities_sorted_by_date();
 
     
     //include 'domain/Event.php';
@@ -82,13 +57,13 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=student&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Student</a></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=date&order=<?= ($order === 'desc') ? 'asc' : 'desc' ?>'>Date</a></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=organization&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Organization</a></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=hours&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Hours</a></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=location&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Location</a></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=poundsoffood&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Food Rescued (lbs)</a></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=description&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Description</a></th>
+                                <th style="width:1px">Student</th>
+                                <th style="width:1px">Date</th>
+                                <th style="width:1px">Organization</th>
+                                <th style="width:1px">Hours</th>
+                                <th style="width:1px">Location</th>
+                                <th style="width:1px">Food Rescued (lbs)</th>
+                                <th style="width:1px">Description</th>
                             </tr>
                         </thead>
                         <tbody>

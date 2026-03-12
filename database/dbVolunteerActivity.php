@@ -408,8 +408,13 @@ function get_all_events() {
 
  function get_all_volunteer_activities_sorted_by_date() {
     $con=connect();
-    $query = "SELECT * FROM dbvolunteeractivity" .
-            " ORDER BY date DESC";
+    $query = "SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
+            " va.organizationID, va.location, va.description," .
+            " u.first_name, u.last_name, o.name AS organization_name" .
+            " FROM dbvolunteeractivity AS va" .
+            " JOIN dbusers AS u ON u.id = va.volunteerID" .
+            " JOIN dborganizations AS o ON o.id = va.organizationID" .
+            " ORDER BY date desc";
     $result = mysqli_query($con,$query);
     $theLogs = array();
     while ($result_row = mysqli_fetch_assoc($result)) {
