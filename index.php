@@ -473,7 +473,7 @@
             <?php endif ?>
 
     <div class="full-width-bar">
-    <div class="content-box" onclick="window.location.href='personSearch.php'">
+    <div class="content-box" onclick="window.location.href='volunteerManagement.php'">
         <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
         
         <div class="large-text">Manage Volunteers</div>
