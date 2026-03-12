@@ -82,13 +82,13 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="width:1px">Student</th>
-                                <th style="width:1px">Date</th>
-                                <th style="width:1px">Organization</th>
-                                <th style="width:1px">Hours</th>
-                                <th style="width:1px">Location</th>
-                                <th style="width:1px">Food Rescued (lbs)</th>
-                                <th style="width:1px">Description</th>
+                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=student&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Student</a></th>
+                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=date&order=<?= ($order === 'desc') ? 'asc' : 'desc' ?>'>Date</a></th>
+                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=organization&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Organization</a></th>
+                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=hours&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Hours</a></th>
+                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=location&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Location</a></th>
+                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=poundsoffood&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Food Rescued (lbs)</a></th>
+                                <th style="width:1px"><a href='viewAllLogs.php?sort=true&orderby=description&order=<?= ($order === 'asc') ? 'desc' : 'asc' ?>'>Description</a></th>
                             </tr>
                         </thead>
                         <tbody>
