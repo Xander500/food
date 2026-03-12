@@ -1042,7 +1042,8 @@
   }
   .return-button {
     border-radius: var(--radius-lg) !important;
-    background-color: var(--color-gray-500) !important;
+    background-color: var(--color-gray-500);
+    border: 3px solid black;
     padding-inline: calc(var(--spacing) * 6) !important;
     padding-block: calc(var(--spacing) * 2) !important;
     color: var(--color-white) !important;

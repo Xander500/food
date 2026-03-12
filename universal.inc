@@ -12,4 +12,4 @@
         <script src="css/header.js"></script>
         
 
-        <link rel="icon" type="image/x-icon" href="images/food_eagle_temp_logo.png">
+        <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">

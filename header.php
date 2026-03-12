@@ -522,19 +522,19 @@ if (date("H:i:s") > "18:19:59") {
             right: 18px;
             width: 70px;
             height: 70px;
-            border-radius: 80px;
+            border-radius: 80px !important;
             background: var(--main-color);
             border: 3px solid var(--main-color);
-            cursor: pointer;
+            cursor: pointer !important;
             z-index: 2000;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4px;
+            padding: 4px !important;
         }
         .accessibility-btn img {
-            width: 100%;
-            height: 100%;
+            width: 70px;
+            height: 70px;
             object-fit: contain;
             filter: invert(1);
         }
