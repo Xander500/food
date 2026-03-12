@@ -904,17 +904,20 @@
     background-color: var(--color-gray-100);
   }
   p {
-    font-size: var(--text-lg);
-    line-height: var(--tw-leading, var(--text-lg--line-height));
+    font-size: var(--text-lg) !important;
+    line-height: var(--tw-leading, var(--text-lg--line-height)) !important;
     --tw-leading: var(--leading-relaxed);
     line-height: var(--leading-relaxed);
+    font-weight: normal !important;
   }
   h1 {
-    margin-bottom: calc(var(--spacing) * 4);
-    font-size: var(--text-3xl);
-    line-height: var(--tw-leading, var(--text-3xl--line-height));
-    --tw-font-weight: var(--font-weight-bold);
-    font-weight: var(--font-weight-bold);
+    margin-bottom: calc(var(--spacing) * 4) !important;
+    font-size: var(--text-3xl) !important;
+    line-height: var(--tw-leading, var(--text-3xl--line-height)) !important;
+    --tw-font-weight: var(--font-weight-bold) !important;
+    font-weight: var(--font-weight-bold) !important;
+    text-align: left !important;
+    padding: 0px !important;
   }
   main {
     position: relative;
@@ -929,26 +932,26 @@
   button {
     position: relative;
     display: flex;
-    cursor: pointer;
+    cursor: pointer !important;
     justify-content: center;
-    border-radius: var(--radius-2xl);
-    border-style: var(--tw-border-style);
-    border-width: 2px;
-    border-color: var(--color-gray-300);
+    border-radius: var(--radius-2xl) !important;
+    border-style: var(--tw-border-style) !important;
+    border-width: 2px !important;
+    border-color: var(--color-gray-300) !important;
     background-color: var(--color-white);
-    padding: calc(var(--spacing) * 6);
-    font-size: var(--text-xl);
+    padding: calc(var(--spacing) * 6) !important;
+    font-size: var(--text-xl) !important;
     line-height: var(--tw-leading, var(--text-xl--line-height));
     --tw-font-weight: var(--font-weight-medium);
-    font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium) !important;
     color: var(--color-gray-700);
     --tw-shadow: 0 1px 2px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.05));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-    transition-property: all;
-    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-property: all !important;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function)) !important;
     transition-duration: var(--tw-duration, var(--default-transition-duration));
     --tw-duration: 200ms;
-    transition-duration: 200ms;
+    transition-duration: 200ms !important;
     &:hover {
       @media (hover: hover) {
         border-color: var(--color-blue-900);
@@ -1038,11 +1041,11 @@
     background-color: var(--color-blue-900);
   }
   .return-button {
-    border-radius: var(--radius-lg);
-    background-color: var(--color-gray-500);
-    padding-inline: calc(var(--spacing) * 6);
-    padding-block: calc(var(--spacing) * 2);
-    color: var(--color-white);
+    border-radius: var(--radius-lg) !important;
+    background-color: var(--color-gray-500) !important;
+    padding-inline: calc(var(--spacing) * 6) !important;
+    padding-block: calc(var(--spacing) * 2) !important;
+    color: var(--color-white) !important;
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-gray-600);

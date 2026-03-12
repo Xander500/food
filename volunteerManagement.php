@@ -99,7 +99,7 @@ require_once('header.php');
 
   <!-- Larger Hero Section -->
   <!--<header class="hero-header"></header>-->
-  <header class="top-bar"></header>
+  <!-- <header class="top-bar"></header> -->
 
   <!-- Main Content -->
   <main style="margin-top: 100px;">
