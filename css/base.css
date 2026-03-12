@@ -300,6 +300,11 @@ input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
 
 }
 
+input[type=text]::placeholder, input[type=password]::placeholder, input[type=date]::placeholder, input[type=email]::placeholder, input[type=number]::placeholder, 
+input[type=tel]::placeholder {
+    color: var(--main-color-hover);
+}
+
 input[type=text]:disabled, input[type=password]:disabled, input[type=date]:disabled, input[type=number]:disabled,
 input[type=email]:disabled, input[type=tel]:disabled, select:disabled, textarea:disabled,
 .pseudo-input-disabled {
