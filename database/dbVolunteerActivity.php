@@ -420,6 +420,44 @@ function get_all_events() {
     return $theLogs;
  }
 
+  function get_all_volunteer_activities_custom_sort($sortby_input, $order_input) {
+    $con=connect();
+    //check valid options
+    //no sql injections
+    $order = 'desc';
+    $sortby = 'date';
+    switch ($sortby_input) {
+        case 'student': $sortby = 'volunteerID'; break;
+        case 'date': $sortby = 'date'; break;
+        case 'organization': $sortby = 'organizationID'; break;
+        case 'hours': $sortby = 'hours'; break;
+        case 'location': $sortby = 'location'; break;
+        case 'poundsoffood': $sortby = 'poundsOfFood'; break;
+        case 'description': $sortby = 'description'; break;
+    }
+    //check if order is desc
+    switch ($order_input) {
+        case 'desc': $order = 'desc'; break;
+        default: $order = 'asc'; break;
+    }
+    //default sort
+    if ($sortby === 'date' && $order_input === null) {
+        $order = 'desc';
+        $sortby = 'date';
+    }
+
+    $query = "SELECT * FROM dbvolunteeractivity ORDER BY $sortby $order";
+    echo $query;
+    $result = mysqli_query($con,$query);
+    $theLogs = array();
+    while ($result_row = mysqli_fetch_assoc($result)) {
+        $theLog = make_a_volunteer_activity($result_row);
+        $theLogs[] = $theLog;
+    }
+    mysqli_close($con);
+    return $theLogs;
+ }
+
 //! defunct this as legacy once calls are removed
  function get_all_events_sorted_by_date_not_archived() {
     $con=connect();

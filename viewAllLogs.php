@@ -24,6 +24,22 @@
     include 'database/dbVolunteerActivity.php';
     include 'database/dbUsers.php';
     include 'database/dbOrganizations.php';
+
+    //check for sorting preferences
+    $sortby = null;
+    $order = null;
+    if (isset($_GET['sort']) && isset($_GET['sortby']) && $_GET['sort'] === 'true') {
+        $sortby = $_GET['sortby'];
+        //check if order is desc
+        if (isset($_GET['order']) && $order === null) {
+            $order = $_GET['order'];
+        }
+    }
+
+    //default sort by date desc
+
+    $logs = get_all_volunteer_activities_custom_sort($sortby, $order);
+
     
     //include 'domain/Event.php';
 ?>
@@ -41,8 +57,7 @@
         <?php require_once('database/dbPersons.php');?>
         <h1>Volunteer Activity</h1>
         <main class="general">
-            <?php 
-                $logs = get_all_volunteer_activities_sorted_by_date();
+            <?php
 
                 if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != 'guest') {
                     $user = retrieve_person($userID);
