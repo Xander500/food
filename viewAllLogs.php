@@ -28,7 +28,7 @@
 
     //check for sorting 
     //make sure no sql injections
-    $sortby = null; $order = null;
+    $sortby = 'date'; $order = 'asc';
     //echo $_GET['sortby'] . " " . $_GET['order'] . "\n";
     if (isset($_GET['sortby'])) {
         switch ($_GET['sortby']) {
@@ -41,13 +41,16 @@
             case 'description': $sortby = 'description'; $order = 'asc'; break;
         }
     }
-        //check if order is desc
+    //check if order is desc
     if (isset($_GET['order'])) {
         switch ($_GET['order']) {
             case 'desc': $order = 'desc'; break;
             case 'asc': $order = 'asc'; break;
         }
+    } else if ($sortby === 'date') {
+            $order = 'desc';
     }
+
     //get page
     $per_page = 2;
     $page_display_range = 1;
@@ -56,11 +59,11 @@
     $max_pages = max(0, ceil(get_num_logs() / $per_page) - 1); //total allowed pages
     $page_num = (int) min($max_pages, $page_num);
 
-    var_dump($page_num);
-
     $logs = get_all_volunteer_activities_custom_sort_pagination($sortby, $order, $per_page, $page_num * $per_page);
 
-    
+    var_dump($sortby);
+    var_dump($order);
+
     //include 'domain/Event.php';
 ?>
 <!DOCTYPE html>
@@ -137,7 +140,7 @@
                 <ul class="pagination">
                     <?php if ($page_num - $page_display_range > 0): ?>
                         <li class="pagination_li">
-                            <a href="viewAllLogs.php?<?php echo http_build_query(['page' => 0]); ?>" class="pagination_link">&#x21e4;</a>
+                            <a href="viewAllLogs.php?<?php echo http_build_query(['page' => 0, 'sortby' => $sortby]); ?>" class="pagination_link">&#x21e4;</a>
                         </li>
                     <?php endif; ?>
                     <?php for($x = max(0, $page_num - $page_display_range); $x <= min($max_pages, $page_num + $page_display_range); $x++): ?>
