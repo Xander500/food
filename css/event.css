@@ -773,5 +773,5 @@ td {
 }
 .pagination_link--active {
     color: var(--accent-color);
-    border-color: var(--accent-color);
+    border-color: var(--accent-color) !important;
 }

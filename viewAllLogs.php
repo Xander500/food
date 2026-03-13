@@ -52,11 +52,8 @@
     $per_page = 4;
     $page_num = max(0, (int)($_GET['page'] ?? 1) - 1);
     //get max pagination
-    $max_pages = max(0, ceil(get_num_logs() / $per_page) - 1);
-    var_dump($max_pages);
-    $page_num = min($max_pages, $page_num);
-    var_dump($page_num);
-
+    $max_pages = max(0, ceil(get_num_logs() / $per_page) - 1); //total allowed pages
+    $page_num = (int) min($max_pages, $page_num);
 
     $logs = get_all_volunteer_activities_custom_sort_pagination($sortby, $order, $per_page, $page_num * $per_page);
 
@@ -135,19 +132,21 @@
                 </div>
 
                 <ul class="pagination">
-
-                    <li class="pagination_li">
-                        <a href="#" class="pagination_link">&lt;</a>
-                    </li>
-                    <li class="pagination_li">
-                        <a href="#" class="pagination_link">1</a>
-                    </li>
-                    <li class="pagination_li">
-                        <a href="sdfsd" class="pagination_link pagination_link--active">2</a>
-                    </li>
+                    <?php if ($page_num > 0): ?>
+                        <li class="pagination_li">
+                            <a href="#" class="pagination_link">&lt;</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php for($x = 0; $x <= $max_pages; $x++): ?>
+                        <li class="pagination_li">
+                            <a href="viewAllLogs.php?<?php echo http_build_query(['page' => $x + 1]); ?>" class="pagination_link<?php if ($page_num === $x): ?> pagination_link--active<?php endif; ?>"><?php echo htmlspecialchars($x + 1); ?></a>
+                        </li>
+                    <?php endfor; ?>
+                    <?php if ($page_num < $max_pages): ?>
                     <li class="pagination_li">
                         <a href="#" class="pagination_link">&gt;</a>
                     </li>
+                    <?php endif; ?>
                 </ul>
                 <?php else: ?>
                 <p class="no-events standout">There are currently no logs available to view.<a class="button add" href="addEvent.php">Create a New Event</a> </p>
