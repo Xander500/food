@@ -48,8 +48,17 @@
             case 'asc': $order = 'asc'; break;
         }
     }
+    //get page
+    $per_page = 4;
+    $page_num = max(0, (int)($_GET['page'] ?? 1) - 1);
+    //get max pagination
+    $max_pages = max(0, ceil(get_num_logs() / $per_page) - 1);
+    var_dump($max_pages);
+    $page_num = min($max_pages, $page_num);
+    var_dump($page_num);
 
-    $logs = get_all_volunteer_activities_custom_sort_pagination($sortby, $order, 10, 0);
+
+    $logs = get_all_volunteer_activities_custom_sort_pagination($sortby, $order, $per_page, $page_num * $per_page);
 
     
     //include 'domain/Event.php';

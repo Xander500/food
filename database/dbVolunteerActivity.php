@@ -406,6 +406,14 @@ function get_all_events() {
     return $theEvents;
  }
 
+ function get_num_logs() {
+    $con=connect();
+    $query = "SELECT count(*) as num FROM dbvolunteeractivity";
+    $result = mysqli_query($con,$query);
+    $row = mysqli_fetch_assoc($result);
+    return $row['num'];
+ }
+
  function get_all_volunteer_activities_sorted_by_date() {
     $con=connect();
     $query = "SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
