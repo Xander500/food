@@ -56,7 +56,7 @@
     }
 
     //get page
-    $per_page = 5;
+    $per_page = 50;
     $page_display_range = 2;
     $page_num = max(0, (int)($_GET['page'] ?? 1) - 1);
     //get max pagination
@@ -94,13 +94,13 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="width:1px">Student</th>
-                                <th style="width:1px">Date</th>
-                                <th style="width:1px">Organization</th>
-                                <th style="width:1px">Hours</th>
-                                <th style="width:1px">Location</th>
-                                <th style="width:1px">Food Rescued (lbs)</th>
-                                <th style="width:1px">Description</th>
+                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'student', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Student</a></th>       
+                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'date', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Date</a></th>
+                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'organization', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Organization</a></th>
+                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'hours', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Hours</a></th>
+                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'location', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Location</a></th>
+                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'poundsoffood', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Food Rescued (lbs)</a></th>
+                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'description', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Description</a></th>
                             </tr>
                         </thead>
                         <tbody>
