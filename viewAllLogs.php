@@ -101,8 +101,21 @@
                     </table>
                 </div>
 
+                <ul class="pagination">
 
-
+                    <li class="pagination_li">
+                        <a href="#" class="pagination_link">&lt;</a>
+                    </li>
+                    <li class="pagination_li">
+                        <a href="#" class="pagination_link">1</a>
+                    </li>
+                    <li class="pagination_li">
+                        <a href="sdfsd" class="pagination_link pagination_link--active">2</a>
+                    </li>
+                    <li class="pagination_li">
+                        <a href="#" class="pagination_link">&gt;</a>
+                    </li>
+                </ul>
                 <?php else: ?>
                 <p class="no-events standout">There are currently no logs available to view.<a class="button add" href="addEvent.php">Create a New Event</a> </p>
             <?php endif ?>
