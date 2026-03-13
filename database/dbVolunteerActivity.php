@@ -527,7 +527,7 @@ function fetch_events_on_date($startDate, $loggedIn) {
 function fetch_volunteer_activity_by_id($id) {
     $connection = connect();
     $id = mysqli_real_escape_string($connection, $id);
-    $query = $connection->prepare("select * from dbvolunteeractivity where id = ?"); 
+    $query = $connection->prepare("select * from dbvolunteeractivity where id = ?");
     $query->bind_param("i", $id); //protect from sql injection
     $query->execute();
 
@@ -581,14 +581,25 @@ function fetch_num_attendees($id) {
 function create_activitylog($log) {
     $connection = connect();
 
-    $date         = $log["date"];
-    //$volunteerID  = $log["volunteerID"];
-    $volunteerID  = 4;
-    $hours        = $log["hours"];
-    $poundsOfFood = $log["poundsOfFood"];
-    $organizationID = $log["organizationID"];
-    $location     = $log['location'];
-    $description  = $log["description"];
+    //safer checks
+    $date           = $log["date"] ?? null;
+    $volunteerID    = $_SESSION["_id"] ?? null; // checks session, will fail if we remove the login session adding the username to _id
+    $hours          = $log["hours"] ?? null;
+    $organizationID = $log["organizationID"] ?? null;
+    $location       = $log["location"] ?? null;
+    //optional
+    $description    = $log["description"] ?? null;
+    $poundsOfFood   = $log["poundsOfFood"] ?? null;
+
+    //basic check of values
+    if ($date === null || $hours === null || $location === null) {
+        return false;
+    }
+
+    //check actually a user and if organization was selected
+    if ($volunteerID === null || $organizationID === null) {
+        return false;
+    }
 
     $query = "
         INSERT INTO dbvolunteeractivity 
