@@ -28,9 +28,12 @@
 
     //check for sorting 
     //make sure no sql injections
-    $sortby = 'date'; $order = 'asc';
+    $sortby = 'date'; $order = 'asc'; $sortby_display = 'date';
     //echo $_GET['sortby'] . " " . $_GET['order'] . "\n";
-    if (isset($_GET['sortby'])) {
+    if (isset($_GET['sortby']) && in_array($_GET['sortby'], ['student', 'date', 'organization',
+        'hours', 'location', 'poundsoffood', 'description'])) {
+        
+        $sortby_display = $_GET['sortby'];
         switch ($_GET['sortby']) {
             case 'student': $sortby = 'last_name'; $order = 'asc'; break;
             case 'date': $sortby = 'date'; $order = 'desc'; break;
@@ -40,6 +43,7 @@
             case 'poundsoffood': $sortby = 'poundsOfFood'; $order = 'asc'; break;
             case 'description': $sortby = 'description'; $order = 'asc'; break;
         }
+
     }
     //check if order is desc
     if (isset($_GET['order'])) {
@@ -52,17 +56,14 @@
     }
 
     //get page
-    $per_page = 2;
-    $page_display_range = 1;
+    $per_page = 5;
+    $page_display_range = 2;
     $page_num = max(0, (int)($_GET['page'] ?? 1) - 1);
     //get max pagination
     $max_pages = max(0, ceil(get_num_logs() / $per_page) - 1); //total allowed pages
     $page_num = (int) min($max_pages, $page_num);
 
     $logs = get_all_volunteer_activities_custom_sort_pagination($sortby, $order, $per_page, $page_num * $per_page);
-
-    var_dump($sortby);
-    var_dump($order);
 
     //include 'domain/Event.php';
 ?>
@@ -140,17 +141,17 @@
                 <ul class="pagination">
                     <?php if ($page_num - $page_display_range > 0): ?>
                         <li class="pagination_li">
-                            <a href="viewAllLogs.php?<?php echo http_build_query(['page' => 0, 'sortby' => $sortby]); ?>" class="pagination_link">&#x21e4;</a>
+                            <a href="viewAllLogs.php?<?php echo http_build_query(['page' => 0, 'sortby' => $sortby_display, 'order' => $order]); ?>" class="pagination_link">&#x21e4;</a>
                         </li>
                     <?php endif; ?>
                     <?php for($x = max(0, $page_num - $page_display_range); $x <= min($max_pages, $page_num + $page_display_range); $x++): ?>
                         <li class="pagination_li">
-                            <a href="viewAllLogs.php?<?php echo http_build_query(['page' => $x + 1]); ?>" class="pagination_link<?php if ($page_num === $x): ?> pagination_link--active<?php endif; ?>"><?php echo htmlspecialchars($x + 1); ?></a>
+                            <a href="viewAllLogs.php?<?php echo http_build_query(['page' => $x + 1, 'sortby' => $sortby_display, 'order' => $order]); ?>" class="pagination_link<?php if ($page_num === $x): ?> pagination_link--active<?php endif; ?>"><?php echo htmlspecialchars($x + 1); ?></a>
                         </li>
                     <?php endfor; ?>
                     <?php if ($page_num < $max_pages - $page_display_range): ?>
                     <li class="pagination_li">
-                        <a href="viewAllLogs.php?<?php echo http_build_query(['page' => $max_pages + 1]); ?>" class="pagination_link">&#8677;</a>
+                        <a href="viewAllLogs.php?<?php echo http_build_query(['page' => $max_pages + 1, 'sortby' => $sortby_display, 'order' => $order]); ?>" class="pagination_link">&#8677;</a>
                     </li>
                     <?php endif; ?>
                 </ul>
