@@ -25,7 +25,31 @@
     include 'database/dbUsers.php';
     include 'database/dbOrganizations.php';
 
-    $logs = get_all_volunteer_activities_sorted_by_date();
+
+    //check for sorting 
+    //make sure no sql injections
+    $sortby = null; $order = null;
+    //echo $_GET['sortby'] . " " . $_GET['order'] . "\n";
+    if (isset($_GET['sortby'])) {
+        switch ($_GET['sortby']) {
+            case 'student': $sortby = 'last_name'; $order = 'asc'; break;
+            case 'date': $sortby = 'date'; $order = 'desc'; break;
+            case 'organization': $sortby = 'organization_name'; $order = 'asc'; break;
+            case 'hours': $sortby = 'hours'; $order = 'asc'; break;
+            case 'location': $sortby = 'location'; $order = 'asc'; break;
+            case 'poundsoffood': $sortby = 'poundsOfFood'; $order = 'asc'; break;
+            case 'description': $sortby = 'description'; $order = 'asc'; break;
+        }
+    }
+        //check if order is desc
+    if (isset($_GET['order'])) {
+        switch ($_GET['order']) {
+            case 'desc': $order = 'desc'; break;
+            case 'asc': $order = 'asc'; break;
+        }
+    }
+
+    $logs = get_all_volunteer_activities_custom_sort_pagination($sortby, $order, 10, 0);
 
     
     //include 'domain/Event.php';

@@ -414,7 +414,7 @@ function get_all_events() {
             " FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
             " JOIN dborganizations AS o ON o.id = va.organizationID" .
-            " ORDER BY date desc volunteerID asc, organizationID asc, id asc";
+            " ORDER BY date desc, volunteerID asc, organizationID asc, id asc";
     $result = mysqli_query($con,$query);
     $theLogs = array();
     while ($result_row = mysqli_fetch_assoc($result)) {
@@ -425,7 +425,7 @@ function get_all_events() {
     return $theLogs;
  }
 
-  function get_all_volunteer_activities_custom_sort($sortby_input, $order_input) {
+  function get_all_volunteer_activities_custom_sort_pagination($sortby_input, $order_input, $per_page, $offset) {
     $con=connect();
     //check valid options
     $sortby = 'date'; $order = 'desc';
@@ -438,14 +438,17 @@ function get_all_events() {
         $order = $order_input;
     }
 
-    $query = "SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
+    $query = $con->prepare("SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
             " va.organizationID, va.location, va.description," .
             " u.first_name, u.last_name, o.name AS organization_name" .
             " FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
             " JOIN dborganizations AS o ON o.id = va.organizationID" .
-            " ORDER BY $sortby $order volunteerID asc, organizationID asc, id asc";
-    $result = mysqli_query($con,$query);
+            " ORDER BY $sortby $order, volunteerID asc, organizationID asc, id asc" .
+            " LIMIT ? OFFSET ?");
+    $query->bind_param('ii', $per_page, $offset);
+    $query->execute();
+    $result = $query->get_result();
     $theLogs = array();
     while ($result_row = mysqli_fetch_assoc($result)) {
         $theLog = make_a_volunteer_activity($result_row);
