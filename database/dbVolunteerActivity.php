@@ -414,7 +414,7 @@ function get_all_events() {
             " FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
             " JOIN dborganizations AS o ON o.id = va.organizationID" .
-            " ORDER BY date desc";
+            " ORDER BY date desc volunteerID asc, organizationID asc, id asc";
     $result = mysqli_query($con,$query);
     $theLogs = array();
     while ($result_row = mysqli_fetch_assoc($result)) {
@@ -444,7 +444,7 @@ function get_all_events() {
             " FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
             " JOIN dborganizations AS o ON o.id = va.organizationID" .
-            " ORDER BY $sortby $order";
+            " ORDER BY $sortby $order volunteerID asc, organizationID asc, id asc";
     $result = mysqli_query($con,$query);
     $theLogs = array();
     while ($result_row = mysqli_fetch_assoc($result)) {
