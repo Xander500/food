@@ -49,11 +49,14 @@
         }
     }
     //get page
-    $per_page = 4;
+    $per_page = 2;
+    $page_display_range = 1;
     $page_num = max(0, (int)($_GET['page'] ?? 1) - 1);
     //get max pagination
     $max_pages = max(0, ceil(get_num_logs() / $per_page) - 1); //total allowed pages
     $page_num = (int) min($max_pages, $page_num);
+
+    var_dump($page_num);
 
     $logs = get_all_volunteer_activities_custom_sort_pagination($sortby, $order, $per_page, $page_num * $per_page);
 
@@ -132,19 +135,19 @@
                 </div>
 
                 <ul class="pagination">
-                    <?php if ($page_num > 0): ?>
+                    <?php if ($page_num - $page_display_range > 0): ?>
                         <li class="pagination_li">
-                            <a href="#" class="pagination_link">&lt;</a>
+                            <a href="viewAllLogs.php?<?php echo http_build_query(['page' => 0]); ?>" class="pagination_link">&#x21e4;</a>
                         </li>
                     <?php endif; ?>
-                    <?php for($x = 0; $x <= $max_pages; $x++): ?>
+                    <?php for($x = max(0, $page_num - $page_display_range); $x <= min($max_pages, $page_num + $page_display_range); $x++): ?>
                         <li class="pagination_li">
                             <a href="viewAllLogs.php?<?php echo http_build_query(['page' => $x + 1]); ?>" class="pagination_link<?php if ($page_num === $x): ?> pagination_link--active<?php endif; ?>"><?php echo htmlspecialchars($x + 1); ?></a>
                         </li>
                     <?php endfor; ?>
-                    <?php if ($page_num < $max_pages): ?>
+                    <?php if ($page_num < $max_pages - $page_display_range): ?>
                     <li class="pagination_li">
-                        <a href="#" class="pagination_link">&gt;</a>
+                        <a href="viewAllLogs.php?<?php echo http_build_query(['page' => $max_pages + 1]); ?>" class="pagination_link">&#8677;</a>
                     </li>
                     <?php endif; ?>
                 </ul>
