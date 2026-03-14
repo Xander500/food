@@ -32,11 +32,12 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $args = sanitize($_POST, null);
         $required = array(
-            "id", "volunteer_id", "date", "organization_id", "hours"
+            "id", "volunteerID", "date", "organizationID", "hours"
         );
 
         if (!wereRequiredFieldsSubmitted($args, $required)) {
             echo 'bad form data';
+            var_dump($args);
             die();
         } else {
             $id = $args['id'];
@@ -63,7 +64,7 @@
             if (!$errors) {
                 $success = update_volunteerlog($id, $args);
                 if (!$success) {
-                    echo 'Failed to update event.';
+                    echo 'Failed to update log.';
                     die();
                 }
                 header('Location: log.php?id=' . $id);
@@ -78,8 +79,8 @@
 
     $args  = sanitize($_GET);
     $id    = $args['id'];
-    $event = fetch_volunteer_activity_by_id($id);
-    if (!$event) {
+    $log = fetch_volunteer_activity_by_id($id);
+    if (!$log) {
         echo "Log does not exist";
         die();
     }
@@ -88,7 +89,6 @@
 
     require_once('include/output.php');
 
-    $con = connect();
 ?>
 <!DOCTYPE html>
 <html>
@@ -108,20 +108,20 @@
                 
                 <input type="hidden" name="id" value="<?php echo $id ?>"/> 
             
-                <label for ="volunter_id">Volunteer ID</label>
-                <input type="number" id="volunteer_id" name="volunteer_id"
-                    value="<?php echo htmlspecialchars($log['volunteer_id']) ?>" required>
+                <label for ="volunteerID">Volunteer ID</label>
+                <input type="text" id="volunteerID" name="volunteerID"
+                    value="<?php echo htmlspecialchars($log['volunteerID']) ?>" required>
 
                 <label for="date">Date</label>
                 <input type="date" id="date" name="date"
                     value="<?php echo htmlspecialchars($log['date']) ?>" required>
 
-                <label for="organization_id">Organization</label>
-                <select id="organization_id" name="organization_id" required>
+                <label for="organizationID">Organization</label>
+                <select id="organizationID" name="organizationID" required>
                     <option value="">Select an organization</option>
                     <?php foreach ($organizations as $org): ?>
                         <option value="<?php echo $org['id'] ?>"
-                            <?php if ($org['id'] == $log['organization_id']) echo 'selected'; ?>>
+                            <?php if ($org['id'] == $log['organizationID']) echo 'selected'; ?>>
                             <?php echo htmlspecialchars($org['name']) ?>
                         </option>
                     <?php endforeach; ?>
