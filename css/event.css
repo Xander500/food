@@ -775,3 +775,5 @@ td {
     color: var(--accent-color);
     border-color: var(--accent-color) !important;
 }
+a.sorted-asc::after { content: " ▲"; }
+a.sorted-desc::after { content: " ▼"; }

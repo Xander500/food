@@ -56,7 +56,7 @@
     }
 
     //get page
-    $per_page = 50;
+    $per_page = 10;
     $page_display_range = 2;
     $page_num = max(0, (int)($_GET['page'] ?? 1) - 1);
     //get max pagination
@@ -94,13 +94,13 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'student', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Student</a></th>       
-                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'date', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Date</a></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'organization', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Organization</a></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'hours', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Hours</a></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'location', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Location</a></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'poundsoffood', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Food Rescued (lbs)</a></th>
-                                <th style="width:1px"><a href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'description', 'order' => (($order === 'asc') ? 'desc' : 'asc')]); ?>'>Description</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'student') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'student', 'order' => (($sortby_display === 'student') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')]); ?>'>Student</a><div></div></th>       
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'date') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'date', 'order' => (($sortby_display === 'date') ? (($order === 'asc') ? 'desc' : 'asc') : 'desc')]); ?>'>Date</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'organization') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'organization', 'order' => (($sortby_display === 'organization') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')]); ?>'>Organization</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'hours') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'hours', 'order' => (($sortby_display === 'hours') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')]); ?>'>Hours</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'location') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'location', 'order' => (($sortby_display === 'location') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')]); ?>'>Location</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'poundsoffood') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'poundsoffood', 'order' => (($sortby_display === 'poundsoffood') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')]); ?>'>Food Rescued (lbs)</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'description') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(['page' => $page_num + 1, 'sortby' => 'description', 'order' => (($sortby_display === 'description') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')]); ?>'>Description</a></th>
                             </tr>
                         </thead>
                         <tbody>
