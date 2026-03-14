@@ -104,6 +104,15 @@
                             <?php endforeach; ?>
                         </select>
                     </div>
+
+                    <div class="log_filter">
+                        <label for="semesterSelect">Semesters</label>
+                        <select id="semesterSelect" name="semesters" multiple>
+                            <?php foreach (get_semesters_in_users() as $row): ?>
+                                <option value="<?php echo $row['semester']; ?>"><?php echo $row['semester']; ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
                 </div>
                 <div class="log_filters--row">
                     <div class="log_filter">
@@ -222,19 +231,13 @@
             placeholderValue: 'Select organizations...',
         });
 
+        const semesterSelect = new Choices('#semesterSelect', {
+            searchEnabled: true,
+            removeItemButton: true,
+            placeholder: true,
+            placeholderValue: 'Select semesters...',
+        });
 
-        const studentSelect2 = new Choices('#studentSelect2', {
-            searchEnabled: true,
-            removeItemButton: true,
-            placeholder: true,
-            placeholderValue: 'Select students...',
-        });
-        const organizationSelect2 = new Choices('#organizationSelect2', {
-            searchEnabled: true,
-            removeItemButton: true,
-            placeholder: true,
-            placeholderValue: 'Select organizations...',
-        });
 
     </script>
     </body>
