@@ -614,6 +614,28 @@ function create_activitylog($log) {
 }
 
 
+function update_volunteerLog($id, $logDetails) {
+    $connection = connect();
+    $volunteerID = $logDetails["volunteerID"];
+    $organizationID = $logDetails["organizationID"];
+    $hours = $logDetails["hours"];
+    $poundsOfFood = $logDetails["poundsOfFood"];
+    $date = $logDetails["date"];
+    $location = $logDetails["location"];
+    $description = $logDetails["description"];
+
+    $query = "
+        UPDATE dbvolunteeractivity
+        SET volunteerID='$volunteerID', organizationID='$organizationID', hours='$hours', poundsOfFood='$poundsOfFood', date='$date', location='$location', description='$description'
+        WHERE id='$id'
+    ";
+    $result = mysqli_query($connection, $query);
+    mysqli_commit($connection);
+    mysqli_close($connection);
+    return $result;
+}
+
+
 //FOODDB -----------------------------------------------------------------------------------------------------------------------
 
 //jlamoy - should be completely removed usages
