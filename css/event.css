@@ -777,6 +777,9 @@ td {
 }
 a.sorted-asc::after { content: " ▲"; }
 a.sorted-desc::after { content: " ▼"; }
+#log-table {
+  scroll-margin-top: 100px; /*so ancor links to log-table will show top of table (due to fixed header nav bar)*/
+}
 
 /*This is the css for the filter/search form in viewAllLogs.php
     Feel free to move wherever makes most sense.*/
