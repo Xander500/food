@@ -414,6 +414,24 @@ function get_all_events() {
     return $row['num'];
  }
 
+  function get_students_in_logs() {
+    $con=connect();
+    $query = "SELECT DISTINCT u.id, u.first_name, u.last_name FROM dbvolunteeractivity AS va JOIN dbusers AS u ON u.id = va.volunteerID" .
+        " ORDER BY last_name asc, first_name asc, id asc";
+    $result = mysqli_query($con,$query);
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    return $rows;
+ }
+
+   function get_organizations_in_logs() {
+    $con=connect();
+    $query = "SELECT DISTINCT o.id, o.name FROM dbvolunteeractivity AS va JOIN dborganizations AS o ON o.id = va.organizationID" .
+        " ORDER BY name asc, id asc";
+    $result = mysqli_query($con,$query);
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    return $rows;
+ }
+
  function get_all_volunteer_activities_sorted_by_date() {
     $con=connect();
     $query = "SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .

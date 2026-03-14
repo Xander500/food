@@ -90,18 +90,18 @@
                     <div class="log_filter">
                         <label for="studentSelect">Students</label>
                         <select id="studentSelect" name="students" multiple>
-                            <option value="1">Jane Doe</option>
-                            <option value="2">John Smith</option>
-                            <option value="3">Mary Johnson</option>
+                            <?php foreach (get_students_in_logs() as $row): ?>
+                                <option value="<?php echo $row['id']; ?>"><?php echo $row['last_name'] . ", " . $row['first_name']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
 
                     <div class="log_filter">
                         <label for="organizationSelect">Organizations</label>
                         <select id="organizationSelect" name="organizations" multiple>
-                            <option value="1">Org 1</option>
-                            <option value="2">Org 2</option>
-                            <option value="3">Org 3</option>
+                            <?php foreach (get_organizations_in_logs() as $row): ?>
+                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>
