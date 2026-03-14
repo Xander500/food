@@ -777,3 +777,37 @@ td {
 }
 a.sorted-asc::after { content: " ▲"; }
 a.sorted-desc::after { content: " ▼"; }
+
+/*This is the css for the filter/search form in viewAllLogs.php
+    Feel free to move wherever makes most sense.*/
+.log_filters {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    border: .25rem solid var(--shadow-and-border-color);
+    border-radius: 1rem;
+    font-size: 0.8rem;
+}
+.log_filters--row {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.log_filter {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+      font-size: 0.8rem;
+
+}
+
+/*
+.log_filter .choices {
+  width: 250px; 
+}
+*/

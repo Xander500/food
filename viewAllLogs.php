@@ -73,14 +73,61 @@
         <?php require_once('universal.inc') ?>
         <link rel="stylesheet" href="css/event.css">
         <script src="js/messages.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
         <title>View All Volunteer Activity</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
         <?php require_once('database/dbVolunteerActivity.php');?>
         <?php require_once('database/dbPersons.php');?>
-        <h1>Volunteer Activity</h1>
         <main class="general">
+            <h1>Volunteer Activity</h1>
+
+            <h2>Filter Volunteer Activity</h2>
+            <form class="log_filters" id="" method="POST">
+                <div class="log_filters--row">
+                    <div class="log_filter">
+                        <label for="studentSelect">Students</label>
+                        <select id="studentSelect" name="students" multiple>
+                            <option value="1">Jane Doe</option>
+                            <option value="2">John Smith</option>
+                            <option value="3">Mary Johnson</option>
+                        </select>
+                    </div>
+
+                    <div class="log_filter">
+                        <label for="organizationSelect">Organizations</label>
+                        <select id="organizationSelect" name="organizations" multiple>
+                            <option value="1">Org 1</option>
+                            <option value="2">Org 2</option>
+                            <option value="3">Org 3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="log_filters--row">
+                    <div class="log_filter">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate" name="start_date" >
+
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate" name="end_date">
+                    </div>
+                    <div class="log_filter">
+                        <label for="minHours">Minimum Hours</label>
+                        <input type="number" id="minHours" name="minHours" min="0" placeholder="From" >
+                        <label for="maxHours">Maximum Hours</label>
+                        <input type="number" id="maxHours" name="maxHours" min="0" placeholder="To" >
+                    </div>
+                    <div class="log_filter">
+                        <label for="minFood">Minimum Pounds of Food Rescued</label>
+                        <input type="number" id="minFood" name="minFood" min="0" placeholder="From" >
+                        <label for="maxFood">Minimum Pounds of Food Rescued</label>
+                        <input type="number" id="maxFood" name="maxFood" min="0" placeholder="To" >
+                    </div>
+                </div>
+            </form>
+
             <?php
 
                 if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != 'guest') {
@@ -161,6 +208,34 @@
             <a class="button cancel" href="index.php">Return to Dashboard</a>
         </main>
     
+    <script>
+        const studentSelect = new Choices('#studentSelect', {
+            searchEnabled: true,
+            removeItemButton: true,
+            placeholder: true,
+            placeholderValue: 'Select students...',
+        });
+        const organizationSelect = new Choices('#organizationSelect', {
+            searchEnabled: true,
+            removeItemButton: true,
+            placeholder: true,
+            placeholderValue: 'Select organizations...',
+        });
 
+
+        const studentSelect2 = new Choices('#studentSelect2', {
+            searchEnabled: true,
+            removeItemButton: true,
+            placeholder: true,
+            placeholderValue: 'Select students...',
+        });
+        const organizationSelect2 = new Choices('#organizationSelect2', {
+            searchEnabled: true,
+            removeItemButton: true,
+            placeholder: true,
+            placeholderValue: 'Select organizations...',
+        });
+
+    </script>
     </body>
 </html>
