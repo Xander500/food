@@ -738,3 +738,76 @@ td {
     color: #ad0000; /* Change color on hover */
     text-decoration: none;
 }
+
+/*This is the css for the pagination in viewAllLogs.php
+    Feel free to move wherever makes most sense.
+    Also, the text for links apears white (invisible).
+    I did not change this because it is part of the global
+    invisible text issue and I didn't want to break anything*/
+.pagination {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+}
+.pagination_link, .pagination_link:visited {
+    display: block;
+    color: var(--accent-color);
+    font-weight: bold;
+    width: 1.8rem;
+    height: 1.8rem;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.6rem;
+    border-radius: .5rem;
+    margin-left: 0.5rem;
+    border: 0.15rem solid var(--shadow-and-border-color);
+}
+.pagination_link:hover {
+    color: var(--page-font-color);
+    border: 0.25rem solid var(--accent-color);
+}
+.pagination_li {
+    padding: 0;
+}
+.pagination_link--active {
+    color: var(--accent-color);
+    border-color: var(--accent-color) !important;
+}
+a.sorted-asc::after { content: " ▲"; }
+a.sorted-desc::after { content: " ▼"; }
+
+/*This is the css for the filter/search form in viewAllLogs.php
+    Feel free to move wherever makes most sense.*/
+.log_filters {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    border: .25rem solid var(--shadow-and-border-color);
+    border-radius: 1rem;
+    font-size: 0.8rem;
+}
+.log_filters--row {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.log_filter {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+      font-size: 0.8rem;
+
+}
+
+/*
+.log_filter .choices {
+  width: 250px; 
+}
+*/

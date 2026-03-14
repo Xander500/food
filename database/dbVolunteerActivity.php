@@ -406,11 +406,75 @@ function get_all_events() {
     return $theEvents;
  }
 
+ function get_num_logs() {
+    $con=connect();
+    $query = "SELECT count(*) as num FROM dbvolunteeractivity";
+    $result = mysqli_query($con,$query);
+    $row = mysqli_fetch_assoc($result);
+    return $row['num'];
+ }
+
+  function get_students_in_logs() {
+    $con=connect();
+    $query = "SELECT DISTINCT u.id, u.first_name, u.last_name FROM dbvolunteeractivity AS va JOIN dbusers AS u ON u.id = va.volunteerID" .
+        " ORDER BY last_name asc, first_name asc, id asc";
+    $result = mysqli_query($con,$query);
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    return $rows;
+ }
+
+   function get_organizations_in_logs() {
+    $con=connect();
+    $query = "SELECT DISTINCT o.id, o.name FROM dbvolunteeractivity AS va JOIN dborganizations AS o ON o.id = va.organizationID" .
+        " ORDER BY name asc, id asc";
+    $result = mysqli_query($con,$query);
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    return $rows;
+ }
+
  function get_all_volunteer_activities_sorted_by_date() {
     $con=connect();
-    $query = "SELECT * FROM dbvolunteeractivity" .
-            " ORDER BY date DESC";
+    $query = "SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
+            " va.organizationID, va.location, va.description," .
+            " u.first_name, u.last_name, o.name AS organization_name" .
+            " FROM dbvolunteeractivity AS va" .
+            " JOIN dbusers AS u ON u.id = va.volunteerID" .
+            " JOIN dborganizations AS o ON o.id = va.organizationID" .
+            " ORDER BY date desc, volunteerID asc, organizationID asc, id asc";
     $result = mysqli_query($con,$query);
+    $theLogs = array();
+    while ($result_row = mysqli_fetch_assoc($result)) {
+        $theLog = make_a_volunteer_activity($result_row);
+        $theLogs[] = $theLog;
+    }
+    mysqli_close($con);
+    return $theLogs;
+ }
+
+  function get_all_volunteer_activities_custom_sort_pagination($sortby_input, $order_input, $per_page, $offset) {
+    $con=connect();
+    //check valid options
+    $sortby = 'date'; $order = 'desc';
+    if (in_array($sortby_input, ['last_name', 'date', 'organization_name', 'hours',
+        'location', 'poundsOfFood', 'description'])){
+        $sortby = $sortby_input;
+    }
+
+    if (in_array($order_input, ['asc', 'desc'])){
+        $order = $order_input;
+    }
+
+    $query = $con->prepare("SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
+            " va.organizationID, va.location, va.description," .
+            " u.first_name, u.last_name, o.name AS organization_name" .
+            " FROM dbvolunteeractivity AS va" .
+            " JOIN dbusers AS u ON u.id = va.volunteerID" .
+            " JOIN dborganizations AS o ON o.id = va.organizationID" .
+            " ORDER BY $sortby $order, volunteerID asc, organizationID asc, id asc" .
+            " LIMIT ? OFFSET ?");
+    $query->bind_param('ii', $per_page, $offset);
+    $query->execute();
+    $result = $query->get_result();
     $theLogs = array();
     while ($result_row = mysqli_fetch_assoc($result)) {
         $theLog = make_a_volunteer_activity($result_row);

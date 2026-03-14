@@ -40,3 +40,12 @@ function get_user_full_name_from_id($id) {
     mysqli_close($con);
     return $result_row['first_name'] . " " . $result_row['last_name'];
 }
+
+  function get_semesters_in_users() {
+    $con=connect();
+    $query = "SELECT DISTINCT semester FROM dbusers" .
+        " ORDER BY semester asc";
+    $result = mysqli_query($con,$query);
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    return $rows;
+ }
