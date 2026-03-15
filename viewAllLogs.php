@@ -55,16 +55,17 @@
             $order = 'desc';
     }
 
+    //get filters
+    $filters = extract_permitted_filters_on_logs($_GET); //preserve for putting into urls in pagination and header links
+
     //get page
     $per_page = 8;
     $page_display_range = 2;
     $page_num = max(0, (int)($_GET['page'] ?? 1) - 1);
     //get max pagination
-    $max_pages = max(0, ceil(get_num_logs() / $per_page) - 1); //total allowed pages
+    $max_pages = max(0, ceil(get_num_logs_with_filters($filters) / $per_page) - 1); //total allowed pages
     $page_num = (int) min($max_pages, $page_num);
 
-    //apply filters
-    $filters = extract_permitted_filters_on_logs($_GET); //preserve for putting into urls in pagination and header links
     $logs = get_all_volunteer_activities_custom_sort_pagination_with_filters($sortby, $order, $per_page, $page_num * $per_page, $filters);
 
     //include 'domain/Event.php';

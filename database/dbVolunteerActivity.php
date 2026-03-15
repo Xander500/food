@@ -414,6 +414,16 @@ function get_all_events() {
     return $row['num'];
  }
 
+  function get_num_logs_with_filters($filters_input) {
+    $con=connect();
+    $select_statement = "SELECT count(*) as num FROM dbvolunteeractivity AS va" .
+            " JOIN dbusers AS u ON u.id = va.volunteerID" .
+            " JOIN dborganizations AS o ON o.id = va.organizationID";
+    $results = internal_apply_filters_to_select($con, $select_statement, '', $filters_input);
+    $row = mysqli_fetch_assoc($results);
+    return $row['num'];
+ }
+
   function get_students_in_logs() {
     $con=connect();
     $query = "SELECT DISTINCT u.id, u.first_name, u.last_name FROM dbvolunteeractivity AS va JOIN dbusers AS u ON u.id = va.volunteerID" .
@@ -474,16 +484,30 @@ function get_all_volunteer_activities_custom_sort_pagination_with_filters($sortb
     if (in_array($order_input, ['asc', 'desc'])){
         $order = $order_input;
     }
+    $per_page = (int) $per_page; $offset = (int) $offset; //sql injection
 
     //base sql query to get info from dbVA, dbusers, dbOrgs
-    $sql = "SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
+    $select_statement = "SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
             " va.organizationID, va.location, va.description," .
             " u.first_name, u.last_name, o.name, u.semester AS organization_name" .
             " FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
             " JOIN dborganizations AS o ON o.id = va.organizationID" .
-            " WHERE va.id=va.id";
+            " WHERE va.id=va.id";   
+    $order_statement = " ORDER BY $sortby $order, volunteerID asc, organizationID asc, id asc" .
+            " LIMIT $per_page OFFSET $offset";
+    $result = internal_apply_filters_to_select($con, $select_statement, $order_statement, $filters_input);
+    $theLogs = array();
+    while ($result_row = mysqli_fetch_assoc($result)) {
+        $theLog = make_a_volunteer_activity($result_row);
+        $theLogs[] = $theLog;
+    }
+    mysqli_close($con);
+    return $theLogs;
+  }
 
+function internal_apply_filters_to_select($con, $select_statement, $order_statement, $filters_input) {
+    $sql = $select_statement;
     //check for filter options
     $filters = extract_permitted_filters_on_logs($filters_input);
     
@@ -512,23 +536,14 @@ function get_all_volunteer_activities_custom_sort_pagination_with_filters($sortb
 
     
     //sort and pagination section of sql
-    $sql .= " ORDER BY $sortby $order, volunteerID asc, organizationID asc, id asc" .
-            " LIMIT ? OFFSET ?";
+    $sql .= $order_statement;
 
     $query = $con->prepare($sql);
-    $query->bind_param('sssssssss' . 'ii',
+    $query->bind_param('sssssssss',
         $minhours, $maxhours, $minfood, $maxfood, $startdate, $enddate,
-        $student, $organization, $semester,
-        $per_page, $offset);
+        $student, $organization, $semester);
     $query->execute();
-    $result = $query->get_result();
-    $theLogs = array();
-    while ($result_row = mysqli_fetch_assoc($result)) {
-        $theLog = make_a_volunteer_activity($result_row);
-        $theLogs[] = $theLog;
-    }
-    mysqli_close($con);
-    return $theLogs;
+    return $query->get_result();
  }
 
  //get logs (no filters applied) for particular page and sort
