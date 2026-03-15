@@ -646,6 +646,15 @@ function update_volunteerLog($id, $logDetails) {
     return $result;
 }
 
+function delete_log($id) {
+    $con=connect();
+    $query = "DELETE FROM dbvolunteeractivity WHERE id = '$id'";
+    $result = mysqli_query($con, $query);
+    $result = boolval($result);
+    mysqli_close($con);
+    return $result;
+}
+
 
 //FOODDB -----------------------------------------------------------------------------------------------------------------------
 
