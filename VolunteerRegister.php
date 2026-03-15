@@ -58,9 +58,9 @@ require_once('header.php');
 
         $required = array('first_name', 'last_name', 'email', 'username', 'password');
 
-        $optional = array(
-            'phone', 'email_prefs'
-        );
+        // $optional = array(
+        //     'phone', 'email_prefs'
+        // );
 
         $errors = false;
 
@@ -70,7 +70,7 @@ require_once('header.php');
 
         $first_name = $args['first_name'];
         $last_name = $args['last_name'];
-        $age = $args['age']; // Passes either "true" or "false" 
+        // $age = $args['age']; // Passes either "true" or "false" 
         /*$birthday = validateDate($args['birthdate']);
         if (!$birthday) {
             echo "<p>Invalid birthdate.</p>";
@@ -78,15 +78,15 @@ require_once('header.php');
         } */
 
         //$street_address = $args['street_address'];
-        $city = $args['city'];
-        $state = $args['state'];
-        if (!valueConstrainedTo($state, array(
-            'AK','AL','AR','AZ','CA','CO','CT','DC','DE','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME',
-            'MI','MN','MO','MS','MT','NC','ND','NE','NH','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX',
-            'UT','VA','VT','WA','WI','WV','WY'))) {
-            echo "<p>Invalid state.</p>";
-            $errors = true;
-        }
+        // $city = $args['city'];
+        // $state = $args['state'];
+        // if (!valueConstrainedTo($state, array(
+        //     'AK','AL','AR','AZ','CA','CO','CT','DC','DE','FL','GA','HI','IA','ID','IL','IN','KS','KY','LA','MA','MD','ME',
+        //     'MI','MN','MO','MS','MT','NC','ND','NE','NH','NJ','NM','NV','NY','OH','OK','OR','PA','RI','SC','SD','TN','TX',
+        //     'UT','VA','VT','WA','WI','WV','WY'))) {
+        //     echo "<p>Invalid state.</p>";
+        //     $errors = true;
+        // }
 
         /*$zip_code = $args['zip'];
         if (!validateZipcode($zip_code)) {
@@ -100,29 +100,29 @@ require_once('header.php');
             $errors = true;
         }
 
-        if(isset($args['phone1'])) { // Make phone number optional 
-            $phone1 = validateAndFilterPhoneNumber($args['phone1']);
-            if (!$phone1) {
-                echo "<p>Invalid phone number.</p>";
-                $errors = true;
-            }
-        } else {
-            $phone1 = null;
-        }
+        // if(isset($args['phone1'])) { // Make phone number optional 
+        //     $phone1 = validateAndFilterPhoneNumber($args['phone1']);
+        //     if (!$phone1) {
+        //         echo "<p>Invalid phone number.</p>";
+        //         $errors = true;
+        //     }
+        // } else {
+        //     $phone1 = null;
+        // }
 
-        if(isset($args['email_prefs'])) {
-            $email_consent = $args['email_prefs'];
-        } else {
-            $email_consent = 'false';
-        }
+        // if(isset($args['email_prefs'])) {
+        //     $email_consent = $args['email_prefs'];
+        // } else {
+        //     $email_consent = 'false';
+        // }
 
-        if(!isset($args['privacy_consent']) || $args['privacy_consent'] == 'no') {
-            echo "<p>You must agree to the privacy policy to create an account.</p>";
-            $errors = true;
-        }
+        // if(!isset($args['privacy_consent']) || $args['privacy_consent'] == 'no') {
+        //     echo "<p>You must agree to the privacy policy to create an account.</p>";
+        //     $errors = true;
+        // }
 
-        $affiliation = $args['affiliation'];
-        $branch = $args['branch'];
+        // $affiliation = $args['affiliation'];
+        // $branch = $args['branch'];
 
         /*$phone1type = $args['phone_type'];
         if (!valueConstrainedTo($phone1type, array('cellphone', 'home', 'work'))) {
@@ -186,17 +186,25 @@ require_once('header.php');
             $total_hours_volunteered
         ); */
 
-        $newperson = new Person(
-            $id, date("Y-m-d"),
-            $first_name, $last_name, null,
-            $city, $state, null, $phone1, $age, 
-            null, null, null, null, 
-            $email, $email_consent, 
-            null, null, null, null, null, null, null, 
-            $password, $affiliation, $branch, null, null
+        if (date("m") < 6) {
+            $semester = "Spring " . date("Y");
+        } else {
+            $semester = "Fall " . date("Y");
+        }
+
+        // echo $id . ", " . date("Y-m-d") . ", " . $first_name . ", " . 
+        //     $last_name . ", " . $email . ", " . $password . ", " . 
+        //     $semester;
+
+        $newUser = new User(
+            $id, date("Y-m-d"), $first_name, $last_name, $email, $password, "Student", $semester
         );
 
-        $result = add_person($newperson);
+        // echo $newperson->get_id() . ", " . $newperson->get_start_date() . ", " . $newperson->get_first_name() . ", " . 
+        //     $newperson->get_last_name() . ", " . $newperson->get_email() . ", " . $newperson->get_password() . ", " . 
+        //     $newperson->get_role() . ", " . $newperson->get_semester();
+
+        $result = add_user($newUser);
         if (!$result) {
             $showPopup = true;
         } else {
