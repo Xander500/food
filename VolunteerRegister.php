@@ -9,7 +9,7 @@
     <title>UMW Alleviating Food Waste Volunteer Tracking | Register</title>
     <link href="css/base.css" rel="stylesheet">
 <!-- BANDAID FIX FOR HEADER BEING WEIRD -->
-<?php
+<?php 
 $tailwind_mode = true;
 require_once('header.php');
 ?>
