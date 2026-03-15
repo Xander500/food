@@ -91,3 +91,23 @@ function get_user_full_name_from_id($id) {
     mysqli_close($con);
     return false;
 }
+
+/*
+ * @return a User from dbUsers table matching a particular id.
+ * if not in table, return false
+ */
+
+function retrieve_user($id) { // (username! not id)
+    $con=connect();
+    $query = "SELECT * FROM dbusers WHERE id = '" . $id . "'";
+    $result = mysqli_query($con,$query);
+    if (mysqli_num_rows($result) !== 1) {
+        mysqli_close($con);
+        return false;
+    }
+    $result_row = mysqli_fetch_assoc($result);
+    // var_dump($result_row);
+    $theUser = make_a_user($result_row);
+//    mysqli_close($con);
+    return $theUser;
+}

@@ -72,11 +72,9 @@ class User {
 	}
 
     //! check out
-    /*
 	function get_access_level() {
 		$access = ($this->id == 'vmsroot') ? 3 : 1;
 		return $access;
 	}
-    */
 
 }

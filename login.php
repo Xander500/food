@@ -30,7 +30,7 @@
             /*@dateChecker();*/
             $username = strtolower($args['username']);
             $password = $args['password'];
-            $user = retrieve_person($username);
+            $user = retrieve_user($username);
             if (!$user) {
                 $badLogin = true;
             } /*else if ($user->get_status() === "Inactive") {
