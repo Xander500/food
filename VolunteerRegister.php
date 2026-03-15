@@ -33,8 +33,8 @@ require_once('header.php');
 </head>
 <body class="relative">
 <?php
-    require_once('domain/Person.php');
-    require_once('database/dbPersons.php');
+    require_once('domain/User.php');
+    require_once('database/dbUsers.php');
 
     $showPopup = false;
 
@@ -56,13 +56,7 @@ require_once('header.php');
             'total_hours_volunteered'
         );*/
 
-        $required = array(
-            'first_name', 'last_name', 'age',
-            'city', 'state', 
-            'affiliation', 'branch',
-            'email', 'username', 'password',
-            'privacy_consent'
-        );
+        $required = array('first_name', 'last_name', 'email', 'username', 'password');
 
         $optional = array(
             'phone', 'email_prefs'
