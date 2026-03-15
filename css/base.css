@@ -150,6 +150,10 @@ header > img {
     height: 5rem;
 }
 
+p {
+    font-weight: 500;
+}
+
 nav {
     font-size: 2rem;
     display: flex;
@@ -297,7 +301,7 @@ input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
     scroll-margin: 7.5rem;
     box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
     color: var(--page-font-color);
-
+    font-weight: 550;
 }
 
 input[type=text]::placeholder, input[type=password]::placeholder, input[type=date]::placeholder, input[type=email]::placeholder, input[type=number]::placeholder, 
@@ -390,6 +394,7 @@ h1 {
     width: 100%;
     text-align: center;
     padding: 1rem;
+    position: static !important;
 }
 
 h2 {
@@ -399,7 +404,7 @@ h2 {
 
 h3 {
     font-size: 1.25rem;
-    font-weight: 400;
+    font-weight: 550;
 }
 
 h3:not(:first-of-type) {
@@ -837,11 +842,11 @@ form.signup-form {
 
 /* thomas added this */
 form.signup-form .section-box {
-    border: 1px solid var(--accent-color);
+    border: 1px solid var(--page-font-color);
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 20px;
-    background-color: var(--page-background-color);
+    background-color: var(--accent-color);
 }
 
 form.signup-form > fieldset {
@@ -888,7 +893,7 @@ form.signup-form em {
     margin-right: auto;
     background-color: var(--page-background-color);
     border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); */
 }
 
 .info-box {
@@ -898,7 +903,8 @@ form.signup-form em {
     background-color: var(--page-background-color);
     border: 2px solid var(--light-border);
     border-radius: 0.5rem;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); */
+    font-weight: 500;
 }
 
 /* Utility Classes */

@@ -2,11 +2,8 @@
 <script src="https://nosir.github.io/cleave.js/dist/cleave.min.js"></script>
 <script src="https://nosir.github.io/cleave.js/dist/cleave-phone.i18n.js"></script>
 <!-- Hero Section with Title -->
-<header class="hero-header"> 
-    <div class="center-header">
-        <h1>Account Registration</h1>
-    </div>
-</header>
+
+<h1>Account Registration</h1>
 
 <main>
   <div class="main-content-box">
@@ -31,7 +28,7 @@
             <label for="last_name"><em>* </em>Last Name</label>
             <input type="text" id="last_name" name="last_name" required placeholder="Enter your last name">
 
-            <label><em>* </em>Are you 21 or older?</label>
+            <!-- <label><em>* </em>Are you 21 or older?</label>
             <div class="radio-group">
                 <div class="radio-element">
                     <input type="radio" id="yes" name="age" value="true" required>
@@ -41,8 +38,8 @@
                     <input type="radio" id="no" name="age" value="false">
                     <label for="no">No</label>
                 </div>
-            </div>
-            <div class="median-div"></div>
+            </div> -->
+            <!-- <div class="median-div"></div> -->
 
             <!--<label for="birthdate"><em>* </em>Date of Birth</label>
             <input type="date" id="birthdate" name="birthdate" required placeholder="Choose your birthday" max="<?php echo date('Y-m-d'); ?>">-->
@@ -50,7 +47,7 @@
             <!-- <label for="street_address"><em>* </em>Street Address</label>
             <input type="text" id="street_address" name="street_address" required placeholder="Enter your street address"> -->
 
-            <label for="city"><em>* </em>City</label>
+            <!-- <label for="city"><em>* </em>City</label>
             <input type="text" id="city" name="city" required placeholder="Enter your city">
 
             <label for="state"><em>* </em>State</label>
@@ -107,12 +104,12 @@
                 <option value="WV">West Virginia</option>
                 <option value="WI">Wisconsin</option>
                 <option value="WY">Wyoming</option>
-            </select>
+            </select> -->
 
             <!--<label for="zip"><em>* </em>Zip Code</label>
             <input type="text" id="zip" name="zip" pattern="[0-9]{5}" title="5-digit zip code" required placeholder="Enter your 5-digit zip code">
 -->
-            <div class="median-div"></div>
+            <!-- <div class="median-div"></div>
             <label for="affiliation"><em>* </em>Military Affiliation</label>
             <select id="affiliation" name="affiliation" required>
                 <option value="" disabled selected></option>
@@ -132,7 +129,7 @@
                 <option value="Marine Corp">Marine Corp</option>
                 <option value="Navy">Navy</option>
                 <option value="Space Force">Space Force</option>
-            </select>
+            </select> -->
 
         </fieldset>
 
@@ -144,14 +141,14 @@
             <label for="email"><em>* </em>E-mail</label>
             <input type="email" id="email" name="email" required placeholder="Enter your e-mail address">
 
-            <label for="email_consent">E-mail Notifications</label>
+            <!-- <label for="email_consent">E-mail Notifications</label>
             <p>By checking the box below, you consent to recieve emails from the Whiskey Valor Foundation. You may change this at any time.</p>
             <label><input type="checkbox" id="email_prefs" name="email_prefs" value="true"> I consent.</label>
 
             <div class="median-div"></div>
 
             <label for="phone1">Phone Number</label>
-            <input type="tel" id="phone1" name="phone1" pattern="(\D{0,1})\d{3}(\D{0,2})\d{3}(.{0,1})\d{4}" placeholder="Ex. (555) 555-5555">
+            <input type="tel" id="phone1" name="phone1" pattern="(\D{0,1})\d{3}(\D{0,2})\d{3}(.{0,1})\d{4}" placeholder="Ex. (555) 555-5555"> -->
 
             <!--<label><em>* </em>Phone Type</label>
             <div class="radio-group">
@@ -282,7 +279,7 @@
         <input type="hidden" name="total_hours_volunteered" value="0"> -->
         </fieldset>
         
-        <fieldset class="section-box mb-4">
+        <!-- <fieldset class="section-box mb-4">
             <h3>Consent Notice</h3>
             <p class="mb-2">Please review the following before creating your account.</p>
         <div class="blue-div"></div>
@@ -298,7 +295,7 @@
                     <label for="disagree">I do not agree.</label>
                 </div>
             </div>
-        </fieldset>
+        </fieldset> -->
         <p class="text-center notice"></p>
         <input type="submit" name="registration-form" value="Submit" style="width: 50%; margin: auto;">
     </form>

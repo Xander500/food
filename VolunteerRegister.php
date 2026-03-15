@@ -8,6 +8,7 @@
     <?php require_once('database/dbMessages.php'); ?>
     <title>UMW Alleviating Food Waste Volunteer Tracking | Register</title>
     <link href="css/base.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
 <!-- BANDAID FIX FOR HEADER BEING WEIRD -->
 <?php 
 $tailwind_mode = true;
