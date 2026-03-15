@@ -775,8 +775,8 @@ td {
     color: var(--accent-color);
     border-color: var(--accent-color) !important;
 }
-a.sorted-asc::after { content: " ▲"; }
-a.sorted-desc::after { content: " ▼"; }
+a.sorted-asc::after { content: " \25B2"; }
+a.sorted-desc::after { content: " \25BC"; }
 #log-table {
   scroll-margin-top: 100px; /*so ancor links to log-table will show top of table (due to fixed header nav bar)*/
 }

@@ -145,6 +145,7 @@
                     </div>
                 </div>
                 <button type="submit">Apply Filters</button>
+                <a class="button cancel" href="viewAllLogs.php">Clear Filters</a>
             </form>
 
             <?php
