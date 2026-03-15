@@ -451,6 +451,87 @@ function get_all_events() {
     return $theLogs;
  }
 
+ function extract_permitted_filters_on_logs($filters) {
+        $valid_parameters = ['students', 'organizations', 'semesters', 'startdate', 'enddate',
+            'maxhours', 'minhours','maxfood','minfood'];
+        $accepted_filters = [];
+        foreach ($valid_parameters as $p){
+            if (isset($filters[$p]) && $filters[$p] !== '') {
+                $accepted_filters[$p] = $filters[$p];
+            }
+        }
+        return $accepted_filters;
+ }
+
+function get_all_volunteer_activities_custom_sort_pagination_with_filters($sortby_input, $order_input, $per_page, $offset, $filters_input) {
+    $con=connect();
+    //check valid options for sort
+    $sortby = 'date'; $order = 'desc';
+    if (in_array($sortby_input, ['last_name', 'date', 'organization_name', 'hours',
+        'location', 'poundsOfFood', 'description'])){
+        $sortby = $sortby_input;
+    }
+    if (in_array($order_input, ['asc', 'desc'])){
+        $order = $order_input;
+    }
+
+    //base sql query to get info from dbVA, dbusers, dbOrgs
+    $sql = "SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
+            " va.organizationID, va.location, va.description," .
+            " u.first_name, u.last_name, o.name, u.semester AS organization_name" .
+            " FROM dbvolunteeractivity AS va" .
+            " JOIN dbusers AS u ON u.id = va.volunteerID" .
+            " JOIN dborganizations AS o ON o.id = va.organizationID" .
+            " WHERE va.id=va.id";
+
+    //check for filter options
+    $filters = extract_permitted_filters_on_logs($filters_input);
+    
+    //get values for filters        
+    //COALESCE means that if ? is null, it will use the other option
+    //if nothing has been set for a particular filter, it will equal itself (va.hours=va.hours) and therefore be irrelevant 
+    $minhours = $filters['minhours'] ?? null;
+    $maxhours = $filters['maxhours'] ?? null;
+    $minfood = $filters['minfood'] ?? null;
+    $maxfood = $filters['maxfood'] ?? null;
+    $startdate = $filters['startdate'] ?? null;
+    $enddate = $filters['enddate'] ?? null;
+    $student = $filters['students'] ?? null;
+    $organization  = $filters['organizations'] ?? null;
+    $semester  = $filters['semesters'] ?? null;
+
+    $sql .= " AND va.hours >= COALESCE(?, va.hours)" .
+        " AND va.hours <= COALESCE(?, va.hours)" .
+        " AND va.poundsOfFood >= COALESCE(?, va.poundsOfFood)" .
+        " AND va.poundsOfFood <= COALESCE(?, va.poundsOfFood)" .
+        " AND va.date >= COALESCE(?, va.date)" .
+        " AND va.date <= COALESCE(?, va.date)" .
+        " AND va.volunteerID = COALESCE(?, va.volunteerID)" .
+        " AND va.organizationID = COALESCE(?, va.organizationID)" .
+        " AND u.semester = COALESCE(?, u.semester)";
+
+    
+    //sort and pagination section of sql
+    $sql .= " ORDER BY $sortby $order, volunteerID asc, organizationID asc, id asc" .
+            " LIMIT ? OFFSET ?";
+
+    $query = $con->prepare($sql);
+    $query->bind_param('sssssssss' . 'ii',
+        $minhours, $maxhours, $minfood, $maxfood, $startdate, $enddate,
+        $student, $organization, $semester,
+        $per_page, $offset);
+    $query->execute();
+    $result = $query->get_result();
+    $theLogs = array();
+    while ($result_row = mysqli_fetch_assoc($result)) {
+        $theLog = make_a_volunteer_activity($result_row);
+        $theLogs[] = $theLog;
+    }
+    mysqli_close($con);
+    return $theLogs;
+ }
+
+ //get logs (no filters applied) for particular page and sort
   function get_all_volunteer_activities_custom_sort_pagination($sortby_input, $order_input, $per_page, $offset) {
     $con=connect();
     //check valid options
