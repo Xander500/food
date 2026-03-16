@@ -43,7 +43,7 @@
         require_once('database/dbMessages.php');
         $post = sanitize($_POST);
         $new_role = $post['s_role'];
-        if (!valueConstrainedTo($new_role, ['volunteer', 'participant'])) {
+        if (!valueConstrainedTo($new_role, ['volunteer', 'admin'])) {
             die();
         }
         if (empty($new_role)){
@@ -122,10 +122,10 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Modify Archive Status and Role</h1>
+        <h1>Modify Role</h1>
         <main class="user-role">
             <?php if ($accessLevel == 3): ?>
-                <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Archive Status and Role</h2>
+                <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Role</h2>
             <?php else: ?>
                 <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Status</h2>
             <?php endif ?>
@@ -137,7 +137,7 @@
                         // Provides drop down of the role types to select and change the role
 			//other than the person's current role type is displayed
             if ($accessLevel == 3) {
-				$roles = array('volunteer' => 'Volunteer', 'participant' => 'Participant');
+				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Participant');
                 echo '<label for="role">Change Role</label><select id="role" class="form-select-sm" name="s_role">' ;
                 // echo '<option value="" SELECTED></option>' ;
                 $currentRole = $thePerson->get_type()[0];
@@ -152,26 +152,12 @@
             }
         ?>
 
-		<label>Change Status</label>
-		<div class="form-row">
-            <?php
-                // Check the person's status and check the radio to signal the current status
-                // Display the current and other available statuses as well to change the status
-		        $currentStatus = $thePerson->get_status();
-                if ($currentStatus == "Active") {
-                    echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active" checked><label for="makeActive" class="checkbox-label">Active</label>';
-                    echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive"><label for="makeInactive" class="checkbox-label">Inactive</label>';
-                } elseif ($currentStatus == "Inactive") {
-                    echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active"><label for="makeActive" class="checkbox-label">Active</label>';
-                    echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked><label for="makeInactive" class="checkbox-label">Inactive</label>';
-                }
-		    ?>
-		</div>
+
 	
 
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <input type="submit" name="user_access_modified" value="Update">
-                <a class="button cancel" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Cancel</a>
+                <a class="button cancel" href="personSearch.php">Cancel</a>
 		</form>
         </main>
     </body>

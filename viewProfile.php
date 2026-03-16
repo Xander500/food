@@ -141,7 +141,7 @@
 		<div class="absolute left-[40%] top-[15%] z-50 bg-green-800 p-4 text-white rounded-xl text-xl">Profile updated successfully!</div>
             <?php endif ?>
             <?php if (isset($_GET['rscSuccess'])): ?>
-		<div class="absolute left-[40%] top-[15%] z-50 bg-green-800 p-4 text-white rounded-xl text-xl">User role/status updated successfully!</div>
+		<div class="absolute left-[40%] top-[15%] z-50 bg-green-800 p-4 text-white rounded-xl text-xl">User role updated successfully!</div>
             <?php endif ?>
 
 <body class="bg-gray-100">

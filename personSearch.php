@@ -216,7 +216,7 @@ require_once('header.php');
                 <select id="role" name="role" class="w-full">
                     <option value="">Any</option>
                     <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected'; ?>>Volunteer</option>
-                    <option value="participant" <?php if (isset($role) && $role == 'admin') echo 'selected'; ?>>Admin</option>
+                    <option value="admin" <?php if (isset($role) && $role == 'admin') echo 'selected'; ?>>Admin</option>
                 </select>
         </div>
 
