@@ -825,73 +825,66 @@ if (date("H:i:s") > "18:19:59") {
             <div class="logo-container">
                 <a href="index.php"><img src="' . $logo . '" alt="Logo"></a>
             </div>
-                <!--<a href="viewCheckInOut.php" style="color: white; text-decoration: none;"><div class="date-box">Check In/Out</div></a>-->
-            <div class="nav-links">
-                <div class="nav-item">Events
-                    <div class="dropdown">
-
-<a href="addEvent.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/plus-solid.svg">
-    <span>Create Event</span>
-  </div>
-</a>
-<a href="calendar.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/list-solid.svg">
-    <span>View Events</span>
-  </div>
-</a>
-<a href="editHours.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/clock-regular.svg">
-    <span>Change Event Hours</span>
-  </div>
-</a>
-<a href="viewPendingApps.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/users-solid.svg">
-    <span>Pending Applications</span>
-  </div>
-</a>
-<a href="adminViewingEvents.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/list-solid.svg">
-    <span>Edit Event</span>
-  </div>
-</a>
-
-
-                    </div>
-                </div>
-                <div class="nav-item">
-                    <div class="dropdown">
-
-<a href="createGroup.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/creategroup.svg">
-    <span>Create Group</span>
-  </div>
-</a>
-
-<a href="showGroups.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/group.svg">
-    <span>View Groups</span>
-  </div>
-</a>
-
-<a href="noShows.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/group.svg">
-    <span>No Shows</span>
-  </div>
-</a>
-
-                    </div>
-               </div>
-            </div>
-        </div>
+                <!--<a href="viewCheckInOut.php" style="color: white; text-decoration: none;"><div class="date-box">Check In/Out</div></a>-->' .
+            // <div class="nav-links">
+            //     <div class="nav-item">Events
+            //         <div class="dropdown">
+            //             <a href="addEvent.php" style="text-decoration: none;">
+            //                 <div class="in-nav">
+            //                     <img src="images/plus-solid.svg">
+            //                     <span>Create Event</span>
+            //                 </div>
+            //             </a>
+            //             <a href="calendar.php" style="text-decoration: none;">
+            //                 <div class="in-nav">
+            //                     <img src="images/list-solid.svg">
+            //                     <span>View Events</span>
+            //                 </div>
+            //             </a>
+            //             <a href="editHours.php" style="text-decoration: none;">
+            //                 <div class="in-nav">
+            //                     <img src="images/clock-regular.svg">
+            //                     <span>Change Event Hours</span>
+            //                 </div>
+            //             </a>
+            //             <a href="viewPendingApps.php" style="text-decoration: none;">
+            //                 <div class="in-nav">
+            //                     <img src="images/users-solid.svg">
+            //                     <span>Pending Applications</span>
+            //                 </div>
+            //             </a>
+            //             <a href="adminViewingEvents.php" style="text-decoration: none;">
+            //                 <div class="in-nav">
+            //                     <img src="images/list-solid.svg">
+            //                     <span>Edit Event</span>
+            //                 </div>
+            //             </a>
+            //         </div>
+            //     </div>
+            //     <div class="nav-item">
+            //         <div class="dropdown">
+            //             <a href="createGroup.php" style="text-decoration: none;">
+            //             <div class="in-nav">
+            //                 <img src="images/creategroup.svg">
+            //                 <span>Create Group</span>
+            //             </div>
+            //             </a>
+            //             <a href="showGroups.php" style="text-decoration: none;">
+            //             <div class="in-nav">
+            //                 <img src="images/group.svg">
+            //                 <span>View Groups</span>
+            //             </div>
+            //             </a>
+            //             <a href="noShows.php" style="text-decoration: none;">
+            //             <div class="in-nav">
+            //                 <img src="images/group.svg">
+            //                 <span>No Shows</span>
+            //             </div>
+            //             </a>
+            //         </div>
+            //    </div>
+            // </div>
+        '</div>
 
         <!-- Right Section: Date & Icon -->
         <div class="right-section">
@@ -927,42 +920,42 @@ if (date("H:i:s") > "18:19:59") {
         <div class="left-section">
             <div class="logo-container">
                 <a href="index.php"><img src="' . $logo . '" alt="Logo"></a>
-            </div>
-            <div class="nav-links">
-                <div class="nav-item">Events
-                    <div class="dropdown">
-<a href="viewMyUpcomingEvents.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/list-solid.svg">
-    <span>My Upcoming</span>
-  </div>
-</a>
-<a href="calendar.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/new-event.svg">
-    <span>Sign-Up</span>
-  </div>
-</a>
-<a href="editHours.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/clock-regular.svg">
-    <span>Edit Hours</span>
-  </div>
-</a>
-                   </div>
-                </div>
-                <div class="nav-item">
-                    <div class="dropdown">
-<a href="volunteerViewGroup.php" style="text-decoration: none;">
-  <div class="in-nav">
-    <img src="images/group.svg">
-    <span>My Groups</span>
-  </div>
-</a>
-                    </div>
-               </div>
-            </div>
-        </div>
+            </div>' .
+            // <div class="nav-links">
+            //     <div class="nav-item">Events
+            //         <div class="dropdown">
+            //             <a href="viewMyUpcomingEvents.php" style="text-decoration: none;">
+            //             <div class="in-nav">
+            //                 <img src="images/list-solid.svg">
+            //                 <span>My Upcoming</span>
+            //             </div>
+            //             </a>
+            //             <a href="calendar.php" style="text-decoration: none;">
+            //             <div class="in-nav">
+            //                 <img src="images/new-event.svg">
+            //                 <span>Sign-Up</span>
+            //             </div>
+            //             </a>
+            //             <a href="editHours.php" style="text-decoration: none;">
+            //             <div class="in-nav">
+            //                 <img src="images/clock-regular.svg">
+            //                 <span>Edit Hours</span>
+            //             </div>
+            //             </a>
+            //        </div>
+            //     </div>
+            //     <div class="nav-item">
+            //         <div class="dropdown">
+            //             <a href="volunteerViewGroup.php" style="text-decoration: none;">
+            //             <div class="in-nav">
+            //                 <img src="images/group.svg">
+            //                 <span>My Groups</span>
+            //             </div>
+            //             </a>
+            //         </div>
+            //    </div>
+            // </div>
+        '</div>
 
         <!-- Right Section: Date & Icon -->
         <div class="right-section">

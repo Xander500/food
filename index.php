@@ -203,7 +203,8 @@
 
         /* Right Section: Date & Icon */
         .right-section {
-            margin-left: auto; /* Pushes right section to the end */
+            /* margin-left: auto; Pushes right section to the end */
+            margin-right: 0px;
             display: flex;
             align-items: center;
             gap: 20px;
