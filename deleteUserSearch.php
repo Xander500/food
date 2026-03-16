@@ -47,7 +47,7 @@ require_once('header.php');
         }   
 
     body {
-        background-color: #1F1F21 !important;
+        background-color: white !important;
     }
 
     .info-text {
@@ -98,7 +98,7 @@ require_once('header.php');
                 require_once('include/input-validation.php');
                 require_once('database/dbPersons.php');
                 $args = sanitize($_GET);
-                $required = ['name', 'id', 'phone', 'zip', 'role', 'status', 'photo_release'];
+                $required = ['name', 'id', 'phone', 'role'];
 
                 if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                     echo '<div class="error-block">Missing expected form elements.</div>';
@@ -107,22 +107,18 @@ require_once('header.php');
                 $name = $args['name'];
                 $id = $args['id'];
                 $phone = preg_replace("/[^0-9]/", "", $args['phone']);
-                $zip = $args['zip'];
+                //$zip = $args['zip'];
                 $role = $args['role'];
-                $status = $args['status'];
-                $photo_release = $args['photo_release'];
+                //$status = $args['status'];
+                //$photo_release = $args['photo_release'];
 
-                if (!($name || $id || $phone || $zip || $role || $status || $photo_release)) {
+                if (!($name || $id || $phone || $role)) {
                     echo '<div class="error-block">At least one search criterion is required.</div>';
                 } else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
                     echo '<div class="error-block">The system did not understand your request.</div>';
-                } else if (!valueConstrainedTo($status, ['Active', 'Inactive', ''])) {
-                    echo '<div class="error-block">The system did not understand your request.</div>';
-                } else if (!valueConstrainedTo($photo_release, ['Restricted', 'Not Restricted', ''])) {
-                    echo '<div class="error-block">The system did not understand your request.</div>';
                 } else {
                     echo "<h3>Search Results</h3>";
-                    $persons = find_users($name, $id, $phone, $zip, $role, $status, $photo_release);
+                    $persons = find_users($name, $id, $phone, $role);
                     require_once('include/output.php');
 
                     if (count($persons) > 0) {
@@ -135,9 +131,7 @@ require_once('header.php');
                                         <th>Last</th>
                                         <th>Username</th>
                                         <th>Phone</th>
-                                        <th>Zip Code</th>
                                         <th>Role</th>
-                                        <th>Archive Status</th>
                                         <th>Profile</th>
                                         <th>Delete?</th>
                                     </tr>
@@ -158,9 +152,7 @@ require_once('header.php');
                                         <td>' . $person->get_last_name() . '</td>
                                         <td><a href="mailto:' . $person->get_id() . '" class="text-blue-700 underline">' . $person->get_id() . '</a></td>
                                         <td><a href="tel:' . $person->get_phone1() . '" class="text-blue-700 underline">' . formatPhoneNumber($person->get_phone1()) . '</a></td>
-                                        <td>' . $person->get_zip_code() . '</td>
-                                        <td>' . ucfirst($person->get_type()) . '</td>
-                                        <td>' . ucfirst($person->get_status()) . '</td>
+                                        <td>' . ucfirst($person->get_type() ?? '') . '</td>
                                         <td><a href="viewProfile.php?id=' . $person->get_id() . '" class="text-blue-700 underline">Profile</a></td>
                                         <td><a href="deleteUser.php?id=' . $person->get_id() . '" onclick="return confirm(\'Are You Sure?\');" class="text-blue-700 underline"">Delete User</a></td>
                                     </tr>';
@@ -197,39 +189,14 @@ require_once('header.php');
                 <label for="phone">Phone Number</label>
                 <input type="tel" id="phone" name="phone" class="w-full" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']); ?>" placeholder="Enter the user's phone number">
             </div>
-
-            <div>
-                <label for="zip">Zip Code</label>
-                <input type="text" id="zip" name="zip" class="w-full" value="<?php if (isset($zip)) echo htmlspecialchars($_GET['zip']); ?>" placeholder="Enter the user's zip code">
-            </div>
-
             <div>
                 <label for="role">Role</label>
                 <select id="role" name="role" class="w-full">
                     <option value="">Any</option>
                     <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected'; ?>>Volunteer</option>
-                    <option value="participant" <?php if (isset($role) && $role == 'participant') echo 'selected'; ?>>Participant</option>
+                    <option value="participant" <?php if (isset($role) && $role == 'admin') echo 'selected'; ?>>Admin</option>
                 </select>
-            </div>
-
-            <div>
-                <label for="status">Archive Status</label>
-                <select id="status" name="status" class="w-full">
-                    <option value="">Any</option>
-                    <option value="Active" <?php if (isset($status) && $status == 'Active') echo 'selected'; ?>>Active</option>
-                    <option value="Inactive" <?php if (isset($status) && $status == 'Inactive') echo 'selected'; ?>>Archived</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="photo_release">Photo Release</label>
-                <select id="photo_release" name="photo_release" class="w-full">
-                    <option value="">Any</option>
-                    <option value="Not Restricted" <?php if (isset($photo_release) && $photo_release == 'Not Restricted') echo 'selected'; ?>>Not Restricted</option>
-                    <option value="Restricted" <?php if (isset($photo_release) && $photo_release == 'Restricted') echo 'selected'; ?>>Restricted</option>
-                </select>
-            </div>
-
+        </div>
             <div class="text-center pt-4">
                 <input type="submit" value="Search" class="blue-button">
             </div>
@@ -244,7 +211,7 @@ require_once('header.php');
     <div class="info-section">
         <div class="blue-div"></div>
         <p class="info-text">
-            Use this tool to filter and search for user accounts by their role, zip code, phone, archive status, and more. User account will be deleted upon confirmation.
+            Use this tool to filter and search for user accounts by their role, phone, and more. User account will be deleted upon confirmation.
         </p>
         <div style="height: 30px;"></div>
     </div>

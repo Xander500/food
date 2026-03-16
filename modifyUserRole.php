@@ -53,6 +53,8 @@
             $typeChange = true;
             // echo "<meta http-equiv='refresh' content='0'>";
         }
+
+        /*
         $new_status = $post['statsRadio'];
         if (!valueConstrainedTo($new_status, ['Active', 'Inactive'])) {
             die();
@@ -77,7 +79,9 @@
                 system_message_all_admins($archive_title, $archive_message);
             }
         }
-        if (isset($notesChange) || isset($statusChange) || isset($typeChange)) {
+
+        */
+        if (isset($notesChange) || isset($typeChange)) {
             header('Location: viewProfile.php?rscSuccess&id=' . $_GET['id']);
             die();
         }
@@ -147,6 +151,7 @@
                 echo '</select>';
             }
         ?>
+
 		<label>Change Status</label>
 		<div class="form-row">
             <?php
