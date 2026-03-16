@@ -23,74 +23,74 @@ include_once(dirname(__FILE__).'/../domain/Person.php');
 
 
 
-// function add_person($person) {
-//     $con = connect();
-//     $query = "SELECT * FROM dbpersons WHERE id = '" . $person->get_id() . "'";
-//     $result = mysqli_query($con, $query);
-//     // if (!$person instanceof Person) {
-//     //     die("Error: add_person type mismatch");
-//     // }
+function add_person($person) {
+    $con = connect();
+    $query = "SELECT * FROM dbpersons WHERE id = '" . $person->get_id() . "'";
+    $result = mysqli_query($con, $query);
+    // if (!$person instanceof Person) {
+    //     die("Error: add_person type mismatch");
+    // }
 
     
 
-//     // If the result is empty, it means the person doesn't exist, so we can add the person
-//     if (mysqli_num_rows($result) == 0) {
-//         // Prepare the insert query
-//         $insert_query = 'INSERT INTO dbpersons (
-//             id, start_date, first_name, last_name, city, state,  
-//             phone1, 
-//             over21, phone1type, 
-//             emergency_contact_phone, emergency_contact_phone_type, birthday, 
-//             email, email_prefs, emergency_contact_first_name, contact_num,
-//             emergency_contact_relation, contact_method, type, status, notes, 
-//             password, affiliation, branch, emergency_contact_last_name
-//         ) VALUES ("' .
-//             $person->get_id() . '","' .
-//             $person->get_start_date() . '","' .
-//             $person->get_first_name() . '","' .
-//             $person->get_last_name() . '","' .
-//             //$person->get_street_address() . '","' .
-//             $person->get_city() . '","' .
-//             $person->get_state() . '","' .
-//             //$person->get_zip_code() . '","' .
-//             $person->get_phone1() . '","' .
-//             $person->get_over_21() . '","' .
-//             $person->get_phone1type() . '","' .
-//             $person->get_emergency_contact_phone() . '","' .
-//             $person->get_emergency_contact_phone_type() . '","' .
-//             $person->get_birthday() . '","' .
-//             $person->get_email() . '","' .
-//             $person->get_email_prefs() . '","' .
-//             $person->get_emergency_contact_first_name() . '","' .
-//             $person->get_contact_num() . '","' .
-//             $person->get_emergency_contact_relation() . '","' .
-//             $person->get_contact_method() . '","' .
-//             $person->get_type() . '","' .
-//             $person->get_status() . '","' .
-//             $person->get_notes() . '","' .
-//             $person->get_password() . '","' .
-//             $person->get_affiliation() . '","' .
-//             $person->get_branch() . '","' .
-//             //$person->get_archived() . '","' .                
-//             $person->get_emergency_contact_last_name() . '");';  
+    // If the result is empty, it means the person doesn't exist, so we can add the person
+    if (mysqli_num_rows($result) == 0) {
+        // Prepare the insert query
+        $insert_query = 'INSERT INTO dbpersons (
+            id, start_date, first_name, last_name, city, state,  
+            phone1, 
+            over21, phone1type, 
+            emergency_contact_phone, emergency_contact_phone_type, birthday, 
+            email, email_prefs, emergency_contact_first_name, contact_num,
+            emergency_contact_relation, contact_method, type, status, notes, 
+            password, affiliation, branch, emergency_contact_last_name
+        ) VALUES ("' .
+            $person->get_id() . '","' .
+            $person->get_start_date() . '","' .
+            $person->get_first_name() . '","' .
+            $person->get_last_name() . '","' .
+            //$person->get_street_address() . '","' .
+            $person->get_city() . '","' .
+            $person->get_state() . '","' .
+            //$person->get_zip_code() . '","' .
+            $person->get_phone1() . '","' .
+            $person->get_over_21() . '","' .
+            $person->get_phone1type() . '","' .
+            $person->get_emergency_contact_phone() . '","' .
+            $person->get_emergency_contact_phone_type() . '","' .
+            $person->get_birthday() . '","' .
+            $person->get_email() . '","' .
+            $person->get_email_prefs() . '","' .
+            $person->get_emergency_contact_first_name() . '","' .
+            $person->get_contact_num() . '","' .
+            $person->get_emergency_contact_relation() . '","' .
+            $person->get_contact_method() . '","' .
+            $person->get_type() . '","' .
+            $person->get_status() . '","' .
+            $person->get_notes() . '","' .
+            $person->get_password() . '","' .
+            $person->get_affiliation() . '","' .
+            $person->get_branch() . '","' .
+            //$person->get_archived() . '","' .                
+            $person->get_emergency_contact_last_name() . '");';  
     
-//         // Check if the query is properly built
-//         if (empty($insert_query)) {
-//             die("Error: insert query is empty");
-//         }
+        // Check if the query is properly built
+        if (empty($insert_query)) {
+            die("Error: insert query is empty");
+        }
 
-//         // Perform the insert
-//         if (mysqli_query($con, $insert_query)) {
-//             mysqli_close($con);
-//             return true;
-//         } else {
-//             die("Error: " . mysqli_error($con)); // Debugging MySQL error
-//         }
-//     }
+        // Perform the insert
+        if (mysqli_query($con, $insert_query)) {
+            mysqli_close($con);
+            return true;
+        } else {
+            die("Error: " . mysqli_error($con)); // Debugging MySQL error
+        }
+    }
 
-//     mysqli_close($con);
-//     return false;
-// }
+    mysqli_close($con);
+    return false;
+}
 
 function add_hours_to_person($person_id, $hours) {
     $con = connect();
