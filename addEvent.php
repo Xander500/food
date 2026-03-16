@@ -75,7 +75,6 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Create Activity</h1>
         <main class="date">
             <h2>New Activity Form</h2>
             <form id="new-event-form" method="POST">
