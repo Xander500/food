@@ -722,7 +722,7 @@ if (isset($_SESSION['_id'])) {
 
     <!-- Dummy content to enable scrolling -->
     <div style="margin-top: 0px; padding: 30px 20px;">
-        <h2><b>Welcome <?php echo $person->get_first_name() ?>!</b> Let's get started.</h2>
+        <h2><b>Welcome <?php echo ($person !== false) ? $person->get_first_name() : 'User'; ?></b> Let's get started.</h2>
     </div>
 
     <div class="full-width-bar">
@@ -777,14 +777,28 @@ if (isset($_SESSION['_id'])) {
             <button class="arrow-button">→</button>
         </div>
 
-               <?php
-                    require_once('database/dbMessages.php');
-                    $unreadMessageCount = get_user_unread_count($person->get_id());
-                    $inboxIcon = 'inbox.svg';
-                    if ($unreadMessageCount) {
-                        $inboxIcon = 'inbox-unread.svg';
-                    }   
-                ?>  
+   <?php
+require_once('database/dbMessages.php');
+
+$person = false;
+$notRoot = true;
+$personId = "";
+$unreadMessageCount = 0;
+$inboxIcon = 'inbox.svg';
+
+if (isset($_SESSION['_id'])) {
+    $person = retrieve_person($_SESSION['_id']);
+    if ($person !== false) {
+        $personId = $person->get_id();
+        $notRoot = $personId != 'vmsroot';
+        $unreadMessageCount = get_user_unread_count($personId);
+    }
+}
+
+if ($unreadMessageCount) {
+    $inboxIcon = 'inbox-unread.svg';
+}
+?> 
 
         <div class="content-box-test" onclick="window.location.href='upload_encrypted_image.php'">
             <div class="icon-overlay">
