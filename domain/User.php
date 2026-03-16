@@ -18,7 +18,7 @@
 class User {
 
 	private $id; // (username)
-	private $start_date; // (dete of account creation)
+	private $start_date; // (date of account creation)
 	private $first_name;
 	private $last_name;
 	private $email;
@@ -26,19 +26,16 @@ class User {
     private $role; //from type //student or instructor
     private $semester;
 
-
 	function __construct(
-        	$id, $start_date, $first_name, $last_name,
-            $email, $password, $role, $semester
-        ) {
-        $this->$id = $id;
-        $this->$start_date = $start_date;
-        $this->$first_name = $first_name;
-        $this->$last_name = $last_name;
-        $this->$email = $email;
-        $this->$password = $password;
-        $this->$role = $role;
-        $this->$semester = $semester;
+        $id, $start_date, $first_name, $last_name, $email, $password, $role, $semester) {
+        $this->id = $id;
+		$this->start_date = $start_date;
+		$this->first_name = $first_name;
+		$this->last_name = $last_name;
+		$this->email = $email;
+		$this->password = $password;
+		$this->role = $role;
+		$this->semester = $semester;
     }
 
 
@@ -75,11 +72,9 @@ class User {
 	}
 
     //! check out
-    /*
 	function get_access_level() {
 		$access = ($this->id == 'vmsroot') ? 3 : 1;
 		return $access;
 	}
-    */
 
 }

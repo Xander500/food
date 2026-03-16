@@ -24,13 +24,13 @@
         $args = sanitize($_POST, $ignoreList);
         $required = array('username', 'password');
         if (wereRequiredFieldsSubmitted($args, $required)) {
-            require_once('domain/Person.php');
-            require_once('database/dbPersons.php');
+            require_once('domain/User.php');
+            require_once('database/dbUsers.php');
             /*@require_once('database/dbMessages.php');*/
             /*@dateChecker();*/
             $username = strtolower($args['username']);
             $password = $args['password'];
-            $user = retrieve_person($username);
+            $user = retrieve_user($username);
             if (!$user) {
                 $badLogin = true;
             } /*else if ($user->get_status() === "Inactive") {
@@ -78,6 +78,7 @@
     <head>
 	<script src="https://cdn.tailwindcss.com"></script>
     	<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
+      <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
 	<style>
 /* Found this on codepen :D */
 .wave {

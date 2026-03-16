@@ -639,20 +639,15 @@ if (date("H:i:s") > "18:19:59") {
     //Log-in security
     //If they aren't logged in, display our log-in form.
     $showing_login = false;
+    ob_start();
+    include('logo.php');
+    $logo = ob_get_clean();
     if (!isset($_SESSION['logged_in'])) {
 		echo('<div class="navbar">
         <!-- Left Section: Logo & Nav Links -->
         <div class="left-section">
             <div class="logo-container">
-                <a href="index.php"><img src=<?php include("logo.php"); ?> alt="Logo"></a>
-            </div>
-            <div class="nav-links">
-                <div class="nav-item">
-                    <a href="index.php" class="nav-link">Home</a>
-                </div>
-                <div class="nav-item">
-                    <a href="calendar.php" class="nav-link">Events Calendar</a>
-                </div>
+                <a href="index.php"><img src="'. $logo . '" alt="Logo"></a>
             </div>
         </div>
 

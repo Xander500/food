@@ -1,7 +1,7 @@
 <?php
 
     require_once(dirname(__FILE__) . '/../database/dbinfo.php');
-    require_once(dirname(__FILE__) . '/../database/dbPersons.php');
+    require_once(dirname(__FILE__) . '/../database/dbUsers.php');
 
     /**
      * Trims a given input string, then removes any
