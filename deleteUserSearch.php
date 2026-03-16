@@ -192,7 +192,7 @@ require_once('header.php');
                 <label for="id">Username</label>
                 <input type="text" id="id" name="id" class="w-full" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']); ?>" placeholder="Enter the user's username (login ID)">
             </div>
-
+            
             <div>
                 <label for="phone">Phone Number</label>
                 <input type="tel" id="phone" name="phone" class="w-full" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']); ?>" placeholder="Enter the user's phone number">
