@@ -25,8 +25,8 @@
     }
   	
   	include_once('database/dbVolunteerActivity.php');
-    include 'database/dbUsers.php';
-    include 'database/dbOrganizations.php';
+    include_once('database/dbUsers.php');
+    include_once('database/dbOrganizations.php');
   	
     // We need to check for a bad ID here before we query the db
     // otherwise we may be vulnerable to SQL injection(!)
@@ -40,7 +40,6 @@
         die();
     }
 
-    include_once('database/dbUsers.php');
     if(isset($_SESSION['access_level'])) {
         $access_level = $_SESSION['access_level'];
     }
