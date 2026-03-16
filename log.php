@@ -192,10 +192,10 @@
             <?php 
             //! change for edit buttons for instructor
             if (isset($_SESSION['access_level']) && $access_level >= 2): ?>
-                <a href="editEvent.php?id=<?= $id ?>" title="Edit Event" class="edit-icon">
+                <a href="editLog.php?id=<?= $id ?>" title="Edit Log" class="edit-icon">
                     <i class="fas fa-pencil-alt"></i>
                 </a>
-                <a href="deleteEvent.php?id=<?= $id ?>" title="Delete Event" class="delete-icon"
+                <a href="deleteLog.php?id=<?= $id ?>" title="Delete Log" class="delete-icon"
                     onclick="return confirm('<?= htmlspecialchars($confirmText, ENT_QUOTES) ?>');">
                     <i class="fas fa-trash"></i>
                 </a>
