@@ -17,18 +17,13 @@
         die();
     }
         
-    include_once('database/dbPersons.php');
-    include_once('domain/Person.php');
+    include_once('database/dbUsers.php');
+    include_once('domain/User.php');
     // Get date?
-$person = false;
-$notRoot = true;
-
-if (isset($_SESSION['_id'])) {
-    $person = retrieve_person($_SESSION['_id']);
-    if ($person !== false) {
-        $notRoot = $person->get_id() != 'vmsroot';
+    if (isset($_SESSION['_id'])) {
+        $user = retrieve_user($_SESSION['_id']);
     }
-}
+    $notRoot = $user->get_id() != 'vmsroot';
 ?>
 
 <!DOCTYPE html>
@@ -458,7 +453,7 @@ if (isset($_SESSION['_id'])) {
 
     <!-- Dummy content to enable scrolling -->
     <div style="margin-top: 0px; padding: 30px 20px;">
-        <h2><b>Welcome <?php echo $person->get_first_name() ?>!</b> Let's get started.</h2>
+        <h2><b>Welcome <?php echo $user->get_first_name() ?>!</b> Let's get started.</h2>
     </div>
 
             <?php if (isset($_GET['pcSuccess'])): ?>
@@ -488,13 +483,13 @@ if (isset($_SESSION['_id'])) {
 </button>
 <!--
         <div class="nav-buttons">
-            <button class="nav-button" onclick="window.location.href='personSearch.php'">
+            <button class="nav-button" onclick="window.location.href='userSearch.php'">
                 <span>Find</span>
-                <span class="arrow"><img src="images/person-search.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 20px;"></span>
+                <span class="arrow"><img src="images/user-search.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 20px;"></span>
             </button>
             <button class="nav-button" onclick="window.location.href='VolunteerRegister.php'">
                 <span>Register</span>
-                <span class="arrow"><img src="images/add-person.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 20px;"></span>
+                <span class="arrow"><img src="images/add-user.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 20px;"></span>
             </button>
         </div>
 -->
@@ -507,7 +502,7 @@ if (isset($_SESSION['_id'])) {
         <button class="circle-arrow-button">
     <span class="button-text"><?php 
                         require_once('database/dbEvents.php');
-                        require_once('database/dbPersons.php');
+                        require_once('database/dbusers.php');
                         require_once('database/dbApplications.php');
                         $pendingsignups = all_pending_names();
                         if (sizeof($pendingsignups) > 0) {
@@ -542,8 +537,8 @@ if (isset($_SESSION['_id'])) {
         // Ensure variable is always defined
         $unreadMessageCount = 0;
         $inboxIcon = 'inbox.svg';
-        if (isset($person)) {
-            $unreadMessageCount = get_user_unread_count($person->get_id());
+        if (isset($user)) {
+            $unreadMessageCount = get_user_unread_count($user->get_id());
             if ($unreadMessageCount > 0) {
                 $inboxIcon = 'inbox-unread.svg';
             }
@@ -722,7 +717,7 @@ if (isset($_SESSION['_id'])) {
 
     <!-- Dummy content to enable scrolling -->
     <div style="margin-top: 0px; padding: 30px 20px;">
-        <h2><b>Welcome <?php echo ($person !== false) ? $person->get_first_name() : 'User'; ?></b> Let's get started.</h2>
+        <h2><b>Welcome <?php echo $user->get_first_name() ?>!</b> Let's get started.</h2>
     </div>
 
     <div class="full-width-bar">
@@ -777,28 +772,14 @@ if (isset($_SESSION['_id'])) {
             <button class="arrow-button">→</button>
         </div>
 
-   <?php
-require_once('database/dbMessages.php');
-
-$person = false;
-$notRoot = true;
-$personId = "";
-$unreadMessageCount = 0;
-$inboxIcon = 'inbox.svg';
-
-if (isset($_SESSION['_id'])) {
-    $person = retrieve_person($_SESSION['_id']);
-    if ($person !== false) {
-        $personId = $person->get_id();
-        $notRoot = $personId != 'vmsroot';
-        $unreadMessageCount = get_user_unread_count($personId);
-    }
-}
-
-if ($unreadMessageCount) {
-    $inboxIcon = 'inbox-unread.svg';
-}
-?> 
+               <?php
+                    require_once('database/dbMessages.php');
+                    $unreadMessageCount = get_user_unread_count($user->get_id());
+                    $inboxIcon = 'inbox.svg';
+                    if ($unreadMessageCount) {
+                        $inboxIcon = 'inbox-unread.svg';
+                    }   
+                ?>  
 
         <div class="content-box-test" onclick="window.location.href='upload_encrypted_image.php'">
             <div class="icon-overlay">
