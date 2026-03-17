@@ -67,10 +67,11 @@ table, td, tr, th, form, fieldset, em, button, a {
 
     --shadow-and-border-color: #e8e8e8;
 
-    --main-color: #2A435A;
+    --main-color: #213e57;
     --main-color-hover: #4d6579;
 
     --accent-color: #92c44c;
+    --accent-color-hover: #759d3d;
  
     --secondary-accent-color: rgb(175, 141, 92);
 

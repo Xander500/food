@@ -99,7 +99,6 @@ require_once('header.php');
 <style>
   .return-button:hover {
     background-color: var(--main-color-hover) !important;
-    border-color: var(--main-color) !important;
   }
 </style>
 
