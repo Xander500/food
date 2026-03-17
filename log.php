@@ -25,7 +25,7 @@
     }
   	
   	include_once('database/dbVolunteerActivity.php');
-    include_once('database/dbUsers.php');
+    include_once('database/dbusers.php');
     include_once('database/dbOrganizations.php');
   	
     // We need to check for a bad ID here before we query the db

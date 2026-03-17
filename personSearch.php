@@ -24,7 +24,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Whiskey Valor | Volunteer/Participant Search</title>
+    <title>User Search</title>
     <link href="css/normal_tw.css" rel="stylesheet">
 <!-- BANDAID FIX FOR HEADER BEING WEIRD -->
 <?php
@@ -56,22 +56,22 @@ require_once('header.php');
         }   
 
         .info-section .info-text {
-         color: #C9AB81 !important;
+         color: #92c44c !important;
         }
 
         .blue-div {
-        background-color: #C9AB81 !important;
+        background-color: #92c44c !important;
         }
 
         .main-content-box label {
-        color: #000000 !important;
+        color: #92c44c !important;
         }
         
         .text-blue-700 {
-        color: #000000 !important;
+        color: #92c44c !important;
         }
         .sub-text {
-        color: black !important;
+        color: #92c44c !important;
         }
 
         .main-content-box table,
@@ -82,7 +82,7 @@ require_once('header.php');
         .main-content-box table td {
             background-color: #213e57 !important;
             color: #92c44c !important;
-            border: 1px solid #C9AB81 !important;
+            border: 1px solid white !important;
         }
 
         .main-content-box table a.text-blue-700,
@@ -106,7 +106,7 @@ require_once('header.php');
 
 <header class="hero-header">
     <div class="center-header">
-        <h1>Volunteer/Participant Search</h1>
+        <h1>User Search</h1>
     </div>
 </header>
 
@@ -114,8 +114,8 @@ require_once('header.php');
     <div class="main-content-box w-[80%] p-8">
 
         <div class="text-center mb-8">
-            <h2>Find a Volunteer or Participant</h2>
-            <p class="sub-text">Use filters below to search and create mailing lists.</p>
+            <h2>Find a User</h2>
+            <p class="sub-text">Use filters below to search Users.</p>
         </div>
 
         <form id="person-search" class="space-y-6" method="get">

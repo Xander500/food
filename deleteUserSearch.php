@@ -24,7 +24,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Whiskey Valor | Delete User</title>
+    <title>Delete User</title>
     <link href="css/normal_tw.css" rel="stylesheet">
 <!-- BANDAID FIX FOR HEADER BEING WEIRD -->
 <?php
@@ -51,11 +51,11 @@ require_once('header.php');
     }
 
     .info-text {
-        color: #C9AB81 !important;
+        color: #92c44c !important;
     }
 
     .blue-div {
-        background-color: #C9AB81 !important;
+        background-color: #92c44c !important;
     }
 
     .text-blue-700,
@@ -65,11 +65,11 @@ require_once('header.php');
         }
 
     .main-content-box label {
-            color: #000000 !important;
+            color: #92c44c !important;
     }
     
     .sub-text {
-        color: black !important;
+        color: #92c44c !important;
     }
 
 </style>
@@ -79,7 +79,7 @@ require_once('header.php');
 
 <header class="hero-header">
     <div class="center-header">
-        <h1>Delete User Account From Organization</h1>
+        <h1>Delete User</h1>
     </div>
 </header>
 
