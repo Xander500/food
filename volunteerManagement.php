@@ -124,20 +124,13 @@ require_once('header.php');
 
         <button onclick="window.location.href='personSearch.php';">
 	  <div class="button-left-gray"></div>
-	  <div>Search Registered Users</div>
+	  <div>Edit Registered Users</div>
 	  <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
         </button>
 
-    <button onclick="window.location.href='noShows.php';">
-	  <div class="button-left-gray"></div>
-	  <div>View No Shows?</div>
-	  <img class="button-icon h-10 w-10 left-5" src="images/clipboard-regular.svg" alt="Person Icon">
-    </button>
-
-
     <button onclick="window.location.href='deleteUserSearch.php';">
         <div class="button-left-gray"></div>
-        <div>Delete User</div>
+        <div>Delete Users</div>
         <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">
     </button>
 
@@ -164,7 +157,7 @@ require_once('header.php');
         <h1>User Account Management</h1>
         <div class="div-blue"></div>
         <p>
-          Welcome to the user management hub. From this menu, you will have access to operations such as creating, deleting, and searching accounts. More features soon to be implemented.
+          Welcome to the user management hub. From this menu, you will have access to operations such as creating, deleting, and searching accounts.
         </p>
       </div>
 
