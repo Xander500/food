@@ -219,12 +219,15 @@ require_once('header.php');
 ?>
 
 <?php if ($showPopup): ?>
-<div id="popupMessage" class="absolute left-[40%] top-[20%] z-50 bg-red-800 p-4 text-white rounded-xl text-xl shadow-lg">
-    That username is already taken.
-</div>
+    <head>
+        <meta HTTP-EQUIV="REFRESH" content="2; url=VolunteerRegister.php">
+    </head>
+    <div id="popupMessage" class="pop-up">
+        That username is already taken.
+    </div>
 <?php endif; ?>
 
-<!-- Auto-hide popup -->
+<!-- Auto-hide popup
 <script>
 window.addEventListener('DOMContentLoaded', () => {
     const popup = document.getElementById('popupMessage');
@@ -238,7 +241,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 });
-</script>
+</script> -->
 
 </body>
 </html>
