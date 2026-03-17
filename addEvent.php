@@ -14,7 +14,7 @@
         // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
-    } 
+    }
     // Require admin privileges
     if ($accessLevel < 2) {
         header('Location: login.php');
@@ -33,26 +33,26 @@
             die();
         } else {
             // Accept either HTML5 24h time (HH:MM) or 12h times with am/pm
-            
+
             $date = $args['date'] = validateDate($args["date"]);
-    
+
 
             // FIXED: Replaced the broken check "if (!$date > 11)"
-        
+
 
             $args['series_id'] = bin2hex(random_bytes(16)); // new new
 
             $id = create_activitylog($args);
             if (!$id) {
+                header('Location: eventFailure.php');
                 die();
             } else {
-                
                 header('Location: eventSuccess.php');
                 exit();
             }
         }
     }
-    
+
     $date = null;
     if (isset($_GET['date'])) {
         $date = $_GET['date'];
@@ -64,8 +64,8 @@
         }
     }
 
-    include_once('database/dbinfo.php'); 
-    $con=connect();  
+    include_once('database/dbinfo.php');
+    $con=connect();
 
 ?><!DOCTYPE html>
 <html>
@@ -75,14 +75,13 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Create Activity</h1>
         <main class="date">
             <h2>New Activity Form</h2>
             <form id="new-event-form" method="POST">
                 <!--
                 <div class="event-sect">
                 <label for="name">* Activity Name </label>
-                <input type="text" id="name" name="name" required placeholder="Enter name"> 
+                <input type="text" id="name" name="name" required placeholder="Enter name">
                 </div>
 -->
 
@@ -90,24 +89,24 @@
                     <div class="event-datetime">
                         <div class="event-date">
                             <label for="date">* Date </label>
-                            <input type="date" id="date" name="date" 
-                                <?php if ($date) echo 'value="' . $date . '"'; ?> 
+                            <input type="date" id="date" name="date"
+                                <?php if ($date) echo 'value="' . $date . '"'; ?>
                                 required>
                         </div>
                         <div class="event-date">
                             <label for="hours">* Duration (hours) </label>
-                            <input type="number" id="hours" name="hours" 
+                            <input type="number" id="hours" name="hours"
                                 in="1" max="99" required placeholder="e.g. 2">
                         </div>
                     </div>
                 </div>
 
                 <div class="event-sect">
-                <label for="description">* Description </label>
-                <input type="text" id="description" name="description" required placeholder="Enter description">
+                <label for="description"> Description </label>
+                <input type="text" id="description" name="description" placeholder="Enter description">
 
-                <label for="poundsOfFood">* Pounds of Food </label>
-                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.1" required placeholder="Enter pounds of food">
+                <label for="poundsOfFood"> Pounds of Food </label>
+                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.1" placeholder="Enter pounds of food">
                 </div>
 
                 <!--   Event visibility checkbox, not sure if we need it at all
@@ -127,18 +126,27 @@
                     </div>
                 </div>
                 </div>
---> 
+-->
 
                 <div class="event-sect">
-                <label for="location">Location </label>
-                <input type="text" id="location" name="location" placeholder="Enter location">
+                    <label for="location">* Location </label>
+                    <input type="text" id="location" name="location" placeholder="Enter location">
 
-                <label for="organizationID">* Organization </label>
-                <input type="number" id="organizationID" name="organizationID" required placeholder="Enter Organization ID">
+                    <label for="organizationID">* Organization </label>
+                    <select id="organizationID" name="organizationID" required placeholder="Enter Organization ID">
+                        <option value="">Select organization</option>
+                        <?php
+                            require_once('database/dbOrganizations.php'); // maybe put at top
+                            $organizations = get_organizations_id_name();
+                            while ($row = $organizations->fetch_assoc()) {
+                                echo "<option value='{$row['id']}'>" . htmlspecialchars($row['name']) . "</option>";
+                            }
+                        ?>
+                    </select>
                 </div>
 
                 <input type="submit" value="Create Activity" style="width:100%;">
-                
+
             </form>
                 <script>
                     // Debug: log submit attempts and list invalid fields

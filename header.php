@@ -522,19 +522,19 @@ if (date("H:i:s") > "18:19:59") {
             right: 18px;
             width: 70px;
             height: 70px;
-            border-radius: 80px;
+            border-radius: 80px !important;
             background: var(--main-color);
             border: 3px solid var(--main-color);
-            cursor: pointer;
+            cursor: pointer !important;
             z-index: 2000;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 4px;
+            padding: 4px !important;
         }
         .accessibility-btn img {
-            width: 100%;
-            height: 100%;
+            width: 70px;
+            height: 70px;
             object-fit: contain;
             filter: invert(1);
         }
@@ -639,20 +639,15 @@ if (date("H:i:s") > "18:19:59") {
     //Log-in security
     //If they aren't logged in, display our log-in form.
     $showing_login = false;
+    ob_start();
+    include('logo.php');
+    $logo = ob_get_clean();
     if (!isset($_SESSION['logged_in'])) {
 		echo('<div class="navbar">
         <!-- Left Section: Logo & Nav Links -->
         <div class="left-section">
             <div class="logo-container">
-                <a href="index.php"><img src=<?php include("logo.php"); ?> alt="Logo"></a>
-            </div>
-            <div class="nav-links">
-                <div class="nav-item">
-                    <a href="index.php" class="nav-link">Home</a>
-                </div>
-                <div class="nav-item">
-                    <a href="calendar.php" class="nav-link">Events Calendar</a>
-                </div>
+                <a href="index.php"><img src="'. $logo . '" alt="Logo"></a>
             </div>
         </div>
 
@@ -727,6 +722,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['viewschedule.php'] = 2;
         $permission_array['addweek.php'] = 2;
         $permission_array['log.php'] = 2;
+        $permission_array['editlog.php'] = 2;
         $permission_array['reports.php'] = 2;
         $permission_array['eventedit.php'] = 2; //WVF - TODO: Evaluated differenced between eventedit and editevent.
         $permission_array['modifyuserrole.php'] = 2;

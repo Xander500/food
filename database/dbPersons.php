@@ -918,9 +918,9 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return $thePersons;
     }
 
-    function find_users($name, $id, $phone, $zip, $type, $status) {
+    function find_users($name, $id, $phone, $type) {
     $where = 'where ';
-    if (!($name || $id || $phone || $zip || $type || $status)) {  // ✅ Fixed parentheses
+    if (!($name || $id || $phone || $type)) {  // ✅ Fixed parentheses
         return [];
     }
         $first = true;
@@ -949,25 +949,11 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             $where .= "phone1 like '%$phone%'";
             $first = false;
         }
-		if ($zip) {
-			if (!$first) {
-                $where .= ' and ';
-            }
-            $where .= "zip_code like '%$zip%'";
-            $first = false;
-		}
         if ($type) {
             if (!$first) {
                 $where .= ' and ';
             }
             $where .= "type='$type'";
-            $first = false;
-        }
-        if ($status) {
-            if (!$first) {
-                $where .= ' and ';
-            }
-            $where .= "status='$status'";
             $first = false;
         }
         //if ($photo_release) {
