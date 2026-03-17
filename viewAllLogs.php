@@ -22,7 +22,7 @@
         die();
     }
     include 'database/dbVolunteerActivity.php';
-    include 'database/dbusers.php';
+    include 'database/dbUsers.php';
     include 'database/dbOrganizations.php';
 
 
