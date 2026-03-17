@@ -17,7 +17,7 @@
         die();
     }
         
-    include_once('database/dbUsers.php');
+    include_once('database/dbusers.php');
     include_once('domain/User.php');
     // Get date?
     if (isset($_SESSION['_id'])) {

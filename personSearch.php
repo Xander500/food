@@ -24,7 +24,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Whiskey Valor | Volunteer/Participant Search</title>
+    <title>User Search</title>
     <link href="css/normal_tw.css" rel="stylesheet">
 <!-- BANDAID FIX FOR HEADER BEING WEIRD -->
 <?php
@@ -47,7 +47,7 @@ require_once('header.php');
         }   
 
         body, main {
-        background-color: #1F1F21;
+        background-color: white;
         }
 
         .text-blue-700,
@@ -56,22 +56,22 @@ require_once('header.php');
         }   
 
         .info-section .info-text {
-         color: #C9AB81 !important;
+         color: #92c44c !important;
         }
 
         .blue-div {
-        background-color: #C9AB81 !important;
+        background-color: #92c44c !important;
         }
 
         .main-content-box label {
-        color: #000000 !important;
+        color: #92c44c !important;
         }
         
         .text-blue-700 {
-        color: #000000 !important;
+        color: #92c44c !important;
         }
         .sub-text {
-        color: black !important;
+        color: #92c44c !important;
         }
 
         .main-content-box table,
@@ -80,9 +80,9 @@ require_once('header.php');
         .main-content-box table tr,
         .main-content-box table th,
         .main-content-box table td {
-            background-color: #1F1F21 !important;
-            color: #C9AB81 !important;
-            border: 1px solid #C9AB81 !important;
+            background-color: #213e57 !important;
+            color: #92c44c !important;
+            border: 1px solid white !important;
         }
 
         .main-content-box table a.text-blue-700,
@@ -91,12 +91,12 @@ require_once('header.php');
             }
 
         .main-content-box table thead.bg-blue-400 th {
-            background-color: #1F1F21 !important;
+            background-color: #213e57 !important;
         }
 
         .main-content-box table a.text-blue-700,
         .main-content-box table a.text-blue-700:visited {
-            color: #C9AB81 !important;
+            color: #92c44c !important;
         }
     
 </style>
@@ -106,7 +106,7 @@ require_once('header.php');
 
 <header class="hero-header">
     <div class="center-header">
-        <h1>Volunteer/Participant Search</h1>
+        <h1>User Search</h1>
     </div>
 </header>
 
@@ -114,8 +114,8 @@ require_once('header.php');
     <div class="main-content-box w-[80%] p-8">
 
         <div class="text-center mb-8">
-            <h2>Find a Volunteer or Participant</h2>
-            <p class="sub-text">Use filters below to search and create mailing lists.</p>
+            <h2>Find a User</h2>
+            <p class="sub-text">Use filters below to search Users.</p>
         </div>
 
         <form id="person-search" class="space-y-6" method="get">
@@ -125,7 +125,7 @@ require_once('header.php');
                 require_once('include/input-validation.php');
                 require_once('database/dbPersons.php');
                 $args = sanitize($_GET);
-                $required = ['name', 'id', 'phone', 'zip', 'role', 'status', 'photo_release'];
+                $required = ['name', 'id', 'phone', 'role'];
 
                 if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                     echo '<div class="error-block">Missing expected form elements.</div>';
@@ -134,22 +134,18 @@ require_once('header.php');
                 $name = $args['name'];
                 $id = $args['id'];
                 $phone = preg_replace("/[^0-9]/", "", $args['phone']);
-                $zip = $args['zip'];
+                //$zip = $args['zip'];
                 $role = $args['role'];
-                $status = $args['status'];
-                $photo_release = $args['photo_release'];
+                //$status = $args['status'];
+                //$photo_release = $args['photo_release'];
 
-                if (!($name || $id || $phone || $zip || $role || $status || $photo_release)) {
+                if (!($name || $id || $phone || $role)) {
                     echo '<div class="error-block">At least one search criterion is required.</div>';
                 } else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
                     echo '<div class="error-block">The system did not understand your request.</div>';
-                } else if (!valueConstrainedTo($status, ['Active', 'Inactive', ''])) {
-                    echo '<div class="error-block">The system did not understand your request.</div>';
-                } else if (!valueConstrainedTo($photo_release, ['Restricted', 'Not Restricted', ''])) {
-                    echo '<div class="error-block">The system did not understand your request.</div>';
-                } else {
+                }else {
                     echo "<h3>Search Results</h3>";
-                    $persons = find_users($name, $id, $phone, $zip, $role, $status, $photo_release);
+                    $persons = find_users($name, $id, $phone, $role);
                     require_once('include/output.php');
 
                     if (count($persons) > 0) {
@@ -162,9 +158,7 @@ require_once('header.php');
                                         <th>Last</th>
                                         <th>Username</th>
                                         <th>Phone</th>
-                                        <th>Zip Code</th>
                                         <th>Role</th>
-                                        <th>Archive Status</th>
                                         <th>Profile</th>
                                         <th>Actions</th>
                                     </tr>
@@ -185,9 +179,7 @@ require_once('header.php');
                                         <td>' . $person->get_last_name() . '</td>
                                         <td><a href="mailto:' . $person->get_id() . '" class="text-blue-700 underline">' . $person->get_id() . '</a></td>
                                         <td><a href="tel:' . $person->get_phone1() . '" class="text-blue-700 underline">' . formatPhoneNumber($person->get_phone1()) . '</a></td>
-                                        <td>' . $person->get_zip_code() . '</td>
-                                        <td>' . ucfirst($person->get_type()) . '</td>
-                                        <td>' . ucfirst($person->get_status()) . '</td>
+                                        <td>' . ucfirst($person->get_type() ?? '') . '</td>
                                         <td><a href="viewProfile.php?id=' . $person->get_id() . '" class="text-blue-700 underline">Profile</a></td>
                                         <td><a href="modifyUserRole.php?id=' . $person->get_id() . '" class="text-blue-700 underline">Update Status</a></td>
                                     </tr>';
@@ -197,11 +189,6 @@ require_once('header.php');
                             </table>
                         </div>';
 
-                        echo '
-                        <div class="mt-4">
-                            <label>Result Mailing List:</label>
-                            <p class="text-gray-700 break-words">' . $mailingList . '</p>
-                        </div>';
                     } else {
                         echo '<div class="error-block">Your search returned no results.</div>';
                     }
@@ -224,11 +211,14 @@ require_once('header.php');
                 <label for="phone">Phone Number</label>
                 <input type="tel" id="phone" name="phone" class="w-full" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']); ?>" placeholder="Enter the user's phone number">
             </div>
-
             <div>
-                <label for="zip">Zip Code</label>
-                <input type="text" id="zip" name="zip" class="w-full" value="<?php if (isset($zip)) echo htmlspecialchars($_GET['zip']); ?>" placeholder="Enter the user's zip code">
-            </div>
+                <label for="role">Role</label>
+                <select id="role" name="role" class="w-full">
+                    <option value="">Any</option>
+                    <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected'; ?>>Volunteer</option>
+                    <option value="admin" <?php if (isset($role) && $role == 'admin') echo 'selected'; ?>>Admin</option>
+                </select>
+        </div>
 
             
 
