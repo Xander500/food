@@ -399,18 +399,15 @@ h1 {
 h2 {
     font-size: 1.5rem;
     font-weight: 500;
-    color: #92c44c;
 }
 
 h3 {
     font-size: 1.25rem;
     font-weight: 550;
-    color: #92c44c;
 }
 
 h3:not(:first-of-type) {
     margin-top: 1rem;
-    color: #92c44c;
 }
 
 @media only screen and (max-width: 1079px) {
