@@ -3,7 +3,7 @@
 <script src="https://nosir.github.io/cleave.js/dist/cleave-phone.i18n.js"></script>
 <!-- Hero Section with Title -->
 
-<h1>Account Registration</h1>
+<!-- <h1>Account Registration</h1> -->
 
 <main>
   <div class="main-content-box">
@@ -12,7 +12,7 @@
           <h2 class="mb-8">Registration Form</h2>
             <div class="info-box">
               <p class="sub-text">Please fill out each section of the following form to create your account.</p>
-              <p>An asterisk ( <em>*</em> ) indicates a required field.</p>
+              <p>An asterisk (*) indicates a required field.</p>
             </div>
 	</div>
         
@@ -20,12 +20,12 @@
 
             <h3 class="mt-2">Personal Information</h3>
             <p class="mb-2">The following information will help us identify you within our system.</p>
-	    <div class="blue-div"></div>
+	    <!-- <div class="blue-div"></div> -->
 
-            <label for="first_name"><em>* </em>First Name</label>
+            <label for="first_name">* First Name</label>
             <input type="text" id="first_name" name="first_name" required placeholder="Enter your first name">
 
-            <label for="last_name"><em>* </em>Last Name</label>
+            <label for="last_name">* Last Name</label>
             <input type="text" id="last_name" name="last_name" required placeholder="Enter your last name">
 
             <!-- <label><em>* </em>Are you 21 or older?</label>
@@ -136,9 +136,9 @@
         <fieldset class="section-box mb-4">
             <h3>Contact Information</h3>
             <p class="mb-2">The following information will help us determine the best way to contact you regarding event coordination.</p>
-	    <div class="blue-div"></div>
+	    <!-- <div class="blue-div"></div> -->
 
-            <label for="email"><em>* </em>E-mail</label>
+            <label for="email">* E-mail</label>
             <input type="email" id="email" name="email" required placeholder="Enter your e-mail address">
 
             <!-- <label for="email_consent">E-mail Notifications</label>
@@ -260,17 +260,17 @@
         <fieldset class="section-box mb-4">
             <h3>Login Credentials</h3>
             <p class="mb-2">You will use the following information to log in to the system.</p>
-	    <div class="blue-div"></div>
+	    <!-- <div class="blue-div"></div> -->
 
-            <label for="username"><em>* </em>Username</label>
+            <label for="username">* Username</label>
             <input type="text" id="username" name="username" required placeholder="Enter a username">
 
-            <label for="password"><em>* </em>Password</label>
+            <label for="password">* Password</label>
             <p>Your password must be at least 8 characters long, contain at least one number, one uppercase letter, and one lowercase letter.</p>
             <input type="password" id="password" name="password" placeholder="Enter a strong password" required>
             <p id="password-error" class="error hidden">Password does not meet requirements.</p>
 
-            <label for="password-reenter"><em>* </em>Re-enter Password</label>
+            <label for="password-reenter">* Re-enter Password</label>
             <input type="password" id="password-reenter" name="password-reenter" placeholder="Re-enter password" required>
             <p id="password-match-error" class="error hidden">Passwords do not match.</p>
             

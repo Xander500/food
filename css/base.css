@@ -1530,3 +1530,11 @@ div .dd {
     padding: 1rem;
     background-color: #213e57;
 }
+
+.pop-up {
+    color: var(--page-font-color);
+    text-align: center;
+    margin-top: 50px;
+    font-weight: 400;
+    font-size: 25px;
+}
