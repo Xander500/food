@@ -75,7 +75,6 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Create Activity</h1>
         <main class="date">
             <h2>New Activity Form</h2>
             <form id="new-event-form" method="POST">
@@ -87,19 +86,12 @@
 -->
 
                 <div class="event-sect">
-                    <div class="event-datetime">
-                        <div class="event-date">
-                            <label for="date">* Date </label>
-                            <input type="date" id="date" name="date"
-                                <?php if ($date) echo 'value="' . $date . '"'; ?>
-                                required>
-                        </div>
-                        <div class="event-date">
-                            <label for="hours">* Duration (hours) </label>
-                            <input type="number" id="hours" name="hours"
-                                in="1" max="99" required placeholder="e.g. 2">
-                        </div>
-                    </div>
+                    <label for="date">* Date </label>
+                    <input type="date" id="date" name="date" 
+                        <?php if ($date) echo 'value="' . $date . '"'; ?> required>
+                    <label for="hours">* Duration (hours) </label>
+                    <input type="number" id="hours" name="hours" in="1" max="99" 
+                        required placeholder="e.g. 2">
                 </div>
 
                 <div class="event-sect">

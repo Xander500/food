@@ -95,18 +95,9 @@ require_once('header.php');
 
 </style>
 <!-- BANDAID END, REMOVE ONCE SOME GENIUS FIXES -->
-
-<style>
-  .return-button:hover {
-    background-color: var(--main-color-hover) !important;
-    border-color: var(--main-color) !important;
-  }
-</style>
-
 </head>
 
 <body>
-
   <!-- Larger Hero Section -->
   <!--<header class="hero-header"></header>-->
   <!-- <header class="top-bar"></header> -->
@@ -125,20 +116,13 @@ require_once('header.php');
 
         <button onclick="window.location.href='personSearch.php';">
 	  <div class="button-left-gray"></div>
-	  <div>Search Registered Users</div>
+	  <div>Edit Registered Users</div>
 	  <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
         </button>
 
-    <button onclick="window.location.href='noShows.php';">
-	  <div class="button-left-gray"></div>
-	  <div>View No Shows?</div>
-	  <img class="button-icon h-10 w-10 left-5" src="images/clipboard-regular.svg" alt="Person Icon">
-    </button>
-
-
     <button onclick="window.location.href='deleteUserSearch.php';">
         <div class="button-left-gray"></div>
-        <div>Delete User</div>
+        <div>Delete Users</div>
         <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">
     </button>
 
@@ -155,7 +139,7 @@ require_once('header.php');
         </button>-->
 	
 	<div class="text-center mt-6">
-        	<a href="index.php" class="return-button" style="background-color: var(--main-color); border-color: var(--main-color-hover);">Return to Dashboard</a>
+        	<a href="index.php" class="return-button">Return to Dashboard</a>
 	</div>
 		
      </div>
@@ -165,7 +149,7 @@ require_once('header.php');
         <h1>User Account Management</h1>
         <div class="div-blue"></div>
         <p>
-          Welcome to the user management hub. From this menu, you will have access to operations such as creating, deleting, and searching accounts. More features soon to be implemented.
+          Welcome to the user management hub. From this menu, you will have access to operations such as creating, deleting, and searching accounts.
         </p>
       </div>
 
