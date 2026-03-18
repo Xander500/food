@@ -95,7 +95,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Whiskey Valor | Archive User</title>
+        <title>UMW Alleviating Food Waste Volunteer Tracking | User Permissions</title>
         <style>
             .modUser{
                 display: flex;
@@ -151,13 +151,9 @@
                 echo '</select>';
             }
         ?>
-
-
-	
-
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <input type="submit" name="user_access_modified" value="Update">
-                <a class="button cancel" href="personSearch.php">Cancel</a>
+                <input type="hidden" name="id" value="<?php echo $id; ?>" style="margin: auto;">
+                <input type="submit" name="user_access_modified" value="Update" style="margin: auto;">
+                <a class="button cancel" href="personSearch.php" style="margin: auto;">Cancel</a>
 		</form>
         </main>
     </body>

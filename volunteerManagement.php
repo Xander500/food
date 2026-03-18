@@ -95,17 +95,9 @@ require_once('header.php');
 
 </style>
 <!-- BANDAID END, REMOVE ONCE SOME GENIUS FIXES -->
-
-<style>
-  .return-button:hover {
-    background-color: var(--main-color-hover) !important;
-  }
-</style>
-
 </head>
 
 <body>
-
   <!-- Larger Hero Section -->
   <!--<header class="hero-header"></header>-->
   <!-- <header class="top-bar"></header> -->
@@ -147,7 +139,7 @@ require_once('header.php');
         </button>-->
 	
 	<div class="text-center mt-6">
-        	<a href="index.php" class="return-button" style="background-color: var(--main-color); border-color: var(--main-color-hover);">Return to Dashboard</a>
+        	<a href="index.php" class="return-button">Return to Dashboard</a>
 	</div>
 		
      </div>
