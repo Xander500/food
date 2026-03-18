@@ -221,15 +221,11 @@ nav {
 }
 
 a {
-    color: var(--page-font-color);
-}
-
-a:visited {
-    color: var(--page-font-color);
+    color: white;
 }
 
 a:hover {
-    color: var(--accent-color);
+    color: rgb(255, 255, 255, 0.5);
 }
 
 #vms-logo {
@@ -570,6 +566,31 @@ main.calendar-view th {
     border-width: 2px;
 }
 
+.search-results-table > table,
+.search-results-table > table > thead > tr > th, 
+.search-results-table > table > tbody > tr > td {
+    overflow: auto;
+    margin: auto;
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    color: white;
+    border-collapse: collapse;
+}
+
+.search-results-table > table > thead > tr > th, 
+.search-results-table > table > tbody > tr > td {
+    border: 3px solid white;
+    background-color: var(--page-font-color);
+}
+
+.search-results-table > table > thead > tr > th {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
 h1.calendar-header {
     background-color: var(--accent-color);
     color: rgb(40, 251, 255);
@@ -841,7 +862,8 @@ form.signup-form {
 }
 
 /* thomas added this */
-form.signup-form .section-box {
+form.signup-form .section-box,
+form#person-search.section-box {
     border: 1px solid var(--page-font-color);
     border-radius: 5px;
     padding: 15px;
@@ -856,7 +878,8 @@ form.signup-form > fieldset {
     flex-direction: column;
 }
 
-form.signup-form > fieldset > label {
+form.signup-form > fieldset > label, 
+form#person-search > div > label {
     margin-bottom: -.25rem;
 }
 
@@ -880,6 +903,32 @@ form.signup-form em {
     width: fit-content;
     margin-left: -.75rem;
     color: var(--page-font-color);
+}
+
+.return-button,
+a.return-button {
+    background-color: var(--main-color); 
+    border-color: var(--main-color-hover);
+    border-radius: 0.5rem !important;
+    padding-inline: 1.5rem !important;
+    padding-block: 0.5rem !important;
+  }
+  
+.return-button:hover,
+a.return-button:hover {
+    background-color: var(--main-color-hover) !important;
+    color: white;
+}
+
+.return-button {
+    border-radius: var(--radius-lg) !important;
+    padding-inline: calc(var(--spacing) * 6) !important;
+    padding-block: calc(var(--spacing) * 2) !important;
+  }
+
+.error-block {
+    text-align: center;
+    font-weight: 600;
 }
 
 /* Replacing normal_tw.css to simplify editing */

@@ -9,11 +9,11 @@
   <div class="main-content-box">
     <form class="signup-form" method="post">
 	<div class="text-center spacing-bottom">
-          <h2 class="mb-8">Registration Form</h2>
-            <div class="info-box">
-              <p class="sub-text">Please fill out each section of the following form to create your account.</p>
-              <p>An asterisk (*) indicates a required field.</p>
-            </div>
+        <h2 class="mb-8">Registration Form</h2>
+        <div class="info-box">
+            <p class="sub-text">Please fill out each section of the following form to create your account.
+                <br>An asterisk (*) indicates a required field.</p>
+        </div>
 	</div>
         
         <fieldset class="section-box mb-4">
