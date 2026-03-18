@@ -75,6 +75,8 @@ table, td, tr, th, form, fieldset, em, button, a {
  
     --secondary-accent-color: rgb(175, 141, 92);
 
+    --accessible-highlight-color: #2563EB;
+
     /* Accessibility / WV theme variables */
     --wv-accent-color: #C9AB81; /* gold */
     --wv-accent-foreground: #111111;
@@ -1591,4 +1593,11 @@ div .dd {
     margin-top: 50px;
     font-weight: 400;
     font-size: 25px;
+}
+
+/*accesible display for tabulation navigation devices*/
+button:focus, a:focus, input:focus, select:focus, textarea:focus, .choices:focus, 
+.logo-container a:focus-visible img {
+    outline: 4px solid var(--accessible-highlight-color) !important;
+    outline-offset: 3px !important;
 }

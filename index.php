@@ -748,7 +748,7 @@
                 <span class="arrow"><img src="images/list-solid.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">View</span>
             </button>
-            <button class="nav-button" onclick="window.location.href='addEvent.php'">
+            <button class="nav-button" onclick="window.location.href='addEvent.php.php'">
                 <span class="arrow"><img src="images\create-report.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">Add</span>
             </button>
