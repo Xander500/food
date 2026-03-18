@@ -24,8 +24,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Delete User</title>
-    <link href="css/normal_tw.css" rel="stylesheet">
+    <title>UMW Alleviating Food Waste Volunteer Tracking | User Search</title>
+    <!-- <link href="css/normal_tw.css" rel="stylesheet"> -->
+     <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
 <!-- BANDAID FIX FOR HEADER BEING WEIRD -->
 <?php
 $tailwind_mode = true;
@@ -50,7 +51,7 @@ require_once('header.php');
         background-color: white !important;
     }
 
-    .info-text {
+    /* .info-text {
         color: #92c44c !important;
     }
 
@@ -66,32 +67,29 @@ require_once('header.php');
 
     .main-content-box label {
             color: #92c44c !important;
-    }
-    
-    .sub-text {
-        color: #92c44c !important;
-    }
+    } */
 
 </style>
 <!-- BANDAID END, REMOVE ONCE SOME GENIUS FIXES -->
 </head>
 <body>
 
-<header class="hero-header">
+<!-- <header class="hero-header">
     <div class="center-header">
         <h1>Delete User</h1>
     </div>
-</header>
+</header> -->
 
 <main>
-    <div class="main-content-box w-[80%] p-8">
-
+    <div class="main-content-box">
         <div class="text-center mb-8">
-            <h2>Find the user account to delete</h2>
-            <p class="sub-text">Use filters below to search.</p>
+            <h2>Find a User</h2>
+            <div class="info-box">
+                <p class="sub-text">Use the fields below to filter and search for users.</p>        
+            </div>
         </div>
 
-        <form id="person-search" class="space-y-6" method="get">
+        <form id="person-search" class="section-box mb-4" method="get">
 
         <?php
             if (isset($_GET['name']) || isset($_GET['id']) || isset($_GET['phone']) || isset($_GET['zip']) || isset($_GET['role']) || isset($_GET['status']) || isset($_GET['photo_release'])) {
@@ -123,9 +121,9 @@ require_once('header.php');
 
                     if (count($persons) > 0) {
                         echo '
-                        <div class="overflow-x-auto">
+                        <div class="search-results-table">
                             <table>
-                                <thead class="bg-blue-400">
+                                <thead>
                                     <tr>
                                         <th>First</th>
                                         <th>Last</th>
@@ -202,18 +200,10 @@ require_once('header.php');
             </div>
 
         </form>
-    </div>
 
-    <div class="text-center mt-6">
-        <a href="index.php" class="return-button">Return to Dashboard</a>
-    </div>
-
-    <div class="info-section">
-        <div class="blue-div"></div>
-        <p class="info-text">
-            Use this tool to filter and search for user accounts by their role, phone, and more. User account will be deleted upon confirmation.
-        </p>
-        <div style="height: 30px;"></div>
+        <div class="text-center mt-6">
+            <a href="index.php" class="return-button">Return to Dashboard</a>
+        </div>
     </div>
 </main>
 
