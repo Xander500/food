@@ -742,16 +742,15 @@
 
     <div class="content-box">
         <!-- <img src="images/EvM.png" /> -->
-        <div class="small-text">Let’s have some fun!</div>
-        <div class="large-text">My Events</div>
+        <div class="large-text">My Volunteer Activity Logs</div>
         <div class="nav-buttons">
-            <button class="nav-button" onclick="window.location.href='viewAllEvents.php'">
-                <span class="arrow"><img src="images/new-event.svg" style="width: 40px; border-radius:5px;"></span>
-                <span class="text">Sign-Up</span>
-            </button>
-            <button class="nav-button" onclick="window.location.href='viewMyUpcomingEvents.php'">
+            <button class="nav-button" onclick="window.location.href='viewAllLogs.php?<?php echo http_build_query(['students' => $user->get_id()])?>'">
                 <span class="arrow"><img src="images/list-solid.svg" style="width: 40px; border-radius:5px;"></span>
-                <span class="text">Upcoming</span>
+                <span class="text">View</span>
+            </button>
+            <button class="nav-button" onclick="window.location.href='addEvent.php'">
+                <span class="arrow"><img src="images\create-report.svg" style="width: 40px; border-radius:5px;"></span>
+                <span class="text">Add</span>
             </button>
             
         </div>
