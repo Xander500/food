@@ -768,6 +768,10 @@ img.filter-button {
     gap: 0.5rem;
 }
 
+a:hover i {
+    color: var(--main-color-hover) !important;
+}
+
 button.cancel, a.cancel {
     background-color: var(--main-color);
     color: white;
