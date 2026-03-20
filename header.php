@@ -66,7 +66,7 @@ if (date("H:i:s") > "18:19:59") {
             /* border-bottom-right-radius: 50px; */
         }
          .content-box-test:hover,
-         .content-box-test:focus {
+         .content-box-test:focus-visible {
             border: 4px solid var(--page-font-color);
         }
 /*END STYLE TEST*/
@@ -261,14 +261,25 @@ if (date("H:i:s") > "18:19:59") {
             transition: background 0.3s;
         }
         .dropdown div:hover,
-        .dropdown div:focus {
+        .dropdown div:focus-visible {
             background: rgba(0, 0, 0, 0.1);
         }
 
-        .nav-item:hover, .nav-item:focus, .nav-item.active {
+        .nav-item:hover, .nav-item:focus-visible, .nav-item.active {
             color: var(--accent-color);
             /* outline: 1px solid var(--accent-color); */
             outline-offset: 7px;
+        }
+
+        .nav-item:hover .icon,
+        .nav-item:focus-visible .icon,
+        .nav-item:active .icon {
+            background: transparent;
+            border: none;
+            outline: none !important;
+        }
+        .nav-item:focus-visible .icon {
+            outline: inherit; /*this makes it still visible fot tabbing*/
         }
 
         .date-box {
@@ -286,8 +297,14 @@ if (date("H:i:s") > "18:19:59") {
             width: 47px;
             height: 47px;
             /*background: #292D32;*/
-            border-radius: 50%;
+            border: none;
+            background: transparent;
+            margin: 0;
+            justify-content: center;
+            align-items: center;
+            display: flex;
         }
+        
 .nav-buttons {
     position: absolute;
     bottom: 10%; /* Adjust as needed */
@@ -324,7 +341,7 @@ if (date("H:i:s") > "18:19:59") {
 
 /* Expand button on hover */
 .nav-button:hover,
-.nav-button:focus {
+.nav-button:focus-visible {
     width: 160px;
     padding: 6px 8px;
     padding-top: 10px
@@ -337,7 +354,7 @@ if (date("H:i:s") > "18:19:59") {
 }
 
 .nav-button:hover .text,
-.nav-button:focus .text {
+.nav-button:focus-visible .text {
     opacity: 1;
     transform: translateX(0);
 }
@@ -349,7 +366,7 @@ if (date("H:i:s") > "18:19:59") {
 }
 
 .nav-button:hover .arrow,
-.nav-button:focus .arrow {
+.nav-button:focus-visible .arrow {
     transform: translateX(5px);
 }
        /* Button Control */
@@ -368,7 +385,7 @@ if (date("H:i:s") > "18:19:59") {
         }
 
         .arrow-button:hover,
-        .arrow-button:focus {
+        .arrow-button:focus-visible {
             transform: translateX(5px); /* Moves the arrow slightly on hover */
             background: transparent;
         }
@@ -409,7 +426,7 @@ if (date("H:i:s") > "18:19:59") {
         }
 
         .social-icons a:hover,
-        .social-icons a:focus {
+        .social-icons a:focus-visible {
             color: rgb(31,31,33);
         }
 
@@ -444,7 +461,7 @@ if (date("H:i:s") > "18:19:59") {
         }
 
         .footer a:hover,
-        .footer a:focus {
+        .footer a:focus-visible {
             background: rgba(255, 255, 255, 0.1);
             color: #dcdcdc;
         }
@@ -480,13 +497,13 @@ if (date("H:i:s") > "18:19:59") {
             transition: filter 0.05s, background-color 0.05s;
         }
 
-        .nav-item:hover img, .nav-item:focus img, .nav-item.active img {
+        .nav-item:hover img, .nav-item:focus-visible img, .nav-item.active img {
             filter: invert(68%) sepia(66%) saturate(345%) hue-rotate(43deg) brightness(90%) contrast(95%);
         }
        
-        .icon .dropdown{
+        .nav-item .dropdown{
             top: 130%;
-            left: -415%;
+            left: -315%;
         }
 
         .in-nav {
@@ -513,7 +530,7 @@ if (date("H:i:s") > "18:19:59") {
     }
 
     .icon-butt:hover svg,
-    .icon-butt:focus svg {
+    .icon-butt:focus-visible svg {
         transform: scale(1.1) rotate(5deg); /* Slight enlarge & tilt effect */
         fill: var(--accent-color); /* Changes to a blue shade */
     }
@@ -664,12 +681,12 @@ if (date("H:i:s") > "18:19:59") {
         <div class="right-section">
             <div class="nav-links">
                 <div class="nav-item">
-                    <div class="icon">
+                    <button class="icon">
                         <img src="images/usaicon.png" alt="User Icon" class="icon-img in-nav-img">
-                        <div class="dropdown">
-                            <a href="signup.php" class="dropdown-link"><div>Create Account</div></a>
-                            <a href="login.php" class="dropdown-link"><div>Log in</div></a>
-                        </div>
+                    </button>
+                    <div class="dropdown">
+                        <a href="signup.php" class="dropdown-link"><div>Create Account</div></a>
+                        <a href="login.php" class="dropdown-link"><div>Log in</div></a>
                     </div>
                 </div>
             </div>
@@ -906,12 +923,12 @@ if (date("H:i:s") > "18:19:59") {
             </a>-->
             <div class="nav-links">
                 <div class="nav-item">
-                    <div class="icon">
+                    <button class="icon">
                         <img src="images/usaicon.png" alt="User Icon" class="icon-img in-nav-img">
-                        <div class="dropdown">
-                            <a href="changePassword.php" class="dropdown-link"><div>Change Password</div></a>
-                            <a href="logout.php" class="dropdown-link"><div>Log Out</div></a>
-                        </div>
+                    </button>
+                    <div class="dropdown">
+                        <a href="changePassword.php" class="dropdown-link"><div>Change Password</div></a>
+                        <a href="logout.php" class="dropdown-link"><div>Log Out</div></a>
                     </div>
                 </div>
             </div>
@@ -977,15 +994,15 @@ if (date("H:i:s") > "18:19:59") {
             </a>
             <div class="date-box"></div>
             <div class="nav-links">
-                <div class="nav-item" style="outline:none;">
-                    <div class="icon">
+                <div class="nav-item">
+                    <button class="icon">
                         <img src="images/usaicon.png" alt="User Icon" class="icon-img in-nav-img">
-                        <div class="dropdown">
-                            <a href="viewProfile.php" style="text-decoration: none;"><div>View Profile</div></a>
-                            <a href="editProfile.php" style="text-decoration: none;"><div>Edit Profile</div></a>
-                            <a href="changePassword.php" style="text-decoration: none;"><div>Change Password</div></a>
-                            <a href="logout.php" style="text-decoration: none;"><div>Log Out</div></a>
-                        </div>
+                    </button>
+                    <div class="dropdown">
+                        <a href="viewProfile.php" style="text-decoration: none;"><div>View Profile</div></a>
+                        <a href="editProfile.php" style="text-decoration: none;"><div>Edit Profile</div></a>
+                        <a href="changePassword.php" style="text-decoration: none;"><div>Change Password</div></a>
+                        <a href="logout.php" style="text-decoration: none;"><div>Log Out</div></a>
                     </div>
                 </div>
             </div>
