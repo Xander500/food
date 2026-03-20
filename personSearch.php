@@ -24,8 +24,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>User Search</title>
-    <link href="css/normal_tw.css" rel="stylesheet">
+    <title>UMW Alleviating Food Waste Volunteer Tracking | User Search</title>
+    <!-- <link href="css/management_tw.css" rel="stylesheet"> -->
+    <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
 <!-- BANDAID FIX FOR HEADER BEING WEIRD -->
 <?php
 $tailwind_mode = true;
@@ -48,11 +49,6 @@ require_once('header.php');
 
         body, main {
         background-color: white;
-        }
-
-        .text-blue-700,
-        .text-blue-700:visited {
-        color: black !important;
         }   
 
         .info-section .info-text {
@@ -62,63 +58,28 @@ require_once('header.php');
         .blue-div {
         background-color: #92c44c !important;
         }
-
-        .main-content-box label {
-        color: #92c44c !important;
-        }
-        
-        .text-blue-700 {
-        color: #92c44c !important;
-        }
-        .sub-text {
-        color: #92c44c !important;
-        }
-
-        .main-content-box table,
-        .main-content-box table thead,
-        .main-content-box table tbody,
-        .main-content-box table tr,
-        .main-content-box table th,
-        .main-content-box table td {
-            background-color: #213e57 !important;
-            color: #92c44c !important;
-            border: 1px solid white !important;
-        }
-
-        .main-content-box table a.text-blue-700,
-        .main-content-box table a.text-blue-700:visited {
-            color: #C9AB81 !important;
-            }
-
-        .main-content-box table thead.bg-blue-400 th {
-            background-color: #213e57 !important;
-        }
-
-        .main-content-box table a.text-blue-700,
-        .main-content-box table a.text-blue-700:visited {
-            color: #92c44c !important;
-        }
     
 </style>
 <!-- BANDAID END, REMOVE ONCE SOME GENIUS FIXES -->
 </head>
 <body>
 
-<header class="hero-header">
+<!-- <header class="hero-header">
     <div class="center-header">
         <h1>User Search</h1>
     </div>
-</header>
+</header> -->
 
 <main>
-    <div class="main-content-box w-[80%] p-8">
-
+    <div class="main-content-box">
         <div class="text-center mb-8">
             <h2>Find a User</h2>
-            <p class="sub-text">Use filters below to search Users.</p>
+            <div class="info-box">
+                <p class="sub-text">Use the fields below to filter and search for users.</p>
+            </div>
         </div>
 
-        <form id="person-search" class="space-y-6" method="get">
+        <form id="person-search" class="section-box mb-4" method="get">
 
         <?php
             if (isset($_GET['name']) || isset($_GET['id']) || isset($_GET['phone']) || isset($_GET['zip']) || isset($_GET['role']) || isset($_GET['status']) || isset($_GET['photo_release'])) {
@@ -150,9 +111,9 @@ require_once('header.php');
 
                     if (count($persons) > 0) {
                         echo '
-                        <div class="overflow-x-auto">
+                        <div class="search-results-table">
                             <table>
-                                <thead class="bg-blue-400">
+                                <thead>
                                     <tr>
                                         <th>First</th>
                                         <th>Last</th>
@@ -220,25 +181,22 @@ require_once('header.php');
                 </select>
         </div>
 
-            
-
             <div class="text-center pt-4">
                 <input type="submit" value="Search" class="blue-button">
             </div>
 
         </form>
+        <div class="text-center mt-6">
+            <a href="index.php" class="return-button">Return to Dashboard</a>
+        </div>
     </div>
 
-    <div class="text-center mt-6">
-        <a href="index.php" class="return-button">Return to Dashboard</a>
-    </div>
-
-    <div class="info-section">
+    <!-- <div class="info-section">
         <div class="blue-div"></div>
         <p class="info-text">
             Use this tool to filter and search for volunteers or participants by their role, zip code, phone, archive status, and more. Mailing list support is built in.
         </p>
-    </div>
+    </div> -->
 </main>
 
 </body>

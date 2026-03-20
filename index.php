@@ -33,6 +33,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="./css/base.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
     <title>UMW Alleviating Food Waste Volunteer Tracking | Dashboard</title>
     <?php require_once('universal.inc') ?>
     <style>
@@ -202,7 +203,8 @@
 
         /* Right Section: Date & Icon */
         .right-section {
-            margin-left: auto; /* Pushes right section to the end */
+            /* margin-left: auto; Pushes right section to the end */
+            margin-right: 0px;
             display: flex;
             align-items: center;
             gap: 20px;

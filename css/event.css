@@ -488,14 +488,14 @@ table td .label {
 }
 
 
-.button.cancel {
+/* .button.cancel {
     background-color: #6c757d !important;
     color: #fff !important;
 }
 
 .button.cancel:hover {
     background-color: #5a6268!important;
-}
+} */
 
 .button.signup {
     background-color: #c9ab81!important;

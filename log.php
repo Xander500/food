@@ -139,7 +139,7 @@
     <?php 
         require_once('universal.inc');
     ?>
-    <title>Volunteer Impact Tracking System | Log <?php echo $log_info['id'] ?></title>
+    <title>UMW Alleviating Food Waste Volunteer Tracking | Log <?php echo $log_info['id'] ?></title>
     <link rel="stylesheet" href="event.css" type="text/css" />
     <?php if (isset($_SESSION['access_level']) && $access_level >= 2) : ?>
         <script src="js/event.js"></script>
@@ -149,7 +149,7 @@
 
 <body>
     <?php require_once('header.php') ?>
-    <h1>View Volunteer Activity</h1>
+    <!-- <h1>View Volunteer Activity</h1> -->
     <main class="event-info">
         <!-- Success notifications -->
         <?php if (isset($_GET['createSuccess'])): ?>
@@ -193,11 +193,11 @@
             //! change for edit buttons for instructor
             if (isset($_SESSION['access_level']) && $access_level >= 2): ?>
                 <a href="editLog.php?id=<?= $id ?>" title="Edit Log" class="edit-icon">
-                    <i class="fas fa-pencil-alt"></i>
+                    <i class="fas fa-pencil-alt" style="color: var(--main-color);"></i>
                 </a>
                 <a href="deleteLog.php?id=<?= $id ?>" title="Delete Log" class="delete-icon"
                     onclick="return confirm('<?= htmlspecialchars($confirmText, ENT_QUOTES) ?>');">
-                    <i class="fas fa-trash"></i>
+                    <i class="fas fa-trash" style="color: var(--main-color);"></i>
                 </a>
         <?php endif; ?>
         </h2>
@@ -311,9 +311,9 @@
                 document.getElementById('complete-confirmation-wrapper').classList.add('hidden');
             };
         </script>
-        <a class="button cancel" href="viewAllLogs.php">View All Volunteer Activity</a>
-        <a class="button cancel" href="addEvent.php">Add Volunteer Actitvity</a>
-        <a class="button cancel" href="index.php">Return to Dashboard</a>
+        <a class="button cancel" href="viewAllLogs.php" style="margin-left: auto; margin-right: auto;">View All Volunteer Activity</a>
+        <a class="button cancel" href="addEvent.php" style="margin-left: auto; margin-right: auto;">Add Volunteer Actitvity</a>
+        <a class="button cancel" href="index.php" style="margin-left: auto; margin-right: auto;">Return to Dashboard</a>
 
 
     </main>

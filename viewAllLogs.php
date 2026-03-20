@@ -144,8 +144,10 @@
                         <input type="number" id="maxFood" name="maxfood" min="0" placeholder="To" >
                     </div>
                 </div>
-                <button type="submit">Apply Filters</button>
-                <a class="button cancel" href="viewAllLogs.php">Clear Filters</a>
+                <div style="margin: auto; width: 75%;">
+                    <button type="submit">Apply Filters</button>
+                    <a class="button cancel" href="viewAllLogs.php">Clear Filters</a>
+                </div>
             </form>
 
             <?php
@@ -225,7 +227,7 @@
                 <?php else: ?>
                 <p class="no-events standout">There are currently no logs available to view.<a class="button add" href="addEvent.php">Create a New Log</a> </p>
             <?php endif ?>
-            <a class="button cancel" href="index.php">Return to Dashboard</a>
+            <a class="button cancel" href="index.php" style="margin: auto;">Return to Dashboard</a>
         </main>
     
     <script>
