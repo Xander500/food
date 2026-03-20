@@ -999,10 +999,10 @@ if (date("H:i:s") > "18:19:59") {
                         <img src="images/usaicon.png" alt="User Icon" class="icon-img in-nav-img">
                     </button>
                     <div class="dropdown">
-                        <a href="viewProfile.php" style="text-decoration: none;"><div>View Profile</div></a>
-                        <a href="editProfile.php" style="text-decoration: none;"><div>Edit Profile</div></a>
-                        <a href="changePassword.php" style="text-decoration: none;"><div>Change Password</div></a>
-                        <a href="logout.php" style="text-decoration: none;"><div>Log Out</div></a>
+                        <a href="viewProfile.php" style="text-decoration: none;" class="dropdown-link"><div>View Profile</div></a>
+                        <a href="editProfile.php" style="text-decoration: none;" class="dropdown-link"><div>Edit Profile</div></a>
+                        <a href="changePassword.php" style="text-decoration: none;" class="dropdown-link"><div>Change Password</div></a>
+                        <a href="logout.php" style="text-decoration: none;" class="dropdown-link"><div>Log Out</div></a>
                     </div>
                 </div>
             </div>
