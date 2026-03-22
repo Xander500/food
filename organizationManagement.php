@@ -26,7 +26,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UMW Alleviating Food Waste Volunteer Tracking | User Account Management Page</title>
+  <title>UMW Alleviating Food Waste Volunteer Tracking | Organization Management Page</title>
   <link href="css/management_tw.css" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
 
@@ -103,58 +103,45 @@ require_once('header.php');
   <!-- <header class="top-bar"></header> -->
 
   <!-- Main Content -->
-  <main style="margin-top: 100px;">
-    <div class="sections">
+    <main style="margin-top: 100px;">
+        <div class="sections">
 
-      <!-- Buttons Section -->
-      <div class="button-section">
-        <button onclick="window.location.href='VolunteerRegister.php';">
-	  <div class="button-left-gray"></div>
-	  <div>Register New User</div>
-	  <img class="button-icon" src="images/add-person.svg" alt="Person Icon">
-        </button>
+            <!-- Buttons Section -->
+            <div class="button-section">
+                <button onclick="window.location.href='addOrganization.php';">
+	                <div class="button-left-gray"></div>
+	                <div>Create New Organization</div>
+	                <img class="button-icon" src="images/add-person.svg" alt="Person Icon">
+                </button>
 
-        <button onclick="window.location.href='personSearch.php';">
-	  <div class="button-left-gray"></div>
-	  <div>Edit Registered Users</div>
-	  <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
-        </button>
+                <button onclick="window.location.href='personSearch.php';">
+	                <div class="button-left-gray"></div>
+                    <div>Edit Organizations</div>
+                    <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
+                </button>
 
-    <button onclick="window.location.href='deleteUserSearch.php';">
-        <div class="button-left-gray"></div>
-        <div>Delete Users</div>
-        <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">
-    </button>
-
-	<!--<button onclick="window.location.href='selectVOTM.php';">
-	  <div class="button-left-gray"></div>
-	  <div>Volunteer of the Month</div>
-	  <img class="button-icon h-10 w-10 left-5" src="images/star-icon.svg" alt="Person Icon">
-        </button>-->
-
-	<!--<button onclick="window.location.href='leaderboard.php';">
-	  <div class="button-left-gray"></div>
-	  <div>Leaderboard</div>
-	  <img class="button-icon h-10 w-10 left-5" src="images/crown.svg.png" alt="Person Icon">
-        </button>-->
+                <button onclick="window.location.href='deleteUserSearch.php';">
+                    <div class="button-left-gray"></div>
+                    <div>Delete Organizations</div>
+                    <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">
+                </button>
 	
-	<div class="text-center mt-6">
-        	<a href="index.php" class="return-button">Return to Dashboard</a>
-	</div>
+                <div class="text-center mt-6">
+                        <a href="index.php" class="return-button">Return to Dashboard</a>
+                </div>
 		
-     </div>
+            </div>
 
-      <!-- Text Section -->
-      <div class="text-section">
-        <h1>User Account Management</h1>
-        <div class="div-blue"></div>
-        <p>
-          Welcome to the user management hub. From this menu, you will have access to operations such as creating, deleting, and searching accounts.
-        </p>
-      </div>
+            <!-- Text Section -->
+            <div class="text-section">
+                <h1>Organization Management</h1>
+                <div class="div-blue"></div>
+                <p>
+                Welcome to the organization management hub. From this menu, you will have access to operations such as creating, deleting, and searching organizations.
+                </p>
+            </div>
 
-    </div>
-  </main>
+        </div>
+    </main>
 </body>
 </html>
-

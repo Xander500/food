@@ -302,7 +302,7 @@ input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
 }
 
 input[type=text]::placeholder, input[type=password]::placeholder, input[type=date]::placeholder, input[type=email]::placeholder, input[type=number]::placeholder, 
-input[type=tel]::placeholder {
+input[type=tel]::placeholder, textarea::placeholder {
     color: var(--main-color-hover);
 }
 
@@ -859,7 +859,8 @@ main.dashboard > p {
     }
 }
 
-form.signup-form {
+form.signup-form,
+form.add-org-form {
     display: flex;
     gap: 1rem;
     flex-direction: column;
@@ -867,12 +868,17 @@ form.signup-form {
 
 /* thomas added this */
 form.signup-form .section-box,
-form#person-search.section-box {
+form#person-search.section-box,
+form.add-org-form .section-box {
     border: 1px solid var(--page-font-color);
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 20px;
     background-color: var(--accent-color);
+}
+
+form.add-org-form .section-box textarea {
+    resize: none;
 }
 
 form.signup-form > fieldset {

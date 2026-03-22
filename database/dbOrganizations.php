@@ -25,6 +25,39 @@ function make_an_organization($result_row) {
     return $theOrg;
 }
 
+function add_organization($org) {
+    $con = connect();
+    $query = "SELECT * FROM dborganizations WHERE name = '" . $org->get_name() . "'";
+    $result = mysqli_query($con, $query);
+
+    // If the result is empty, it means the org doesn't exist, so we can add the org
+    if (mysqli_num_rows($result) == 0) {
+        // Prepare the insert query
+        $insert_query = 'INSERT INTO dborganizations (name, email, description, location) 
+            VALUES ("' .
+            $org->get_name() . '","' .
+            $org->get_email() . '","' .
+            $org->get_description() . '","' .
+            $org->get_location() . '");';  
+    
+        // Check if the query is properly built
+        if (empty($insert_query)) {
+            die("Error: insert query is empty");
+        }
+
+        // Perform the insert
+        if (mysqli_query($con, $insert_query)) {
+            mysqli_close($con);
+            return true;
+        } else {
+            die("Error: " . mysqli_error($con)); // Debugging MySQL error
+        }
+    }
+
+    mysqli_close($con);
+    return false;
+}
+
 function get_organization_name_from_id($id) {
     $con=connect();
     $query = 'SELECT name FROM dborganizations WHERE id = "' . $id . '"';

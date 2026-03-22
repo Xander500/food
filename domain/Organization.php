@@ -18,11 +18,11 @@ class Organization {
 
 
 	function __construct($id, $name, $email, $location, $description) {
-        $this->$id = $id;
-        $this->$name = $name;
-        $this->$email = $email;
-        $this->$location = $location;
-        $this->$description = $description;
+        $this->id = $id;
+		$this->name = $name;
+		$this->email = $email;
+		$this->location = $location;
+		$this->description = $description;
     }
 
 
@@ -30,7 +30,7 @@ class Organization {
 		return $this->id;
 	}
 
-	function name() {
+	function get_name() {
 		return $this->name;
 	}
 
