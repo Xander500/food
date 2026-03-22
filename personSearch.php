@@ -5,6 +5,8 @@
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
+    require_once('database/dbusers.php');
+
 
     $loggedIn = false;
     $accessLevel = 0;
@@ -82,11 +84,11 @@ require_once('header.php');
         <form id="person-search" class="section-box mb-4" method="get">
 
         <?php
-            if (isset($_GET['name']) || isset($_GET['id']) || isset($_GET['phone']) || isset($_GET['zip']) || isset($_GET['role']) || isset($_GET['status']) || isset($_GET['photo_release'])) {
+            if (isset($_GET['name']) || isset($_GET['id']) || isset($_GET['role']) || isset($_GET['semester'])) {
                 require_once('include/input-validation.php');
                 require_once('database/dbPersons.php');
                 $args = sanitize($_GET);
-                $required = ['name', 'id', 'phone', 'role'];
+                $required = ['name', 'id', 'role', 'semester'];
 
                 if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                     echo '<div class="error-block">Missing expected form elements.</div>';
@@ -94,19 +96,16 @@ require_once('header.php');
 
                 $name = $args['name'];
                 $id = $args['id'];
-                $phone = preg_replace("/[^0-9]/", "", $args['phone']);
-                //$zip = $args['zip'];
+                $semester = $args['semester'];
                 $role = $args['role'];
-                //$status = $args['status'];
-                //$photo_release = $args['photo_release'];
 
-                if (!($name || $id || $phone || $role)) {
+                if (!($name || $id || $semester || $role)) {
                     echo '<div class="error-block">At least one search criterion is required.</div>';
-                } else if (!valueConstrainedTo($role, ['admin', 'participant', 'superadmin', 'volunteer', ''])) {
+                } else if (!valueConstrainedTo($role, ['Instructor', 'Student', ''])) {
                     echo '<div class="error-block">The system did not understand your request.</div>';
                 }else {
                     echo "<h3>Search Results</h3>";
-                    $persons = find_users($name, $id, $phone, $role);
+                    $persons = search_users($name, $id, $semester, $role);
                     require_once('include/output.php');
 
                     if (count($persons) > 0) {
@@ -118,7 +117,7 @@ require_once('header.php');
                                         <th>First</th>
                                         <th>Last</th>
                                         <th>Username</th>
-                                        <th>Phone</th>
+                                        <th>Semester</th>
                                         <th>Role</th>
                                         <th>Profile</th>
                                         <th>Actions</th>
@@ -139,8 +138,8 @@ require_once('header.php');
                                         <td>' . $person->get_first_name() . '</td>
                                         <td>' . $person->get_last_name() . '</td>
                                         <td><a href="mailto:' . $person->get_id() . '" class="text-blue-700 underline">' . $person->get_id() . '</a></td>
-                                        <td><a href="tel:' . $person->get_phone1() . '" class="text-blue-700 underline">' . formatPhoneNumber($person->get_phone1()) . '</a></td>
-                                        <td>' . ucfirst($person->get_type() ?? '') . '</td>
+                                        <td>' . $person->get_semester() . '</td>
+                                        <td>' . ucfirst($person->get_role() ?? '') . '</td>
                                         <td><a href="viewProfile.php?id=' . $person->get_id() . '" class="text-blue-700 underline">Profile</a></td>
                                         <td><a href="modifyUserRole.php?id=' . $person->get_id() . '" class="text-blue-700 underline">Update Status</a></td>
                                     </tr>';
@@ -169,17 +168,23 @@ require_once('header.php');
             </div>
 
             <div>
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" class="w-full" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']); ?>" placeholder="Enter the user's phone number">
-            </div>
-            <div>
                 <label for="role">Role</label>
                 <select id="role" name="role" class="w-full">
                     <option value="">Any</option>
-                    <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected'; ?>>Volunteer</option>
-                    <option value="admin" <?php if (isset($role) && $role == 'admin') echo 'selected'; ?>>Admin</option>
+                    <option value="Student" <?php if (isset($role) && $role == 'Student') echo 'selected'; ?>>Student</option>
+                    <option value="Instructor" <?php if (isset($role) && $role == 'Instructor') echo 'selected'; ?>>Instructor</option>
                 </select>
-        </div>
+            </div>
+
+            <div>
+                <label for="semester">Semester</label>
+                <select id="semester" name="semester" class="w-full">
+                    <option value="">Any</option>
+                    <?php foreach (get_semesters_in_users() as ['semester' => $s]): ?>
+                    <option value="<?php echo $s ?>" <?php if (isset($semester) && $semester == $s) echo 'selected'; ?>><?php echo $s ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
             <div class="text-center pt-4">
                 <input type="submit" value="Search" class="blue-button">
