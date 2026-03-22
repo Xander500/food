@@ -504,7 +504,7 @@
         <button class="circle-arrow-button">
     <span class="button-text"><?php 
                         require_once('database/dbEvents.php');
-                        require_once('database/dbusers.php');
+                        require_once('database/dbUsers.php');
                         require_once('database/dbApplications.php');
                         $pendingsignups = all_pending_names();
                         if (sizeof($pendingsignups) > 0) {
