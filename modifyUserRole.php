@@ -19,11 +19,18 @@
     require_once('include/input-validation.php');
     
     $get = sanitize($_GET);
+
+    // Was an ID supplied? If not redirect to dashboard
+    if ($_SERVER["REQUEST_METHOD"] == "GET" && !isset($_GET['id'])) {
+        header('Location: index.php');
+        die();
+    }
+
     $id = $get['id'];
     // Does the person exist?
-    require_once('domain/Person.php');
-    require_once('database/dbPersons.php');
-    $thePerson = retrieve_person($id);
+    require_once('domain/User.php');
+    require_once('database/dbUsers.php');
+    $thePerson = retrieve_user($id);
     if (!$thePerson) {
         echo "That user does not exist";
         die();
@@ -34,22 +41,18 @@
         header('Location: index.php');
         die();
     }
-    // Was an ID supplied?
-    if ($_SERVER["REQUEST_METHOD"] == "GET" && !isset($_GET['id'])) {
-        header('Location: index.php');
-        die();
-    } else if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        require_once('database/dbPersons.php');
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
         require_once('database/dbMessages.php');
         $post = sanitize($_POST);
         $new_role = $post['s_role'];
-        if (!valueConstrainedTo($new_role, ['volunteer', 'admin'])) {
+        if (!valueConstrainedTo($new_role, ['Instructor', 'Student'])) {
             die();
         }
         if (empty($new_role)){
             // echo "No new role selected";
         }else if ($accessLevel >= 3) {
-            update_type($id, $new_role);
+            update_role($id, $new_role);
             $typeChange = true;
             // echo "<meta http-equiv='refresh' content='0'>";
         }
@@ -124,11 +127,8 @@
         <?php require_once('header.php') ?>
         <h1>Modify Role</h1>
         <main class="user-role">
-            <?php if ($accessLevel == 3): ?>
-                <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Role</h2>
-            <?php else: ?>
-                <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Status</h2>
-            <?php endif ?>
+            <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Role</h2>
+
             <form class="modUser" method="post">
                 <?php if (isset($typeChange) || isset($notesChange) || isset($statusChange)): ?>
                     <div class="happy-toast">User's access is updated.</div>
@@ -137,10 +137,10 @@
                         // Provides drop down of the role types to select and change the role
 			//other than the person's current role type is displayed
             if ($accessLevel == 3) {
-				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Participant');
+				$roles = array('Student' => 'Student', 'Instructor' => 'Instructor');
                 echo '<label for="role">Change Role</label><select id="role" class="form-select-sm" name="s_role">' ;
                 // echo '<option value="" SELECTED></option>' ;
-                $currentRole = $thePerson->get_type()[0];
+                $currentRole = $thePerson->get_role();
                 foreach ($roles as $role => $typename) {
                     if($role != $currentRole) {
                         echo '<option value="'. $role .'">'. $typename .'</option>';

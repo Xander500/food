@@ -5,7 +5,7 @@
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
-    require_once('database/dbusers.php');
+    require_once('database/dbUsers.php');
 
 
     $loggedIn = false;

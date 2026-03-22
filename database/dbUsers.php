@@ -191,3 +191,16 @@ function search_users($name, $id, $semester, $role) {
         return $users;
     }
 }
+
+function update_role($id, $role) {
+    $con=connect();
+    $sql = 'UPDATE dbusers SET role = ? WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("ss", $role, $id);
+
+    $query->execute();
+    $result = $query->get_result();
+    mysqli_close($con);
+    
+    return $result;
+}
