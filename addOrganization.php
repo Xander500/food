@@ -90,7 +90,13 @@ require_once('header.php');
         if (!$result) {
             $showPopup = true;
         } else {
-            echo '<script>document.location = "login.php?registerSuccess";</script>';
+            echo '<head>
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=addOrganization.php">
+                </head>
+                <div id="popupMessage" class="pop-up">
+                    ' . $name . ' has been added as an organization.
+                </div>';
+            // echo '<script>document.location = "login.php?registerSuccess";</script>';
             $title = $name . " has been added as an organization";
             $body = "A new organization has been added";
             system_message_all_admins($title, $body);
