@@ -59,11 +59,18 @@ $loggedIn = false;
             </span>
         </nav>
         <main>
-
-                <p class="happy-toast centered">The account for <?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?> has been deleted.</p>
-                <?php
-                remove_person($user->get_id());
-                ?>
+            <?php
+            try {
+                $success = remove_person($user->get_id());
+                if ($success) {
+                    echo "<p class='happy-toast centered'>The account for " . $user->get_first_name() . " " . $user->get_last_name() . " has been deleted.</p>";
+                } else {
+                    echo "<p class='happy-toast centered'>The account for " . $user->get_first_name() . " " . $user->get_last_name() . " failed to delete.</p>";
+                }
+            } catch (Throwable) {
+                echo "<p class='happy-toast centered'>The account requested cannot be found.  Deletion Failed.</p>";
+            } 
+            ?>
         </main>
     </body>
 </html>

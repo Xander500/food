@@ -204,3 +204,35 @@ function update_role($id, $role) {
     
     return $result;
 }
+
+//deletes the given user from the database entirely
+function remove_person($id) {
+    $con=connect();
+    $sql = 'SELECT * FROM dbusers WHERE id = ?';
+    //bind and get result
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+    $query->execute();
+    $result = $query->get_result();
+
+    //if this user doesn't exist
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        mysqli_close($con);
+        return false;
+    }
+
+    //the user does exist
+    try {
+        $sql = 'DELETE FROM dbusers WHERE id = ?';
+        $query = $con->prepare($sql);
+        $query->bind_param("s", $id);
+        $query->execute();
+        $result = $query->get_result();
+    } catch (Exception $e) {
+        mysqli_close($con);
+        return false; //failure
+    }
+    //success
+    mysqli_close($con);
+    return true;
+}

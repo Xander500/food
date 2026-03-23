@@ -5,7 +5,7 @@
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
-    require_once('database/dbusers.php');
+    require_once('database/dbUsers.php');
 
     $loggedIn = false;
     $accessLevel = 0;
@@ -95,7 +95,7 @@ require_once('header.php');
         <?php
             if (isset($_GET['name']) || isset($_GET['id']) || isset($_GET['role']) || isset($_GET['semester'])) {
                 require_once('include/input-validation.php');
-                require_once('database/dbusers.php');
+                require_once('database/dbUsers.php');
                 $args = sanitize($_GET);
                 $required = ['name', 'id', 'role', 'semester'];
 
