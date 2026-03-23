@@ -874,6 +874,7 @@ form.add-org-form {
 /* thomas added this */
 form.signup-form .section-box,
 form#person-search.section-box,
+form#org-search.section-box,
 form.add-org-form .section-box {
     border: 1px solid var(--page-font-color);
     border-radius: 5px;
@@ -882,7 +883,7 @@ form.add-org-form .section-box {
     background-color: var(--accent-color);
 }
 
-form.add-org-form .section-box textarea {
+textarea#description {
     resize: none;
 }
 
@@ -893,7 +894,8 @@ form.signup-form > fieldset {
     flex-direction: column;
 }
 
-form.signup-form > fieldset > label, 
+form.signup-form > fieldset > label,
+form#org-searcg > div > label,  
 form#person-search > div > label {
     margin-bottom: -.25rem;
 }

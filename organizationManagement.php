@@ -98,10 +98,6 @@ require_once('header.php');
 </head>
 
 <body>
-  <!-- Larger Hero Section -->
-  <!--<header class="hero-header"></header>-->
-  <!-- <header class="top-bar"></header> -->
-
   <!-- Main Content -->
     <main style="margin-top: 100px;">
         <div class="sections">
@@ -114,13 +110,13 @@ require_once('header.php');
 	                <img class="button-icon" src="images/add-person.svg" alt="Person Icon">
                 </button>
 
-                <button onclick="window.location.href='personSearch.php';">
+                <button onclick="window.location.href='editOrganizationSearch.php';">
 	                <div class="button-left-gray"></div>
                     <div>Edit Organizations</div>
                     <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
                 </button>
 
-                <button onclick="window.location.href='deleteUserSearch.php';">
+                <button onclick="window.location.href='deleteOrganizationSearch.php';">
                     <div class="button-left-gray"></div>
                     <div>Delete Organizations</div>
                     <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">

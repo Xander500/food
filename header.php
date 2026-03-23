@@ -757,6 +757,10 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['groupmanagement.php'] = 2;
         $permission_array['eventmanagement.php'] = 2;
         $permission_array['organizationmanagement.php'] = 2;
+        $permission_array['editorganizationsearch.php'] = 2;
+        $permission_array['editorganization.php'] = 2;
+        $permission_array['organization.php'] = 1;
+        $permission_array['deleteorganizationsearch.php'] = 2;
         $permission_array['creatediscussion.php'] = 2;
         $permission_array['checkedinvolunteers.php'] = 2;
         $permission_array['deletediscussion.php'] = 2;
