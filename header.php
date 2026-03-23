@@ -66,7 +66,7 @@ if (date("H:i:s") > "18:19:59") {
             /* border-bottom-right-radius: 50px; */
         }
          .content-box-test:hover,
-         .content-box-test:focus {
+         .content-box-test:focus-visible {
             border: 4px solid var(--page-font-color);
         }
 /*END STYLE TEST*/
@@ -261,11 +261,11 @@ if (date("H:i:s") > "18:19:59") {
             transition: background 0.3s;
         }
         .dropdown div:hover,
-        .dropdown div:focus {
+        .dropdown div:focus-visible {
             background: rgba(0, 0, 0, 0.1);
         }
 
-        .nav-item:hover, .nav-item:focus, .nav-item.active {
+        .nav-item:hover, .nav-item:focus-visible, .nav-item.active {
             color: var(--accent-color);
             /* outline: 1px solid var(--accent-color); */
             outline-offset: 7px;
@@ -324,7 +324,7 @@ if (date("H:i:s") > "18:19:59") {
 
 /* Expand button on hover */
 .nav-button:hover,
-.nav-button:focus {
+.nav-button:focus-visible {
     width: 160px;
     padding: 6px 8px;
     padding-top: 10px
@@ -349,7 +349,7 @@ if (date("H:i:s") > "18:19:59") {
 }
 
 .nav-button:hover .arrow,
-.nav-button:focus .arrow {
+.nav-button:focus-visible .arrow {
     transform: translateX(5px);
 }
        /* Button Control */
@@ -368,7 +368,7 @@ if (date("H:i:s") > "18:19:59") {
         }
 
         .arrow-button:hover,
-        .arrow-button:focus {
+        .arrow-button:focus-visible {
             transform: translateX(5px); /* Moves the arrow slightly on hover */
             background: transparent;
         }
@@ -409,7 +409,7 @@ if (date("H:i:s") > "18:19:59") {
         }
 
         .social-icons a:hover,
-        .social-icons a:focus {
+        .social-icons a:focus-visible {
             color: rgb(31,31,33);
         }
 
@@ -444,7 +444,7 @@ if (date("H:i:s") > "18:19:59") {
         }
 
         .footer a:hover,
-        .footer a:focus {
+        .footer a:focus-visible {
             background: rgba(255, 255, 255, 0.1);
             color: #dcdcdc;
         }
@@ -480,7 +480,7 @@ if (date("H:i:s") > "18:19:59") {
             transition: filter 0.05s, background-color 0.05s;
         }
 
-        .nav-item:hover img, .nav-item:focus img, .nav-item.active img {
+        .nav-item:hover img, .nav-item:focus-visible img, .nav-item.active img {
             filter: invert(68%) sepia(66%) saturate(345%) hue-rotate(43deg) brightness(90%) contrast(95%);
         }
        
@@ -513,7 +513,7 @@ if (date("H:i:s") > "18:19:59") {
     }
 
     .icon-butt:hover svg,
-    .icon-butt:focus svg {
+    .icon-butt:focus-visible svg {
         transform: scale(1.1) rotate(5deg); /* Slight enlarge & tilt effect */
         fill: var(--accent-color); /* Changes to a blue shade */
     }

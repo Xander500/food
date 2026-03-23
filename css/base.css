@@ -315,7 +315,7 @@ input[type=email]:disabled, input[type=tel]:disabled, select:disabled, textarea:
     color: var(--inactive-font-color);
 }
 
-input[type=text]:focus, input[type=password]:active, input[type=email]:focus, input[type=date]:focus, input[type=tel]:focus, input[type=number]:focus, select:active, textarea:focus {
+input[type=text]:focus-visible, input[type=password]:active, input[type=email]:focus-visible, input[type=date]:focus-visible, input[type=tel]:focus-visible, input[type=number]:focus-visible, select:active, textarea:focus-visible {
     outline: var(--text-field-border);
 }
 
@@ -1596,7 +1596,7 @@ div .dd {
 }
 
 /*accesible display for tabulation navigation devices*/
-button:focus, a:focus, input:focus, select:focus, textarea:focus, .choices:focus, 
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, .choices:focus-visible, 
 .logo-container a:focus-visible img {
     outline: 4px solid var(--accessible-highlight-color) !important;
     outline-offset: 3px !important;
