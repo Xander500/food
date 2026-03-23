@@ -652,7 +652,7 @@ if (date("H:i:s") > "18:19:59") {
     include('logo.php');
     $logo = ob_get_clean();
     if (!isset($_SESSION['logged_in'])) {
-		echo('<nav class="navbar">
+		echo('<div class="navbar">
         <!-- Left Section: Logo & Nav Links -->
         <div class="left-section">
             <div class="logo-container">
@@ -828,7 +828,7 @@ if (date("H:i:s") > "18:19:59") {
         ob_start();
         include('logo.php');
         $logo = ob_get_clean();
-		echo('<nav class="navbar">
+		echo('<div class="navbar">
         <!-- Left Section: Logo & Nav Links -->
         <div class="left-section">
             <div class="logo-container">
@@ -924,7 +924,7 @@ if (date("H:i:s") > "18:19:59") {
         ob_start();
         include('logo.php');
         $logo = ob_get_clean();
-		echo('<nav class="navbar">
+		echo('<div class="navbar">
         <!-- Left Section: Logo & Nav Links -->
         <div class="left-section">
             <div class="logo-container">
