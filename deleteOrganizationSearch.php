@@ -66,9 +66,9 @@ require_once('header.php');
 <main>
     <div class="main-content-box">
         <div class="text-center mb-8">
-            <h2>Find a Organization</h2>
+            <h2>Find an Organization</h2>
             <div class="info-box">
-                <p class="sub-text">Use the fields below to filter and search for users.</p>
+                <p class="sub-text">Use the fields below to filter and search for organizations.</p>
             </div>
         </div>
 
@@ -120,7 +120,7 @@ require_once('header.php');
                                             <td>' . $org->get_description() . '</td>
                                             <td>' . $org->get_location() . '</td>
                                             <td><a href="mailto:' . $org->get_email() . '" class="text-blue-700 underline">' . $org->get_email() . '</a></td>
-                                            <td><a href="editOrganization.php?id=' . $org->get_id() . '" class="text-blue-700 underline">Edit</a></td>
+                                            <td><a href="deleteOrganization.php?id=' . $org->get_id() . '" class="text-blue-700 underline">Delete</a></td>
                                         </tr>';
                             }
                             echo '

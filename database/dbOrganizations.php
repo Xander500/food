@@ -149,3 +149,12 @@ function fetch_organization_by_id($id) {
     mysqli_close($connection);
     return null;
 }
+
+function delete_organization($id) {
+    $con=connect();
+    $query = "DELETE FROM dborganizations WHERE id = '$id'";
+    $result = mysqli_query($con, $query);
+    $result = boolval($result);
+    mysqli_close($con);
+    return $result;
+}

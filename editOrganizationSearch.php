@@ -68,7 +68,7 @@ require_once('header.php');
         <div class="text-center mb-8">
             <h2>Find an Organization</h2>
             <div class="info-box">
-                <p class="sub-text">Use the fields below to filter and search for users.</p>
+                <p class="sub-text">Use the fields below to filter and search for organizations.</p>
             </div>
         </div>
 
