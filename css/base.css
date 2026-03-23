@@ -1596,7 +1596,7 @@ div .dd {
 }
 
 /*accesible display for tabulation navigation devices*/
-button:focus-visible, a:focus-visible, input:focus, select:focus, textarea:focus, .choices:focus, 
+button:focus, a:focus, input:focus, select:focus, textarea:focus, .choices:focus, 
 .logo-container a:focus-visible img {
     outline: 4px solid var(--accessible-highlight-color) !important;
     outline-offset: 3px !important;
