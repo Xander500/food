@@ -84,8 +84,6 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <?php require_once('database/dbVolunteerActivity.php');?>
-        <?php require_once('database/dbPersons.php');?>
         <main class="general">
             <h1>Volunteer Activity</h1>
 
@@ -176,7 +174,6 @@
                         </thead>
                         <tbody>
                             <?php 
-                                #require_once('database/dbPersons.php');
                                 #require_once('include/output.php');
                                 #$id_to_name_hash = [];
                                 foreach ($logs as $log) {
