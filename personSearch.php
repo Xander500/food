@@ -86,7 +86,6 @@ require_once('header.php');
         <?php
             if (isset($_GET['name']) || isset($_GET['id']) || isset($_GET['role']) || isset($_GET['semester'])) {
                 require_once('include/input-validation.php');
-                require_once('database/dbPersons.php');
                 $args = sanitize($_GET);
                 $required = ['name', 'id', 'role', 'semester'];
 
@@ -137,7 +136,7 @@ require_once('header.php');
                                     <tr>
                                         <td>' . $person->get_first_name() . '</td>
                                         <td>' . $person->get_last_name() . '</td>
-                                        <td><a href="mailto:' . $person->get_id() . '" class="text-blue-700 underline">' . $person->get_id() . '</a></td>
+                                        <td>' . $person->get_id() . '</td>
                                         <td>' . $person->get_semester() . '</td>
                                         <td>' . ucfirst($person->get_role() ?? '') . '</td>
                                         <td><a href="viewProfile.php?id=' . $person->get_id() . '" class="text-blue-700 underline">Profile</a></td>
