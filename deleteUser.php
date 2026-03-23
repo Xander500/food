@@ -44,7 +44,6 @@ $loggedIn = false;
 <html>
     <head>
         <meta HTTP-EQUIV="REFRESH" contento="2; url=deleteUserSearch.php">
-
         <?php require('universal.inc') ?>
     </head>
     <body>
@@ -52,7 +51,7 @@ $loggedIn = false;
             <span id="nav-top">
                 <span class="logo">
                     <img src="<?php include('logo.php'); ?>">
-                        <span id="vms-logo"> Whiskey Valor User </span>
+                        <span id="vms-logo">Volunteer Impact Tracking System</span>
                         </span>
                     <img id="menu-toggle" src="images/menu.png">
                 </span>
@@ -71,6 +70,9 @@ $loggedIn = false;
                 echo "<p class='happy-toast centered'>The account requested cannot be found.  Deletion Failed.</p>";
             } 
             ?>
+            <a class="button cancel" href="deleteUserSearch.php" style="margin: auto;">Delete More Users</a>
+            <a class="button cancel" href="index.php" style="margin: auto;">Return to Dashboard</a>
+
         </main>
     </body>
 </html>
