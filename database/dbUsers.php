@@ -1,13 +1,13 @@
 <?php
 /*
- * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook, 
- * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan, 
- * Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker. 
- * This program is part of RMH Homebase, which is free software.  It comes with 
- * absolutely no warranty. You can redistribute and/or modify it under the terms 
+ * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook,
+ * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan,
+ * Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
+ * This program is part of RMH Homebase, which is free software.  It comes with
+ * absolutely no warranty. You can redistribute and/or modify it under the terms
  * of the GNU General Public License as published by the Free Software Foundation
  * (see <http://www.gnu.org/licenses/ for more information).
- * 
+ *
  */
 
 include_once('dbinfo.php');
@@ -58,7 +58,7 @@ function get_user_full_name_from_id($id) {
     //     die("Error: add_user type mismatch");
     // }
 
-    
+
 
     // If the result is empty, it means the user doesn't exist, so we can add the user
     if (mysqli_num_rows($result) == 0) {
@@ -71,9 +71,9 @@ function get_user_full_name_from_id($id) {
             $user->get_last_name() . '","' .
             $user->get_email() . '","' .
             $user->get_password() . '","' .
-            $user->get_role() . '","' . 
-            $user->get_semester() . '");';  
-    
+            $user->get_role() . '","' .
+            $user->get_semester() . '");';
+
         // Check if the query is properly built
         if (empty($insert_query)) {
             die("Error: insert query is empty");
@@ -110,4 +110,19 @@ function retrieve_user($id) { // (username! not id)
     $theUser = make_a_user($result_row);
 //    mysqli_close($con);
     return $theUser;
+}
+
+function retrieve_all() {
+    $con=connect();
+    $query = "SELECT distinct * FROM dbusers";
+    //$query = "SELECT distinct * FROM dbusers WHERE role = 'Student'"; // used if we only want to get students for volunteer activity creation
+
+    $result = mysqli_query($con,$query);
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        mysqli_close($con);
+        return false;
+    }
+
+    mysqli_close($con);
+    return $result;
 }
