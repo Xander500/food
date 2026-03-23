@@ -6,7 +6,7 @@
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
-    
+
     ini_set("display_errors",1);
     error_reporting(E_ALL);
 
@@ -43,28 +43,36 @@
                 $_SESSION['f_name'] = $user->get_first_name();
                 $_SESSION['l_name'] = $user->get_last_name();
 
-                
+
                 $_SESSION['type'] = 'admin';
                 $_SESSION['_id'] = $user->get_id();
-                
-                 //hard code root privileges
-                 if ($user->get_id() == 'vmsroot') {
-                    $_SESSION['access_level'] = 3;
-		    $_SESSION['locked'] = false;
-                    header('Location: index.php');
-               }
-            
+
+                header('Location: index.php');
+                //maybe not die
+                die();
+
+                //hard code root privileges
+                //auth
+                //fooddb commenting this out
+                /*
+                if ($user->get_id() == 'vmsroot') {
+                   $_SESSION['access_level'] = 3;
+		           $_SESSION['locked'] = false;
+                   header('Location: index.php');
+                }
+
                 //if ($changePassword) {
                 //    $_SESSION['access_level'] = 0;
                 //    $_SESSION['change-password'] = true;
                 //    header('Location: changePassword.php');
                 //    die();
-                //} 
+                //}
                 else {
                     header('Location: index.php');
                     die();
                 }
-                die();
+                */
+
             } else {
                 $badLogin = true;
             }
@@ -141,7 +149,7 @@
                     }
 		    if (isset($_GET['registerSuccess'])) {
                         echo '<span class="text-white text-center bg-green-700 block p-2 rounded-lg mb-2">Registration Successful! Please login below.</span>';
-		    } 
+		    }
                 ?>
         <div class="mb-4">
           <label class="block text-[#213e57] font-medium mb-2" for="username">Login</label>
