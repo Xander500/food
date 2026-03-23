@@ -75,6 +75,8 @@ table, td, tr, th, form, fieldset, em, button, a {
  
     --secondary-accent-color: rgb(175, 141, 92);
 
+    --accessible-highlight-color: #2563EB;
+
     /* Accessibility / WV theme variables */
     --wv-accent-color: #C9AB81; /* gold */
     --wv-accent-foreground: #111111;
@@ -313,7 +315,7 @@ input[type=email]:disabled, input[type=tel]:disabled, select:disabled, textarea:
     color: var(--inactive-font-color);
 }
 
-input[type=text]:focus, input[type=password]:active, input[type=email]:focus, input[type=date]:focus, input[type=tel]:focus, input[type=number]:focus, select:active, textarea:focus {
+input[type=text]:focus-visible, input[type=password]:active, input[type=email]:focus-visible, input[type=date]:focus-visible, input[type=tel]:focus-visible, input[type=number]:focus-visible, select:active, textarea:focus-visible {
     outline: var(--text-field-border);
 }
 
@@ -1591,4 +1593,11 @@ div .dd {
     margin-top: 50px;
     font-weight: 400;
     font-size: 25px;
+}
+
+/*accesible display for tabulation navigation devices*/
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, .choices:focus-visible, 
+.logo-container a:focus-visible img {
+    outline: 4px solid var(--accessible-highlight-color) !important;
+    outline-offset: 3px !important;
 }

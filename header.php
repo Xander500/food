@@ -65,7 +65,8 @@ if (date("H:i:s") > "18:19:59") {
             border-radius: 10px;
             /* border-bottom-right-radius: 50px; */
         }
-         .content-box-test:hover {
+         .content-box-test:hover,
+         .content-box-test:focus-visible {
             border: 4px solid var(--page-font-color);
         }
 /*END STYLE TEST*/
@@ -259,11 +260,12 @@ if (date("H:i:s") > "18:19:59") {
             white-space: nowrap;
             transition: background 0.3s;
         }
-        .dropdown div:hover {
+        .dropdown div:hover,
+        .dropdown div:focus-visible {
             background: rgba(0, 0, 0, 0.1);
         }
 
-        .nav-item:hover, .nav-item.active {
+        .nav-item:hover, .nav-item:focus-visible, .nav-item.active {
             color: var(--accent-color);
             /* outline: 1px solid var(--accent-color); */
             outline-offset: 7px;
@@ -321,7 +323,8 @@ if (date("H:i:s") > "18:19:59") {
 }
 
 /* Expand button on hover */
-.nav-button:hover {
+.nav-button:hover,
+.nav-button:focus-visible {
     width: 160px;
     padding: 6px 8px;
     padding-top: 10px
@@ -333,7 +336,8 @@ if (date("H:i:s") > "18:19:59") {
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.nav-button:hover .text {
+.nav-button:hover .text,
+.nav-button:focus .text {
     opacity: 1;
     transform: translateX(0);
 }
@@ -344,7 +348,8 @@ if (date("H:i:s") > "18:19:59") {
     filter:invert(1);
 }
 
-.nav-button:hover .arrow {
+.nav-button:hover .arrow,
+.nav-button:focus-visible .arrow {
     transform: translateX(5px);
 }
        /* Button Control */
@@ -362,7 +367,8 @@ if (date("H:i:s") > "18:19:59") {
             padding: 0;
         }
 
-        .arrow-button:hover {
+        .arrow-button:hover,
+        .arrow-button:focus-visible {
             transform: translateX(5px); /* Moves the arrow slightly on hover */
             background: transparent;
         }
@@ -402,7 +408,8 @@ if (date("H:i:s") > "18:19:59") {
             transition: color 0.3s ease;
         }
 
-        .social-icons a:hover {
+        .social-icons a:hover,
+        .social-icons a:focus-visible {
             color: rgb(31,31,33);
         }
 
@@ -436,7 +443,8 @@ if (date("H:i:s") > "18:19:59") {
             border-radius: 5px;
         }
 
-        .footer a:hover {
+        .footer a:hover,
+        .footer a:focus-visible {
             background: rgba(255, 255, 255, 0.1);
             color: #dcdcdc;
         }
@@ -472,7 +480,7 @@ if (date("H:i:s") > "18:19:59") {
             transition: filter 0.05s, background-color 0.05s;
         }
 
-        .nav-item:hover img, .nav-item.active img {
+        .nav-item:hover img, .nav-item:focus-visible img, .nav-item.active img {
             filter: invert(68%) sepia(66%) saturate(345%) hue-rotate(43deg) brightness(90%) contrast(95%);
         }
        
@@ -504,7 +512,8 @@ if (date("H:i:s") > "18:19:59") {
         cursor: pointer;
     }
 
-    .icon-butt:hover svg {
+    .icon-butt:hover svg,
+    .icon-butt:focus-visible svg {
         transform: scale(1.1) rotate(5deg); /* Slight enlarge & tilt effect */
         fill: var(--accent-color); /* Changes to a blue shade */
     }
