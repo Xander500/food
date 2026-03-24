@@ -735,7 +735,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['reports.php'] = 2;
         $permission_array['eventedit.php'] = 2; //WVF - TODO: Evaluated differenced between eventedit and editevent.
         $permission_array['modifyuserrole.php'] = 2;
-        $permission_array['addevent.php'] = 2; //WVF - Admin Event work!
+        $permission_array['addevent.php'] = 1; //WVF - Admin Event work!
         $permission_array['editevent.php'] = 2; //WVF - Admin Event work!
         // $permission_array['roster.php'] = 2; //TODO DELETE
         $permission_array['report.php'] = 2; // WVF TODO: Look to see how these reports can be reworked to do attendance report

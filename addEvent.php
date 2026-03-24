@@ -16,7 +16,7 @@
         $userID = $_SESSION['_id'];
     }
     // Require admin privileges
-    if ($accessLevel < 2) {
+    if ($accessLevel < 1) {
         header('Location: login.php');
         //echo 'bad access level';
         die();
@@ -35,6 +35,7 @@
             // Accept either HTML5 24h time (HH:MM) or 12h times with am/pm
 
             $date = $args['date'] = validateDate($args["date"]);
+            
 
 
             // FIXED: Replaced the broken check "if (!$date > 11)"
