@@ -208,7 +208,13 @@ require_once('header.php');
         if (!$result) {
             $showPopup = true;
         } else {
-            echo '<script>document.location = "login.php?registerSuccess";</script>';
+            echo '<head>
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=VolunteerRegister.php">
+                </head>
+                <div id="popupMessage" class="pop-up">
+                    ' . $id . ' has been added as a volunteer.
+                </div>';
+            // echo '<script>document.location = "login.php?registerSuccess";</script>';
             $title = $id . " has been added as a volunteer";
             $body = "New volunteer account has been created";
             system_message_all_admins($title, $body);

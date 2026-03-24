@@ -26,7 +26,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Account Management Page</title>
+  <title>UMW Alleviating Food Waste Volunteer Tracking | User Account Management Page</title>
   <link href="css/management_tw.css" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
 

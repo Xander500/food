@@ -476,13 +476,12 @@
 
     <div class="full-width-bar">
     <div class="content-box" onclick="window.location.href='volunteerManagement.php'">
-        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
-        
+        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->     
         <div class="large-text">Manage Volunteers</div>
         <button class="circle-arrow-button">
-    <span class="button-text">Go</span>
-    <div class="circle">&gt;</div>
-</button>
+            <span class="button-text">Go</span>
+            <div class="circle">&gt;</div>
+        </button>
 <!--
         <div class="nav-buttons">
             <button class="nav-button" onclick="window.location.href='userSearch.php'">
@@ -499,20 +498,19 @@
 
     <div class="content-box"  onclick="window.location.href='addEvent.php'">
         <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
-        
         <div class="large-text">Add Volunteer Log</div>
         <button class="circle-arrow-button">
-    <span class="button-text"><?php 
-                        require_once('database/dbEvents.php');
-                        require_once('database/dbUsers.php');
-                        require_once('database/dbApplications.php');
-                        $pendingsignups = all_pending_names();
-                        if (sizeof($pendingsignups) > 0) {
-                            echo '<span class="colored-box">' . sizeof($pendingsignups) . '</span>';
-                        }   
-                    ?> Go </span>
-    <div class="circle">&gt;</div>
-</button>
+            <span class="button-text"><?php 
+                require_once('database/dbEvents.php');
+                require_once('database/dbUsers.php');
+                require_once('database/dbApplications.php');
+                $pendingsignups = all_pending_names();
+                if (sizeof($pendingsignups) > 0) {
+                    echo '<span class="colored-box">' . sizeof($pendingsignups) . '</span>';
+                }   
+                ?> Go </span>
+        <div class="circle">&gt;</div>
+        </button>
     </div>
 
     <div class="content-box" onclick="window.location.href='viewAllLogs.php'">
@@ -520,10 +518,18 @@
         
         <div class="large-text">View Volunteer Logs</div>
         <button class="circle-arrow-button">
-    <span class="button-text">Go</span>
-    <div class="circle">&gt;</div>
-</button>
+            <span class="button-text">Go</span>
+            <div class="circle">&gt;</div>
+        </button>
     </div>
+
+    <div class="content-box" onclick="window.location.href='organizationManagement.php'">
+        <div class="large-text">Manage Organizations</div>
+        <button class="circle-arrow-button">
+            <span class="button-text">Go</span>
+            <div class="circle">&gt;</div>
+        </button>
+    </div>    
 
 </div>
 
