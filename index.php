@@ -748,20 +748,26 @@
 
     <div class="content-box">
         <!-- <img src="images/EvM.png" /> -->
-        <div class="small-text">Let’s have some fun!</div>
-        <div class="large-text">My Events</div>
+        <div class="large-text">My Volunteer Activity Logs</div>
         <div class="nav-buttons">
-            <button class="nav-button" onclick="window.location.href='viewAllEvents.php'">
-                <span class="arrow"><img src="images/new-event.svg" style="width: 40px; border-radius:5px;"></span>
-                <span class="text">Sign-Up</span>
-            </button>
-            <button class="nav-button" onclick="window.location.href='viewMyUpcomingEvents.php'">
+            <button class="nav-button" onclick="window.location.href='viewAllLogs.php?<?php echo http_build_query(['students' => $user->get_id()])?>'">
                 <span class="arrow"><img src="images/list-solid.svg" style="width: 40px; border-radius:5px;"></span>
-                <span class="text">Upcoming</span>
+                <span class="text">View Logs</span>
             </button>
             
         </div>
     </div>
+
+    <div class="content-box">
+    <div class="small-text">Track your service.</div>
+    <div class="large-text">Add Volunteer Log</div>
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="window.location.href='addEvent.php'">
+            <span class="arrow"><img src="images/create-report.svg" style="width: 40px; border-radius:5px;"></span>
+            <span class="text">Add Logs</span>
+        </button>
+    </div>
+</div>
 
     
     </div>
@@ -788,6 +794,7 @@
                         $inboxIcon = 'inbox-unread.svg';
                     }   
                 ?>  
+                <!--
 
         <div class="content-box-test" onclick="window.location.href='upload_encrypted_image.php'">
             <div class="icon-overlay">
@@ -798,7 +805,8 @@
             <div class="graph-text">Upload an ID for verification.</div>
             <button class="arrow-button">→</button>
         </div>
-
+-->
+        <!--
         <div class="content-box-test" onclick="window.location.href='createSuggestion.php'">
             <div class="icon-overlay">
                 <img style="border-radius: 5px;" src="images/clipboard-regular.svg" alt="Report Icon">
@@ -808,6 +816,7 @@
             <div class="graph-text">Suggest opportunities for charity events.</div>
             <button class="arrow-button">→</button>
         </div>
+-->
 
         <div class="content-box-test" onclick="window.location.href='inbox.php'">
             <div class="icon-overlay">

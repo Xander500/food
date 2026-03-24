@@ -2,12 +2,12 @@
 <?php
 date_default_timezone_set('America/New_York');
 /*
- * Copyright 2013 by Allen Tucker. 
- * This program is part of RMHP-Homebase, which is free software.  It comes with 
- * absolutely no warranty. You can redistribute and/or modify it under the terms 
+ * Copyright 2013 by Allen Tucker.
+ * This program is part of RMHP-Homebase, which is free software.  It comes with
+ * absolutely no warranty. You can redistribute and/or modify it under the terms
  * of the GNU General Public License as published by the Free Software Foundation
  * (see <http://www.gnu.org/licenses/ for more information).
- * 
+ *
 if (date("H:i:s") > "18:19:59") {
 	require_once 'database/dbShifts.php';
 	auto_checkout_missing_shifts();
@@ -15,7 +15,7 @@ if (date("H:i:s") > "18:19:59") {
  */
 
 // check if we are in locked mode, if so,
-// user cannot access anything else without 
+// user cannot access anything else without
 // logging back in
 ?>
 <head>
@@ -65,7 +65,8 @@ if (date("H:i:s") > "18:19:59") {
             border-radius: 10px;
             /* border-bottom-right-radius: 50px; */
         }
-         .content-box-test:hover {
+         .content-box-test:hover,
+         .content-box-test:focus-visible {
             border: 4px solid var(--page-font-color);
         }
 /*END STYLE TEST*/
@@ -259,11 +260,12 @@ if (date("H:i:s") > "18:19:59") {
             white-space: nowrap;
             transition: background 0.3s;
         }
-        .dropdown div:hover {
+        .dropdown div:hover,
+        .dropdown div:focus-visible {
             background: rgba(0, 0, 0, 0.1);
         }
 
-        .nav-item:hover, .nav-item.active {
+        .nav-item:hover, .nav-item:focus-visible, .nav-item.active {
             color: var(--accent-color);
             /* outline: 1px solid var(--accent-color); */
             outline-offset: 7px;
@@ -321,7 +323,8 @@ if (date("H:i:s") > "18:19:59") {
 }
 
 /* Expand button on hover */
-.nav-button:hover {
+.nav-button:hover,
+.nav-button:focus-visible {
     width: 160px;
     padding: 6px 8px;
     padding-top: 10px
@@ -333,7 +336,8 @@ if (date("H:i:s") > "18:19:59") {
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.nav-button:hover .text {
+.nav-button:hover .text,
+.nav-button:focus .text {
     opacity: 1;
     transform: translateX(0);
 }
@@ -344,7 +348,8 @@ if (date("H:i:s") > "18:19:59") {
     filter:invert(1);
 }
 
-.nav-button:hover .arrow {
+.nav-button:hover .arrow,
+.nav-button:focus-visible .arrow {
     transform: translateX(5px);
 }
        /* Button Control */
@@ -362,7 +367,8 @@ if (date("H:i:s") > "18:19:59") {
             padding: 0;
         }
 
-        .arrow-button:hover {
+        .arrow-button:hover,
+        .arrow-button:focus-visible {
             transform: translateX(5px); /* Moves the arrow slightly on hover */
             background: transparent;
         }
@@ -402,7 +408,8 @@ if (date("H:i:s") > "18:19:59") {
             transition: color 0.3s ease;
         }
 
-        .social-icons a:hover {
+        .social-icons a:hover,
+        .social-icons a:focus-visible {
             color: rgb(31,31,33);
         }
 
@@ -436,7 +443,8 @@ if (date("H:i:s") > "18:19:59") {
             border-radius: 5px;
         }
 
-        .footer a:hover {
+        .footer a:hover,
+        .footer a:focus-visible {
             background: rgba(255, 255, 255, 0.1);
             color: #dcdcdc;
         }
@@ -472,10 +480,10 @@ if (date("H:i:s") > "18:19:59") {
             transition: filter 0.05s, background-color 0.05s;
         }
 
-        .nav-item:hover img, .nav-item.active img {
+        .nav-item:hover img, .nav-item:focus-visible img, .nav-item.active img {
             filter: invert(68%) sepia(66%) saturate(345%) hue-rotate(43deg) brightness(90%) contrast(95%);
         }
-       
+
         .icon .dropdown{
             top: 130%;
             left: -415%;
@@ -504,7 +512,8 @@ if (date("H:i:s") > "18:19:59") {
         cursor: pointer;
     }
 
-    .icon-butt:hover svg {
+    .icon-butt:hover svg,
+    .icon-butt:focus-visible svg {
         transform: scale(1.1) rotate(5deg); /* Slight enlarge & tilt effect */
         fill: var(--accent-color); /* Changes to a blue shade */
     }
@@ -680,11 +689,19 @@ if (date("H:i:s") > "18:19:59") {
         //pages guests are allowed to view
         // LOWERCASE
         /*
-        *  For A guest can log in, go to WVF's home page,  
+        *  For A guest can log in, go to WVF's home page,
         * -Evan
         */
+
+        // FOODDB auth =============================
+        // 0 = you dont need to be logged in
+        // 1 = you must be logged in, instructor level minimum
+        // 2 = must be an instructor
+
+        // ACTUAL values for permissions are: 1 for students, 3 for instructors. not logged-in users don't have access level set / 0
+
         $permission_array['index.php'] = 0; // WVF Home page
-        $permission_array['about.php'] = 0; //WVF - Not able to directly access - Likely just need to re-route to 
+        $permission_array['about.php'] = 0; //WVF - Not able to directly access - Likely just need to re-route to
         $permission_array['apply.php'] = 0; //WVF - Not able to directly access
         $permission_array['logout.php'] = 0; //WVF - Logout page ain
         $permission_array['volunteerregister.php'] = 0; //WVF - Alter to registering for account
@@ -692,19 +709,19 @@ if (date("H:i:s") > "18:19:59") {
         // $permission_array['findanimal.php'] = 0; //TODO DELETE
         //pages volunteers can view
         $permission_array['help.php'] = 1;
-        $permission_array['dashboard.php'] = 1; //WVF - Might be good to alter this for registered users to be able to see registered events and where they can edit user info 
+        $permission_array['dashboard.php'] = 1; //WVF - Might be good to alter this for registered users to be able to see registered events and where they can edit user info
         $permission_array['calendar.php'] = 0; //WVF - Everyone can see this
-        $permission_array['eventsearch.php'] = 1; 
+        $permission_array['eventsearch.php'] = 1;
         $permission_array['changepassword.php'] = 1;
         $permission_array['editprofile.php'] = 1; //WVF - Repurpose for SCRUM-5
-        $permission_array['inbox.php'] = 1; //WVF - Not for registered users, since they want emails. But would be good for 'suggestions' for ADMINS to see 
-        $permission_array['date.php'] = 1; 
-        $permission_array['event.php'] = 0; 
+        $permission_array['inbox.php'] = 1; //WVF - Not for registered users, since they want emails. But would be good for 'suggestions' for ADMINS to see
+        $permission_array['date.php'] = 1;
+        $permission_array['event.php'] = 0;
         $permission_array['viewprofile.php'] = 1;
         $permission_array['viewnotification.php'] = 1;
         $permission_array['volunteerreport.php'] = 1; //WVF - Attendance Report?
         $permission_array['viewmyupcomingevents.php'] = 1;
-        $permission_array['volunteerviewgroup.php'] = 1; 
+        $permission_array['volunteerviewgroup.php'] = 1;
 	    $permission_array['viewcheckinout.php'] = 1;
         $permission_array['viewresources.php'] = 1;
         $permission_array['discussionmain.php'] = 1;
@@ -715,8 +732,8 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['volunteerviewgroupmembers.php'] = 1;
         //pages only managers can view
         //! get rid of viewallevents
-        $permission_array['viewallevents.php'] = 0; //WVF - For admins to do view 
-        $permission_array['viewalllogs.php'] = 0; //WVF - For admins to do view 
+        $permission_array['viewallevents.php'] = 0; //WVF - For admins to do view
+        $permission_array['viewalllogs.php'] = 0; //WVF - For admins to do view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
         $permission_array['viewschedule.php'] = 2;
@@ -726,7 +743,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['reports.php'] = 2;
         $permission_array['eventedit.php'] = 2; //WVF - TODO: Evaluated differenced between eventedit and editevent.
         $permission_array['modifyuserrole.php'] = 2;
-        $permission_array['addevent.php'] = 2; //WVF - Admin Event work!
+        $permission_array['addevent.php'] = 1; //WVF - Admin Event work!
         $permission_array['editevent.php'] = 2; //WVF - Admin Event work!
         // $permission_array['roster.php'] = 2; //TODO DELETE
         $permission_array['report.php'] = 2; // WVF TODO: Look to see how these reports can be reworked to do attendance report
@@ -746,7 +763,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['vieweventsignups.php'] = 2;
         $permission_array['viewpendingapps.php'] = 2;
         $permission_array['resources.php'] = 2;
-        $permission_array['uploadresources.php'] = 2;        
+        $permission_array['uploadresources.php'] = 2;
         $permission_array['deleteresources.php'] = 2;
         $permission_array['creategroup.php'] = 2;
         $permission_array['showgroups.php'] = 2;
@@ -769,7 +786,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['clockoutbulk.php'] = 2;
         $permission_array['clockOut.php'] = 2;
         $permission_array['edithours.php'] = 2;
-        $permission_array['eventlist.php'] = 1;   
+        $permission_array['eventlist.php'] = 1;
         $permission_array['eventsignup.php'] = 1;
         $permission_array['eventfailure.php'] = 1;
         $permission_array['signupsuccess.php'] = 1;
@@ -804,7 +821,7 @@ if (date("H:i:s") > "18:19:59") {
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
         $current_page = substr($current_page, strpos($current_page,"/"));
-        
+
         if($permission_array[$current_page]>$_SESSION['access_level']){
             //in this case, the user doesn't have permission to view this page.
             //we redirect them to the index page.
@@ -816,7 +833,7 @@ if (date("H:i:s") > "18:19:59") {
         //This line gives us the path to the html pages in question, useful if the server isn't installed @ root.
         $path = strrev(substr(strrev($_SERVER['SCRIPT_NAME']), strpos(strrev($_SERVER['SCRIPT_NAME']), '/')));
 		$venues = array("portland"=>"RMH Portland"); // Is this used anywhere? Do we need it? -Blue
-        
+
         //they're logged in and session variables are set.
 	//
 	// SUPER ADMIN ONLY HEADER
@@ -1042,7 +1059,7 @@ document.querySelectorAll(".icon-butt").forEach(el => {
     el.style.display = "none";
   } else {
     el.style.display = "";
-  } 
+  }
 });
 
 

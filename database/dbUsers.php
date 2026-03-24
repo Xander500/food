@@ -1,13 +1,13 @@
 <?php
 /*
- * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook, 
- * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan, 
- * Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker. 
- * This program is part of RMH Homebase, which is free software.  It comes with 
- * absolutely no warranty. You can redistribute and/or modify it under the terms 
+ * Copyright 2013 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook,
+ * Johnny Coster, Judy Yang, Jackson Moniaga, Oliver Radwan,
+ * Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
+ * This program is part of RMH Homebase, which is free software.  It comes with
+ * absolutely no warranty. You can redistribute and/or modify it under the terms
  * of the GNU General Public License as published by the Free Software Foundation
  * (see <http://www.gnu.org/licenses/ for more information).
- * 
+ *
  */
 
 include_once('dbinfo.php');
@@ -58,7 +58,7 @@ function get_user_full_name_from_id($id) {
     //     die("Error: add_user type mismatch");
     // }
 
-    
+
 
     // If the result is empty, it means the user doesn't exist, so we can add the user
     if (mysqli_num_rows($result) == 0) {
@@ -71,9 +71,9 @@ function get_user_full_name_from_id($id) {
             $user->get_last_name() . '","' .
             $user->get_email() . '","' .
             $user->get_password() . '","' .
-            $user->get_role() . '","' . 
-            $user->get_semester() . '");';  
-    
+            $user->get_role() . '","' .
+            $user->get_semester() . '");';
+
         // Check if the query is properly built
         if (empty($insert_query)) {
             die("Error: insert query is empty");
@@ -110,4 +110,139 @@ function retrieve_user($id) { // (username! not id)
     $theUser = make_a_user($result_row);
 //    mysqli_close($con);
     return $theUser;
+}
+
+function retrieve_all() {
+    $con=connect();
+    $query = "SELECT distinct * FROM dbusers";
+    //$query = "SELECT distinct * FROM dbusers WHERE role = 'Student'"; // used if we only want to get students for volunteer activity creation
+
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+    return $result;
+}
+
+/*
+used to find users in dbusers based on input search parameters
+all selected search parameters must be true
+*/
+function search_users($name, $id, $semester, $role) {
+    $where = 'select * from dbusers where 1=1';
+    if (!($name || $id || $semester || $role)) {
+        return [];
+    }
+    else {
+        $bindings = []; $types= "";
+        if ($name) {
+            if (strpos($name, ' ')) {
+                $name = explode(' ', $name, 2);
+                $first = $name[0];
+                $last = $name[1];
+                $where .= " and first_name like ? and last_name like ?";
+                $bindings[] = "%$first%";
+                $bindings[] = "%$last%";
+                $types .= "ss";
+            } else {
+                $where .= " and (first_name like ? or last_name like ?)";
+                $bindings[] = "%$name%";
+                $bindings[] = "%$name%"; //need this twice
+                $types .= "ss";
+            }
+        }
+        if ($id) {
+            $where .= " and id like ?";
+            $bindings[] = "%$id%";
+            $types .= "s";
+        }
+        if ($semester) {
+            $where .= " and semester like ?";
+            $bindings[] = "%$semester%";
+            $types .= "s";
+        }
+        if ($role) {
+            $where .= " and role=?";
+            $bindings[] = $role;
+            $types .= "s";
+        }
+
+        $where .= " order by last_name, first_name";
+
+        $connection = connect();
+        $query = $connection->prepare($where);
+
+        //you have to do this to get a proper array to pass for dynamic bindings
+        if ($bindings) {
+            $refs = [];
+            foreach ($bindings as $key => $value) {
+                $refs[$key] = &$bindings[$key]; //passing by reference required
+                //[ 0 => thing0, 1 => thing1, etc...]
+            }
+            array_unshift($refs, $types); //prepend $types to $refs
+            call_user_func_array([$query, 'bind_param'], $refs);
+            //does $query->bind_param("ssi...", $first, $last, $id, ...all of the values...);
+            //but dynamically with any number of bindings
+        }
+
+        $query->execute();
+        $result = $query->get_result();
+        if (!$result) {
+            mysqli_close($connection);
+            return [];
+        }
+        $raw = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $users = [];
+        foreach ($raw as $row) {
+            if ($row['id'] == 'vmsroot') {
+                continue;
+            }
+            $users []= make_a_user($row);
+        }
+        mysqli_close($connection);
+        return $users;
+    }
+}
+
+function update_role($id, $role) {
+    $con=connect();
+    $sql = 'UPDATE dbusers SET role = ? WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("ss", $role, $id);
+
+    $query->execute();
+    $result = $query->get_result();
+    mysqli_close($con);
+    
+    return $result;
+}
+
+//deletes the given user from the database entirely
+function remove_person($id) {
+    $con=connect();
+    $sql = 'SELECT * FROM dbusers WHERE id = ?';
+    //bind and get result
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+    $query->execute();
+    $result = $query->get_result();
+
+    //if this user doesn't exist
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        mysqli_close($con);
+        return false;
+    }
+
+    //the user does exist
+    try {
+        $sql = 'DELETE FROM dbusers WHERE id = ?';
+        $query = $con->prepare($sql);
+        $query->bind_param("s", $id);
+        $query->execute();
+        $result = $query->get_result();
+    } catch (Exception $e) {
+        mysqli_close($con);
+        return false; //failure
+    }
+    //success
+    mysqli_close($con);
+    return true;
 }

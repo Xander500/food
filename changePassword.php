@@ -36,12 +36,15 @@
             $newPassword = $_POST['new-password'];
             $hash = password_hash($newPassword, PASSWORD_BCRYPT);
             change_password($userID, $hash);
-            if ($userID == 'vmsroot') {
-                $_SESSION['access_level'] = 3;
-            } else {
-                $user = retrieve_person($userID);
-                $_SESSION['access_level'] = $user->get_access_level();
-            }
+
+            //auth fooddb, get_access_level is all you need for this, will need to change the retrieve_person
+            //if ($userID == 'vmsroot') {
+            //    $_SESSION['access_level'] = 3;
+            //} else {
+            $user = retrieve_person($userID);
+            $_SESSION['access_level'] = $user->get_access_level();
+            //}
+
             $_SESSION['logged_in'] = true;
             unset($_SESSION['change-password']);
             header('Location: index.php?pcSuccess');
@@ -85,7 +88,7 @@
             <?php elseif (isset($error2)): ?>
                 <p class="error-toast">New password must be different from current password.</p>
             <?php elseif (isset($error3)): ?>
-                <p class="error-toast">Your new password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number.</p>    
+                <p class="error-toast">Your new password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number.</p>
             <?php endif ?>
             <form id="password-change" method="post">
                 <?php if (!$forced): ?>
