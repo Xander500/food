@@ -43,7 +43,12 @@
 
             $args['series_id'] = bin2hex(random_bytes(16)); // new new
 
-            $id = create_activitylog($args);
+            //FOODDB alter so it passes input from from if its a teacher
+            if ($accessLevel < 2)
+                $id = create_activitylog($args);
+            else
+                $id = create_activitylog($args, false);
+
             if (!$id) {
                 header('Location: eventFailure.php');
                 die();
@@ -72,7 +77,10 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
+        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
         <title>UMW Alleviating Food Waste | Create Activity</title>
+
     </head>
     <body>
         <?php require_once('header.php') ?>
@@ -86,12 +94,28 @@
                 </div>
 -->
 
+<!--            //FOODDB only shows if it is an admin, otherwise we just take from the session what the Volunteer ID is-->
+                <?php if ($_SESSION['access_level'] >= 2): ?>
+                <div class="event-sect">
+                    <label for="volunteerID">* Volunteer ID </label>
+                    <select id="volunteerID" name="volunteerID" required placeholder="Enter Volunteer ID">
+                        <?php
+                        require_once('database/dbUsers.php'); // maybe put at top
+                        $volunteers = retrieve_all();
+                        while ($row = $volunteers->fetch_assoc()) {
+                            echo "<option value='{$row['id']}'>" . htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <?php endif ?>
+
                 <div class="event-sect">
                     <label for="date">* Date </label>
-                    <input type="date" id="date" name="date" 
+                    <input type="date" id="date" name="date"
                         <?php if ($date) echo 'value="' . $date . '"'; ?> required>
                     <label for="hours">* Duration (hours) </label>
-                    <input type="number" id="hours" name="hours" in="1" max="99" 
+                    <input type="number" id="hours" name="hours" in="1" max="99"
                         required placeholder="e.g. 2">
                 </div>
 
@@ -128,7 +152,7 @@
 
                     <label for="organizationID">* Organization </label>
                     <select id="organizationID" name="organizationID" required placeholder="Enter Organization ID">
-                        <option value="">Select organization</option>
+<!--                        <option value="">Select organization</option>-->
                         <?php
                             require_once('database/dbOrganizations.php'); // maybe put at top
                             $organizations = get_organizations_id_name();
@@ -167,14 +191,33 @@
                         }, false);
                     })();
                 </script>
+
                 <?php if ($date): ?>
                     <a class="button cancel" href="calendar.php?month=<?php echo substr($date, 0, 7) ?>" style="margin-top: -.5rem">Return to Calendar</a>
                 <?php else: ?>
                     <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
                 <?php endif ?>
 
-                <script type="text/javascript">
 
+                <script>
+                    const organizationID = new Choices('#organizationID', {
+                        searchEnabled: true,
+                        removeItemButton: true,
+                        placeholder: true,
+                        placeholderValue: 'Select organizations',
+                    });
+                </script>
+                <script>
+                    const volunteerID = new Choices('#volunteerID', {
+                        searchEnabled: true,
+                        removeItemButton: true,
+                        placeholder: true,
+                        placeholderValue: 'Select volunteer',
+                    });
+                </script>
+
+
+                <script type="text/javascript">
                     /* for checkboxes if we need them
                     $(document).ready(function(){
                         var checkboxes = $('.checkboxes');
@@ -219,7 +262,8 @@
                             recurrenceType.addEventListener('change', toggleCustom);
                             toggleCustom();
                         }
-                    })(); */
+                    })();
+                     */
                 </script>
         </main>
     </body>

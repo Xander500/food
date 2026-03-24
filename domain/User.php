@@ -1,11 +1,11 @@
 <?php
 /*
- * Copyright 2013 by Allen Tucker. 
- * This program is part of RMHC-Homebase, which is free software.  It comes with 
- * absolutely no warranty. You can redistribute and/or modify it under the terms 
+ * Copyright 2013 by Allen Tucker.
+ * This program is part of RMHC-Homebase, which is free software.  It comes with
+ * absolutely no warranty. You can redistribute and/or modify it under the terms
  * of the GNU General Public License as published by the Free Software Foundation
  * (see <http://www.gnu.org/licenses/ for more information).
- * 
+ *
  */
 
 /*
@@ -73,8 +73,16 @@ class User {
 
     //! check out
 	function get_access_level() {
-		$access = ($this->id == 'vmsroot') ? 3 : 1;
-		return $access;
+        if ($this->role == "Student") {
+            return 1;
+        }
+        else if ($this->role == "Teacher") {
+            return 3;
+        }
+        else if ($this->id == 'vmsroot') { // ideally remove this once we have vmsroot as a teacher, its currently null in the database
+            return 3;
+        }
+        return 0;
 	}
 
 }
