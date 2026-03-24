@@ -26,6 +26,7 @@
     require_once('include/input-validation.php');
     require_once('database/dbVolunteerActivity.php');
     require_once('database/dbOrganizations.php');
+    require_once('database/dbUsers.php');
 
     $errors = '';
 
@@ -86,6 +87,7 @@
     }
 
     $organizations = get_organizations_id_name();
+    $volunteers = get_students_in_logs();
 
     require_once('include/output.php');
 
@@ -94,6 +96,8 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
         <title>Edit Volunteer Log</title>
     </head>
     <body>
@@ -109,8 +113,15 @@
                 <input type="hidden" name="id" value="<?php echo $id ?>"/> 
             
                 <label for ="volunteerID">Volunteer ID</label>
-                <input type="text" id="volunteerID" name="volunteerID"
-                    value="<?php echo htmlspecialchars($log['volunteerID']) ?>" required>
+                <select id="volunteerID" name="volunteerID" required>
+                    <option value="">Select a volunteer</option>
+                    <?php foreach ($volunteers as $volunteer): ?>
+                        <option value="<?php echo htmlspecialchars($volunteer['id']) ?>"
+                            <?php if ($volunteer['id'] == $log['volunteerID']) echo 'selected'; ?>>
+                            <?php echo htmlspecialchars($volunteer['first_name'] . ' ' . $volunteer['last_name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
 
                 <label for="date">Date</label>
                 <input type="date" id="date" name="date"
@@ -148,5 +159,21 @@
                 <a class="button cancel" href="log.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="margin-top: .5rem">Cancel</a>
             </form>
         </main>
+        <script>
+            const volunteerSelect = new Choices('#volunteerID', {
+                searchEnabled: true,
+                removeItemButton: false,
+                placeholder: true,
+                placeholderValue: 'Select a volunteer...',
+                shouldSort: false
+            });
+            const organizationSelect = new Choices('#organizationID', {
+                searchEnabled: true,
+                removeItemButton: false,
+                placeholder: true,
+                placeholderValue: 'Select an organization...',
+                shouldSort: false
+            });
+        </script>
     </body>
 </html>
