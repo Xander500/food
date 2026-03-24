@@ -476,13 +476,12 @@
 
     <div class="full-width-bar">
     <div class="content-box" onclick="window.location.href='volunteerManagement.php'">
-        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
-        
+        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->     
         <div class="large-text">Manage Volunteers</div>
         <button class="circle-arrow-button">
-    <span class="button-text">Go</span>
-    <div class="circle">&gt;</div>
-</button>
+            <span class="button-text">Go</span>
+            <div class="circle">&gt;</div>
+        </button>
 <!--
         <div class="nav-buttons">
             <button class="nav-button" onclick="window.location.href='userSearch.php'">
@@ -499,20 +498,19 @@
 
     <div class="content-box"  onclick="window.location.href='addEvent.php'">
         <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
-        
         <div class="large-text">Add Volunteer Log</div>
         <button class="circle-arrow-button">
-    <span class="button-text"><?php 
-                        require_once('database/dbEvents.php');
-                        require_once('database/dbusers.php');
-                        require_once('database/dbApplications.php');
-                        $pendingsignups = all_pending_names();
-                        if (sizeof($pendingsignups) > 0) {
-                            echo '<span class="colored-box">' . sizeof($pendingsignups) . '</span>';
-                        }   
-                    ?> Go </span>
-    <div class="circle">&gt;</div>
-</button>
+            <span class="button-text"><?php 
+                require_once('database/dbEvents.php');
+                require_once('database/dbUsers.php');
+                require_once('database/dbApplications.php');
+                $pendingsignups = all_pending_names();
+                if (sizeof($pendingsignups) > 0) {
+                    echo '<span class="colored-box">' . sizeof($pendingsignups) . '</span>';
+                }   
+                ?> Go </span>
+        <div class="circle">&gt;</div>
+        </button>
     </div>
 
     <div class="content-box" onclick="window.location.href='viewAllLogs.php'">
@@ -520,10 +518,18 @@
         
         <div class="large-text">View Volunteer Logs</div>
         <button class="circle-arrow-button">
-    <span class="button-text">Go</span>
-    <div class="circle">&gt;</div>
-</button>
+            <span class="button-text">Go</span>
+            <div class="circle">&gt;</div>
+        </button>
     </div>
+
+    <div class="content-box" onclick="window.location.href='organizationManagement.php'">
+        <div class="large-text">Manage Organizations</div>
+        <button class="circle-arrow-button">
+            <span class="button-text">Go</span>
+            <div class="circle">&gt;</div>
+        </button>
+    </div>    
 
 </div>
 
@@ -742,20 +748,26 @@
 
     <div class="content-box">
         <!-- <img src="images/EvM.png" /> -->
-        <div class="small-text">Let’s have some fun!</div>
-        <div class="large-text">My Events</div>
+        <div class="large-text">My Volunteer Activity Logs</div>
         <div class="nav-buttons">
-            <button class="nav-button" onclick="window.location.href='viewAllEvents.php'">
-                <span class="arrow"><img src="images/new-event.svg" style="width: 40px; border-radius:5px;"></span>
-                <span class="text">Sign-Up</span>
-            </button>
-            <button class="nav-button" onclick="window.location.href='viewMyUpcomingEvents.php'">
+            <button class="nav-button" onclick="window.location.href='viewAllLogs.php?<?php echo http_build_query(['students' => $user->get_id()])?>'">
                 <span class="arrow"><img src="images/list-solid.svg" style="width: 40px; border-radius:5px;"></span>
-                <span class="text">Upcoming</span>
+                <span class="text">View Logs</span>
             </button>
             
         </div>
     </div>
+
+    <div class="content-box">
+    <div class="small-text">Track your service.</div>
+    <div class="large-text">Add Volunteer Log</div>
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="window.location.href='addEvent.php'">
+            <span class="arrow"><img src="images/create-report.svg" style="width: 40px; border-radius:5px;"></span>
+            <span class="text">Add Logs</span>
+        </button>
+    </div>
+</div>
 
     
     </div>
@@ -782,6 +794,7 @@
                         $inboxIcon = 'inbox-unread.svg';
                     }   
                 ?>  
+                <!--
 
         <div class="content-box-test" onclick="window.location.href='upload_encrypted_image.php'">
             <div class="icon-overlay">
@@ -792,7 +805,8 @@
             <div class="graph-text">Upload an ID for verification.</div>
             <button class="arrow-button">→</button>
         </div>
-
+-->
+        <!--
         <div class="content-box-test" onclick="window.location.href='createSuggestion.php'">
             <div class="icon-overlay">
                 <img style="border-radius: 5px;" src="images/clipboard-regular.svg" alt="Report Icon">
@@ -802,6 +816,7 @@
             <div class="graph-text">Suggest opportunities for charity events.</div>
             <button class="arrow-button">→</button>
         </div>
+-->
 
         <div class="content-box-test" onclick="window.location.href='inbox.php'">
             <div class="icon-overlay">

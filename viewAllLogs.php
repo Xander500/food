@@ -16,11 +16,13 @@
         $userID = $_SESSION['_id'];
     }  
         // Require admin privileges
+    /*
     if ($accessLevel < 2) {
         header('Location: login.php');
         //echo 'bad access level';
         die();
     }
+    */
     include 'database/dbVolunteerActivity.php';
     include 'database/dbUsers.php';
     include 'database/dbOrganizations.php';
@@ -82,8 +84,6 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <?php require_once('database/dbVolunteerActivity.php');?>
-        <?php require_once('database/dbPersons.php');?>
         <main class="general">
             <h1>Volunteer Activity</h1>
 
@@ -146,7 +146,7 @@
                 </div>
                 <div style="margin: auto; width: 75%;">
                     <button type="submit">Apply Filters</button>
-                    <a class="button cancel" href="viewAllLogs.php">Clear Filters</a>
+                    <button class="button cancel" href="viewAllLogs.php">Clear Filters</a>
                 </div>
             </form>
 
@@ -174,7 +174,6 @@
                         </thead>
                         <tbody>
                             <?php 
-                                #require_once('database/dbPersons.php');
                                 #require_once('include/output.php');
                                 #$id_to_name_hash = [];
                                 foreach ($logs as $log) {

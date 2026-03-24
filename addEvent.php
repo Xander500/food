@@ -35,6 +35,7 @@
             // Accept either HTML5 24h time (HH:MM) or 12h times with am/pm
 
             $date = $args['date'] = validateDate($args["date"]);
+            
 
 
             // FIXED: Replaced the broken check "if (!$date > 11)"
