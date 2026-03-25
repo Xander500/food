@@ -290,7 +290,7 @@ main:not(.login):not(.calendar-view):not(.dashboard) {
 /* Form Controls */
 
 input[type=text], input[type=password], input[type=date], input[type=email], input[type=number], 
-input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
+input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled, .choices {
     border: var(--text-field-border);
     border-radius: 0;
     padding: 0.5rem;
@@ -301,6 +301,7 @@ input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
     box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
     color: var(--page-font-color);
     font-weight: 550;
+    position: static;
 }
 
 input[type=text]::placeholder, input[type=password]::placeholder, input[type=date]::placeholder, input[type=email]::placeholder, input[type=number]::placeholder, 
