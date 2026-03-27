@@ -129,6 +129,11 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
+                <?php if ($accessLevel < 3):
+                    //we still need to submit a value for volunteerID
+                    ?>
+                    <input type="hidden" name="volunteerID" value="<?php echo hsc($log['volunteerID']); ?>" />
+                <?php endif; ?>
 
                 <label for="date">Date</label>
                 <input type="date" id="date" name="date"
