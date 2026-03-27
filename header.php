@@ -717,13 +717,15 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['editprofile.php'] = 1;
         $permission_array['eventsuccess.php'] = 1;
         $permission_array['eventfailure.php'] = 1;
+        $permission_array['organizationmanagement.php'] = 1;
+        $permission_array['organization.php'] = 1;
+
 
 
         $permission_array['personsearch.php'] = 3;
         $permission_array['deleteusersearch.php'] = 3;
         $permission_array['modifyuserrole.php'] = 3;
         $permission_array['deleteuser.php'] = 3;
-        $permission_array['organizationmanagement.php'] = 3;
         $permission_array['deleteorganizationsearch.php'] = 3;
         $permission_array['deleteorganization.php'] = 3;
 

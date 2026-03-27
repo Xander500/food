@@ -16,7 +16,7 @@
         $userID = $_SESSION['_id'];
     }
     // admin-only access
-    if ($accessLevel < 2) {
+    if ($accessLevel < 1) {
         header('Location: index.php');
         die();
     }
@@ -116,11 +116,13 @@ require_once('header.php');
                     <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
                 </button>
 
+                <?php if ($accessLevel === 3): ?>
                 <button onclick="window.location.href='deleteOrganizationSearch.php';">
                     <div class="button-left-gray"></div>
                     <div>Delete Organizations</div>
                     <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">
                 </button>
+                <?php endif; ?>
 	
                 <div class="text-center mt-6">
                         <a href="index.php" class="return-button">Return to Dashboard</a>
