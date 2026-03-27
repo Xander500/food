@@ -139,6 +139,9 @@
             <?php if (isset($_GET['editSuccess'])): ?>
 		<div class="absolute left-[40%] top-[15%] z-50 bg-green-800 p-4 text-white rounded-xl text-xl">Profile updated successfully!</div>
             <?php endif ?>
+            <?php if (isset($_GET['editFailed'])): ?>
+		<div class="absolute left-[40%] top-[15%] z-50 bg-red-800 p-4 text-white rounded-xl text-xl">Profile failed to update.</div>
+            <?php endif ?>
             <?php if (isset($_GET['rscSuccess'])): ?>
 		<div class="absolute left-[40%] top-[15%] z-50 bg-green-800 p-4 text-white rounded-xl text-xl">User role updated successfully!</div>
             <?php endif ?>
@@ -163,10 +166,10 @@
 	</div>
         <div class="space-y-2 divide-y divide-gray-300">
           <div class="flex justify-between py-2">
-            <span class="font-medium">Joined</span><span><?php echo date('m/d/Y', strtotime($user->get_start_date())) ?></span>
+            <span class="font-medium">Joined</span><span><?php echo hsc(date('m/d/Y', strtotime($user->get_start_date()))) ?></span>
           </div>
           <div class="flex justify-between py-2">
-            <span class="font-medium">Semester</span><span><?php echo $user->get_semester() ?></span>
+            <span class="font-medium">Semester</span><span><?php echo hsc($user->get_semester()) ?></span>
           </div>
         </div>
       </div>
@@ -187,19 +190,19 @@
       <div id="personal" class="profile-section space-y-4">
         <div>
           <span class="block text-sm font-medium text-[#1F1F21]">Name</span>
-          <p class="text-gray-900 font-medium text-xl"><?php echo $user->get_first_name() ?> <?php echo $user->get_last_name() ?></p>
+          <p class="text-gray-900 font-medium text-xl"><?php echo hsc($user->get_first_name()) ?> <?php echo hsc($user->get_last_name()) ?></p>
         </div>
         <div>
           <span class="block text-sm font-medium text-[#1F1F21]">Username</span>
-          <p class="text-gray-900 font-medium text-xl"><?php echo $user->get_id() ?></p>
+          <p class="text-gray-900 font-medium text-xl"><?php echo hsc($user->get_id()) ?></p>
         </div>
         <div>
           <span class="block text-sm font-medium text-[#1F1F21]">Email</span>
-          <p class="text-gray-900 font-medium text-xl"><a href="mailto:<?php echo $user->get_email() ?>"><?php echo $user->get_email() ?></a></p>
+          <p class="text-gray-900 font-medium text-xl"><a href="mailto:<?php echo hsc($user->get_email()) ?>"><?php echo hsc($user->get_email()) ?></a></p>
         </div>
         <div>
           <span class="block text-sm font-medium text-[#1F1F21]">Role</span>
-          <p class="text-gray-900 font-medium text-xl"><?php echo $user->get_role() ?></p>
+          <p class="text-gray-900 font-medium text-xl"><?php echo hsc($user->get_role()) ?></p>
         </div>
       </div>	      
     </div>

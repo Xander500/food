@@ -246,3 +246,29 @@ function remove_person($id) {
     mysqli_close($con);
     return true;
 }
+
+// updates the required fields of a person's account
+function update_user_required($id, $first_name, $last_name, $email, $semester) {
+    $sql = "update dbusers set 
+        first_name=?, last_name=?, 
+        email=?, semester=?    
+        where id=?";
+    
+    $con = connect();
+
+    try {
+        $query = $con->prepare($sql);
+        $query->bind_param("sssss", $first_name, $last_name, $email, $semester, $id);
+        $query->execute();
+
+        if ($query->affected_rows === 0) {
+            throw new Exception('no updates were made');
+        }
+    } catch (Exception $e) {
+        mysqli_close($con);
+        return false; //failure
+    }
+
+    mysqli_close($con);
+    return True;
+}
