@@ -12,7 +12,7 @@
     $userID = null;
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
-        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        // 0 = not logged in, 1 = student, 3 instructor
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     } 

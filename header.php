@@ -702,11 +702,20 @@ if (date("H:i:s") > "18:19:59") {
 
         //YOU MUST PULL VALUES IN ALL LOWECASE
         $permission_array['index.php'] = 0;
+        $permission_array['volunteerregister.php'] = 0;
+
         $permission_array['log.php'] = 1;
         $permission_array['viewalllogs.php'] = 1;
         $permission_array['editlog.php'] = 1;
         $permission_array['deletelog.php'] = 1;
         $permission_array['addevent.php'] = 1;
+        $permission_array['volunteermanagement.php'] = 1;
+        $permission_array['viewprofile.php'] = 1;
+
+        $permission_array['personsearch.php'] = 3;
+        $permission_array['deleteusersearch.php'] = 3;
+        $permission_array['modifyuserrole.php'] = 3;
+        $permission_array['deleteuser.php'] = 3;
 
         /*
         $permission_array['about.php'] = 0; //WVF - Not able to directly access - Likely just need to re-route to
