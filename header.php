@@ -715,6 +715,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['editorganizationsearch.php'] = 1;
         $permission_array['editorganization.php'] = 1;
         $permission_array['editprofile.php'] = 1;
+        $permission_array['eventsuccess.php'] = 1;
 
 
         $permission_array['personsearch.php'] = 3;
