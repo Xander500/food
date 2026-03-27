@@ -199,7 +199,7 @@
         </div>
         <div>
           <span class="block text-sm font-medium text-[#1F1F21]">Role</span>
-          <p class="text-gray-900 font-medium text-xl"><a href="mailto:<?php echo $user->get_role() ?>"><?php echo $user->get_role() ?></a></p>
+          <p class="text-gray-900 font-medium text-xl"><?php echo $user->get_role() ?></p>
         </div>
       </div>	      
     </div>
