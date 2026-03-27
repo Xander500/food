@@ -712,12 +712,17 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['volunteermanagement.php'] = 1;
         $permission_array['viewprofile.php'] = 1;
         $permission_array['addorganization.php'] = 1;
+        $permission_array['editorganizationsearch.php'] = 1;
+        $permission_array['editorganization.php'] = 1;
+
 
         $permission_array['personsearch.php'] = 3;
         $permission_array['deleteusersearch.php'] = 3;
         $permission_array['modifyuserrole.php'] = 3;
         $permission_array['deleteuser.php'] = 3;
         $permission_array['organizationmanagement.php'] = 3;
+        $permission_array['deleteorganizationsearch.php'] = 3;
+        $permission_array['deleteorganization.php'] = 3;
 
         /*
         $permission_array['about.php'] = 0; //WVF - Not able to directly access - Likely just need to re-route to
