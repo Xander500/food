@@ -493,7 +493,7 @@ function get_all_volunteer_activities_custom_sort_pagination_with_filters($sortb
             " FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
             " JOIN dborganizations AS o ON o.id = va.organizationID" .
-            " WHERE va.id=va.id";   
+            " WHERE va.id=va.id";
     $order_statement = " ORDER BY $sortby $order, volunteerID asc, organizationID asc, id asc" .
             " LIMIT $per_page OFFSET $offset";
     $result = internal_apply_filters_to_select($con, $select_statement, $order_statement, $filters_input);
@@ -510,10 +510,10 @@ function internal_apply_filters_to_select($con, $select_statement, $order_statem
     $sql = $select_statement;
     //check for filter options
     $filters = extract_permitted_filters_on_logs($filters_input);
-    
-    //get values for filters        
+
+    //get values for filters
     //COALESCE means that if ? is null, it will use the other option
-    //if nothing has been set for a particular filter, it will equal itself (va.hours=va.hours) and therefore be irrelevant 
+    //if nothing has been set for a particular filter, it will equal itself (va.hours=va.hours) and therefore be irrelevant
     $minhours = $filters['minhours'] ?? null;
     $maxhours = $filters['maxhours'] ?? null;
     $minfood = $filters['minfood'] ?? null;
@@ -534,7 +534,7 @@ function internal_apply_filters_to_select($con, $select_statement, $order_statem
         " AND va.organizationID = COALESCE(?, va.organizationID)" .
         " AND u.semester = COALESCE(?, u.semester)";
 
-    
+
     //sort and pagination section of sql
     $sql .= $order_statement;
 
@@ -738,12 +738,17 @@ function fetch_num_attendees($id) {
 //FOODDB FUNCTIONS -----------------------------------------------------------------------------------------------------------------------
 
 //used instead of create_event
-function create_activitylog($log) {
+function create_activitylog($log, $volunteer = true) {
     $connection = connect();
 
     //safer checks
     $date           = $log["date"] ?? null;
-    $volunteerID    = $_SESSION["_id"] ?? null; // checks session, will fail if we remove the login session adding the username to _id
+
+    if ($volunteer)
+        $volunteerID = $_SESSION["_id"] ?? null; // checks session, will fail if we remove the login session adding the username to _id
+    else
+        $volunteerID = $log["volunteerID"] ?? null; // log needs to have volunteerID added into log being passed to this function
+
     $hours          = $log["hours"] ?? null;
     $organizationID = $log["organizationID"] ?? null;
     $location       = $log["location"] ?? null;

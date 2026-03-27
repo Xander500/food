@@ -2,7 +2,8 @@
    Uses root from base.css for consistency with colors */
 
 /* Layout and spacing */
-main.event-info {
+main.event-info,
+main.org-info {
   margin: 0 auto;
   max-width: 960px;
   padding: 1rem;
@@ -16,7 +17,8 @@ main.event-info {
 header { position: sticky; top: 0; z-index: 10; }
 
 /* Table wrapper and table */
-.event-head {
+.event-head,
+.org-head {
     font-size: 2.25em; 
     font-weight: 700;
     text-align: center;

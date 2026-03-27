@@ -75,6 +75,8 @@ table, td, tr, th, form, fieldset, em, button, a {
  
     --secondary-accent-color: rgb(175, 141, 92);
 
+    --accessible-highlight-color: #2563EB;
+
     /* Accessibility / WV theme variables */
     --wv-accent-color: #C9AB81; /* gold */
     --wv-accent-foreground: #111111;
@@ -302,7 +304,7 @@ input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
 }
 
 input[type=text]::placeholder, input[type=password]::placeholder, input[type=date]::placeholder, input[type=email]::placeholder, input[type=number]::placeholder, 
-input[type=tel]::placeholder {
+input[type=tel]::placeholder, textarea::placeholder {
     color: var(--main-color-hover);
 }
 
@@ -313,7 +315,7 @@ input[type=email]:disabled, input[type=tel]:disabled, select:disabled, textarea:
     color: var(--inactive-font-color);
 }
 
-input[type=text]:focus, input[type=password]:active, input[type=email]:focus, input[type=date]:focus, input[type=tel]:focus, input[type=number]:focus, select:active, textarea:focus {
+input[type=text]:focus-visible, input[type=password]:active, input[type=email]:focus-visible, input[type=date]:focus-visible, input[type=tel]:focus-visible, input[type=number]:focus-visible, select:active, textarea:focus-visible {
     outline: var(--text-field-border);
 }
 
@@ -851,6 +853,11 @@ main.dashboard > p {
     }
 }
 
+.pop-up-message {
+    text-align: center;
+    font-weight: 500;
+}
+
 /* Sign up form */
 
 @media only screen and (min-width: 1024px) {
@@ -859,7 +866,8 @@ main.dashboard > p {
     }
 }
 
-form.signup-form {
+form.signup-form,
+form.add-org-form {
     display: flex;
     gap: 1rem;
     flex-direction: column;
@@ -867,12 +875,18 @@ form.signup-form {
 
 /* thomas added this */
 form.signup-form .section-box,
-form#person-search.section-box {
+form#person-search.section-box,
+form#org-search.section-box,
+form.add-org-form .section-box {
     border: 1px solid var(--page-font-color);
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 20px;
     background-color: var(--accent-color);
+}
+
+textarea#description {
+    resize: none;
 }
 
 form.signup-form > fieldset {
@@ -882,7 +896,8 @@ form.signup-form > fieldset {
     flex-direction: column;
 }
 
-form.signup-form > fieldset > label, 
+form.signup-form > fieldset > label,
+form#org-searcg > div > label,  
 form#person-search > div > label {
     margin-bottom: -.25rem;
 }
@@ -1591,4 +1606,11 @@ div .dd {
     margin-top: 50px;
     font-weight: 400;
     font-size: 25px;
+}
+
+/*accesible display for tabulation navigation devices*/
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, .choices:focus-visible, 
+.logo-container a:focus-visible img {
+    outline: 4px solid var(--accessible-highlight-color) !important;
+    outline-offset: 3px !important;
 }

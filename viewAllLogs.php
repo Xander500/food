@@ -16,11 +16,13 @@
         $userID = $_SESSION['_id'];
     }  
         // Require admin privileges
+    /*
     if ($accessLevel < 2) {
         header('Location: login.php');
         //echo 'bad access level';
         die();
     }
+    */
     include 'database/dbVolunteerActivity.php';
     include 'database/dbUsers.php';
     include 'database/dbOrganizations.php';
@@ -82,8 +84,6 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <?php require_once('database/dbVolunteerActivity.php');?>
-        <?php require_once('database/dbPersons.php');?>
         <main class="general">
             <h1>Volunteer Activity</h1>
 
@@ -98,7 +98,9 @@
                         <select id="studentSelect" name="students">
                             <option value=""></option>
                             <?php foreach (get_students_in_logs() as $row): ?>
-                                <option value="<?php echo $row['id']; ?>"><?php echo $row['last_name'] . ", " . $row['first_name']; ?></option>
+                                <option value="<?php echo $row['id']; ?>" <?php echo isset($filters['students']) && $filters['students'] == $row['id'] ? 'selected' : ''; ?>>
+                                    <?php echo $row['last_name'] . ", " . $row['first_name']; ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -108,7 +110,9 @@
                         <select id="organizationSelect" name="organizations">
                             <option value=""></option>
                             <?php foreach (get_organizations_in_logs() as $row): ?>
-                                <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                                <option value="<?php echo $row['id']; ?>" <?php echo isset($filters['organizations']) && $filters['organizations'] == $row['id'] ? 'selected' : ''; ?>>
+                                    <?php echo $row['name']; ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -118,7 +122,9 @@
                         <select id="semesterSelect" name="semesters">
                             <option value=""></option>
                             <?php foreach (get_semesters_in_users() as $row): ?>
-                                <option value="<?php echo $row['semester']; ?>"><?php echo $row['semester']; ?></option>
+                                <option value="<?php echo $row['semester']; ?>" <?php echo isset($filters['semesters']) && $filters['semesters'] == $row['semester'] ? 'selected' : ''; ?>>
+                                    <?php echo $row['semester']; ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
@@ -126,27 +132,28 @@
                 <div class="log_filters--row">
                     <div class="log_filter">
                         <label for="startDate">Start Date</label>
-                        <input type="date" id="startDate" name="startdate" >
+                        <input type="date" id="startDate" name="startdate" 
+                        value="<?php echo htmlspecialchars($filters['startdate'] ?? ''); ?>">
 
                         <label for="endDate">End Date</label>
-                        <input type="date" id="endDate" name="enddate">
+                        <input type="date" id="endDate" name="enddate" value="<?php echo htmlspecialchars($filters['enddate'] ?? ''); ?>">
                     </div>
                     <div class="log_filter">
                         <label for="minHours">Minimum Hours</label>
-                        <input type="number" id="minHours" name="minhours" min="0" placeholder="From" >
+                        <input type="number" id="minHours" name="minhours" min="0" placeholder="From" value="<?php echo htmlspecialchars($filters['minhours'] ?? ''); ?>">
                         <label for="maxHours">Maximum Hours</label>
-                        <input type="number" id="maxHours" name="maxhours" min="0" placeholder="To" >
+                        <input type="number" id="maxHours" name="maxhours" min="0" placeholder="To" value="<?php echo htmlspecialchars($filters['maxhours'] ?? ''); ?>">
                     </div>
                     <div class="log_filter">
                         <label for="minFood">Minimum Pounds of Food Rescued</label>
-                        <input type="number" id="minFood" name="minfood" min="0" placeholder="From" >
-                        <label for="maxFood">Minimum Pounds of Food Rescued</label>
-                        <input type="number" id="maxFood" name="maxfood" min="0" placeholder="To" >
+                        <input type="number" id="minFood" name="minfood" min="0" placeholder="From" value="<?php echo htmlspecialchars($filters['minfood'] ?? ''); ?>">
+                        <label for="maxFood">Maximum Pounds of Food Rescued</label>
+                        <input type="number" id="maxFood" name="maxfood" min="0" placeholder="To" value="<?php echo htmlspecialchars($filters['maxfood'] ?? ''); ?>">
                     </div>
                 </div>
                 <div style="margin: auto; width: 75%;">
                     <button type="submit">Apply Filters</button>
-                    <a class="button cancel" href="viewAllLogs.php">Clear Filters</a>
+                    <button class="button cancel" href="viewAllLogs.php">Clear Filters</a>
                 </div>
             </form>
 
@@ -174,7 +181,6 @@
                         </thead>
                         <tbody>
                             <?php 
-                                #require_once('database/dbPersons.php');
                                 #require_once('include/output.php');
                                 #$id_to_name_hash = [];
                                 foreach ($logs as $log) {
@@ -231,25 +237,30 @@
         </main>
     
     <script>
-        const studentSelect = new Choices('#studentSelect', {
+        document.addEventListener('DOMContentLoaded', function() {
+        new Choices('#studentSelect', {
             searchEnabled: true,
             removeItemButton: true,
             placeholder: true,
             placeholderValue: 'Select students...',
+            shouldSort: false
         });
-        const organizationSelect = new Choices('#organizationSelect', {
+        new Choices('#organizationSelect', {
             searchEnabled: true,
             removeItemButton: true,
             placeholder: true,
             placeholderValue: 'Select organizations...',
+            shouldSort: false
         });
 
-        const semesterSelect = new Choices('#semesterSelect', {
+        new Choices('#semesterSelect', {
             searchEnabled: true,
             removeItemButton: true,
             placeholder: true,
             placeholderValue: 'Select semesters...',
+            shouldSort: false
         });
+    });
 
 
     </script>
