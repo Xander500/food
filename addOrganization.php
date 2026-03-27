@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once('include/input-validation.php');
 ?>
 
@@ -12,7 +13,6 @@
 <!-- BANDAID FIX FOR HEADER BEING WEIRD -->
 <?php 
 $tailwind_mode = true;
-require_once('header.php');
 ?>
 <style>
     .date-box {
@@ -33,6 +33,8 @@ require_once('header.php');
 </head>
 <body class="relative">
 <?php
+    require_once('header.php');
+
     require_once('domain/User.php');
     require_once('database/dbOrganizations.php');
 
