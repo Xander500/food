@@ -3,7 +3,6 @@
     session_cache_expire(30);
     session_start();
 
-    echo "working ";
 
     //get login and permissions
     $loggedIn = false;
@@ -21,8 +20,6 @@
         echo 'bad access level';
         die();
     }
-
-    var_dump($accessLevel);
 
     require_once('include/input-validation.php');
     $args = sanitize($_GET);
@@ -96,7 +93,6 @@
             die();
         }
     } else { //method = get
-        echo "HERE";
         if (isset($args["request_type"])) {
             echo "requesttype "; 
             $eventID = $args["id"];

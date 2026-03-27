@@ -115,8 +115,6 @@
             <div class="error-toast"><?php echo $errors ?></div>
         <?php endif ?>
             <h2>Log Details</h2>
-                                <?php var_dump($accessLevel);?>
-
             <form id="edit-log-form" method="post">
                 
                 <input type="hidden" name="id" value="<?php echo $id ?>"/> 
