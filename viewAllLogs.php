@@ -15,14 +15,13 @@
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }  
-        // Require admin privileges
-    /*
-    if ($accessLevel < 2) {
+    //require being a logged in user
+    if ($accessLevel < 1) {
         header('Location: login.php');
         //echo 'bad access level';
         die();
     }
-    */
+    
     include 'database/dbVolunteerActivity.php';
     include 'database/dbUsers.php';
     include 'database/dbOrganizations.php';
