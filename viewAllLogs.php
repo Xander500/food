@@ -152,7 +152,7 @@
                 </div>
                 <div style="margin: auto; width: 75%;">
                     <button type="submit">Apply Filters</button>
-                    <button class="button cancel" href="viewAllLogs.php">Clear Filters</a>
+                    <a class="button cancel" href="viewAllLogs.php">Clear Filters</a>
                 </div>
             </form>
 

@@ -700,7 +700,15 @@ if (date("H:i:s") > "18:19:59") {
 
         // ACTUAL values for permissions are: 1 for students, 3 for instructors. not logged-in users don't have access level set / 0
 
-        $permission_array['index.php'] = 0; // WVF Home page
+        //YOU MUST PULL VALUES IN ALL LOWECASE
+        $permission_array['index.php'] = 0;
+        $permission_array['log.php'] = 1;
+        $permission_array['viewalllogs.php'] = 1;
+        $permission_array['editlog.php'] = 1;
+        $permission_array['deletelog.php'] = 1;
+        $permission_array['addevent.php'] = 1;
+
+        /*
         $permission_array['about.php'] = 0; //WVF - Not able to directly access - Likely just need to re-route to
         $permission_array['apply.php'] = 0; //WVF - Not able to directly access
         $permission_array['logout.php'] = 0; //WVF - Logout page ain
@@ -738,7 +746,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
         $permission_array['viewschedule.php'] = 2;
         $permission_array['addweek.php'] = 2;
-        $permission_array['log.php'] = 2;
+        $permission_array['log.php'] = 1;
         $permission_array['editlog.php'] = 2;
         $permission_array['reports.php'] = 2;
         $permission_array['eventedit.php'] = 2; //WVF - TODO: Evaluated differenced between eventedit and editevent.
@@ -815,14 +823,14 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['createsuggestion.php'] = 1;
         $permission_array['viewsuggestion.php'] = 2;
         // LOWERCASE
-
+        */
 
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
         $current_page = substr($current_page, strpos($current_page,"/"));
 
-        if($permission_array[$current_page]>$_SESSION['access_level']){
+        if($permission_array[$current_page] > $_SESSION['access_level']){
             //in this case, the user doesn't have permission to view this page.
             //we redirect them to the index page.
             echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
