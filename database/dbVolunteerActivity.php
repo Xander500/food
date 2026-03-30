@@ -1345,3 +1345,18 @@ function update_animal2($animal) {
     return $userIDs;
 }
 
+function getTotalHours() {
+    $con = connect();
+    $query = "SELECT sum(hours) as h FROM dbvolunteeractivity;";
+    $result = mysqli_query($con, $query);
+    $result = mysqli_fetch_assoc($result);
+    return $result['h'];
+}
+
+function getTotalPounds() {
+    $con = connect();
+    $query = "SELECT sum(poundsOfFood) as lb FROM dbvolunteeractivity;";
+    $result = mysqli_query($con, $query);
+    $result = mysqli_fetch_assoc($result);
+    return $result['lb'];
+}

@@ -223,11 +223,11 @@ nav {
 }
 
 a {
-    color: white;
+    color: var(--page-font-color);
 }
 
 a:hover {
-    color: rgb(255, 255, 255, 0.5);
+    color: var(--main-color-hover);
 }
 
 #vms-logo {
@@ -1613,4 +1613,34 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .logo-container a:focus-visible img {
     outline: 4px solid var(--accessible-highlight-color) !important;
     outline-offset: 3px !important;
+}
+
+.display {
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 100%;
+}
+
+.num-displays {
+    display: flex;
+    justify-content: space-between;
+}
+
+.num {
+    width: 100%;
+    padding: 1rem;
+    padding-top: 0;
+    display: inline;
+    text-align: center;
+    position: static !important;
+    margin-bottom: 2rem;
+
+    font-size: 1.75rem;
+    font-weight: 700;
+    
+    color: var(--page-font-color);
+}
+
+.num a {
+    text-decoration: underline;
 }
