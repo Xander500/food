@@ -18,21 +18,11 @@
             $length = count($input);
             for ($i = 0; $i < $length; $i++) {
                  $input[$i] = trim($input[$i]);
-
-                // This should be removed, with htmlspecialchars being
-                // called prior to OUTPUT. I will try to change this later.
-                //$input[$i] = mysqli_real_escape_string($connection, $input[$i]);
-                //$input[$i] = htmlspecialchars($input[$i]);
             }
         } else {
             $input = trim($input);
 
-            // This should be removed, with htmlspecialchars being
-            // called prior to OUTPUT. I will try to change this later.
-            $input = mysqli_real_escape_string($connection, $input);
-            $input = htmlspecialchars($input);
         }
-
         return $input;
     }
 

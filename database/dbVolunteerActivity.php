@@ -26,6 +26,24 @@ include_once(dirname(__FILE__).'/../domain/VolunteerActivity.php');
 //Added to send emails to users when they are removed or signed up to an event.
 include_once(dirname(__FILE__).'/../email.php');
 
+
+function get_volunteerID_from_logID($id) {
+    $con=connect();
+    $sql = "SELECT volunteerID FROM dbvolunteeractivity WHERE id = ?";
+    $query = $con->prepare($sql);
+    $query->bind_param("i", $id);
+    $query->execute();
+    $result = $query->get_result();
+    mysqli_close($con);
+
+    if (mysqli_num_rows($result) !== 1) {
+        return false;
+    }
+
+    $result_row = mysqli_fetch_assoc($result);
+    return $result_row['volunteerID'];
+}
+
 /*
  * add an event to dbEvents table: if already there, return false
  */

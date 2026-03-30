@@ -2,12 +2,28 @@
 
     session_cache_expire(30);
     session_start();
-    $_SESSION['access_level'] = 2;
 
     // Ensure user is logged in
     if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
         //header('Location: login.php');
         //die();
+    }
+
+    //get login and permissions
+    $loggedIn = false;
+    $accessLevel = 0;
+    $userID = null;
+    if (isset($_SESSION['_id'])) {
+        $loggedIn = true;
+        // 0 = not logged in, 1 = student, 3 instructor
+        $accessLevel = $_SESSION['access_level'];
+        $userID = $_SESSION['_id'];
+    } 
+    // must be a logged in user
+    if ($accessLevel < 1) {
+        header('Location: login.php');
+        echo 'bad access level';
+        die();
     }
 
     require_once('include/input-validation.php');
@@ -92,12 +108,13 @@
         <!-- Organization Information Table -->
         <h2 class="org-head">
             Organization Details
-            <?php 
+        <a href="editOrganization.php?id=<?= $id ?>" title="Edit Organization" class="edit-icon">
+            <i class="fas fa-pencil-alt" style="color: var(--main-color);"></i>
+        </a>
+        <?php 
+            $confirmText = "Are you sure you want to delete this data?  This action is permanant and irrecoverable.";
             //! change for edit buttons for instructor
-            if (isset($_SESSION['access_level']) && $access_level >= 2): ?>
-                <a href="editOrganization.php?id=<?= $id ?>" title="Edit Organization" class="edit-icon">
-                    <i class="fas fa-pencil-alt" style="color: var(--main-color);"></i>
-                </a>
+            if ( $accessLevel >= 2): ?>
                 <a href="deleteOrganization.php?id=<?= $id ?>" title="Delete Organization" class="delete-icon"
                     onclick="return confirm('<?= htmlspecialchars($confirmText, ENT_QUOTES) ?>');">
                     <i class="fas fa-trash" style="color: var(--main-color);"></i>
@@ -126,44 +143,6 @@
             </table>
         </div>
 
-        <?php
-        
-        //! check
-        if (isset($_SESSION['access_level']) && $access_level >= 2) : ?>
-            <div id="delete-confirmation-wrapper" class="modal hidden">
-                <div class="modal-content">
-                    <p>Are you sure you want to delete this organization?</p>
-                    <p>This action cannot be undone.</p>
-                    <form method="post" action="deleteOrganization.php">
-                        <input type="submit" value="Delete Organization" class="button danger">
-                        <input type="hidden" name="id" value="<?= $id ?>">
-                    </form>
-                    <button id="delete-cancel" class="button cancel">Cancel</button>
-                </div>
-            </div>
-            <?php endif ?>
-
-        <!-- Scripts for Modal Controls -->
-        <script>
-            function showDeleteConfirmation() {
-                document.getElementById('delete-confirmation-wrapper').classList.remove('hidden');
-            }
-            function showCancelConfirmation() {
-                document.getElementById('cancel-confirmation-wrapper').classList.remove('hidden');
-            }
-            function showCompleteConfirmation() {
-                document.getElementById('complete-confirmation-wrapper').classList.remove('hidden');
-            }
-            document.getElementById('delete-cancel').onclick = function() {
-                document.getElementById('delete-confirmation-wrapper').classList.add('hidden');
-            };
-            document.getElementById('cancel-cancel').onclick = function() {
-                document.getElementById('cancel-confirmation-wrapper').classList.add('hidden');
-            }
-            document.getElementById('complete-cancel').onclick = function() {
-                document.getElementById('complete-confirmation-wrapper').classList.add('hidden');
-            };
-        </script>
         <a class="button cancel" href="organizationManagement.php" style="margin-left: auto; margin-right: auto;">Manage Organizations</a>
         <a class="button cancel" href="index.php" style="margin-left: auto; margin-right: auto;">Return to Dashboard</a>
 

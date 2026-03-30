@@ -12,12 +12,12 @@
     $userID = null;
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
-        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        // 0 = not logged in, 1 = student, 3 instructor
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     } 
-    // Require admin privileges
-    if ($accessLevel < 2) {
+    // must be a logged in user
+    if ($accessLevel < 1) {
         header('Location: login.php');
         echo 'bad access level';
         die();
@@ -86,6 +86,13 @@
         die();
     }
 
+     //must be an instructor or the same suer as the log
+    if ($accessLevel !== 3 && $userID !== $log['volunteerID']) {
+        header('Location: log.php?' . http_build_query(["id" => $id]));
+        echo 'not allowed to edit this log';
+        die();
+    }
+
     $organizations = get_organizations_id_name();
     $volunteers = get_students_in_logs();
 
@@ -113,7 +120,7 @@
                 <input type="hidden" name="id" value="<?php echo $id ?>"/> 
             
                 <label for ="volunteerID">Volunteer ID</label>
-                <select id="volunteerID" name="volunteerID" required>
+                <select id="volunteerID" name="volunteerID" required <?php if ($accessLevel < 3) { echo "disabled";} ?>>
                     <option value="">Select a volunteer</option>
                     <?php foreach ($volunteers as $volunteer): ?>
                         <option value="<?php echo htmlspecialchars($volunteer['id']) ?>"
@@ -122,6 +129,11 @@
                         </option>
                     <?php endforeach; ?>
                 </select>
+                <?php if ($accessLevel < 3):
+                    //we still need to submit a value for volunteerID
+                    ?>
+                    <input type="hidden" name="volunteerID" value="<?php echo hsc($log['volunteerID']); ?>" />
+                <?php endif; ?>
 
                 <label for="date">Date</label>
                 <input type="date" id="date" name="date"

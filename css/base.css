@@ -1679,3 +1679,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     font-weight: 600;
     color: var(--accent-color);
 }
+
+.semester_select {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.semester_select > div {
+    display: flex;
+    flex-direction: column;
+}
