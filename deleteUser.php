@@ -2,6 +2,9 @@
 session_cache_expire(30);
 session_start();
 
+require_once('header.php');
+
+
 $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
@@ -15,7 +18,7 @@ $loggedIn = false;
     }
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
-        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        // 0 = not logged in, 1 = student, 3 instructor
         $accessLevel = $_SESSION['access_level'];
         $isAdmin = $accessLevel >= 2;
         $userID = $_SESSION['_id'];

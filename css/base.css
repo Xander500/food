@@ -1614,3 +1614,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     outline: 4px solid var(--accessible-highlight-color) !important;
     outline-offset: 3px !important;
 }
+
+.semester_select {
+    display: flex;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.semester_select > div {
+    display: flex;
+    flex-direction: column;
+}

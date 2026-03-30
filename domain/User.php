@@ -76,10 +76,10 @@ class User {
         if ($this->role == "Student") {
             return 1;
         }
-        else if ($this->role == "Teacher") {
+        else if ($this->role == "Instructor") {
             return 3;
         }
-        else if ($this->id == 'vmsroot') { // ideally remove this once we have vmsroot as a teacher, its currently null in the database
+        else if ($this->id == 'vmsroot') { // ideally remove this once we have vmsroot as a Instructor, its currently null in the database
             return 3;
         }
         return 0;

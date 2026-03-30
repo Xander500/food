@@ -15,8 +15,8 @@
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
-    // admin-only access
-    if ($accessLevel < 2) {
+    // logged in
+    if ($accessLevel < 1) {
         header('Location: index.php');
         die();
     }
