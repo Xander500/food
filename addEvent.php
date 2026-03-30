@@ -97,7 +97,7 @@
 <!--            //FOODDB only shows if it is an admin, otherwise we just take from the session what the Volunteer ID is-->
                 <?php if ($_SESSION['access_level'] >= 2): ?>
                 <div class="event-sect">
-                    <label for="volunteerID">* Volunteer Name </label>
+                    <label for="volunteerID">* Volunteer ID </label>
                     <select id="volunteerID" name="volunteerID" required placeholder="Enter Volunteer ID">
                         <?php
                         require_once('database/dbUsers.php'); // maybe put at top
