@@ -223,11 +223,11 @@ nav {
 }
 
 a {
-    color: var(--page-font-color);
+    color: white;
 }
 
 a:hover {
-    color: var(--main-color-hover);
+    color: white;
 }
 
 #vms-logo {
@@ -382,7 +382,7 @@ main.login > p {
     margin-bottom: 1rem;
 }
 
-h1 {
+h1 , .impact-header{
     font-size: 1.5rem;
     font-weight: 500;
     margin-bottom: 2rem;
@@ -1615,9 +1615,12 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     outline-offset: 3px !important;
 }
 
+.impact-header {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
 .display {
-    margin-left: 50px;
-    margin-right: 50px;
     width: 100%;
 }
 
@@ -1635,12 +1638,44 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     position: static !important;
     margin-bottom: 2rem;
 
-    font-size: 1.75rem;
-    font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 550;
     
     color: var(--page-font-color);
 }
 
 .num a {
+    color: var(--page-font-color);
     text-decoration: underline;
+}
+
+.num a:hover {
+    color: var(--main-color-hover);
+}
+
+.impact table,
+.impact table thead tr th,
+.impact table tbody tr td {
+    overflow: auto;
+    margin-bottom: 100px;
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+    color: var(--page-font-color);
+    border-collapse: collapse;
+}
+
+.impact table thead tr th,
+.impact table tbody tr td {
+    border: 4px solid var(--main-color);
+    background-color: var(--page-background-color);
+    font-weight: 525;
+    font-size: 1.5rem;
+}
+
+.impact table thead tr th {
+    font-weight: 600;
+    color: var(--accent-color);
 }
