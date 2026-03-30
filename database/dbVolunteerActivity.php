@@ -1363,3 +1363,34 @@ function update_animal2($animal) {
     return $userIDs;
 }
 
+function getTotalHours() {
+    $con = connect();
+    $query = "SELECT sum(hours) as h FROM dbvolunteeractivity;";
+    $result = mysqli_query($con, $query);
+    $result = mysqli_fetch_assoc($result);
+    return $result['h'];
+}
+
+function getTotalPounds() {
+    $con = connect();
+    $query = "SELECT sum(poundsOfFood) as lb FROM dbvolunteeractivity;";
+    $result = mysqli_query($con, $query);
+    $result = mysqli_fetch_assoc($result);
+    return $result['lb'];
+}
+
+function getImpactByStudent() {
+    $con = connect();
+    $query = "SELECT first_name, last_name, sum(hours) as h, sum(poundsOfFood) as lb FROM dbvolunteeractivity JOIN dbusers on volunteerID=dbusers.id GROUP BY volunteerID;";
+    $result = mysqli_query($con, $query);
+    $result = mysqli_fetch_all($result);
+    return $result;
+}
+
+function getImpactByOrg() {
+    $con = connect();
+    $query = "SELECT dborganizations.name, sum(hours) as h, sum(poundsOfFood) as lb FROM dbvolunteeractivity JOIN dborganizations on organizationID=dborganizations.id GROUP BY organizationID;";
+    $result = mysqli_query($con, $query);
+    $result = mysqli_fetch_all($result);
+    return $result;
+}

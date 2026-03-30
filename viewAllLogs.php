@@ -204,7 +204,7 @@
                                         <td>$hours</td>
                                         <td>$location</td>
                                         <td>$pounds</td>
-                                        <td>$description</td
+                                        <td>$description</td>
                                     </tr>";
                                 }
                             ?>
