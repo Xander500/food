@@ -838,6 +838,30 @@ function delete_log($id) {
     return $result;
 }
 
+function get_impact_summary_by_volunteer($id) {
+    $con = connect();
+    $sql = "SELECT SUM(hours) AS total_hours, SUM(poundsOfFood) AS total_pounds, COUNT(*) AS total_logs FROM dbvolunteeractivity WHERE volunteerID = '$id'";
+    $result = mysqli_query($con, $sql);
+    $row = mysqli_fetch_assoc($result);
+    mysqli_close($con);
+    return $row;
+}
+
+function get_impact_summary_by_organization($id) {
+    $con = connect();
+    $query = "SELECT dborganizations.name AS organization_name, SUM(hours) AS hours,
+        SUM(poundsOfFood) AS pounds
+        FROM dbvolunteeractivity
+        JOIN dborganizations ON organizationID = dborganizations.id
+        WHERE volunteerID = '$id'
+        GROUP BY organizationID
+        ORDER BY hours DESC";
+    $result = mysqli_query($con, $query);
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    mysqli_close($con);
+    return $rows;
+}
+
 
 //FOODDB -----------------------------------------------------------------------------------------------------------------------
 
