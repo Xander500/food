@@ -728,6 +728,9 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['deleteuser.php'] = 3;
         $permission_array['deleteorganizationsearch.php'] = 3;
         $permission_array['deleteorganization.php'] = 3;
+        $permission_array['analyticsdashboard.php'] = 3;
+        $permission_array['impactbystudent.php'] = 3;
+        $permission_array['impactbyorg.php'] = 3;
 
         /*
         $permission_array['about.php'] = 0; //WVF - Not able to directly access - Likely just need to re-route to
@@ -843,9 +846,6 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['upload_encrypted_image.php'] = 1;
         $permission_array['createsuggestion.php'] = 1;
         $permission_array['viewsuggestion.php'] = 2;
-        $permission_array['analyticsdashboard.php'] = 2;
-        $permission_array['impactbystudent.php'] = 2;
-        $permission_array['impactbyorg.php'] = 2;
         // LOWERCASE
         */
 
