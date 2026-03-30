@@ -738,6 +738,10 @@
                 <span class="arrow"><img src="images/view-profile.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">View</span>
             </button>
+            <button class="nav-button" onclick="window.location.href='viewImpactSummary.php'">
+                <span class="arrow"><img src="images/flag.png" style="width: 40px; border-radius: 5px;"></span>
+                <span class="text">Impact</span>
+            </button>
             <button class="nav-button" onclick="window.location.href='editProfile.php'">
                 <span class="arrow"><img src="images/manage-account.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">Edit</span>

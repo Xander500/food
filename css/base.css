@@ -1646,11 +1646,14 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 
 .num a {
     color: var(--page-font-color);
-    text-decoration: underline;
+    /* text-decoration: underline; */
+    background-color: var(--accent-color);
+    border-radius: 12px;
+    padding: 15px;
 }
 
 .num a:hover {
-    color: var(--main-color-hover);
+    background-color: var(--accent-color-hover);
 }
 
 .impact table,
