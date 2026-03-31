@@ -14,7 +14,7 @@
         // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
-    }  
+    }
         // Require admin privileges
     /*
     if ($accessLevel < 2) {
@@ -28,13 +28,13 @@
     include 'database/dbOrganizations.php';
 
 
-    //check for sorting 
+    //check for sorting
     //make sure no sql injections
     $sortby = 'date'; $order = 'asc'; $sortby_display = 'date';
     //echo $_GET['sortby'] . " " . $_GET['order'] . "\n";
     if (isset($_GET['sortby']) && in_array($_GET['sortby'], ['student', 'date', 'organization',
         'hours', 'location', 'poundsoffood', 'description'])) {
-        
+
         $sortby_display = $_GET['sortby'];
         switch ($_GET['sortby']) {
             case 'student': $sortby = 'last_name'; $order = 'asc'; break;
@@ -146,7 +146,7 @@
                 </div>
                 <div style="margin: auto; width: 75%;">
                     <button type="submit">Apply Filters</button>
-                    <button class="button cancel" href="viewAllLogs.php">Clear Filters</a>
+                    <button class="button cancel" href="viewAllLogs.php">Clear Filters</button>
                 </div>
             </form>
 
@@ -163,7 +163,7 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'student') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'student', 'order' => (($sortby_display === 'student') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters)); ?>#log-table'>Student</a><div></div></th>       
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'student') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'student', 'order' => (($sortby_display === 'student') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters)); ?>#log-table'>Student</a><div></div></th>
                                 <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'date') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'date', 'order' => (($sortby_display === 'date') ? (($order === 'asc') ? 'desc' : 'asc') : 'desc')], $filters)); ?>#log-table'>Date</a></th>
                                 <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'organization') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'organization', 'order' => (($sortby_display === 'organization') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters)); ?>#log-table'>Organization</a></th>
                                 <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'hours') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'hours', 'order' => (($sortby_display === 'hours') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters)); ?>#log-table'>Hours</a></th>
@@ -173,7 +173,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php 
+                            <?php
                                 #require_once('include/output.php');
                                 #$id_to_name_hash = [];
                                 foreach ($logs as $log) {
@@ -185,7 +185,7 @@
                                     $location = $log->getLocation();
                                     $pounds = $log->getPoundsOfFood();
                                     $description = $log->getDescription();
-                                    
+
                                     $studentName = get_user_full_name_from_id($studentID);
                                     $organizationName = get_organization_name_from_id($organizationID);
 
@@ -228,7 +228,7 @@
             <?php endif ?>
             <a class="button cancel" href="index.php" style="margin: auto;">Return to Dashboard</a>
         </main>
-    
+
     <script>
         const studentSelect = new Choices('#studentSelect', {
             searchEnabled: true,

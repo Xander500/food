@@ -596,6 +596,18 @@ function internal_apply_filters_to_select($con, $select_statement, $order_statem
     return $theEvents;
  }
 
+function get_all_logs_sorted_by_date() {
+    $con=connect();
+    $query = "SELECT * FROM dbvolunteeractivity" . " ORDER BY date ASC";
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        return false;
+    }
+    return $result;
+}
+
  function get_all_events_sorted_by_date_and_archived() {
     $con=connect();
     $query = "SELECT * FROM dbevents" .
@@ -819,7 +831,6 @@ function delete_log($id) {
     mysqli_close($con);
     return $result;
 }
-
 
 //FOODDB -----------------------------------------------------------------------------------------------------------------------
 
