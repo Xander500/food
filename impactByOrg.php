@@ -16,7 +16,7 @@
         $userID = $_SESSION['_id'];
     }
     // admin-only access
-    if ($accessLevel < 1) {
+    if ($accessLevel < 2) {
         header('Location: index.php');
         die();
     }
@@ -26,7 +26,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UMW Alleviating Food Waste Volunteer Tracking | Organization Management Page</title>
+  <title>UMW Alleviating Food Waste Volunteer Tracking | Impact By Student</title>
   <link href="css/management_tw.css" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
 
@@ -34,6 +34,8 @@
 <?php
 $tailwind_mode = true;
 require_once('header.php');
+
+require_once('database/dbVolunteerActivity.php');
 ?>
 <style>
         .date-box {
@@ -62,7 +64,7 @@ require_once('header.php');
   } */
 
   .button-left-gray {
-    background-color: #C9AB81 !important;
+    background-color: var(--accent-color) !important;
   }
 
 
@@ -97,48 +99,39 @@ require_once('header.php');
 <!-- BANDAID END, REMOVE ONCE SOME GENIUS FIXES -->
 </head>
 
+<?php
+    $rows = getImpactByOrg();
+?>
+
 <body>
   <!-- Main Content -->
-    <main style="margin-top: 100px;">
-        <div class="sections">
-
-            <!-- Buttons Section -->
-            <div class="button-section">
-                <button onclick="window.location.href='addOrganization.php';">
-	                <div class="button-left-gray"></div>
-	                <div>Create New Organization</div>
-	                <img class="button-icon" src="images/add-person.svg" alt="Person Icon">
-                </button>
-
-                <button onclick="window.location.href='editOrganizationSearch.php';">
-	                <div class="button-left-gray"></div>
-                    <div>Edit Organizations</div>
-                    <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
-                </button>
-
-                <?php if ($accessLevel === 3): ?>
-                <button onclick="window.location.href='deleteOrganizationSearch.php';">
-                    <div class="button-left-gray"></div>
-                    <div>Delete Organizations</div>
-                    <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">
-                </button>
-                <?php endif; ?>
-	
-                <div class="text-center mt-6">
-                        <a href="index.php" class="return-button">Return to Dashboard</a>
-                </div>
-		
+    <h1 class="impact-header">Impact By Organization</h1>
+    <main style="margin: 25px;">
+        <div class="impact">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Hours</th>
+                        <th>Pounds</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                        foreach ($rows as $row) {
+                            echo "
+                                <tr>
+                                    <td>" . $row[0] . "</td>
+                                    <td>" . $row[1] . "</td>
+                                    <td>" . $row[2] . "</td>
+                                </tr>";
+                        }
+                    ?>
+                </tbody>
+            </table>
+            <div class="text-center mt-6">
+                    <a href="analyticsDashboard.php" class="return-button">Return to Analytics Dashboard</a>
             </div>
-
-            <!-- Text Section -->
-            <div class="text-section">
-                <h1>Organization Management</h1>
-                <div class="div-blue"></div>
-                <p>
-                Welcome to the organization management hub. From this menu, you will have access to operations such as creating, deleting, and searching organizations.
-                </p>
-            </div>
-
         </div>
     </main>
 </body>

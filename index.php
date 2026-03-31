@@ -598,9 +598,9 @@
 
 
     <!-- Generate Report -->
-    <div class="content-box-test" onclick="window.location.href='generateReport.php'">
+    <div class="content-box-test" onclick="window.location.href='analyticsDashboard.php'">
         <div class="icon-overlay">
-            <img style="border-radius: 5px;" src="images/create-report.svg" alt="Report Icon">
+            <img style="border-radius: 5px;" src="images/menu.png" alt="Report Icon">
         </div>
         
         <div class="large-text-sub">Analytics Dashboard</div>
@@ -737,6 +737,10 @@
             <button class="nav-button" onclick="window.location.href='viewProfile.php'">
                 <span class="arrow"><img src="images/view-profile.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">View</span>
+            </button>
+            <button class="nav-button" onclick="window.location.href='viewImpactSummary.php'">
+                <span class="arrow"><img src="images/flag.png" style="width: 40px; border-radius: 5px;"></span>
+                <span class="text">Impact</span>
             </button>
             <button class="nav-button" onclick="window.location.href='editProfile.php'">
                 <span class="arrow"><img src="images/manage-account.svg" style="width: 40px; border-radius:5px;"></span>

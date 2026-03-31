@@ -5,19 +5,29 @@
     session_start();
     ini_set("display_errors",1);
     error_reporting(E_ALL);
-    if (!isset($_SESSION['_id'])) {
-        header('Location: login.php');
-        die();
-    }
 
     require_once('include/input-validation.php');
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["modify_access"]) && isset($_POST["id"])) {
-        $id = $_POST['id'];
-        header("Location: /gwyneth/modifyUserRole.php?id=$id");
-    } else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["profile-edit-form"])) {
-        require_once('domain/Person.php');
-        require_once('database/dbPersons.php');
+    //get login and access details
+    $loggedIn = false;
+    $accessLevel = 0;
+    $userID = null;
+    if (isset($_SESSION['_id'])) {
+        $loggedIn = true;
+        // 0 = not logged in, 1 = student, 3 instructor
+        $accessLevel = $_SESSION['access_level'];
+        $userID = $_SESSION['_id'];
+    } 
+    // must be a logged in user
+    if ($accessLevel < 1) {
+        header('Location: login.php');
+        echo 'bad access level';
+        die();
+    }
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["profile-edit-form"])) {
+        require_once('domain/User.php');
+        require_once('database/dbUsers.php');
         // make every submitted field SQL-safe except for password
         $ignoreList = array('password');
         $args = sanitize($_POST, $ignoreList);
@@ -38,9 +48,8 @@
         // }
 
         $required = array(
-            'first_name', 'last_name', 'city', 'state',
-            'email', 'phone1', 'email_consent', 
-            'affiliation', 'branch'
+            'first_name', 'last_name',
+            'email', 'season', 'year'
         );
         $errors = false;
         if (!wereRequiredFieldsSubmitted($args, $required)) {
@@ -48,126 +57,23 @@
         }
 
         $first_name = $args['first_name'];
-        
         $last_name = $args['last_name'];
-        
-        /*$birthday = validateDate($args['birthday']);
-        if (!$birthday) {
-            $errors = true;
-            // echo 'bad dob';
-        }*/
-        
-        //$street_address = $args['street_address'];
-
-        $city = $args['city'];
-
-        $state = $args['state'];
-        if (!valueConstrainedTo($state, array('AK', 'AL', 'AR', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
-                'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME',
-                'MI', 'MN', 'MO', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM',
-                'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX',
-                'UT', 'VA', 'VT', 'WA', 'WI', 'WV', 'WY'))) {
-            $errors = true;
-        }
-
-        /*$zip_code = $args['zip_code'];
-        if (!validateZipcode($zip_code)) {
-            $errors = true;
-            // echo 'bad zip';
-        }*/
-
         $email = validateEmail($args['email']);
         if (!$email) {
             $errors = true;
             // echo 'bad email';
         }
+        $semester = $args['season'] . " " . $args['year'];
 
-        $phone1 = validateAndFilterPhoneNumber($args['phone1']);
-        if (!$phone1) {
-            $errors = true;
-            // echo 'bad phone';
-        }
-
-        /*$phone1type = $args['phone1type'];
-        if (!valueConstrainedTo($phone1type, array('cellphone', 'home', 'work'))) {
-            $errors = true;
-            // echo 'bad phone type';
-        }*/
-        
-        /*@
-        $contactWhen = $args['contact-when'];
-        $contactMethod = $args['contact-method'];
-        if (!valueConstrainedTo($contactMethod, array('phone', 'text', 'email'))) {
-            $errors = true;
-            // echo 'bad contact method';
-        }
-        @*/
-
-        //$emergency_contact_first_name = $args['emergency_contact_first_name'];
-        
-        //$emergency_contact_last_name = $args['emergency_contact_last_name'];
-        
-        /*$emergency_contact_phone = validateAndFilterPhoneNumber($args['emergency_contact_phone']);
-        if (!$emergency_contact_phone) {
-            $errors = true;
-            // echo 'bad e-contact phone';
-        }*/
-
-        /*$emergency_contact_phone_type = $args['emergency_contact_phone_type'];
-        if (!valueConstrainedTo($emergency_contact_phone_type, array('cellphone', 'home', 'work'))) {
-            $errors = true;
-            // echo 'bad phone type';
-        } */
-
-        //$emergency_contact_relation = $args['emergency_contact_relation'];
-
-        /*@
-        $gender = $args['gender'];
-        if (!valueConstrainedTo($gender, ['Male', 'Female', 'Other'])) {
-            $errors = true;
-            echo 'bad gender';
-        }
-        @*/
-
-       /*$type = 'v';
-        
-
-        
-        $skills = $args['skills'];
-        $interests = $args['interests'];*/
-
-        $person = retrieve_person($id);
-
-        if(isset($args['email_prefs'])) {
-            $email_consent = $args['email_prefs']; 
-        } else {
-            $email_consent = $person->get_email_prefs();
-        }
-
-        if(isset($args['branch'])) {
-            $branch = $args['branch'];
-        } else {
-            $branch = $person->get_branch();
-        }
-
-        if(isset($args['affiliation'])) {
-            $affiliation = $args['affiliation'];
-        } else {
-            $affiliation = $person->get_affiliation();
-        }
-        
+        $person = retrieve_user($id);
        
         // For the new fields, default to 0 if not set
-        
-       
         if ($errors) {
             $updateSuccess = false;
         }
-        
-        $result = update_person_required(
-            $id, $first_name, $last_name, $city, $state,
-            $email, $phone1, $email_consent, $affiliation, $branch
-        );
+
+        $result = update_user_required($id, $first_name, $last_name, $email, $semester);
+
         if ($result) {
             if ($editingSelf) {
                 header('Location: viewProfile.php?editSuccess');
@@ -175,15 +81,21 @@
                 header('Location: viewProfile.php?editSuccess&id='. $id);
             }
             die();
+        } else {
+            if ($editingSelf) {
+                header('Location: viewProfile.php?editFailed');
+            } else {
+                header('Location: viewProfile.php?editFailed&id='. $id);
+            }
+            die();
         }
-
     }
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <?php require_once('universal.inc'); ?>
-    <title>Whiskey Valor | Edit Profile</title>
+    <title>UMW Alleviating Food Waste | Edit Profile</title>
     <link src="css/base.css" rel="stylesheet">
 </head>
 <body>
