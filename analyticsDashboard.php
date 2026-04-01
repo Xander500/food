@@ -110,7 +110,7 @@ require_once('database/dbVolunteerActivity.php');
         <div class="display">
             <div class="num-displays">
                 <div class="num">Total Hours Volunteered : <?php echo $hours;?></div>
-                <div class="num">Total Pounds of Food Rescued: <?php echo $pounds;?></div>
+                <div class="num">Total Pounds of Food Rescued: <?php echo round($pounds, 2); ?></div>
             </div>
 
             <div class="num-displays">
@@ -122,6 +122,22 @@ require_once('database/dbVolunteerActivity.php');
                 <a href="index.php" class="return-button">Return to Dashboard</a>
             </div>
         <div>
+<div style="margin-top: 30px; text-align: center;">
+<h2 style="text-align: center; font-size: 28px; font-weight: bold; margin-bottom: 20px; color: #23415A;">
+    Volunteer Activity Map
+</h2>
+
+    <div style="
+        max-width: 860px;
+        margin: 0 auto 50px auto;
+        background: white;
+        padding: 18px;
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    ">
+        <?php include 'map.php'; ?>
+    </div>
+</div>
     </main>
 </body>
 </html>
