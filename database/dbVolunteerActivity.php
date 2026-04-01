@@ -1430,3 +1430,18 @@ function getImpactByOrg() {
     $result = mysqli_fetch_all($result);
     return $result;
 }
+function get_all_activity_locations_for_map() {
+    $con = connect();
+    $query = "SELECT id, location, latitude, longitude
+              FROM dbvolunteeractivity
+              WHERE latitude IS NOT NULL AND longitude IS NOT NULL";
+    $result = mysqli_query($con, $query);
+
+    $rows = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+
+    mysqli_close($con);
+    return $rows;
+}
