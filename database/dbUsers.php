@@ -211,7 +211,7 @@ function update_role($id, $role) {
     $query->execute();
     $result = $query->get_result();
     mysqli_close($con);
-    
+
     return $result;
 }
 
@@ -253,7 +253,7 @@ function update_user_required($id, $first_name, $last_name, $email, $semester) {
         first_name=?, last_name=?, 
         email=?, semester=?    
         where id=?";
-    
+
     $con = connect();
 
     try {
@@ -271,4 +271,21 @@ function update_user_required($id, $first_name, $last_name, $email, $semester) {
 
     mysqli_close($con);
     return True;
+}
+
+//aggregate data for a user
+function get_all_aggregated_poundsOfFood_for_volunteers() {
+    $con=connect();
+    $query = "SELECT volunteerID,first_name,last_name,SUM(hours) as totalHours,SUM(poundsOfFood) as totalPoundsRescued
+                FROM dbvolunteeractivity LEFT JOIN dbusers on dbusers.id = dbvolunteeractivity.volunteerID
+                    GROUP BY volunteerID, last_name 
+                        ORDER BY last_name";
+
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        return false;
+    }
+    return $result;
 }
