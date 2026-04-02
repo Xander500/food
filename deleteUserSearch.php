@@ -91,7 +91,7 @@ require_once('header.php');
         </div>
 
                         <?php
-            if (isset($_GET['name']) || isset($_GET['id']) || isset($_GET['role']) || isset($_GET['semester'])) {
+            if (isset($_GET['name']) || isset($_GET['id']) || isset($_GET['role']) || isset($_GET['semester']) || isset($_GET['status'])) {
                 require_once('include/input-validation.php');
                 require_once('database/dbUsers.php');
                 $args = sanitize($_GET);
@@ -105,6 +105,10 @@ require_once('header.php');
                 $id = $args['id'];
                 $semester = $args['semester'];
                 $role = $args['role'];
+                $status = $args['status'] ?? [];
+                $want_archived = in_array('1', $status);
+                $want_active = in_array('0', $status);
+
 
                 if (!($name || $id || $semester || $role)) {
                     echo '<div class="error-block">At least one search criterion is required.</div>';
@@ -112,7 +116,7 @@ require_once('header.php');
                     echo '<div class="error-block">The system did not understand your request.</div>';
                 }else {
                     echo '<div class="section-box mb-6" style="background-color:#92c44c; padding:25px; border-radius:10px; max-width:900px; margin:0 auto;"><h3 style="color:white;">Search Results</h3>';
-                    $persons = search_users($name, $id, $semester, $role);
+                    $persons = search_users($name, $id, $semester, $role, $status);
                     require_once('include/output.php');
 
                     if (count($persons) > 0) {
@@ -212,6 +216,13 @@ echo "</div>";
                     <?php endforeach; ?>
                 </select>
             </div>
+
+            <div>
+                <input type="checkbox" id="active" name="status[]" value="0" <?php echo ((($want_active ?? true) || ($want_active === false && $want_archived === false)) ? 'checked' : '');?>>
+                <label for="active">Active Users</label>
+                <input type="checkbox" id="archived" name="status[]" value="1" <?php echo ((($want_archived ?? true) || ($want_archived === false && $want_active === false)) ? 'checked' : '');?>>
+                <label for="archived">Archived Users</label>
+            </div>  
 
             <div class="text-center pt-4">
                 <input type="submit" value="Search" class="blue-button">

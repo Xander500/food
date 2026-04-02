@@ -127,12 +127,18 @@ function retrieve_all() {
 used to find users in dbusers based on input search parameters
 all selected search parameters must be true
 */
-function search_users($name, $id, $semester, $role) {
+function search_users($name, $id, $semester, $role, $archival_statuses) {
     $where = 'select * from dbusers where 1=1';
-    if (!($name || $id || $semester || $role)) {
+    if (!($name || $id || $semester || $role || $archival_statuses)) {
         return [];
     }
     else {
+        //make sure statuses are valid (0 or 1)
+        $statuses_to_search = array_intersect($archival_statuses, ['0', '1']);
+        if (empty($statuses_to_search)) {
+            $archival_statuses = ['0', '1']; //if no valid status provided, search all
+        }
+
         $bindings = []; $types= "";
         if ($name) {
             if (strpos($name, ' ')) {
@@ -165,6 +171,15 @@ function search_users($name, $id, $semester, $role) {
             $bindings[] = $role;
             $types .= "s";
         }
+        if ($archival_statuses) {
+            $placeholders = implode(',', array_fill(0, count($archival_statuses), '?'));
+            $where .= " and archived in ($placeholders)";
+            foreach ($archival_statuses as $status) {
+                $bindings[] = $status;
+                $types .= "s";
+            }
+        }
+        
 
         $where .= " order by archived, last_name, first_name";
 
