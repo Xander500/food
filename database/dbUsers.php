@@ -23,7 +23,8 @@ function make_a_user($result_row) {
     @$result_row['email'],
     @$result_row['password'],
     @$result_row['role'],
-    @$result_row['semester']
+    @$result_row['semester'],
+    @$result_row['archived']
 );
     return $theUser;
 }
@@ -165,7 +166,7 @@ function search_users($name, $id, $semester, $role) {
             $types .= "s";
         }
 
-        $where .= " order by last_name, first_name";
+        $where .= " order by archived, last_name, first_name";
 
         $connection = connect();
         $query = $connection->prepare($where);

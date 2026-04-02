@@ -113,6 +113,7 @@ require_once('header.php');
                             <table>
                                 <thead>
                                     <tr>
+                                        <th>Status</th>
                                         <th>First</th>
                                         <th>Last</th>
                                         <th>Username</th>
@@ -134,6 +135,7 @@ require_once('header.php');
                             $mailingList .= $person->get_email();
                             echo '
                                     <tr>
+                                        <td>' . (($person->is_archived()==0)?"Active":"Archived") . '</td>
                                         <td>' . $person->get_first_name() . '</td>
                                         <td>' . $person->get_last_name() . '</td>
                                         <td>' . $person->get_id() . '</td>
