@@ -123,6 +123,7 @@ require_once('header.php');
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" id="select-all"></th>
+                                        <th>Status</th>
                                         <th>First</th>
                                         <th>Last</th>
                                         <th>Username</th>
@@ -145,6 +146,7 @@ require_once('header.php');
                             echo '
                                     <tr>
                                         <td><input type="checkbox" name="selected_users[]" value="' . $person->get_id() . '"></td>
+                                        <td>' . (($person->is_archived()==0)?"Active":"Archived") . '</td>
                                         <td>' . $person->get_first_name() . '</td>
                                         <td>' . $person->get_last_name() . '</td>
                                         <td style="word-break: break-word;">' . $person->get_id() . '</td>
