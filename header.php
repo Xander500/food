@@ -733,6 +733,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['impactbystudent.php'] = 3;
         $permission_array['impactbyorg.php'] = 3;
         $permission_array['generatereport.php'] = 3;
+        $permission_array['archivalsearch.php'] = 3;
 
         /*
         $permission_array['about.php'] = 0; //WVF - Not able to directly access - Likely just need to re-route to

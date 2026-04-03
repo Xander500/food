@@ -99,7 +99,7 @@ require_once('header.php');
                 $status = $args['status'] ?? [];
 
                 if (!($semester)) {
-                    echo '<div class="error-block">At least one search criterion is required, including semester.</div>';
+                    echo '<div class="error-block">You must select a semester to apply changes.</div>';
                 }else {
                     echo "<h3>Results</h3>";
 
@@ -157,6 +157,7 @@ require_once('header.php');
             <div>
                 <label for="semester">Semester</label>
                 <select id="semester" name="semester" class="w-full">
+                    <option value="" >You must select a semester</option>
                     <?php foreach (get_semesters_in_users() as ['semester' => $s]): ?>
                     <option value="<?php echo $s ?>" <?php if (isset($semester) && $semester == $s) echo 'selected'; ?>><?php echo $s ?></option>
                     <?php endforeach; ?>
@@ -197,7 +198,7 @@ require_once('header.php');
             removeItemButton: true,
             placeholder: true,
             placeholderValue: 'Select semester',
-            shouldSort: true
+            shouldSort: false
         });
     });
 
