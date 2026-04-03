@@ -79,7 +79,7 @@ require_once('header.php');
         <div class="text-center mb-8">
             <h2>Manage Semesters</h2>
             <div class="info-box">
-                <p class="sub-text">Fill out the form to archive or unarchive all students or volunteer activity logs associated with a semester.</p>
+                <p class="sub-text">Fill out the form to archive or unarchive all students or volunteer activity logs associated with a semester.  Mass changes will only apply to student accounts, not instructor accounts.</p>
             </div>
         </div>
 
@@ -100,54 +100,57 @@ require_once('header.php');
 
                 if (!($semester)) {
                     echo '<div class="error-block">At least one search criterion is required, including semester.</div>';
-                } else if (!valueConstrainedTo('', ['Instructor', 'Student', ''])) { //TODO
-                    echo '<div class="error-block">The system did not understand your request.</div>';
                 }else {
-                    echo "<h3>Search Results</h3>";
-                    $persons = search_users($name="", $id="", $semester, $role="", $status=[]); //only care about searching semester
-                    require_once('include/output.php');
+                    echo "<h3>Results</h3>";
 
-                    if (count($persons) > 0) {
-                        echo '
-                        <div class="search-results-table">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th>Status</th>
-                                        <th>First</th>
-                                        <th>Last</th>
-                                        <th>Username</th>
-                                        <th>Role</th>
-                                    </tr>
-                                </thead>
-                                <tbody>';
-                        $mailingList = '';
-                        $notFirst = false;
-                        foreach ($persons as $person) {
-                            if ($notFirst) {
-                                $mailingList .= ', ';
-                            } else {
-                                $notFirst = true;
-                            }
-                            $mailingList .= $person->get_email();
+                    if (isset($_GET['action']) && isset($_GET['apply_to']) && $_GET['apply_to'] == 'Student') {
+                        $action = $_GET['action'];
+                        $apply_to = $_GET['apply_to'];
+                        $action_code = ($action == 'Archive') ? 1 : 0; // 1 for archive, 0 for unarchive
+
+                        $changes = archive_users_by_semester($semester, $action_code);
+                        echo '<div class="success-block">'. $changes . ' student accounts associated with ' . $semester . ' have been'. ($action_code ? ' archived' : ' unarchived') . '.</div>';
+
+                        $persons = search_users($name="", $id="", $semester, $role="Student", $status=[]); //only care about searching semester //only want to apply to students
+                        require_once('include/output.php');
+
+                        if (count($persons) > 0) {
                             echo '
-                                    <tr>
-                                        <td>' . (($person->is_archived()==0)?"Active":"Archived") . '</td>
-                                        <td>' . $person->get_first_name() . '</td>
-                                        <td>' . $person->get_last_name() . '</td>
-                                        <td>' . $person->get_id() . '</td>
-                                        <td>' . ucfirst($person->get_role() ?? '') . '</td>
-                                    </tr>';
-                        }
-                        echo '
-                                </tbody>
-                            </table>
-                        </div>';
+                            <div class="search-results-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>First</th>
+                                            <th>Last</th>
+                                            <th>Username</th>
+                                            <th>Role</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>';
+                            foreach ($persons as $person) {
+                                echo '
+                                        <tr>
+                                            <td>' . (($person->is_archived()==0)?"Active":"Archived") . '</td>
+                                            <td>' . $person->get_first_name() . '</td>
+                                            <td>' . $person->get_last_name() . '</td>
+                                            <td>' . $person->get_id() . '</td>
+                                            <td>' . ucfirst($person->get_role() ?? '') . '</td>
+                                        </tr>';
+                            }
+                            echo '
+                                    </tbody>
+                                </table>
+                            </div>';
 
-                    } else {
-                        echo '<div class="error-block">Your search returned no results.</div>';
+                        } else {
+                            echo '<div class="error-block">Your search returned no results.</div>';
+                        }
+                        echo '<h3>Search Again</h3>';
+                    } //end student table display
+                    else {
+                        echo '<div class="error-block">Action and apply_to fields are required to perform archival actions.</div>';
                     }
-                    echo '<h3>Search Again</h3>';
                 }
             }
         ?>         
@@ -163,15 +166,15 @@ require_once('header.php');
             <div>
                 <label for="action">I want to</label>
                 <select id="action" name="action" class="w-full">
-                    <option value="">Archive</option>
-                    <option value="">Unarchive</option>
+                    <option value="Archive" <?php if (isset($action) && $action == 'Archive') echo 'selected'; ?>>Archive</option>
+                    <option value="Unarchive" <?php if (isset($action) && $action == 'Unarchive') echo 'selected'; ?>>Unarchive</option>
                 </select>
             </div>
 
             <div>
-                <label for="action">Apply action to</label>
-                <select id="action" name="action" class="w-full">
-                    <option value="">Students</option>
+                <label for="apply_to">Apply action to</label>
+                <select id="apply_to" name="apply_to" class="w-full">
+                    <option value="Student" <?php if (isset($apply_to) && $apply_to == 'Student') echo 'selected'; ?>>Students</option>
                 </select>
             </div>
 
@@ -185,12 +188,6 @@ require_once('header.php');
         </div>
     </div>
 
-    <!-- <div class="info-section">
-        <div class="blue-div"></div>
-        <p class="info-text">
-            Use this tool to filter and search for volunteers or participants by their role, zip code, phone, archive status, and more. Mailing list support is built in.
-        </p>
-    </div> -->
 </main>
 
     <script>
