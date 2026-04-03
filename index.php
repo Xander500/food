@@ -451,7 +451,7 @@
 <!-- ONLY SUPER ADMIN WILL SEE THIS -->
 <?php if ($_SESSION['access_level'] >= 2): ?>
 <body>
-<?php require 'header.php';?>
+<?php require_once('header.php');?>
 
     <!-- Dummy content to enable scrolling -->
     <div style="margin-top: 0px; padding: 30px 20px;">
@@ -706,7 +706,7 @@
 <?php endif ?>
 
 <!-- ONLY VOLUNTEERS WILL SEE THIS -->
-<?php if ($notRoot) : ?>
+<?php if ($_SESSION['access_level'] < 2): ?>
 <body>
 <?php require 'header.php';?>
 
