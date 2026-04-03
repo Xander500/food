@@ -231,6 +231,22 @@ function update_role($id, $role) {
     return $result;
 }
 
+//set archival status to 1 (archived) or 0 (active)
+function update_user_archival_status($id, $archived) {
+    if (!valueConstrainedTo($archived, ['1', '0'])) {
+        return;
+    }
+    $con=connect();
+    $sql = 'UPDATE dbusers SET archived = ? WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("ss", $archived, $id);
+    $query->execute();
+    $result = $query->get_result();
+    mysqli_close($con);
+
+    return $result;
+}
+
 //deletes the given user from the database entirely
 function remove_person($id) {
     $con=connect();
