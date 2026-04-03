@@ -121,7 +121,7 @@ require_once('header.php');
 
                     if (count($persons) > 0) {
                         echo '
-                        <form method="post" action="deleteUsersBulk.php" onsubmit="return confirm(\'Are you sure you want to delete the selected users?\');">
+                        <form method="post" action="deleteUsersBulk.php" onsubmit="return confirm(\'Are you sure you want to delete the selected users?  This action will permanently delete the users AND their volunteer activity.\');">
                         <div class="search-results-table" style="margin-top:10px; display:flex; justify-content:center;">
                             <table style="width:100%;">
                                 <thead>
@@ -157,7 +157,7 @@ require_once('header.php');
                                         <td>' . $person->get_semester() . '</td>
                                         <td>' . ucfirst($person->get_role() ?? '') . '</td>
                                         <td><a href="viewProfile.php?id=' . $person->get_id() . '" class="text-blue-700 underline">Profile</a></td>
-                                        <td><a href="deleteUser.php?id=' . $person->get_id() . '" onclick="return confirm(\'Are You Sure?\');" class="text-blue-700 underline">Delete User</a></td>
+                                        <td><a href="deleteUser.php?id=' . $person->get_id() . '" onclick="return confirm(\'Are You Sure?  This action will permanently delete the user AND their volunteer activity.\');" class="text-blue-700 underline">Delete User</a></td>
                                     </tr>';
                         }
 echo '
