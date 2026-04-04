@@ -197,7 +197,7 @@ require_once('header.php');
         //     $semester;
 
         $newUser = new User(
-            $id, date("Y-m-d"), $first_name, $last_name, $email, $password, "Student", $semester
+            $id, date("Y-m-d"), $first_name, $last_name, $email, $password, "Student", $semester, 0
         );
 
         // echo $newperson->get_id() . ", " . $newperson->get_start_date() . ", " . $newperson->get_first_name() . ", " . 

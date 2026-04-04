@@ -46,46 +46,32 @@
         require_once('database/dbMessages.php');
         $post = sanitize($_POST);
         $new_role = $post['s_role'];
+        $new_status = $post['s_archival'];
         if (!valueConstrainedTo($new_role, ['Instructor', 'Student'])) {
+            echo "Invalid role selected";
+            die();
+        }
+        if (!valueConstrainedTo($new_status, ['1', '0'])) {
+            echo "Invalid archival status selected";
             die();
         }
         if (empty($new_role)){
             // echo "No new role selected";
         }else if ($accessLevel >= 3) {
+
             update_role($id, $new_role);
             $typeChange = true;
             // echo "<meta http-equiv='refresh' content='0'>";
         }
-
-        /*
-        $new_status = $post['statsRadio'];
-        if (!valueConstrainedTo($new_status, ['Active', 'Inactive'])) {
-            die();
-        }
-        if (empty($new_status)){
-            // echo "No new status selected";
-        }else{
-            update_status($id, $new_status);
-            $statusChange = true;
+        if ($accessLevel >= 3) {           
+            update_user_archival_status($id, $new_status);
+            $typeChange = true;
             // echo "<meta http-equiv='refresh' content='0'>";
         }
 
-        $currentStatus = $thePerson->get_status();
-            
-        if (isset($_POST['user_access_modified'])) { // Check if the form was submitted
-            $newStatus = $_POST['statsRadio']; // Get the selected status
-            if ($newStatus == "Inactive" && $currentStatus != "Inactive") {
-                // Notify Admins about archived volunteers - Implemented by Aidan Meyer 
-
-                $archive_title = $thePerson->get_id() . " has been archived.";
-                $archive_message = "This user has been archived. For reinstatement, navigate to volunteer search and select Archive, then modify the field to Active";
-                system_message_all_admins($archive_title, $archive_message);
-            }
-        }
-
-        */
-        if (isset($notesChange) || isset($typeChange)) {
-            header('Location: viewProfile.php?rscSuccess&id=' . $_GET['id']);
+        
+        if (isset($archivedChange) || isset($typeChange)) {
+            header('Location: viewProfile.php?editSuccess&id=' . $_GET['id']);
             die();
         }
     }
@@ -130,7 +116,7 @@
             <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Role</h2>
 
             <form class="modUser" method="post">
-                <?php if (isset($typeChange) || isset($notesChange) || isset($statusChange)): ?>
+                <?php if (isset($typeChange) || isset($archivedChange) || isset($statusChange)): ?>
                     <div class="happy-toast">User's access is updated.</div>
                 <?php endif ?>
                     <?php
@@ -146,6 +132,20 @@
                         echo '<option value="'. $role .'">'. $typename .'</option>';
                     } else {
                         echo '<option value="'. $role .'" selected>'. $typename .' (current)</option>';
+                    }
+                }
+                echo '</select>';
+
+                // Drop down to select whether the user is archived or not
+				$archivals = array('0' => 'Active', '1' => 'Archived');
+                echo '<label for="archival">Change Archival Status</label><select id="archival" class="form-select-sm" name="s_archival">' ;
+                // echo '<option value="" SELECTED></option>' ;
+                $currentArchival = $thePerson->is_archived();
+                foreach ($archivals as $archival => $typename) {
+                    if($archival != $currentArchival) {
+                        echo '<option value="'. $archival .'">'. $typename .'</option>';
+                    } else {
+                        echo '<option value="'. $archival .'" selected>'. $typename .' (current)</option>';
                     }
                 }
                 echo '</select>';
