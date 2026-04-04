@@ -113,7 +113,8 @@ function make_a_volunteer_activity($result_row) {
                     $result_row['poundsOfFood'],
                     $result_row['organizationID'],
                     $result_row['location'],
-                    $result_row['description']
+                    $result_row['description'],
+                    $result_row['archived']
                 );
     return $theLog;
 }
@@ -126,12 +127,12 @@ function make_a_volunteer_activity($result_row) {
     return $row['num'];
  }
 
-  function get_num_logs_with_filters($filters_input) {
+  function get_num_logs_with_filters($filters_input, $want_archived = false) {
     $con=connect();
     $select_statement = "SELECT count(*) as num FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
             " JOIN dborganizations AS o ON o.id = va.organizationID";
-    $results = internal_apply_filters_to_select($con, $select_statement, '', $filters_input);
+    $results = internal_apply_filters_to_select($con, $select_statement, '', $filters_input, $want_archived);
     $row = mysqli_fetch_assoc($results);
     return $row['num'];
  }
@@ -185,7 +186,7 @@ function make_a_volunteer_activity($result_row) {
         return $accepted_filters;
  }
 
-function get_all_volunteer_activities_custom_sort_pagination_with_filters($sortby_input, $order_input, $per_page, $offset, $filters_input) {
+function get_all_volunteer_activities_custom_sort_pagination_with_filters($sortby_input, $order_input, $per_page, $offset, $filters_input, $want_archived = false) {
     $con=connect();
     //check valid options for sort
     $sortby = 'date'; $order = 'desc';
@@ -200,7 +201,7 @@ function get_all_volunteer_activities_custom_sort_pagination_with_filters($sortb
 
     //base sql query to get info from dbVA, dbusers, dbOrgs
     $select_statement = "SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
-            " va.organizationID, va.location, va.description," .
+            " va.organizationID, va.location, va.description, va.archived," .
             " u.first_name, u.last_name, o.name, u.semester AS organization_name" .
             " FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
@@ -208,7 +209,7 @@ function get_all_volunteer_activities_custom_sort_pagination_with_filters($sortb
             " WHERE va.id=va.id";
     $order_statement = " ORDER BY $sortby $order, volunteerID asc, organizationID asc, id asc" .
             " LIMIT $per_page OFFSET $offset";
-    $result = internal_apply_filters_to_select($con, $select_statement, $order_statement, $filters_input);
+    $result = internal_apply_filters_to_select($con, $select_statement, $order_statement, $filters_input, $want_archived);
     $theLogs = array();
     while ($result_row = mysqli_fetch_assoc($result)) {
         $theLog = make_a_volunteer_activity($result_row);
@@ -218,7 +219,7 @@ function get_all_volunteer_activities_custom_sort_pagination_with_filters($sortb
     return $theLogs;
   }
 
-function internal_apply_filters_to_select($con, $select_statement, $order_statement, $filters_input) {
+function internal_apply_filters_to_select($con, $select_statement, $order_statement, $filters_input, $want_archived) {
     $sql = $select_statement;
     //check for filter options
     $filters = extract_permitted_filters_on_logs($filters_input);
@@ -235,6 +236,7 @@ function internal_apply_filters_to_select($con, $select_statement, $order_statem
     $student = $filters['students'] ?? null;
     $organization  = $filters['organizations'] ?? null;
     $semester  = $filters['semesters'] ?? null;
+    $archive = $want_archived ? 1 : 0;
 
     $sql .= " AND va.hours >= COALESCE(?, va.hours)" .
         " AND va.hours <= COALESCE(?, va.hours)" .
@@ -244,16 +246,17 @@ function internal_apply_filters_to_select($con, $select_statement, $order_statem
         " AND va.date <= COALESCE(?, va.date)" .
         " AND va.volunteerID = COALESCE(?, va.volunteerID)" .
         " AND va.organizationID = COALESCE(?, va.organizationID)" .
-        " AND u.semester = COALESCE(?, u.semester)";
+        " AND u.semester = COALESCE(?, u.semester)" .
+        " AND va.archived = COALESCE(?, va.archived)";
 
 
     //sort and pagination section of sql
     $sql .= $order_statement;
 
     $query = $con->prepare($sql);
-    $query->bind_param('sssssssss',
+    $query->bind_param('ssssssssss',
         $minhours, $maxhours, $minfood, $maxfood, $startdate, $enddate,
-        $student, $organization, $semester);
+        $student, $organization, $semester, $archive);
     $query->execute();
     return $query->get_result();
  }
