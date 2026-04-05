@@ -196,6 +196,8 @@
         ?>
 
         <!-- Event Information Table -->
+         	  <img class="button-icon" src="images\archive.svg" alt="Archive Icon">
+
         <h2 class="event-head">
             Volunteer Activity Details
             <?php  

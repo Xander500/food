@@ -107,7 +107,7 @@ require_once('header.php');
         <button onclick="window.location.href='archivalSearch.php';">
 	  <div class="button-left-gray"></div>
 	  <div>Mass Archive/Unarchive Semesters</div>
-	  <img class="button-icon" src="images\archive.svg" alt="Flag Icon">
+	  <img class="button-icon" src="images\archive.svg" alt="Archive Icon">
         </button>
 
         <button onclick="window.location.href='personSearch.php';">
