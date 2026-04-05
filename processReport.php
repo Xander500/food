@@ -12,6 +12,7 @@ if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 2) {
 
 require_once('database/dbusers.php');
 require_once('database/dbVolunteerActivity.php');
+require_once('database/dbOrganizations.php');
 
 // Get user input
 $exportType = $_POST['exportType'] ?? '';
@@ -192,6 +193,120 @@ else if ($exportType == 'logs') {
             $value = htmlspecialchars($row[$key]);
             echo "<td style='padding: 5px; text-align: center;'>{$value}</td>";
         }
+        echo "</tr>";
+    }
+
+    echo "</table>";
+    echo "</body></html>";
+    exit();
+}
+
+else if ($exportType == 'organizations') {
+
+    // Fetch Data
+    $reportData = fetch_organizations();
+    $impactData = getImpactByOrg();
+
+    $eventID = "volunteer data";
+    $eventName = "test";
+
+    if ($format === 'csv') {
+        header("Content-Type: text/csv");
+        header("Content-Disposition: attachment; filename=volunteer_report.csv");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+
+        $output = fopen('php://output', 'w');
+
+        //title row
+        fputcsv($output, ["Volunteer Report"]);
+
+        //column headers
+        fputcsv($output, [
+            "ID",
+            "date",
+            "volunteerID",
+            "hoursVolunteered",
+            "poundsOfFoodRescued",
+            "organizationID",
+            "location",
+            "description",
+        ]);
+
+        //data rows
+        $i = 0;
+        while ($log = $reportData->fetch_assoc()) {
+            $logimpact = $impactData[$i];
+            fputcsv($output, [
+                $log["id"],
+                $log["name"],
+                $log["email"],
+                $log["location"],
+                $log["description"],
+                $logimpact[1],
+                $logimpact[2],
+            ]);
+            $i++;
+        }
+
+        fclose($output);
+        exit();
+    }
+
+    // EXCEL EXPORT
+    header("Content-Type: application/vnd.ms-excel");
+    header("Content-Disposition: attachment; filename=attendance_report_{$eventID}_{$eventName}.xls");
+    header("Pragma: no-cache");
+    header("Expires: 0");
+
+    echo "<html><head><meta charset='UTF-8'></head><body>";
+    echo "<table border='1' style='border-collapse: collapse; font-family: Arial, sans-serif; text-align: center;'>";
+
+    //report title
+    //echo "<tr><th colspan='5' style='font-size: 18px; background-color: #004488; color: white; padding: 10px;'>User Report - " . $eventID . ": {$eventName}</th></tr>";
+    echo "<tr><th colspan='8' style='font-size: 18px; background-color: #004488; color: white; padding: 10px;'>Log Report" . ": </th></tr>";
+
+    // Fetch the first row to get headers
+    $firstRow = $reportData->fetch_assoc();
+    $firstRowImpact = $impactData[0];
+
+    // Get keys from the first row
+    $headers = array_keys($firstRow);
+
+    // Output header row
+    echo "<tr>";
+    foreach ($headers as $header) {
+        // Optional: make header more readable
+        $prettyHeader = ucwords(str_replace(['_', 'ID'], [' ', ' ID'], $header));
+        echo "<th style='background-color: #88CCEE; padding: 5px;'>{$prettyHeader}</th>";
+    }
+        echo "<th style='background-color: #88CCEE; padding: 5px;'>Pounds Rescued</th>";
+        echo "<th style='background-color: #88CCEE; padding: 5px;'>Total Food Rescued</th>";
+    echo "</tr>";
+
+    // Output the first row
+    echo "<tr>";
+    foreach ($headers as $key) {
+        $value = htmlspecialchars($firstRow[$key] ?? '');
+        echo "<td style='padding: 5px; text-align: center;'>{$value}</td>";
+    }
+        echo "<td style='padding: 5px; text-align: center;'>{$firstRowImpact[1]}</td>";
+        echo "<td style='padding: 5px; text-align: center;'>{$firstRowImpact[2]}</td>";
+    echo "</tr>";
+
+    // Output the remaining rows
+    $i = 1;
+    while ($row = $reportData->fetch_assoc()) {
+        $nextRow = $row; 
+        $nextRowImpact = $impactData[$i];
+        echo "<tr>";
+        foreach ($headers as $key) {
+            $value = htmlspecialchars($nextRow[$key] ?? '');
+            echo "<td style='padding: 5px; text-align: center;'>{$value}</td>";
+        }
+            // rounds
+            echo "<td style='padding: 5px; text-align: center;'>" . number_format($nextRowImpact[1] ?? 0, 2) . "</td>";
+            echo "<td style='padding: 5px; text-align: center;'>" . number_format($nextRowImpact[2] ?? 0, 2) . "</td>";
         echo "</tr>";
     }
 

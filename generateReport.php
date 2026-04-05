@@ -52,6 +52,7 @@ if ($_SESSION['access_level'] < 2) {
                     <select name="exportType" id="exportType">
                             <option value='logs'>Volunteer logs</option>
                             <option value='users'>Users</option>
+                            <option value='organizations'>Organizations</option>
                             <!--<option value='organizations'>Organizations</option>-->
                     </select>
                 </div>
