@@ -127,11 +127,7 @@
   </script>
 
 </head>
-            <?php if ($id == 'vmsroot'): ?>
-		<div class="absolute left-[40%] top-[20%] bg-red-800 p-4 text-white rounded-xl text-xl">The root user does not have a profile.</div>
-                </main></body></html>
-                <?php die() ?>
-            <?php elseif (!$user): ?>
+            <?php if (!$user): ?>
 		<div class="absolute left-[40%] top-[20%] bg-red-800 p-4 text-white rounded-xl text-xl">User does not exist.</div>
                 </main></body></html>
                 <?php die() ?>
@@ -170,6 +166,9 @@
           </div>
           <div class="flex justify-between py-2">
             <span class="font-medium">Semester</span><span><?php echo hsc($user->get_semester()) ?></span>
+          </div>
+          <div class="flex justify-between py-2">
+            <span class="font-medium">Status</span><span><?php echo ($user->is_archived() ? 'Archived' : 'Active') ?></span>
           </div>
         </div>
       </div>

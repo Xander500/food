@@ -614,6 +614,18 @@ function internal_apply_filters_to_select($con, $select_statement, $order_statem
     return $theEvents;
  }
 
+function get_all_logs_sorted_by_date() {
+    $con=connect();
+    $query = "SELECT * FROM dbvolunteeractivity" . " ORDER BY date ASC";
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        return false;
+    }
+    return $result;
+}
+
  function get_all_events_sorted_by_date_and_archived() {
     $con=connect();
     $query = "SELECT * FROM dbevents" .
@@ -836,6 +848,30 @@ function delete_log($id) {
     $result = boolval($result);
     mysqli_close($con);
     return $result;
+}
+
+function get_impact_summary_by_volunteer($id) {
+    $con = connect();
+    $sql = "SELECT SUM(hours) AS total_hours, SUM(poundsOfFood) AS total_pounds, COUNT(*) AS total_logs FROM dbvolunteeractivity WHERE volunteerID = '$id'";
+    $result = mysqli_query($con, $sql);
+    $row = mysqli_fetch_assoc($result);
+    mysqli_close($con);
+    return $row;
+}
+
+function get_impact_summary_by_organization($id) {
+    $con = connect();
+    $query = "SELECT dborganizations.name AS organization_name, SUM(hours) AS hours,
+        SUM(poundsOfFood) AS pounds
+        FROM dbvolunteeractivity
+        JOIN dborganizations ON organizationID = dborganizations.id
+        WHERE volunteerID = '$id'
+        GROUP BY organizationID
+        ORDER BY hours DESC";
+    $result = mysqli_query($con, $query);
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    mysqli_close($con);
+    return $rows;
 }
 
 
@@ -1393,4 +1429,19 @@ function getImpactByOrg() {
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_all($result);
     return $result;
+}
+function get_all_activity_locations_for_map() {
+    $con = connect();
+    $query = "SELECT id, location, latitude, longitude
+              FROM dbvolunteeractivity
+              WHERE latitude IS NOT NULL AND longitude IS NOT NULL";
+    $result = mysqli_query($con, $query);
+
+    $rows = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rows[] = $row;
+    }
+
+    mysqli_close($con);
+    return $rows;
 }
