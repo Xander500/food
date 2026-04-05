@@ -6,6 +6,8 @@
     session_cache_expire(30);
     session_start();
     require_once('database/dbUsers.php');
+    require_once('database/dbVolunteerActivity.php');
+    require_once('database/dbOrganizations.php');
 
 
     $loggedIn = false;
@@ -96,9 +98,8 @@ require_once('header.php');
                 }
 
                 $semester = $args['semester'];
-                $status = $args['status'] ?? [];
 
-                if (!($semester)) {
+                if (!$semester) {
                     echo '<div class="error-block">You must select a semester to apply changes.</div>';
                 }else {
                     echo "<h3>Results</h3>";
@@ -148,6 +149,49 @@ require_once('header.php');
                         }
                         echo '<h3>Search Again</h3>';
                     } //end student table display
+                    elseif (isset($_GET['action']) && isset($_GET['apply_to']) && $_GET['apply_to'] == 'Logs') {
+                        $action = $_GET['action'];
+                        $apply_to = $_GET['apply_to'];
+                        $action_code = ($action == 'Archive') ? 1 : 0; // 1 for archive, 0 for unarchive
+
+                        $changes = archive_logs_by_semester($semester, $action_code);
+                        $logs = find_logs_by_semester($semester);
+                        echo '<div class="success-block">'. $changes . ' logs associated with ' . $semester . ' have been'. ($action_code ? ' archived' : ' unarchived') . '.</div>';
+                        
+                        require_once('include/output.php');
+
+                        if (count($logs) > 0) {
+                            echo '
+                            <div class="search-results-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Status</th>
+                                            <th>Student</th>
+                                            <th>Date</th>
+                                            <th>Organization</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>';
+                            foreach ($logs as $log) {
+                                echo '
+                                        <tr>
+                                            <td>' . (($log->is_archived()==0)?"Active":"Archived") . '</td>
+                                            <td>' .  get_user_full_name_from_id($log->getVolunteerID()) . '</td>
+                                            <td>' . $log->getDate() . '</td>
+                                            <td>' . get_organization_name_from_id($log->getOrganizationID()) . '</td>
+                                        </tr>';
+                            }
+                            echo '
+                                    </tbody>
+                                </table>
+                            </div>';
+
+                        } else {
+                            echo '<div class="error-block">Your search returned no results.</div>';
+                        }
+                        echo '<h3>Search Again</h3>';
+                    } //end log table display
                     else {
                         echo '<div class="error-block">Action and apply_to fields are required to perform archival actions.</div>';
                     }
@@ -158,9 +202,11 @@ require_once('header.php');
                 <label for="semester">Semester</label>
                 <select id="semester" name="semester" class="w-full">
                     <option value="" >You must select a semester</option>
-                    <?php foreach (get_semesters_in_users() as ['semester' => $s]): ?>
+                    <?php foreach (get_semesters_in_users() as ['semester' => $s]):
+                        if (!empty($s)) : ?>
                     <option value="<?php echo $s ?>" <?php if (isset($semester) && $semester == $s) echo 'selected'; ?>><?php echo $s ?></option>
-                    <?php endforeach; ?>
+                    <?php endif;
+                    endforeach; ?>
                 </select>
             </div> 
 
@@ -176,11 +222,12 @@ require_once('header.php');
                 <label for="apply_to">Apply action to</label>
                 <select id="apply_to" name="apply_to" class="w-full">
                     <option value="Student" <?php if (isset($apply_to) && $apply_to == 'Student') echo 'selected'; ?>>Students</option>
+                    <option value="Logs" <?php if (isset($apply_to) && $apply_to == 'Logs') echo 'selected'; ?>>Volunteer Activity Logs</option>
                 </select>
             </div>
 
             <div class="text-center pt-4">
-                <input type="submit" value="Search" class="blue-button">
+                <input type="submit" value="Apply Action" class="blue-button">
             </div>
 
         </form>

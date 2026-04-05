@@ -6,11 +6,9 @@ class VolunteerActivity {
     private $id;
     private $date;
     private $volunteerID;
-    private $volunteerName;
     private $hours;
     private $poundsOfFood;
     private $organizationID;
-    private $organizationName;
     private $location;
     private $description;
     private $archived;
@@ -25,11 +23,6 @@ class VolunteerActivity {
         $this->location = $location;
         $this->description = $description;
         $this->archived = $archived; //default not archived
-        
-        //! once we have organizations we should add the ability to get organizationName
-        //! once we have users we should add the ability to get studentName
-        //for display purposes
-        
     }
 
     function getID() {
@@ -43,10 +36,7 @@ class VolunteerActivity {
     function getVolunteerID() {
         return $this->volunteerID;
     }
-    
-    function getVolunteerName() {
-        return $this->volunteerName;
-    }
+
 
     function getHours() {
         return $this->hours;
@@ -60,10 +50,6 @@ class VolunteerActivity {
         return $this->organizationID;
     }
     
-    function getOrganizationName() {
-        return $this->organizationName;
-    }
-
     function getLocation() {
         return $this->location;
     }

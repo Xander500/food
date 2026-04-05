@@ -224,7 +224,7 @@ function internal_apply_filters_to_select($con, $select_statement, $order_statem
     }
 
     $query = $con->prepare("SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood," .
-            " va.organizationID, va.location, va.description," .
+            " va.organizationID, va.location, va.description, va.archived," .
             " u.first_name, u.last_name, o.name AS organization_name" .
             " FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
@@ -431,4 +431,41 @@ function get_all_activity_locations_for_map() {
 
     mysqli_close($con);
     return $rows;
+}
+
+function archive_logs_by_semester($semester, $archived = '1') {
+    $con=connect();
+    $sql = 'UPDATE dbvolunteeractivity as va ' .
+        'JOIN dbusers as u ' .
+        'ON u.id = va.volunteerID ' .
+        'SET va.archived = ? ' .
+        'WHERE semester = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("ss", $archived, $semester);
+    $query->execute();
+    return $query->affected_rows;
+}
+
+function find_logs_by_semester($semester) {
+    $con=connect();
+    $sql = 'SELECT va.id, va.date, va.volunteerID, va.hours, va.poundsOfFood, ' .
+        'va.organizationID, va.location, va.description, va.archived ' .
+        'FROM dbvolunteeractivity va ' .
+        'JOIN dbusers AS u ' .
+        'ON u.id = va.volunteerID ' .
+        'WHERE semester = ?';
+        
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $semester);
+    $query->execute();
+    $result = $query->get_result();
+
+
+    $theLogs = array();
+    while ($result_row = mysqli_fetch_assoc($result)) {
+        $theLog = make_a_volunteer_activity($result_row);
+        $theLogs[] = $theLog;
+    }
+    mysqli_close($con);
+    return $theLogs;
 }
