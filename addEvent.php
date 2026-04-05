@@ -99,6 +99,7 @@
                 <div class="event-sect">
                     <label for="volunteerID">* Volunteer ID </label>
                     <select id="volunteerID" name="volunteerID" required placeholder="Enter Volunteer ID">
+                        <option value="">Select a volunteer</option>
                         <?php
                         require_once('database/dbUsers.php'); // maybe put at top
                         $volunteers = retrieve_all();
@@ -147,12 +148,12 @@
 -->
 
                 <div class="event-sect">
-                    <label for="location">* Location </label>
+                    <label for="location">Location </label>
                     <input type="text" id="location" name="location" placeholder="Enter location">
 
                     <label for="organizationID">* Organization </label>
                     <select id="organizationID" name="organizationID" required placeholder="Enter Organization ID">
-<!--                        <option value="">Select organization</option>-->
+                        <option value="">Select organization</option>
                         <?php
                             require_once('database/dbOrganizations.php'); // maybe put at top
                             $organizations = get_organizations_id_name();

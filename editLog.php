@@ -33,7 +33,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $args = sanitize($_POST, null);
         $required = array(
-            "id", "volunteerID", "date", "organizationID", "hours"
+            "id", "volunteerID", "date", "organizationID", "hours", "archived"
         );
 
         if (!wereRequiredFieldsSubmitted($args, $required)) {
@@ -118,8 +118,18 @@
             <form id="edit-log-form" method="post">
                 
                 <input type="hidden" name="id" value="<?php echo $id ?>"/> 
+
+                <?php if ($accessLevel == 3): ?>
+                <label for ="archived">Archival Status</label>
+                <select id="archived" name="archived" required <?php if ($accessLevel < 3) { echo "disabled";} ?>>
+                    <option value="0" <?php if (!$log['archived']) echo 'selected'; ?>>Active</option>
+                    <option value="1" <?php if ($log['archived']) echo 'selected'; ?>>Archived</option>
+                </select>
+                <?php else: ?>
+                    <input type="hidden" name="archived" value="<?php echo hsc($log['archived']); ?>" />
+                <?php endif; ?>
             
-                <label for ="volunteerID">Volunteer ID</label>
+                <label for ="volunteerID">Volunteer ID <?php if ($accessLevel < 3) { echo "<span>(you do not have permission to change this)</span>";} ?></label>
                 <select id="volunteerID" name="volunteerID" required <?php if ($accessLevel < 3) { echo "disabled";} ?>>
                     <option value="">Select a volunteer</option>
                     <?php foreach ($volunteers as $volunteer): ?>

@@ -6,15 +6,14 @@ class VolunteerActivity {
     private $id;
     private $date;
     private $volunteerID;
-    private $volunteerName;
     private $hours;
     private $poundsOfFood;
     private $organizationID;
-    private $organizationName;
     private $location;
     private $description;
+    private $archived;
 
-    function __construct($id, $date, $volunteerID, $hours, $poundsOfFood, $organizationID, $location, $description) {
+    function __construct($id, $date, $volunteerID, $hours, $poundsOfFood, $organizationID, $location, $description, $archived='0') {
         $this->id = $id;
         $this->date = $date;
         $this->volunteerID = $volunteerID;
@@ -23,11 +22,7 @@ class VolunteerActivity {
         $this->organizationID = $organizationID;
         $this->location = $location;
         $this->description = $description;
-        
-        //! once we have organizations we should add the ability to get organizationName
-        //! once we have users we should add the ability to get studentName
-        //for display purposes
-        
+        $this->archived = $archived; //default not archived
     }
 
     function getID() {
@@ -41,10 +36,7 @@ class VolunteerActivity {
     function getVolunteerID() {
         return $this->volunteerID;
     }
-    
-    function getVolunteerName() {
-        return $this->volunteerName;
-    }
+
 
     function getHours() {
         return $this->hours;
@@ -58,16 +50,16 @@ class VolunteerActivity {
         return $this->organizationID;
     }
     
-    function getOrganizationName() {
-        return $this->organizationName;
-    }
-
     function getLocation() {
         return $this->location;
     }
     
     function getDescription() {
         return $this->description;
+    }
+
+    function is_archived() {
+        return $this->archived;
     }
 
 }
