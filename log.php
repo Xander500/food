@@ -189,6 +189,7 @@
             $log_location = $log_info['location'];
             $log_volunteer_id = $log_info['volunteerID'];
             $log_organization_id = $log_info['organizationID'];
+            $log_archival = ($log_info['archived'] == '1');
 
             $log_studentName = get_user_full_name_from_id($log_volunteer_id);
             $log_organizationName = get_organization_name_from_id($log_organization_id);
@@ -196,8 +197,6 @@
         ?>
 
         <!-- Event Information Table -->
-         	  <img class="button-icon" src="images\archive.svg" alt="Archive Icon">
-
         <h2 class="event-head">
             Volunteer Activity Details
             <?php  
@@ -213,6 +212,15 @@
                 </a>
         <?php endif; ?>
         </h2>
+        <p class="log-status-msg">
+            <?php if (!$log_archival): ?>
+            <img class="button-icon" src="images/check-circle.svg" alt="Active Icon" style="margin-right: 5px;">
+            This log is active.
+            <?php else: ?>
+            <img class="button-icon" src="images/archive.svg" alt="Archive Icon" style="margin-right: 5px;">
+            This log is archived.
+            <?php endif; ?>
+        </p>
 
         <div id="table-wrapper">
             <table>
