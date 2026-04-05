@@ -26,7 +26,6 @@
 
 
 include_once('dbinfo.php');
-include_once(dirname(__FILE__).'/../domain/Event.php'); //!defunct this
 include_once(dirname(__FILE__).'/../domain/VolunteerActivity.php');
 //Added to send emails to users when they are removed or signed up to an event.
 include_once(dirname(__FILE__).'/../email.php');
@@ -48,57 +47,6 @@ function get_volunteerID_from_logID($id) {
     $result_row = mysqli_fetch_assoc($result);
     return $result_row['volunteerID'];
 }
-
-
-//Wiskey Valor FUNCTIONS -----------------------------------------------------------------------------------------------------------------------
-
-
-/* @@@ Thomas's work! */
-/*
- * Returns true if the given event is archived.
- */
-function is_archived($id) {
-    // look-up 'completed' in the event's DB entry
-    $connection = connect();
-    $query1 = "SELECT completed FROM dbevents WHERE id = '$id'";
-    $result1 = mysqli_query($connection, $query1);
-    $row = mysqli_fetch_assoc($result1);
-    mysqli_close($connection);
-
-    if ($row == NULL) return False; // no match for that event ID
-
-    if ($row['completed'] == 'yes') {
-        // event is archived
-        return True;
-    } else {
-        return False;
-    }
-}
-
-/*
- * Mark an event as archived in the DB by setting the 'completed' column to 'yes'.
- */
-function archive_event($id) {
-    $con=connect();
-    $query = "UPDATE dbevents SET completed = 'yes' WHERE id = '" .$id. "'";
-    $result = mysqli_query($con, $query);
-    mysqli_close($con);
-    return $result;
-}
-
-/*
- * Mark an event as not archived in the DB by setting the 'completed' column to 'no'.
- */
-function unarchive_event($id) {
-    $con=connect();
-    $query = "UPDATE dbevents SET completed = 'no' WHERE id = '" .$id. "'";
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
-}
-
-//End Whiskey Valor FUNCTIONS -----------------------------------------------------------------------------------------------------------------------
-
 
 function make_a_volunteer_activity($result_row) {
 	/*
@@ -325,40 +273,6 @@ function fetch_volunteer_activity_by_id($id) {
     mysqli_close($connection);
     return null;
 }
-// JUST ADDED
-function fetch_num_signups($id) {
-    $connection = connect();
-    $id = mysqli_real_escape_string($connection, $id);
-    $query = "select count(*) as RowCount from dbeventpersons where eventID = '$id'";
-    $result = mysqli_query($connection, $query);
-    $event = mysqli_fetch_assoc($result);
-    if ($event) {
-        require_once('include/output.php');
-        $event = hsc($event);
-        mysqli_close($connection);
-        return $event;
-    }
-    mysqli_close($connection);
-    return null;
-}
-
-function fetch_num_attendees($id) {
-    $connection = connect();
-    $id = mysqli_real_escape_string($connection, $id);
-    $query = "select count(*) as RowCount from dbeventpersons where eventID = '$id' and attended=1";
-    $result = mysqli_query($connection, $query);
-    $event = mysqli_fetch_assoc($result);
-    if ($event) {
-        require_once('include/output.php');
-        $event = hsc($event);
-        mysqli_close($connection);
-        return $event;
-    }
-    mysqli_close($connection);
-    return null;
-}
-
-//FOODDB FUNCTIONS -----------------------------------------------------------------------------------------------------------------------
 
 //used instead of create_event
 function create_activitylog($log, $volunteer = true) {
