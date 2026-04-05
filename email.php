@@ -101,6 +101,41 @@ function sendEmails(array $emails, string $senderName, string $subject, string $
     return $decoded;
 }
 
+function getUserEmail($userId) {
+    $conn = connect();
+    $stmt = $conn->prepare("SELECT email FROM dbusers WHERE id = ?");
+    $stmt->bind_param("s", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+    mysqli_close($conn);
+    return $row ? $row['email'] : null;
+}
+
+function getEventName($eventId) {
+    $conn = connect();
+    $stmt = $conn->prepare("SELECT name FROM dbevents WHERE id = ?");
+    $stmt->bind_param("s", $eventId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $stmt->close();
+    mysqli_close($conn);
+    return $row ? $row['name'] : null;
+}
+
+function emailHandler($eventId, $userId, $type, $message) {
+    $userEmail = getUserEmail($userId);
+    if (!$userEmail) return;
+    $eventName = getEventName($eventId);
+    $subject = $type == 1 ? "Removed from Event" : "Sign-up Update";
+    $body = "Regarding event: " . ($eventName ?: "Unknown") . "\n\n" . $message;
+    $senderName = "Gwyneth's Gift";
+    $emails = [$userEmail];
+    sendEmails($emails, $senderName, $subject, $body);
+}
+
 
 
 

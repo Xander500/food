@@ -23,7 +23,8 @@ function make_a_user($result_row) {
     @$result_row['email'],
     @$result_row['password'],
     @$result_row['role'],
-    @$result_row['semester']
+    @$result_row['semester'],
+    @$result_row['archived']
 );
     return $theUser;
 }
@@ -126,12 +127,18 @@ function retrieve_all() {
 used to find users in dbusers based on input search parameters
 all selected search parameters must be true
 */
-function search_users($name, $id, $semester, $role) {
+function search_users($name, $id, $semester, $role, $archival_statuses) {
     $where = 'select * from dbusers where 1=1';
-    if (!($name || $id || $semester || $role)) {
+    if (!($name || $id || $semester || $role || $archival_statuses)) {
         return [];
     }
     else {
+        //make sure statuses are valid (0 or 1)
+        $statuses_to_search = array_intersect($archival_statuses, ['0', '1']);
+        if (empty($statuses_to_search)) {
+            $archival_statuses = ['0', '1']; //if no valid status provided, search all
+        }
+
         $bindings = []; $types= "";
         if ($name) {
             if (strpos($name, ' ')) {
@@ -164,8 +171,17 @@ function search_users($name, $id, $semester, $role) {
             $bindings[] = $role;
             $types .= "s";
         }
+        if ($archival_statuses) {
+            $placeholders = implode(',', array_fill(0, count($archival_statuses), '?'));
+            $where .= " and archived in ($placeholders)";
+            foreach ($archival_statuses as $status) {
+                $bindings[] = $status;
+                $types .= "s";
+            }
+        }
+        
 
-        $where .= " order by last_name, first_name";
+        $where .= " order by archived, last_name, first_name";
 
         $connection = connect();
         $query = $connection->prepare($where);
@@ -211,7 +227,23 @@ function update_role($id, $role) {
     $query->execute();
     $result = $query->get_result();
     mysqli_close($con);
-    
+
+    return $result;
+}
+
+//set archival status to 1 (archived) or 0 (active)
+function update_user_archival_status($id, $archived) {
+    if (!valueConstrainedTo($archived, ['1', '0'])) {
+        return;
+    }
+    $con=connect();
+    $sql = 'UPDATE dbusers SET archived = ? WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("ss", $archived, $id);
+    $query->execute();
+    $result = $query->get_result();
+    mysqli_close($con);
+
     return $result;
 }
 
@@ -253,7 +285,7 @@ function update_user_required($id, $first_name, $last_name, $email, $semester) {
         first_name=?, last_name=?, 
         email=?, semester=?    
         where id=?";
-    
+
     $con = connect();
 
     try {
@@ -271,6 +303,32 @@ function update_user_required($id, $first_name, $last_name, $email, $semester) {
 
     mysqli_close($con);
     return True;
+}
+
+//aggregate data for a user
+function get_all_aggregated_poundsOfFood_for_volunteers() {
+    $con=connect();
+    $query = "SELECT volunteerID,first_name,last_name,SUM(hours) as totalHours,SUM(poundsOfFood) as totalPoundsRescued
+                FROM dbvolunteeractivity LEFT JOIN dbusers on dbusers.id = dbvolunteeractivity.volunteerID
+                    GROUP BY volunteerID, last_name 
+                        ORDER BY last_name";
+
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        return false;
+    }
+    return $result;
+}
+
+function archive_users_by_semester($semester, $archived = '1') {
+    $con=connect();
+    $sql = 'UPDATE dbusers SET archived = ? WHERE semester = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("ss", $archived, $semester);
+    $query->execute();
+    return $query->affected_rows;
 }
 
 function change_password($id, $newPass) {
