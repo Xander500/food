@@ -85,12 +85,12 @@ require_once('header.php');
             </div>
         </div>
 
-        <form id="person-search" class="section-box mb-4" method="get">
+        <form id="person-search" class="section-box mb-4" method="post">
 
         <?php
-            if (isset($_GET['semester'])) {
+            if (isset($_POST['semester'])) {
                 require_once('include/input-validation.php');
-                $args = sanitize($_GET);
+                $args = sanitize($_POST);
                 $required = ['semester'];
 
                 if (!wereRequiredFieldsSubmitted($args, $required, true)) {
@@ -104,9 +104,9 @@ require_once('header.php');
                 }else {
                     echo "<h3>Results</h3>";
 
-                    if (isset($_GET['action']) && isset($_GET['apply_to']) && $_GET['apply_to'] == 'Student') {
-                        $action = $_GET['action'];
-                        $apply_to = $_GET['apply_to'];
+                    if (isset($_POST['action']) && isset($_POST['apply_to']) && $_POST['apply_to'] == 'Student') {
+                        $action = $_POST['action'];
+                        $apply_to = $_POST['apply_to'];
                         $action_code = ($action == 'Archive') ? 1 : 0; // 1 for archive, 0 for unarchive
 
                         $changes = archive_users_by_semester($semester, $action_code);
@@ -149,9 +149,9 @@ require_once('header.php');
                         }
                         echo '<h3>Search Again</h3>';
                     } //end student table display
-                    elseif (isset($_GET['action']) && isset($_GET['apply_to']) && $_GET['apply_to'] == 'Logs') {
-                        $action = $_GET['action'];
-                        $apply_to = $_GET['apply_to'];
+                    elseif (isset($_POST['action']) && isset($_POST['apply_to']) && $_POST['apply_to'] == 'Logs') {
+                        $action = $_POST['action'];
+                        $apply_to = $_POST['apply_to'];
                         $action_code = ($action == 'Archive') ? 1 : 0; // 1 for archive, 0 for unarchive
 
                         $changes = archive_logs_by_semester($semester, $action_code);
