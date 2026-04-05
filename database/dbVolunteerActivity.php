@@ -557,7 +557,7 @@ function internal_apply_filters_to_select($con, $select_statement, $order_statem
     $sql .= $order_statement;
 
     $query = $con->prepare($sql);
-    $query->bind_param('sssssssss',
+    $query->bind_param('ddddsssss',
         $minhours, $maxhours, $minfood, $maxfood, $startdate, $enddate,
         $student, $organization, $semester);
     $query->execute();
