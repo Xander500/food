@@ -165,6 +165,7 @@ else if ($exportType == 'logs') {
 
     // Fetch the first row to get headers
     $firstRow = $reportData->fetch_assoc();
+    array_splice($firstRow, -3); // removes the last 3 keys which are long and lat
 
     // Get keys from the first row
     $headers = array_keys($firstRow);
@@ -181,16 +182,17 @@ else if ($exportType == 'logs') {
     // Output the first row
     echo "<tr>";
     foreach ($headers as $key) {
-        $value = htmlspecialchars($firstRow[$key]);
+        $value = htmlspecialchars($firstRow[$key] ?? '');
         echo "<td style='padding: 5px; text-align: center;'>{$value}</td>";
     }
     echo "</tr>";
 
     // Output the remaining rows
     while ($row = $reportData->fetch_assoc()) {
+        array_splice($row, -3); // removes the last 3 keys which are long and lat
         echo "<tr>";
         foreach ($headers as $key) {
-            $value = htmlspecialchars($row[$key]);
+            $value = htmlspecialchars($row[$key] ?? '');
             echo "<td style='padding: 5px; text-align: center;'>{$value}</td>";
         }
         echo "</tr>";
