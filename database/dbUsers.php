@@ -330,3 +330,14 @@ function archive_users_by_semester($semester, $archived = '1') {
     $query->execute();
     return $query->affected_rows;
 }
+
+function change_password($id, $newPass) {
+    $con=connect();
+    $sql = 'UPDATE dbusers SET password = ? WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("ss", $newPass, $id);
+    $query->execute();
+    $result = $query->get_result();
+    mysqli_close($con);
+    return $result;
+}

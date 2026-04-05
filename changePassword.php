@@ -26,8 +26,8 @@
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once('include/input-validation.php');
-        require_once('domain/Person.php');
-        require_once('database/dbPersons.php');
+        require_once('domain/User.php');
+        require_once('database/dbUsers.php');
         if ($forced) {
             if (!wereRequiredFieldsSubmitted($_POST, array('new-password'))) {
                 echo "Args missing";
@@ -41,7 +41,7 @@
             //if ($userID == 'vmsroot') {
             //    $_SESSION['access_level'] = 3;
             //} else {
-            $user = retrieve_person($userID);
+            $user = retrieve_user($userID);
             $_SESSION['access_level'] = $user->get_access_level();
             //}
 
@@ -57,7 +57,7 @@
             $password = $_POST['password'];
             $newPassword = $_POST['new-password'];
             $securePassword = isSecurePassword($_POST['new-password']);
-            $user = retrieve_person($userID);
+            $user = retrieve_user($userID);
             if (!password_verify($password, $user->get_password())) {
                 $error1 = true;
             } else if($password == $newPassword) {     // old password is same as new one
