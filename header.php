@@ -218,7 +218,7 @@ if (date("H:i:s") > "18:19:59") {
             gap: 20px;
         }
 
-        .nav-links div {
+        .nav-links div, .nav-item a {
             font-size: 24px;
             font-weight: 700;
             color: var(--page-font-color);
@@ -234,13 +234,16 @@ if (date("H:i:s") > "18:19:59") {
 	}
 
         /* Dropdown Control */
-        .nav-item {
+        .nav-item, .nav-item a {
             position: relative;
             cursor: pointer;
             padding: 0px;
             transition: color 0.3s, outline 0.3s;
         }
 
+        .nav-item a {
+            font-size: 30px;
+        }
 
         .dropdown {
             display: none;
@@ -715,6 +718,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['editorganizationsearch.php'] = 1;
         $permission_array['editorganization.php'] = 1;
         $permission_array['editprofile.php'] = 1;
+        $permission_array['changepassword.php'] = 1;
         $permission_array['eventsuccess.php'] = 1;
         $permission_array['eventfailure.php'] = 1;
         $permission_array['organizationmanagement.php'] = 1;
@@ -878,7 +882,8 @@ if (date("H:i:s") > "18:19:59") {
         <div class="left-section">
             <div class="logo-container">
                 <a href="index.php"><img src="' . $logo . '" alt="Logo"></a>
-            </div>' .
+            </div>
+            <div class="nav-item"><a href="index.php">Dashboard</a></div>'.
             //     <!--<a href="viewCheckInOut.php" style="color: white; text-decoration: none;"><div class="date-box">Check In/Out</div></a>-->
             // <div class="nav-links">
             //     <div class="nav-item">Events

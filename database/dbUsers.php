@@ -272,3 +272,14 @@ function update_user_required($id, $first_name, $last_name, $email, $semester) {
     mysqli_close($con);
     return True;
 }
+
+function change_password($id, $newPass) {
+    $con=connect();
+    $sql = 'UPDATE dbusers SET password = ? WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("ss", $newPass, $id);
+    $query->execute();
+    $result = $query->get_result();
+    mysqli_close($con);
+    return $result;
+}

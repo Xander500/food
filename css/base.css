@@ -1693,3 +1693,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     display: flex;
     flex-direction: column;
 }
+
+.header-link {
+    color: var(--page-font-color);
+}
