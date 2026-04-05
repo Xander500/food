@@ -422,10 +422,11 @@ function update_volunteerLog($id, $logDetails) {
     $date = $logDetails["date"];
     $location = $logDetails["location"];
     $description = $logDetails["description"];
+    $archived = $logDetails["archived"];
 
     $query = "
         UPDATE dbvolunteeractivity
-        SET volunteerID='$volunteerID', organizationID='$organizationID', hours='$hours', poundsOfFood='$poundsOfFood', date='$date', location='$location', description='$description'
+        SET volunteerID='$volunteerID', organizationID='$organizationID', hours='$hours', poundsOfFood='$poundsOfFood', date='$date', location='$location', description='$description', archived='$archived'
         WHERE id='$id'
     ";
     $result = mysqli_query($connection, $query);
