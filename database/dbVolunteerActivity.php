@@ -303,27 +303,31 @@ function create_activitylog($log, $volunteer = true) {
         return false;
     }
 
-    $query = "
+    //make injection safe with bindings
+    $sql = "
         INSERT INTO dbvolunteeractivity 
             (date, volunteerID, hours, poundsOfFood, organizationID, location, description)
-        VALUES (
-            '$date',
-            '$volunteerID',
-            '$hours',
-            '$poundsOfFood',
-            '$organizationID',
-            '$location',
-            '$description'
-        )";
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-    $result = mysqli_query($connection, $query);
+    $query = $connection->prepare($sql);
+    $query->bind_param("ssddiss", 
+            $date,
+            $volunteerID,
+            $hours,
+            $poundsOfFood,
+            $organizationID,
+            $location,
+            $description
+        );
+    $result = $query->execute();
 
-    if ($result) {
-        $id = mysqli_insert_id($connection);
-        return $id;
-    } else {
-        return false;
+    if ($result && $query->affected_rows > 0) {
+        mysqli_close($connection);
+        return true;
     }
+
+    mysqli_close($connection);
+    return false;
 }
 
 
