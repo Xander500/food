@@ -474,7 +474,7 @@
                 <div class="happy-toast">Volunteer registered successfully!</div>
             <?php endif ?>
 
-    <div class="full-width-bar">
+<div class="full-width-bar">
     <div class="content-box" onclick="window.location.href='volunteerManagement.php'">
         <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
         <div class="large-text">Manage Volunteers</div>
@@ -482,18 +482,15 @@
             <span class="button-text">Go</span>
             <div class="circle">&gt;</div>
         </button>
-<!--
-        <div class="nav-buttons">
-            <button class="nav-button" onclick="window.location.href='userSearch.php'">
-                <span>Find</span>
-                <span class="arrow"><img src="images/user-search.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 20px;"></span>
-            </button>
-            <button class="nav-button" onclick="window.location.href='VolunteerRegister.php'">
-                <span>Register</span>
-                <span class="arrow"><img src="images/add-user.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 20px;"></span>
-            </button>
-        </div>
--->
+    </div>
+
+    <div class="content-box" onclick="window.location.href='archivalManagement.php'">
+        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
+        <div class="large-text">Manage Archives</div>
+        <button class="circle-arrow-button">
+            <span class="button-text">Go</span>
+            <div class="circle">&gt;</div>
+        </button>
     </div>
 
     <div class="content-box"  onclick="window.location.href='addEvent.php'">

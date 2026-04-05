@@ -106,23 +106,25 @@ require_once('header.php');
                 $semester = $args['semester'];
                 $role = $args['role'];
 
+
                 if (!($name || $id || $semester || $role)) {
                     echo '<div class="error-block">At least one search criterion is required.</div>';
                 } else if (!valueConstrainedTo($role, ['Instructor', 'Student', ''])) {
                     echo '<div class="error-block">The system did not understand your request.</div>';
                 }else {
                     echo '<div class="section-box mb-6" style="background-color:#92c44c; padding:25px; border-radius:10px; max-width:900px; margin:0 auto;"><h3 style="color:white;">Search Results</h3>';
-                    $persons = search_users($name, $id, $semester, $role);
+                    $persons = search_users($name, $id, $semester, $role, ['1']);
                     require_once('include/output.php');
 
                     if (count($persons) > 0) {
                         echo '
-                        <form method="post" action="deleteUsersBulk.php" onsubmit="return confirm(\'Are you sure you want to delete the selected users?\');">
+                        <form method="post" action="deleteUsersBulk.php" onsubmit="return confirm(\'Are you sure you want to delete the selected users?  This action will permanently delete the users AND their volunteer activity.\');">
                         <div class="search-results-table" style="margin-top:10px; display:flex; justify-content:center;">
                             <table style="width:100%;">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" id="select-all"></th>
+                                        <th>Status</th>
                                         <th>First</th>
                                         <th>Last</th>
                                         <th>Username</th>
@@ -145,13 +147,14 @@ require_once('header.php');
                             echo '
                                     <tr>
                                         <td><input type="checkbox" name="selected_users[]" value="' . $person->get_id() . '"></td>
+                                        <td>' . (($person->is_archived()==0)?"Active":"Archived") . '</td>
                                         <td>' . $person->get_first_name() . '</td>
                                         <td>' . $person->get_last_name() . '</td>
                                         <td style="word-break: break-word;">' . $person->get_id() . '</td>
                                         <td>' . $person->get_semester() . '</td>
                                         <td>' . ucfirst($person->get_role() ?? '') . '</td>
                                         <td><a href="viewProfile.php?id=' . $person->get_id() . '" class="text-blue-700 underline">Profile</a></td>
-                                        <td><a href="deleteUser.php?id=' . $person->get_id() . '" onclick="return confirm(\'Are You Sure?\');" class="text-blue-700 underline">Delete User</a></td>
+                                        <td><a href="deleteUser.php?id=' . $person->get_id() . '" onclick="return confirm(\'Are You Sure?  This action will permanently delete the user AND their volunteer activity.\');" class="text-blue-700 underline">Delete User</a></td>
                                     </tr>';
                         }
 echo '
