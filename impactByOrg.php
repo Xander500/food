@@ -114,6 +114,7 @@ require_once('database/dbVolunteerActivity.php');
                         <th>Student</th>
                         <th>Hours</th>
                         <th>Pounds</th>
+                        <th># of Logs</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -122,8 +123,9 @@ require_once('database/dbVolunteerActivity.php');
                             echo "
                                 <tr>
                                     <td>" . $row[0] . "</td>
-                                    <td>" . $row[1] . "</td>
-                                    <td>" . $row[2] . "</td>
+                                    <td>" . round($row[1], 2) . "</td>
+                                    <td>" . round($row[2], 2) . "</td>
+                                    <td>" . $row[3] . "</td>
                                 </tr>";
                         }
                     ?>

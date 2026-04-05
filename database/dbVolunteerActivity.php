@@ -1417,7 +1417,7 @@ function getTotalPounds() {
 
 function getImpactByStudent() {
     $con = connect();
-    $query = "SELECT first_name, last_name, sum(hours) as h, sum(poundsOfFood) as lb FROM dbvolunteeractivity JOIN dbusers on volunteerID=dbusers.id GROUP BY volunteerID;";
+    $query = "SELECT first_name, last_name, sum(hours), sum(poundsOfFood), count(*) FROM dbvolunteeractivity JOIN dbusers on volunteerID=dbusers.id GROUP BY volunteerID;";
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_all($result);
     return $result;
@@ -1425,7 +1425,7 @@ function getImpactByStudent() {
 
 function getImpactByOrg() {
     $con = connect();
-    $query = "SELECT dborganizations.name, sum(hours) as h, sum(poundsOfFood) as lb FROM dbvolunteeractivity JOIN dborganizations on organizationID=dborganizations.id GROUP BY organizationID;";
+    $query = "SELECT dborganizations.name, sum(hours), sum(poundsOfFood), count(*) FROM dbvolunteeractivity JOIN dborganizations on organizationID=dborganizations.id GROUP BY organizationID;";
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_all($result);
     return $result;
