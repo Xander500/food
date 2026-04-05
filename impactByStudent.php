@@ -34,7 +34,6 @@
 <?php
 $tailwind_mode = true;
 require_once('header.php');
-
 require_once('database/dbVolunteerActivity.php');
 ?>
 <style>
@@ -114,6 +113,7 @@ require_once('database/dbVolunteerActivity.php');
                         <th>Student</th>
                         <th>Hours</th>
                         <th>Pounds</th>
+                        <th># of Logs</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -122,8 +122,9 @@ require_once('database/dbVolunteerActivity.php');
                             echo "
                                 <tr>
                                     <td>" . $row[0] . " " . $row[1] . "</td>
-                                    <td>" . $row[2] . "</td>
-                                    <td>" . $row[3] . "</td>
+                                    <td>" . round($row[2], 2) . "</td>
+                                    <td>" . round($row[3], 2) . "</td>
+                                    <td>" . $row[4] . "</td>
                                 </tr>";
                         }
                     ?>

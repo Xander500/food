@@ -109,7 +109,7 @@ require_once('database/dbVolunteerActivity.php');
     <main style="margin: 25px;">
         <div class="display">
             <div class="num-displays">
-                <div class="num">Total Hours Volunteered : <?php echo $hours;?></div>
+                <div class="num">Total Hours Volunteered : <?php echo round($hours, 2);?></div>
                 <div class="num">Total Pounds of Food Rescued: <?php echo round($pounds, 2); ?></div>
             </div>
 

@@ -1618,6 +1618,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .impact-header {
     font-size: 2rem;
     font-weight: 700;
+    font-weight: 550;
 }
 
 .display {
@@ -1692,8 +1693,4 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .semester_select > div {
     display: flex;
     flex-direction: column;
-}
-
-.header-link {
-    color: var(--page-font-color);
 }
