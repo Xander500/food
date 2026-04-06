@@ -99,11 +99,39 @@ require_once('header.php');
 
 <body>
   <!-- Main Content -->
-    <main style="margin-top: 100px;">
-        <div class="sections">
+<main style="margin-top: 100px;">
+    <div class="sections">
+
+        <!-- Buttons Section -->
+        <div class="button-section">
+            <?php
+            if (isset($_GET['deleted']) || isset($_GET['failed'])) {
+                $deleted = intval($_GET['deleted'] ?? 0);
+                $failed = intval($_GET['failed'] ?? 0);
+
+                if ($deleted > 0 || $failed > 0) {
+                    echo '<div style="width:100%; margin-bottom:20px;">';
+                    echo '<div style="width:100%; text-align:center; background:#d4edda; padding:12px 20px; border-radius:8px;">';
+
+                    if ($deleted > 0) {
+                        echo '<div>' . $deleted . ' organization(s) deleted successfully.</div>';
+                    }
+
+                    if ($failed > 0) {
+                        echo '<div style="color:#b00020; margin-top:6px;">'
+                            . $failed . ' organization(s) could not be deleted because they are linked to volunteer activity.'
+                            . '</div>';
+                    }
+
+                    echo '</div>';
+                    echo '</div>';
+                }
+            }
+            ?>
+
+          
 
             <!-- Buttons Section -->
-            <div class="button-section">
                 <button onclick="window.location.href='addOrganization.php';">
 	                <div class="button-left-gray"></div>
 	                <div>Create New Organization</div>
@@ -139,7 +167,7 @@ require_once('header.php');
                 </p>
             </div>
 
-        </div>
+        
     </main>
 </body>
 </html>

@@ -74,6 +74,9 @@ require_once('header.php');
 
         <form id="org-search" class="section-box mb-4" method="get">
             <?php
+                $name = null;
+                $location = null;
+                $orgs = [];
                 if (isset($_GET['name']) || isset($_GET['location'])) {
                     require_once('include/input-validation.php');
                     require_once('database/dbOrganizations.php');
@@ -100,38 +103,58 @@ require_once('header.php');
                         require_once('include/output.php');
 
                         if (count($orgs) > 0) {
-                            echo '
-                            <div class="search-results-table">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Description</th>
-                                            <th>Location</th>
-                                            <th>Email</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>';
-                            foreach ($orgs as $org) {
-                                echo '
-                                        <tr>
-                                            <td>' . $org->get_name() . '</td>
-                                            <td>' . $org->get_description() . '</td>
-                                            <td>' . $org->get_location() . '</td>
-                                            <td><a href="mailto:' . $org->get_email() . '" class="text-blue-700 underline">' . $org->get_email() . '</a></td>
-                                            <td><a href="deleteOrganization.php?id=' . $org->get_id() . '" class="text-blue-700 underline">Delete</a></td>
-                                        </tr>';
-                            }
-                            echo '
-                                    </tbody>
-                                </table>
-                            </div>';
+$resultsHtml = '
+<div class="search-results-table" style="margin-bottom: 16px;">
+    <table>
+<thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Location</th>
+        <th>Email</th>
+<th style="text-align: center;">
+    Select All<br>
+    <input type="checkbox" id="selectAll">
+</th>
+    </tr>
+</thead>
+        <tbody>';
+
+foreach ($orgs as $org) {
+    $resultsHtml .= '
+            <tr>
+                <td>' . $org->get_name() . '</td>
+                <td>' . $org->get_description() . '</td>
+                <td>' . $org->get_location() . '</td>
+                <td><a href="mailto:' . $org->get_email() . '" class="text-blue-700 underline">' . $org->get_email() . '</a></td>
+                <td><input type="checkbox" name="selected_orgs[]" value="' . $org->get_id() . '"></td>
+            </tr>';
+}
+
+$resultsHtml .= '
+        </tbody>
+    </table>
+</div>
+<div class="text-center mt-6" style="margin-top: 20px;">
+    <div id="selectedCount" style="margin-top: 10px; margin-bottom: 12px; font-weight: 600;">
+        0 organizations selected
+    </div>
+
+    <button type="submit" id="deleteSelectedBtn" name="bulk_delete"
+        style="background-color: #d9534f; color: white; margin-top: 8px; width: 60%; padding: 10px;"
+        onmouseover="this.style.backgroundColor=\'#c9302c\'"
+        onmouseout="this.style.backgroundColor=\'#d9534f\'"
+        disabled
+        onclick="return confirm(\'Are you sure you want to delete the selected organizations?\');">
+        Delete Selected
+    </button>
+</div>';
+
+                            
 
                         } else {
                             echo '<div class="error-block">Your search returned no results.</div>';
                         }
-                        echo '<h3>Search Again</h3>';
                     }
                 }
             ?>
@@ -143,15 +166,90 @@ require_once('header.php');
                 <label for="location">Location</label>
                 <input type="text" id="location" name="location" class="w-full" value="<?php if (isset($location)) echo htmlspecialchars($_GET['location']); ?>" placeholder="Enter the location of the organization">
             </div>
-            <div class="text-center pt-4">
-                <input type="submit" value="Search" class="blue-button">
-            </div>
-        </form>
-        <div class="text-center mt-6">
-            <a href="index.php" class="return-button">Return to Dashboard</a>
-        </div>
+<div class="text-center pt-4">
+    <input type="submit" value="Search" class="blue-button">
+</div>
+</form>
+
+<?php
+if (isset($resultsHtml)) {
+    echo '<div style="background-color: #92c44c; padding: 20px; border-radius: 8px; margin-top: 24px;">';
+    echo '<form method="POST" action="deleteOrganizationBulk.php">';
+    echo '<h3 style="margin-bottom: 16px;">Matching Organizations</h3>';
+    echo $resultsHtml;
+    echo '</form>';
+    echo '</div>';
+}
+?>
+
+
+<div class="text-center" style="margin-top: 60px;">
+    <a href="index.php" class="return-button">Return to Dashboard</a>
+</div>
     </div>
 
 </main>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const checkboxes = document.querySelectorAll('input[name="selected_orgs[]"]');
+    const deleteBtn = document.getElementById('deleteSelectedBtn');
+    const selectedCount = document.getElementById('selectedCount');
+    const selectAll = document.getElementById('selectAll');
+
+    function updateDeleteButton() {
+        let checkedCount = 0;
+
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                checkedCount++;
+            }
+        });
+
+        deleteBtn.disabled = checkedCount === 0;
+
+        if (checkedCount === 1) {
+            selectedCount.textContent = '1 organization selected';
+        } else {
+            selectedCount.textContent = checkedCount + ' organizations selected';
+        }
+
+        if (selectAll) {
+            let allChecked = true;
+
+            checkboxes.forEach(function (checkbox) {
+                if (!checkbox.checked) {
+                    allChecked = false;
+                }
+            });
+
+            selectAll.checked = allChecked && checkboxes.length > 0;
+        }
+    }
+
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', updateDeleteButton);
+    });
+
+    if (selectAll) {
+        selectAll.addEventListener('change', function () {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = selectAll.checked;
+            });
+
+            updateDeleteButton();
+        });
+    }
+
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            if (!this.checked && selectAll) {
+                selectAll.checked = false;
+            }
+        });
+    });
+
+    updateDeleteButton();
+});
+</script>
 </body>
 </html>
