@@ -111,7 +111,7 @@ require_once('database/dbVolunteerActivity.php');
             <table>
                 <thead>
                     <tr>
-                        <th>Student</th>
+                        <th>Organization</th>
                         <th>Hours</th>
                         <th>Pounds</th>
                         <th># of Logs</th>
