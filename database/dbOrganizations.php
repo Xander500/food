@@ -158,3 +158,17 @@ function delete_organization($id) {
     mysqli_close($con);
     return $result;
 }
+
+// used to fetch organizaton information for exporting.
+function fetch_organizations() {
+    $con=connect();
+    $query = "SELECT * FROM dborganizations";
+    $result = mysqli_query($con,$query);
+
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        mysqli_close($con);
+        return false;
+    }
+    mysqli_close($con);
+    return $result;
+}
