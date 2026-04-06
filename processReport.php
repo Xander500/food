@@ -25,7 +25,7 @@ if ($exportType == 'users') {
     // Fetch Data
     $reportData = get_all_aggregated_poundsOfFood_for_volunteers();
 
-    $eventID = "volunteer data";
+    $eventID = "Volunteer data";
     $eventName = "test";
 
     if ($format === 'csv') {
@@ -106,7 +106,7 @@ else if ($exportType == 'logs') {
     // Fetch Data
     $reportData = get_all_logs_sorted_by_date();
 
-    $eventID = "volunteer data";
+    $eventID = "Logs Data";
     $eventName = "test";
 
     if ($format === 'csv') {
@@ -118,7 +118,7 @@ else if ($exportType == 'logs') {
         $output = fopen('php://output', 'w');
 
         //title row
-        fputcsv($output, ["Volunteer Report"]);
+        fputcsv($output, ["Logs Report"]);
 
         //column headers
         fputcsv($output, [
@@ -209,7 +209,7 @@ else if ($exportType == 'organizations') {
     $reportData = fetch_organizations();
     $impactData = getImpactByOrg();
 
-    $eventID = "volunteer data";
+    $eventID = "Organization Data";
     $eventName = "test";
 
     if ($format === 'csv') {
@@ -221,18 +221,17 @@ else if ($exportType == 'organizations') {
         $output = fopen('php://output', 'w');
 
         //title row
-        fputcsv($output, ["Volunteer Report"]);
+        fputcsv($output, ["Organization Report"]);
 
         //column headers
         fputcsv($output, [
             "ID",
-            "date",
-            "volunteerID",
-            "hoursVolunteered",
-            "poundsOfFoodRescued",
-            "organizationID",
-            "location",
-            "description",
+            "Name",
+            "Email",
+            "Description",
+            "Location",
+            "Pounds Rescued",
+            "Total Food Rescued",
         ]);
 
         //data rows
@@ -243,8 +242,8 @@ else if ($exportType == 'organizations') {
                 $log["id"],
                 $log["name"],
                 $log["email"],
-                $log["location"],
                 $log["description"],
+                $log["location"],
                 $logimpact[1],
                 $logimpact[2],
             ]);
@@ -266,7 +265,7 @@ else if ($exportType == 'organizations') {
 
     //report title
     //echo "<tr><th colspan='5' style='font-size: 18px; background-color: #004488; color: white; padding: 10px;'>User Report - " . $eventID . ": {$eventName}</th></tr>";
-    echo "<tr><th colspan='8' style='font-size: 18px; background-color: #004488; color: white; padding: 10px;'>Log Report" . ": </th></tr>";
+    echo "<tr><th colspan='8' style='font-size: 18px; background-color: #004488; color: white; padding: 10px;'>Organizations Report" . ": </th></tr>";
 
     // Fetch the first row to get headers
     $firstRow = $reportData->fetch_assoc();
