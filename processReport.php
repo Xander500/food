@@ -10,7 +10,7 @@ if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 2) {
     die();
 }
 
-require_once('database/dbusers.php');
+require_once('database/dbUsers.php');
 require_once('database/dbVolunteerActivity.php');
 
 // Get user input
