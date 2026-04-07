@@ -150,6 +150,9 @@
                 <div class="event-sect">
                     <label for="location">Location </label>
                     <input type="text" id="location" name="location" placeholder="Enter location">
+                    <input type="hidden" id="longitude" name="longitude">
+                    <input type="hidden" id="latitude" name="latitude">
+                    <div id="location-suggestions" style="position:relative;"></div>
 
                     <label for="organizationID">* Organization </label>
                     <select id="organizationID" name="organizationID" required placeholder="Enter Organization ID">
@@ -266,6 +269,62 @@
                     })();
                      */
                 </script>
+
+<script>
+const MAPTILER_KEY = 'EGKCnnMrNWBQqtJG1Izh';
+const input = document.getElementById('location');
+const box = document.getElementById('location-suggestions');
+
+let timeout = null;
+
+input.addEventListener('input', function () {
+    clearTimeout(timeout);
+
+    const query = this.value;
+
+    if (query.length < 3) {
+        box.innerHTML = '';
+        return;
+    }
+
+    timeout = setTimeout(async () => {
+        const url = `https://api.maptiler.com/geocoding/${encodeURIComponent(query)}.json?key=${MAPTILER_KEY}`;
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        box.innerHTML = '';
+
+        data.features.forEach(feature => {
+            const div = document.createElement('div');
+
+            div.textContent = feature.place_name;
+            div.style.padding = '8px';
+            div.style.cursor = 'pointer';
+            div.style.background = '#fff';
+            div.style.border = '1px solid #ddd';
+
+            div.addEventListener('click', () => {
+                input.value = feature.place_name;
+
+                document.getElementById('latitude').value = feature.center[1];
+                document.getElementById('longitude').value = feature.center[0];
+                
+                box.innerHTML = '';
+            });
+
+            box.appendChild(div);
+        });
+
+    }, 300);
+});
+
+document.addEventListener('click', function(e){
+    if (e.target !== input) {
+        box.innerHTML = '';
+    }
+});
+</script>
         </main>
     </body>
 </html>
