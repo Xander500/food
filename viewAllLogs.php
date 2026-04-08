@@ -86,14 +86,14 @@
         <main class="general">
             <h1>Volunteer Activity</h1>
 
-            <h2>Filter Volunteer Activity</h2>
+            <h2>Search Volunteer Activity</h2>
             <form class="log_filters" action="viewAllLogs.php?" method="GET">
                 <input type="hidden" name="page" value="<?php echo $page_num + 1; ?>" />
                 <input type="hidden" name="sortby" value="<?php echo $sortby_display; ?>" />
                 <input type="hidden" name="order" value="<?php echo $order; ?>" />
                 <div class="log_filters--row">
                     <div class="log_filter">
-                        <label for="studentSelect">Students</label>
+                        <label for="studentSelect">Search by Student</label>
                         <select id="studentSelect" name="students">
                             <option value=""></option>
                             <?php foreach (get_students_in_logs() as $row): ?>
@@ -105,7 +105,7 @@
                     </div>
 
                     <div class="log_filter">
-                        <label for="organizationSelect">Organizations</label>
+                        <label for="organizationSelect">Search by Organization</label>
                         <select id="organizationSelect" name="organizations">
                             <option value=""></option>
                             <?php foreach (get_organizations_in_logs() as $row): ?>
@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="log_filter">
-                        <label for="semesterSelect">Semesters</label>
+                        <label for="semesterSelect">Search by Semester</label>
                         <select id="semesterSelect" name="semesters">
                             <option value=""></option>
                             <?php foreach (get_semesters_in_users() as $row): ?>
@@ -130,23 +130,23 @@
                 </div>
                 <div class="log_filters--row">
                     <div class="log_filter">
-                        <label for="startDate">Start Date</label>
+                        <label for="startDate">Search after this Date</label>
                         <input type="date" id="startDate" name="startdate"
                         value="<?php echo htmlspecialchars($filters['startdate'] ?? ''); ?>">
 
-                        <label for="endDate">End Date</label>
+                        <label for="endDate">Search Before this Date</label>
                         <input type="date" id="endDate" name="enddate" value="<?php echo htmlspecialchars($filters['enddate'] ?? ''); ?>">
                     </div>
                     <div class="log_filter">
-                        <label for="minHours">Minimum Hours</label>
+                        <label for="minHours">Search for at least this many Hours</label>
                         <input type="number" id="minHours" name="minhours" min="0" placeholder="From" value="<?php echo htmlspecialchars($filters['minhours'] ?? ''); ?>">
-                        <label for="maxHours">Maximum Hours</label>
+                        <label for="maxHours">Search for no more than this many Hours</label>
                         <input type="number" id="maxHours" name="maxhours" min="0" placeholder="To" value="<?php echo htmlspecialchars($filters['maxhours'] ?? ''); ?>">
                     </div>
                     <div class="log_filter">
-                        <label for="minFood">Minimum Pounds of Food Rescued</label>
+                        <label for="minFood">Search for at least this many Pounds of Food</label>
                         <input type="number" id="minFood" name="minfood" min="0" placeholder="From" value="<?php echo htmlspecialchars($filters['minfood'] ?? ''); ?>">
-                        <label for="maxFood">Maximum Pounds of Food Rescued</label>
+                        <label for="maxFood">Search for no more than this many Pounds of Food</label>
                         <input type="number" id="maxFood" name="maxfood" min="0" placeholder="To" value="<?php echo htmlspecialchars($filters['maxfood'] ?? ''); ?>">
                     </div>
                 </div>
