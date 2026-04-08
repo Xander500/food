@@ -8,6 +8,7 @@
     require_once('database/dbUsers.php');
     require_once('database/dbVolunteerActivity.php');
     require_once('database/dbOrganizations.php');
+    require_once('include/output.php');
 
 
     $loggedIn = false;
@@ -110,7 +111,7 @@ require_once('header.php');
                         $action_code = ($action == 'Archive') ? 1 : 0; // 1 for archive, 0 for unarchive
 
                         $changes = archive_users_by_semester($semester, $action_code);
-                        echo '<div class="success-block">'. $changes . ' student accounts associated with ' . $semester . ' have been'. ($action_code ? ' archived' : ' unarchived') . '.</div>';
+                        echo '<div class="success-block">'. (int) $changes . ' student account(s) associated with ' . hsc($semester) . ' have been'. ($action_code ? ' archived' : ' unarchived') . '.</div>';
 
                         $persons = search_users($name="", $id="", $semester, $role="Student", $status=[]); //only care about searching semester //only want to apply to students
                         require_once('include/output.php');
@@ -133,10 +134,10 @@ require_once('header.php');
                                 echo '
                                         <tr>
                                             <td>' . (($person->is_archived()==0)?"Active":"Archived") . '</td>
-                                            <td>' . $person->get_first_name() . '</td>
-                                            <td>' . $person->get_last_name() . '</td>
-                                            <td>' . $person->get_id() . '</td>
-                                            <td>' . ucfirst($person->get_role() ?? '') . '</td>
+                                            <td>' . hsc($person->get_first_name()) . '</td>
+                                            <td>' . hsc($person->get_last_name()) . '</td>
+                                            <td>' . hsc($person->get_id()) . '</td>
+                                            <td>' . ucfirst(hsc($person->get_role() ?? '')) . '</td>
                                         </tr>';
                             }
                             echo '
@@ -156,7 +157,7 @@ require_once('header.php');
 
                         $changes = archive_logs_by_semester($semester, $action_code);
                         $logs = find_logs_by_semester($semester);
-                        echo '<div class="success-block">'. $changes . ' logs associated with ' . $semester . ' have been'. ($action_code ? ' archived' : ' unarchived') . '.</div>';
+                        echo '<div class="success-block">'. (int) $changes . ' logs associated with ' . hsc($semester) . ' have been'. ($action_code ? ' archived' : ' unarchived') . '.</div>';
                         
                         require_once('include/output.php');
 
@@ -177,9 +178,9 @@ require_once('header.php');
                                 echo '
                                         <tr>
                                             <td>' . (($log->is_archived()==0)?"Active":"Archived") . '</td>
-                                            <td>' .  get_user_full_name_from_id($log->getVolunteerID()) . '</td>
-                                            <td>' . $log->getDate() . '</td>
-                                            <td>' . get_organization_name_from_id($log->getOrganizationID()) . '</td>
+                                            <td>' .  hsc(get_user_full_name_from_id($log->getVolunteerID())) . '</td>
+                                            <td>' . hsc($log->getDate()) . '</td>
+                                            <td>' . hsc(get_organization_name_from_id($log->getOrganizationID())) . '</td>
                                         </tr>';
                             }
                             echo '
@@ -204,7 +205,7 @@ require_once('header.php');
                     <option value="" >You must select a semester</option>
                     <?php foreach (get_semesters_in_users() as ['semester' => $s]):
                         if (!empty($s)) : ?>
-                    <option value="<?php echo $s ?>" <?php if (isset($semester) && $semester == $s) echo 'selected'; ?>><?php echo $s ?></option>
+                    <option value="<?php echo hsc($s) ?>" <?php if (isset($semester) && $semester == $s) echo 'selected'; ?>><?php echo hsc($s) ?></option>
                     <?php endif;
                     endforeach; ?>
                 </select>
