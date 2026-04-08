@@ -289,6 +289,10 @@ function create_activitylog($log, $volunteer = true) {
     $hours          = $log["hours"] ?? null;
     $organizationID = $log["organizationID"] ?? null;
     $location       = $log["location"] ?? null;
+
+    $latitude       = $log["latitude"] ?? null;
+    $longitude      = $log["longitude"] ?? null;
+
     //optional
     $description    = $log["description"] ?? null;
     $poundsOfFood   = $log["poundsOfFood"] ?? null;
@@ -306,18 +310,20 @@ function create_activitylog($log, $volunteer = true) {
     //make injection safe with bindings
     $sql = "
         INSERT INTO dbvolunteeractivity 
-            (date, volunteerID, hours, poundsOfFood, organizationID, location, description)
-        VALUES (?, ?, ?, ?, ?, ?, ?)";
+            (date, volunteerID, hours, poundsOfFood, organizationID, location, description, latitude, longitude)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $query = $connection->prepare($sql);
-    $query->bind_param("ssddiss", 
+    $query->bind_param("ssddissdd", 
             $date,
             $volunteerID,
             $hours,
             $poundsOfFood,
             $organizationID,
             $location,
-            $description
+            $description,
+            $latitude,
+            $longitude
         );
     $result = $query->execute();
 
@@ -341,6 +347,8 @@ function update_volunteerLog($id, $logDetails) {
     $location = $logDetails["location"];
     $description = $logDetails["description"];
     $archived = $logDetails["archived"];
+    $latitude = $logDetails["latitude"];
+    $longitude = $logDetails["longitude"];
 
     $query = "
         UPDATE dbvolunteeractivity
