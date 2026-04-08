@@ -13,7 +13,7 @@
     $userID = null;
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
-        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        // 0 = not logged in, 1 = student, 3 instructor
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
@@ -84,10 +84,10 @@ require_once('header.php');
         <form id="person-search" class="section-box mb-4" method="get">
 
         <?php
-            if (isset($_GET['name']) || isset($_GET['id']) || isset($_GET['role']) || isset($_GET['semester'])) {
+            if (isset($_GET['name']) || isset($_GET['id']) || isset($_GET['role']) || isset($_GET['semester']) || isset($_GET['status'])) {
                 require_once('include/input-validation.php');
                 $args = sanitize($_GET);
-                $required = ['name', 'id', 'role', 'semester'];
+                $required = ['name', 'id', 'role', 'semester', 'status'];
 
                 if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                     echo '<div class="error-block">Missing expected form elements.</div>';
@@ -97,6 +97,9 @@ require_once('header.php');
                 $id = $args['id'];
                 $semester = $args['semester'];
                 $role = $args['role'];
+                $status = $args['status'] ?? [];
+                $want_archived = in_array('1', $status);
+                $want_active = in_array('0', $status);
 
                 if (!($name || $id || $semester || $role)) {
                     echo '<div class="error-block">At least one search criterion is required.</div>';
@@ -104,7 +107,7 @@ require_once('header.php');
                     echo '<div class="error-block">The system did not understand your request.</div>';
                 }else {
                     echo "<h3>Search Results</h3>";
-                    $persons = search_users($name, $id, $semester, $role);
+                    $persons = search_users($name, $id, $semester, $role, $status);
                     require_once('include/output.php');
 
                     if (count($persons) > 0) {
@@ -113,6 +116,7 @@ require_once('header.php');
                             <table>
                                 <thead>
                                     <tr>
+                                        <th>Status</th>
                                         <th>First</th>
                                         <th>Last</th>
                                         <th>Username</th>
@@ -134,6 +138,7 @@ require_once('header.php');
                             $mailingList .= $person->get_email();
                             echo '
                                     <tr>
+                                        <td>' . (($person->is_archived()==0)?"Active":"Archived") . '</td>
                                         <td>' . $person->get_first_name() . '</td>
                                         <td>' . $person->get_last_name() . '</td>
                                         <td>' . $person->get_id() . '</td>
@@ -154,7 +159,7 @@ require_once('header.php');
                     echo '<h3>Search Again</h3>';
                 }
             }
-        ?>
+        ?>         
 
             <div>
                 <label for="name">Name</label>
@@ -184,6 +189,13 @@ require_once('header.php');
                     <?php endforeach; ?>
                 </select>
             </div>
+
+            <div>
+                <input type="checkbox" id="active" name="status[]" value="0" <?php echo ((($want_active ?? true) || ($want_active === false && $want_archived === false)) ? 'checked' : '');?>>
+                <label for="active">Active Users</label>
+                <input type="checkbox" id="archived" name="status[]" value="1" <?php echo ((($want_archived ?? true) || ($want_archived === false && $want_active === false)) ? 'checked' : '');?>>
+                <label for="archived">Archived Users</label>
+            </div>  
 
             <div class="text-center pt-4">
                 <input type="submit" value="Search" class="blue-button">

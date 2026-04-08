@@ -26,7 +26,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UMW Alleviating Food Waste Volunteer Tracking | User Account Management Page</title>
+  <title>UMW Alleviating Food Waste Volunteer Tracking | Archival Management Page</title>
   <link href="css/management_tw.css" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
 
@@ -104,23 +104,17 @@ require_once('header.php');
 
       <!-- Buttons Section -->
       <div class="button-section">
-        <button onclick="window.location.href='VolunteerRegister.php';">
+        <button onclick="window.location.href='archivalSearch.php';">
 	  <div class="button-left-gray"></div>
-	  <div>Register New User</div>
-	  <img class="button-icon" src="images/add-person.svg" alt="Person Icon">
+	  <div>Mass Archive/Unarchive Semesters</div>
+	  <img class="button-icon" src="images\archive-down.svg" alt="Archive Icon">
         </button>
 
         <button onclick="window.location.href='personSearch.php';">
 	  <div class="button-left-gray"></div>
-	  <div>Edit Registered Users</div>
+	  <div>Manage Individual Users</div>
 	  <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
         </button>
-
-    <button onclick="window.location.href='deleteUserSearch.php';">
-        <div class="button-left-gray"></div>
-        <div>Delete Users</div>
-        <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">
-    </button>
 	
 	<div class="text-center mt-6">
         	<a href="index.php" class="return-button">Return to Dashboard</a>
@@ -130,10 +124,10 @@ require_once('header.php');
 
       <!-- Text Section -->
       <div class="text-section">
-        <h1>User Account Management</h1>
+        <h1>Archival Management</h1>
         <div class="div-blue"></div>
         <p>
-          Welcome to the user management hub. From this menu, you will have access to operations such as creating, deleting, and searching accounts.
+          Welcome to the archival management hub. From this menu, you will have access to operations such as archiving and unarchiving students, organizations and volunteer logs.
         </p>
       </div>
 

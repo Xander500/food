@@ -2,23 +2,34 @@
 
     session_cache_expire(30);
     session_start();
-    $_SESSION['access_level'] = 2;
 
-    // Ensure user is logged in
-    if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
-        //header('Location: login.php');
-        //die();
+
+    //get login and permissions
+    $loggedIn = false;
+    $accessLevel = 0;
+    $userID = null;
+    if (isset($_SESSION['_id'])) {
+        $loggedIn = true;
+        // 0 = not logged in, 1 = student, 3 instructor
+        $accessLevel = $_SESSION['access_level'];
+        $userID = $_SESSION['_id'];
+    } 
+    // must be a logged in user
+    if ($accessLevel < 1) {
+        header('Location: login.php');
+        echo 'bad access level';
+        die();
     }
 
     require_once('include/input-validation.php');
     $args = sanitize($_GET);
     $displayUpdateMessage = false;
-    if (isset($args["id"])) {
-        $id = $args["id"];
-    } else {
+    if (!isset($args["id"])) {
         header('Location: viewAllLogs.php');
         die();
   	}
+    $id = $args["id"]; //log id
+
 
     if (isset($args["update"])) {
         $displayUpdateMessage = true;
@@ -40,9 +51,6 @@
         die();
     }
 
-    if(isset($_SESSION['access_level'])) {
-        $access_level = $_SESSION['access_level'];
-    }
 
     ini_set("display_errors",1);
     error_reporting(E_ALL);
@@ -50,7 +58,7 @@
         $args = sanitize($_POST);
         $get = sanitize($_GET);
         if (isset($_POST['attach-post-media-submit'])) {
-            if ($access_level < 2) {
+            if ($accessLevel < 2) {
                 echo 'forbidden';
                 die();
             }
@@ -86,11 +94,12 @@
         }
     } else { //method = get
         if (isset($args["request_type"])) {
+            echo "requesttype "; 
             $eventID = $args["id"];
     
             // Check if Get request from user is from an organization member
             // (volunteer, admin/super admin)
-            if ($request_type == 'add self' && $access_level >= 1) {
+            if ($request_type == 'add self' && $accessLevel >= 1) {
                 if (!$active) {
                     echo 'forbidden';
                     die();
@@ -110,7 +119,7 @@
                 system_message_all_admins("$name signed up for an event!", "Exciting news!\r\n\r\n$name signed up for the [$eventName](event: $eventID) event from $eventStart to $eventEnd on $eventDate.");
                 // Check if GET request from user is from an admin/super admin
             // (Only admins and super admins can add another user)
-            } else if ($request_type == 'add another' && $access_level > 1) {
+            } else if ($request_type == 'add another' && $accessLevel > 1) {
                 $volunteerID = strtolower($args['selected_id']);
                 if ($volunteerID == 'vmsroot') {
                     echo 'invalid user id';
@@ -141,7 +150,7 @@
     ?>
     <title>UMW Alleviating Food Waste Volunteer Tracking | Log <?php echo $log_info['id'] ?></title>
     <link rel="stylesheet" href="event.css" type="text/css" />
-    <?php if (isset($_SESSION['access_level']) && $access_level >= 2) : ?>
+    <?php if ($accessLevel >= 2) : ?>
         <script src="js/event.js"></script>
     <?php endif ?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -180,6 +189,7 @@
             $log_location = $log_info['location'];
             $log_volunteer_id = $log_info['volunteerID'];
             $log_organization_id = $log_info['organizationID'];
+            $log_archival = ($log_info['archived'] == '1');
 
             $log_studentName = get_user_full_name_from_id($log_volunteer_id);
             $log_organizationName = get_organization_name_from_id($log_organization_id);
@@ -189,9 +199,10 @@
         <!-- Event Information Table -->
         <h2 class="event-head">
             Volunteer Activity Details
-            <?php 
-            //! change for edit buttons for instructor
-            if (isset($_SESSION['access_level']) && $access_level >= 2): ?>
+            <?php  
+            $confirmText = "Are you sure you want to delete this data?  This action is permanant and irrecoverable.";
+            //! show edit buttons for instructor or student who owns the log
+            if ($accessLevel ===3 || $userID === $log_info['volunteerID']): ?>
                 <a href="editLog.php?id=<?= $id ?>" title="Edit Log" class="edit-icon">
                     <i class="fas fa-pencil-alt" style="color: var(--main-color);"></i>
                 </a>
@@ -201,6 +212,15 @@
                 </a>
         <?php endif; ?>
         </h2>
+        <p class="log-status-msg">
+            <?php if (!$log_archival): ?>
+            <img class="button-icon" src="images/check-circle.svg" alt="Active Icon" style="margin-right: 5px;">
+            This log is active.
+            <?php else: ?>
+            <img class="button-icon" src="images/archive.svg" alt="Archive Icon" style="margin-right: 5px;">
+            This log is archived.
+            <?php endif; ?>
+        </p>
 
         <div id="table-wrapper">
             <table>
@@ -240,77 +260,6 @@
             </table>
         </div>
 
-        <?php
-        
-        //! check
-        if (isset($_SESSION['access_level']) && $access_level >= 2) : ?>
-            <div id="delete-confirmation-wrapper" class="modal hidden">
-                <div class="modal-content">
-                    <p>Are you sure you want to delete this event?</p>
-                    <p>This action cannot be undone.</p>
-                    <form method="post" action="deleteEvent.php">
-                        <input type="submit" value="Delete Event" class="button danger">
-                        <input type="hidden" name="id" value="<?= $id ?>">
-                    </form>
-                    <button id="delete-cancel" class="button cancel">Cancel</button>
-                </div>
-            </div>
-
-            <div id="complete-confirmation-wrapper" class="modal hidden">
-                <div class="modal-content">
-                    <p>Are you sure you want to complete this event?</p>
-                    <p>This action cannot be undone.</p>
-                    <form method="post" action="completeEvent.php">
-                        <input type="submit" value="Archive Event" class="button">
-                        <input type="hidden" name="id" value="<?= $id ?>">
-                    </form>
-                    <button id="complete-cancel" class="button cancel">Cancel</button>
-
-                </div>
-            </div>
-            <?php endif ?>
-
-
-            <?php if (isset($_SESSION['access_level']) && $access_level < 2) : ?>
-                <div id="cancel-confirmation-wrapper" class="modal hidden">
-                <div class="modal-content">
-                    <p>Are you sure you want to cancel your sign-up for this event?</p>
-                    <p>This action cannot be undone.</p>
-                   <form method="post" action="cancelEvent.php">
-                        <input type="submit" value="Cancel Sign-Up" class="button danger">
-                        <input type="hidden" name="id" value="<?= $_REQUEST['id'] ?>">
-                        <input type="hidden" name="user_id" value="<?= $_REQUEST['user_id'] ?>">
-                    </form>
-                    <button onclick="document.getElementById('cancel-confirmation-wrapper').classList.add('hidden')" id="cancel-cancel" class="button cancel">Cancel</button>
-                </div>
-            </div>
-            <?php
-        ?>
-        <?php endif ?>
-
-            
-
-        <!-- Scripts for Modal Controls -->
-        <script>
-            function showDeleteConfirmation() {
-                document.getElementById('delete-confirmation-wrapper').classList.remove('hidden');
-            }
-            function showCancelConfirmation() {
-                document.getElementById('cancel-confirmation-wrapper').classList.remove('hidden');
-            }
-            function showCompleteConfirmation() {
-                document.getElementById('complete-confirmation-wrapper').classList.remove('hidden');
-            }
-            document.getElementById('delete-cancel').onclick = function() {
-                document.getElementById('delete-confirmation-wrapper').classList.add('hidden');
-            };
-            document.getElementById('cancel-cancel').onclick = function() {
-                document.getElementById('cancel-confirmation-wrapper').classList.add('hidden');
-            }
-            document.getElementById('complete-cancel').onclick = function() {
-                document.getElementById('complete-confirmation-wrapper').classList.add('hidden');
-            };
-        </script>
         <a class="button cancel" href="viewAllLogs.php" style="margin-left: auto; margin-right: auto;">View All Volunteer Activity</a>
         <a class="button cancel" href="addEvent.php" style="margin-left: auto; margin-right: auto;">Add Volunteer Actitvity</a>
         <a class="button cancel" href="index.php" style="margin-left: auto; margin-right: auto;">Return to Dashboard</a>

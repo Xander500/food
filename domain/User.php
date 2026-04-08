@@ -25,9 +25,10 @@ class User {
 	private $password;
     private $role; //from type //student or instructor
     private $semester;
+	private $archived;
 
 	function __construct(
-        $id, $start_date, $first_name, $last_name, $email, $password, $role, $semester) {
+        $id, $start_date, $first_name, $last_name, $email, $password, $role, $semester, $archived) {
         $this->id = $id;
 		$this->start_date = $start_date;
 		$this->first_name = $first_name;
@@ -36,6 +37,7 @@ class User {
 		$this->password = $password;
 		$this->role = $role;
 		$this->semester = $semester;
+		$this->archived = $archived;
     }
 
 
@@ -71,15 +73,19 @@ class User {
 		return $this->semester;
 	}
 
+	function is_archived() {
+		return $this->archived;
+	}
+
     //! check out
 	function get_access_level() {
         if ($this->role == "Student") {
             return 1;
         }
-        else if ($this->role == "Teacher") {
+        else if ($this->role == "Instructor") {
             return 3;
         }
-        else if ($this->id == 'vmsroot') { // ideally remove this once we have vmsroot as a teacher, its currently null in the database
+        else if ($this->id == 'vmsroot') { // ideally remove this once we have vmsroot as a Instructor, its currently null in the database
             return 3;
         }
         return 0;

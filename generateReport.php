@@ -6,16 +6,10 @@ error_reporting(E_ALL);
 date_default_timezone_set("America/New_York");
 
 // Ensure admin authentication
-if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 2) {
+if ($_SESSION['access_level'] < 2) {
     header('Location: login.php');
     die();
 }
-
-// Get current fiscal year
-$currentMonth = date("m");
-$currentYear = date("Y");
-$fiscalYearStart = ($currentMonth >= 10) ? $currentYear : $currentYear - 1;
-$fiscalYearEnd = $fiscalYearStart + 1;
 ?>
 
 <!DOCTYPE html>
@@ -29,23 +23,23 @@ $fiscalYearEnd = $fiscalYearStart + 1;
     <?php require_once('header.php'); ?>
 </head>
 <body>
-    <?php require_once('database/dbEvents.php');?>
-    <?php require_once('database/dbPersons.php');?>
+    <?php require_once('database/dbVolunteerActivity.php');?>
+    <?php require_once('database/dbUsers.php');?>
+    <?php require_once('database/dbOrganizations.php');?>
 
     <!-- Hero Section with Title -->
         <div class="center-header">
-            <h1 style="color:white;">Generate Attendance Report</h1>
+            <h1>Generate Reports</h1>
         </div>
                 <!-- Info Section -->
         <section class="section-box">
             <p style="margin-top: 1rem;text-align:center;">
-                Use this tool to generate monthly or annual reports on volunteer activity. Reports are available in Excel or CSV format.
+                Use this tool to generate reports on volunteer activity. Reports are available in Excel or CSV format.
+                Currently, you can export the full data stored in the database.
             </p>
         </section>
 
     <main>
-        <?php $events = get_all_events_sorted_by_date_not_archived();?>
-
         <div class="main-content-box">
             <!--<div class="text-center">
                 <p style="font-size: 18px; color: #c2c2c2ff; margin-top: 0.5rem; margin-bottom: 0.5rem;">Fiscal Year: <?= $fiscalYearStart ?> - <?= $fiscalYearEnd ?></p>
@@ -54,14 +48,12 @@ $fiscalYearEnd = $fiscalYearStart + 1;
             <form method="POST" action="processReport.php">
                 <!-- Event ID -->
                 <div style="margin-bottom: 1.5rem;">
-                    <label for="eventID" style="font-weight: 600;">Select Event</label>
-                    <select name="eventID" id="eventID">
-                        <?php foreach ($events as $event) {
-                            $eventID = $event->getID();
-                            $eventName = $event->getName();
-                            echo "<option value='$eventID'>$eventName (ID: $eventID)</option>";
-                        }
-                        ?>
+                    <label for="exportType" style="font-weight: 600;">Select the table you want to export</label>
+                    <select name="exportType" id="exportType">
+                            <option value='logs'>Volunteer logs</option>
+                            <option value='users'>Users</option>
+                            <option value='organizations'>Organizations</option>
+                            <!--<option value='organizations'>Organizations</option>-->
                     </select>
                 </div>
 
@@ -85,17 +77,11 @@ $fiscalYearEnd = $fiscalYearStart + 1;
                 <!-- Content Select -->
 
                     <h4 style="margin-top: 1rem; margin-bottom: 0.5rem; font-weight: 600; color: var(--accent-color);">Field Selector</h4>
-                    <p style="font-size: 16px; color: #c2c2c2ff; margin-top: 0.5rem; margin-bottom: 0.5rem;">If any fields are selected, the report will include all users who signed up and whether they attended.</p>
+                    <p style="font-size: 16px; color: #c2c2c2ff; margin-top: 0.5rem; margin-bottom: 0.5rem;">If this field is selected, the report will include all entries, including those that are archived.</p>
                     <div id="field-picker">
                             <div class="checkbox-grouping">
                                 <label class="checkbox-label">
-                                    <input type="checkbox" value="user" name="user" id="user" checked> Username</label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" value="name" name="name" id="name" checked> Full Name</label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" value="branch" name="branch" id="branch"> Branch</label>
-                                <label class="checkbox-label">
-                                    <input type="checkbox" value="affiliation" name="affiliation" id="affiliation"> Affiliation</label>
+                                    <input type="checkbox" value="archived" name="archived" id="archived"> Archived</label>
                         </div>
                     </div>
                 </section>

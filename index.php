@@ -7,7 +7,7 @@
     session_start();
 
     date_default_timezone_set("America/New_York");
-    
+
     if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
         if (isset($_SESSION['change-password'])) {
             header('Location: changePassword.php');
@@ -16,7 +16,7 @@
         }
         die();
     }
-        
+
     include_once('database/dbUsers.php');
     include_once('domain/User.php');
     // Get date?
@@ -398,10 +398,10 @@
             transition: transform 0.5s ease, fill 0.5s ease;
         }
 
-        
-        
 
-    
+
+
+
         .content-box-test {
             position: relative;
             background-color: var(--accent-color);   /* tan background */
@@ -424,7 +424,7 @@
         display: none;
         }
 
-        
+
         /* .full-width-bar-sub{
             background-color: #1F1F21 !important;
         } */
@@ -451,7 +451,7 @@
 <!-- ONLY SUPER ADMIN WILL SEE THIS -->
 <?php if ($_SESSION['access_level'] >= 2): ?>
 <body>
-<?php require 'header.php';?>
+<?php require_once('header.php');?>
 
     <!-- Dummy content to enable scrolling -->
     <div style="margin-top: 0px; padding: 30px 20px;">
@@ -474,40 +474,37 @@
                 <div class="happy-toast">Volunteer registered successfully!</div>
             <?php endif ?>
 
-    <div class="full-width-bar">
+<div class="full-width-bar">
     <div class="content-box" onclick="window.location.href='volunteerManagement.php'">
-        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->     
+        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
         <div class="large-text">Manage Volunteers</div>
         <button class="circle-arrow-button">
             <span class="button-text">Go</span>
             <div class="circle">&gt;</div>
         </button>
-<!--
-        <div class="nav-buttons">
-            <button class="nav-button" onclick="window.location.href='userSearch.php'">
-                <span>Find</span>
-                <span class="arrow"><img src="images/user-search.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 20px;"></span>
-            </button>
-            <button class="nav-button" onclick="window.location.href='VolunteerRegister.php'">
-                <span>Register</span>
-                <span class="arrow"><img src="images/add-user.svg" style="width: 40px; border-radius:5px; border-bottom-right-radius: 20px;"></span>
-            </button>
-        </div>
--->
+    </div>
+
+    <div class="content-box" onclick="window.location.href='archivalManagement.php'">
+        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
+        <div class="large-text">Manage Archives</div>
+        <button class="circle-arrow-button">
+            <span class="button-text">Go</span>
+            <div class="circle">&gt;</div>
+        </button>
     </div>
 
     <div class="content-box"  onclick="window.location.href='addEvent.php'">
         <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
         <div class="large-text">Add Volunteer Log</div>
         <button class="circle-arrow-button">
-            <span class="button-text"><?php 
+            <span class="button-text"><?php
                 require_once('database/dbEvents.php');
                 require_once('database/dbUsers.php');
                 require_once('database/dbApplications.php');
                 $pendingsignups = all_pending_names();
                 if (sizeof($pendingsignups) > 0) {
                     echo '<span class="colored-box">' . sizeof($pendingsignups) . '</span>';
-                }   
+                }
                 ?> Go </span>
         <div class="circle">&gt;</div>
         </button>
@@ -515,7 +512,7 @@
 
     <div class="content-box" onclick="window.location.href='viewAllLogs.php'">
         <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
-        
+
         <div class="large-text">View Volunteer Logs</div>
         <button class="circle-arrow-button">
             <span class="button-text">Go</span>
@@ -529,7 +526,7 @@
             <span class="button-text">Go</span>
             <div class="circle">&gt;</div>
         </button>
-    </div>    
+    </div>
 
 </div>
 
@@ -558,34 +555,34 @@
         <div class="icon-overlay">
             <img style="border-radius: 5px;" src="images/view-calendar.svg" alt="Calendar Icon">
         </div>
-        
+
         <div class="large-text-sub">Calendar</div>
         <div class="graph-text">See upcoming events/trainings.</div>
         <button class="arrow-button">→</button>
     </div>
             -->
-    
-    
+
+
     <!-- Manage Documents -->
     <!--<div class="content-box-test" onclick="window.location.href='view_encrypted_gallery.php'"> <!--style="position: relative;">-->
       <!--  <div class="icon-overlay">
             <img style="border-radius: 5px;" src="images/file-regular.svg" alt="Document Icon">
         </div>
-       
+
         <div class="large-text-sub">View Pending IDs </div>
         <div class="graph-text">View pending and arbitrate user submitted IDs.</div>
         <button class="arrow-button">→</button>
     </div>
             -->
-    
+
     <!-- System Notifications -->
     <!--<div class="content-box-test" onclick="window.location.href='inbox.php'">
         <div class="icon-overlay">
             <img style="border-radius: 5px;" src="images/<?php echo $inboxIcon ?>" alt="Notification Icon">
         </div>
-        
+
         <div class="large-text-sub">
-            System Notifications<?php 
+            System Notifications<?php
                 if ($unreadMessageCount > 0) {
                     echo ' (' . $unreadMessageCount . ')';
                 }
@@ -598,13 +595,24 @@
 
 
     <!-- Generate Report -->
+    <div class="content-box-test" onclick="window.location.href='analyticsDashboard.php'">
+        <div class="icon-overlay">
+            <img style="border-radius: 5px;" src="images/menu.png" alt="Report Icon">
+        </div>
+
+        <div class="large-text-sub">Analytics Dashboard</div>
+
+        <button class="arrow-button">→</button>
+    </div>
+
+    <!-- Generate Report -->
     <div class="content-box-test" onclick="window.location.href='generateReport.php'">
         <div class="icon-overlay">
             <img style="border-radius: 5px;" src="images/create-report.svg" alt="Report Icon">
         </div>
-        
-        <div class="large-text-sub">Analytics Dashboard</div>
-        
+
+        <div class="large-text-sub">Export Report</div>
+
         <button class="arrow-button">→</button>
     </div>
 
@@ -613,7 +621,7 @@
         <div class="icon-overlay">
             <img style="border-radius: 5px;" src="images/inbox.svg" alt="Email Icon">
         </div>
-        
+
         <div class="large-text-sub">Create Email</div>
         <div class="graph-text">Send new messages to volunteers.</div>
         <button class="arrow-button">→</button>
@@ -625,7 +633,7 @@
         <div class="icon-overlay">
             <img style="border-radius: 5px;" src="images/search.svg" alt="Drafts Icon">
         </div>
-        
+
         <div class="large-text-sub">View Drafts</div>
         <div class="graph-text">Check saved email drafts.</div>
         <button class="arrow-button">→</button>
@@ -637,7 +645,7 @@
         <div class="icon-overlay">
             <img style="border-radius: 5px;" src="images/send.png" alt="Email List Icon">
         </div>
-         
+
         <div class="large-text-sub">Generate Email List</div>
         <div class="graph-text">Volunteer Emails</div>
         <button class="arrow-button">→</button>
@@ -649,7 +657,7 @@
         <div class="icon-overlay">
             <img style="border-radius: 5px;" src="images/clipboard-regular.svg" alt="Discussions Icon">
         </div>
-        
+
         <div class="large-text-sub">User Suggestions</div>
         <div class="graph-text">View user submitted suggestions.</div>
         <button class="arrow-button">→</button>
@@ -659,7 +667,7 @@
 
 
 
-    
+
 
 <div style="width: 90%; /* Stops before page ends */
             height: 100%;
@@ -706,11 +714,11 @@
 <?php endif ?>
 
 <!-- ONLY VOLUNTEERS WILL SEE THIS -->
-<?php if ($notRoot) : ?>
+<?php if ($_SESSION['access_level'] < 2): ?>
 <body>
 <?php require 'header.php';?>
 
-  
+
 
   <!-- Icon Container -->
 <div style="position: absolute; top: 110px; right: 30px; z-index: 999; display: flex; flex-direction: row; gap: 30px; align-items: center; text-align: center;">
@@ -738,11 +746,15 @@
                 <span class="arrow"><img src="images/view-profile.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">View</span>
             </button>
+            <button class="nav-button" onclick="window.location.href='viewImpactSummary.php'">
+                <span class="arrow"><img src="images/flag.png" style="width: 40px; border-radius: 5px;"></span>
+                <span class="text">Impact</span>
+            </button>
             <button class="nav-button" onclick="window.location.href='editProfile.php'">
                 <span class="arrow"><img src="images/manage-account.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">Edit</span>
             </button>
-            
+
         </div>
     </div>
 
@@ -754,7 +766,7 @@
                 <span class="arrow"><img src="images/list-solid.svg" style="width: 40px; border-radius:5px;"></span>
                 <span class="text">View Logs</span>
             </button>
-            
+
         </div>
     </div>
 
@@ -769,7 +781,7 @@
     </div>
 </div>
 
-    
+
     </div>
 
     <div style="margin-top: 50px; padding: 0px 80px;">
@@ -792,8 +804,8 @@
                     $inboxIcon = 'inbox.svg';
                     if ($unreadMessageCount) {
                         $inboxIcon = 'inbox-unread.svg';
-                    }   
-                ?>  
+                    }
+                ?>
                 <!--
 
         <div class="content-box-test" onclick="window.location.href='upload_encrypted_image.php'">

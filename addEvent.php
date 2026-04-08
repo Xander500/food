@@ -11,7 +11,7 @@
     $userID = null;
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
-        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        // 0 = not logged in, 1 = student, 3 instructor
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
@@ -99,6 +99,7 @@
                 <div class="event-sect">
                     <label for="volunteerID">* Volunteer ID </label>
                     <select id="volunteerID" name="volunteerID" required placeholder="Enter Volunteer ID">
+                        <option value="">Select a volunteer</option>
                         <?php
                         require_once('database/dbUsers.php'); // maybe put at top
                         $volunteers = retrieve_all();
@@ -115,7 +116,7 @@
                     <input type="date" id="date" name="date"
                         <?php if ($date) echo 'value="' . $date . '"'; ?> required>
                     <label for="hours">* Duration (hours) </label>
-                    <input type="number" id="hours" name="hours" in="1" max="99"
+                    <input type="number" id="hours" name="hours" min="0" step=".01" max="99"
                         required placeholder="e.g. 2">
                 </div>
 
@@ -124,7 +125,7 @@
                 <input type="text" id="description" name="description" placeholder="Enter description">
 
                 <label for="poundsOfFood"> Pounds of Food </label>
-                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.1" placeholder="Enter pounds of food">
+                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.01" max="9999 placeholder="Enter pounds of food">
                 </div>
 
                 <!--   Event visibility checkbox, not sure if we need it at all
@@ -147,12 +148,15 @@
 -->
 
                 <div class="event-sect">
-                    <label for="location">* Location </label>
+                    <label for="location">Location </label>
                     <input type="text" id="location" name="location" placeholder="Enter location">
+                    <input type="hidden" id="longitude" name="longitude">
+                    <input type="hidden" id="latitude" name="latitude">
+                    <div id="location-suggestions" style="position:relative;"></div>
 
                     <label for="organizationID">* Organization </label>
                     <select id="organizationID" name="organizationID" required placeholder="Enter Organization ID">
-<!--                        <option value="">Select organization</option>-->
+                        <option value="">Select organization</option>
                         <?php
                             require_once('database/dbOrganizations.php'); // maybe put at top
                             $organizations = get_organizations_id_name();
@@ -265,6 +269,62 @@
                     })();
                      */
                 </script>
+
+<script>
+const MAPTILER_KEY = 'EGKCnnMrNWBQqtJG1Izh';
+const input = document.getElementById('location');
+const box = document.getElementById('location-suggestions');
+
+let timeout = null;
+
+input.addEventListener('input', function () {
+    clearTimeout(timeout);
+
+    const query = this.value;
+
+    if (query.length < 3) {
+        box.innerHTML = '';
+        return;
+    }
+
+    timeout = setTimeout(async () => {
+        const url = `https://api.maptiler.com/geocoding/${encodeURIComponent(query)}.json?key=${MAPTILER_KEY}`;
+
+        const res = await fetch(url);
+        const data = await res.json();
+
+        box.innerHTML = '';
+
+        data.features.forEach(feature => {
+            const div = document.createElement('div');
+
+            div.textContent = feature.place_name;
+            div.style.padding = '8px';
+            div.style.cursor = 'pointer';
+            div.style.background = '#fff';
+            div.style.border = '1px solid #ddd';
+
+            div.addEventListener('click', () => {
+                input.value = feature.place_name;
+
+                document.getElementById('latitude').value = feature.center[1];
+                document.getElementById('longitude').value = feature.center[0];
+                
+                box.innerHTML = '';
+            });
+
+            box.appendChild(div);
+        });
+
+    }, 300);
+});
+
+document.addEventListener('click', function(e){
+    if (e.target !== input) {
+        box.innerHTML = '';
+    }
+});
+</script>
         </main>
     </body>
 </html>

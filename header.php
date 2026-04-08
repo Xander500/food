@@ -218,7 +218,7 @@ if (date("H:i:s") > "18:19:59") {
             gap: 20px;
         }
 
-        .nav-links div {
+        .nav-links div, .nav-item a {
             font-size: 24px;
             font-weight: 700;
             color: var(--page-font-color);
@@ -234,13 +234,16 @@ if (date("H:i:s") > "18:19:59") {
 	}
 
         /* Dropdown Control */
-        .nav-item {
+        .nav-item, .nav-item a {
             position: relative;
             cursor: pointer;
             padding: 0px;
             transition: color 0.3s, outline 0.3s;
         }
 
+        .nav-item a {
+            font-size: 30px;
+        }
 
         .dropdown {
             display: none;
@@ -700,7 +703,44 @@ if (date("H:i:s") > "18:19:59") {
 
         // ACTUAL values for permissions are: 1 for students, 3 for instructors. not logged-in users don't have access level set / 0
 
-        $permission_array['index.php'] = 0; // WVF Home page
+        //YOU MUST PULL VALUES IN ALL LOWECASE
+        $permission_array['index.php'] = 0;
+        $permission_array['volunteerregister.php'] = 0;
+
+        $permission_array['log.php'] = 1;
+        $permission_array['viewalllogs.php'] = 1;
+        $permission_array['editlog.php'] = 1;
+        $permission_array['deletelog.php'] = 1;
+        $permission_array['addevent.php'] = 1;
+        $permission_array['volunteermanagement.php'] = 1;
+        $permission_array['viewprofile.php'] = 1;
+        $permission_array['addorganization.php'] = 1;
+        $permission_array['editorganizationsearch.php'] = 1;
+        $permission_array['editorganization.php'] = 1;
+        $permission_array['editprofile.php'] = 1;
+        $permission_array['changepassword.php'] = 1;
+        $permission_array['eventsuccess.php'] = 1;
+        $permission_array['eventfailure.php'] = 1;
+        $permission_array['organizationmanagement.php'] = 1;
+        $permission_array['organization.php'] = 1;
+        $permission_array['viewimpactsummary.php'] = 1;
+
+
+
+        $permission_array['personsearch.php'] = 3;
+        $permission_array['deleteusersearch.php'] = 3;
+        $permission_array['modifyuserrole.php'] = 3;
+        $permission_array['deleteuser.php'] = 3;
+        $permission_array['deleteorganizationsearch.php'] = 3;
+        $permission_array['deleteorganization.php'] = 3;
+        $permission_array['analyticsdashboard.php'] = 3;
+        $permission_array['impactbystudent.php'] = 3;
+        $permission_array['impactbyorg.php'] = 3;
+        $permission_array['generatereport.php'] = 3;
+        $permission_array['archivalsearch.php'] = 3;
+        $permission_array['archivalmanagement.php'] = 3;
+
+        /*
         $permission_array['about.php'] = 0; //WVF - Not able to directly access - Likely just need to re-route to
         $permission_array['apply.php'] = 0; //WVF - Not able to directly access
         $permission_array['logout.php'] = 0; //WVF - Logout page ain
@@ -738,7 +778,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
         $permission_array['viewschedule.php'] = 2;
         $permission_array['addweek.php'] = 2;
-        $permission_array['log.php'] = 2;
+        $permission_array['log.php'] = 1;
         $permission_array['editlog.php'] = 2;
         $permission_array['reports.php'] = 2;
         $permission_array['eventedit.php'] = 2; //WVF - TODO: Evaluated differenced between eventedit and editevent.
@@ -815,14 +855,14 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['createsuggestion.php'] = 1;
         $permission_array['viewsuggestion.php'] = 2;
         // LOWERCASE
-
+        */
 
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
         $current_page = substr($current_page, strpos($current_page,"/"));
 
-        if($permission_array[$current_page]>$_SESSION['access_level']){
+        if($permission_array[$current_page] > $_SESSION['access_level']){
             //in this case, the user doesn't have permission to view this page.
             //we redirect them to the index page.
             echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
@@ -846,7 +886,8 @@ if (date("H:i:s") > "18:19:59") {
         <div class="left-section">
             <div class="logo-container">
                 <a href="index.php"><img src="' . $logo . '" alt="Logo"></a>
-            </div>' .
+            </div>
+            <div class="nav-item"><a href="index.php">Dashboard</a></div>'.
             //     <!--<a href="viewCheckInOut.php" style="color: white; text-decoration: none;"><div class="date-box">Check In/Out</div></a>-->
             // <div class="nav-links">
             //     <div class="nav-item">Events
