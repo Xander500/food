@@ -132,7 +132,7 @@
             
                 <label for ="volunteerID">Volunteer ID <?php if ($accessLevel < 3) { echo "<span>(you do not have permission to change this)</span>";} ?></label>
                 <select id="volunteerID" name="volunteerID" required <?php if ($accessLevel < 3) { echo "disabled";} ?>>
-                    <option value="">Select a volunteer</option>
+                    <option value=""></option>
                     <?php foreach ($volunteers as $volunteer): ?>
                         <option value="<?php echo hsc($volunteer['id']) ?>"
                             <?php if ($volunteer['id'] == $log['volunteerID']) echo 'selected'; ?>>
@@ -152,7 +152,7 @@
 
                 <label for="organizationID">Organization</label>
                 <select id="organizationID" name="organizationID" required>
-                    <option value="">Select an organization</option>
+                    <option value=""></option>
                     <?php foreach ($organizations as $org): ?>
                         <option value="<?php echo hsc($org['id']) ?>"
                             <?php if ($org['id'] == $log['organizationID']) echo 'selected'; ?>>
