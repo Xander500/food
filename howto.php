@@ -21,6 +21,24 @@
         //echo 'bad access level';
         die();
     }
+
+    //control who sees which sections
+    //0 means everone,1 means student only, 3 means instructor only.
+    $sections = [
+        "add_vol_log" => 0,
+        "view_all_vol_logs" => 0,
+        "search_vol_logs" => 0,
+        "edit_vol_log" => 0,
+        "delete_vol_log" => 0,
+        "view_own_vol_logs" => 1,
+        "viewimpact_summary" => 1,
+        "add_org" => 0,
+        "edit_org" => 0,
+        "delete_orgs" => 3,
+        "manage_user_roles" => 3,
+        "export_data" => 3,
+        "view_analytics_dashboard" => 3,
+    ];
 ?>
 <!DOCTYPE html>
 <html>
@@ -41,7 +59,6 @@
         <?php require_once('header.php') ?>
         <main class="general howto-page">
             <h1>Instructions</h1>
-
             <div class="sidebar-wrapper">
                 <div class="sidebar">
                     <div class="sidebar-item">
@@ -56,17 +73,6 @@
             </div>
 
             <div class="main-content-box">
-                <div class="text-center">
-                    <h2 class="mb-8">Edit Profile</h2>
-                    <div class="info-box">
-                        <p>An asterisk ( <em>*</em> ) indicates a required field.</p>
-                    </div>
-                </div>
-
-
-                <section id="both">
-                    <h2>Both</h2>
-
                     <section id="add-activity-log">
                         <h3>Add a Volunteer Activity Log</h3>
                         <ul>
@@ -76,7 +82,6 @@
                             <li>You may additionally provide information about the location, the pounds of food rescued, and a description of the activity.</li>
                         </ul>
                     </section>
-                    <div class="blue-div"></div>
                     <section id="view-logs">
                         <h3>View All Volunteer Activity Logs</h3>
                         <ul>
@@ -87,30 +92,29 @@
                             <li>To view the details of a single log, click the "👁" icon to the left of that log's row.</li>
                         </ul>
                     </section>
-                    <div class="blue-div"></div>
                     <section id="search-logs">
                         <h3>Search Volunteer Activity Logs</h3>
                         <ul>
                             <li>To search active volunteer activity logs, navigate to the <a href="link goes here">log display table</a> on the <a href="link goes here">homepage</a>.</li>
                             <li>At the top of the page, there is a "Search Volunteer Activity" form. Note: Dropdown selections will only display options for students/organizations/semesters that currently appear in active logs.</li>
-                        </ul>
-                        <ul>
-                            <li>Search by Student: Select a student's name to only view logs featuring that student.</li>
-                            <li>Search by Organization: Select an organization to only view logs featuring that non-profit or volunteer organization.</li>
-                            <li>Search by Semester: Select a semester to view logs created by students registered in that semester.</li>
-                            <li>Search After this Date: Select a date to only view activities on or after that date.</li>
-                            <li>Search Before this Date: Select a date to only view activities on or before that date.</li>
-                            <li>Search for at least this many Hours: Enter a number to view logs with a duration of at least that many hours.</li>
-                            <li>Search for no more than this many Hours: Enter a number to view logs with a duration of at most that many hours.</li>
-                            <li>Search for at least this many Pounds of Food: Enter a number to view logs with at least that many pounds of food rescued.</li>
-                            <li>Search for no more than this many Pounds of Food: Enter a number to view logs with at most that many pounds of food rescued.</li>
+                            <ul>
+                                <li>Search by Student: Select a student's name to only view logs featuring that student.</li>
+                                <li>Search by Organization: Select an organization to only view logs featuring that non-profit or volunteer organization.</li>
+                                <li>Search by Semester: Select a semester to view logs created by students registered in that semester.</li>
+                                <li>Search After this Date: Select a date to only view activities on or after that date.</li>
+                                <li>Search Before this Date: Select a date to only view activities on or before that date.</li>
+                                <li>Search for at least this many Hours: Enter a number to view logs with a duration of at least that many hours.</li>
+                                <li>Search for no more than this many Hours: Enter a number to view logs with a duration of at most that many hours.</li>
+                                <li>Search for at least this many Pounds of Food: Enter a number to view logs with at least that many pounds of food rescued.</li>
+                                <li>Search for no more than this many Pounds of Food: Enter a number to view logs with at most that many pounds of food rescued.</li>
+                            </ul>
                         </ul>
                         <ul>
                             <li>Once you have selected your filters, click the "Apply Filters" button. You may continue to <a href="link goes here">view the logs, as described above</a>.</li>
                         </ul>
                     </section>
-                    <div class="blue-div"></div>
                     <section id="edit-log">
+
                         <h3>Edit Volunteer Activity Log</h3>
                         <ul>
                             <li>Note: Students may only edit their own logs. Instructors may edit any log.</li>
@@ -119,7 +123,6 @@
                             <li>Make your changes and click the "Update Log" button.</li>
                         </ul>
                     </section>
-                    <div class="blue-div"></div>
                     <section id="delete-log">
                         <h3>Delete Volunteer Activity Log</h3>
                         <ul>
@@ -128,16 +131,11 @@
                             <li>On the log's page, you will see the header "Volunteer Activity Details" with a trashcan icon to the right. Click the trashcan to open the delete form.</li>
                         </ul>
                     </section>
-                </section>
-                <div class="blue-div"></div>
-                <section id="student">
-                    <h2>Student</h2>
 
                     <section id="view-own-logs">
                         <h3>View Your Own Volunteer Activity Logs</h3>
                         <!-- Add instructions here if needed -->
                     </section>
-                </section>
             </div>
   
         </main>
