@@ -21,248 +21,125 @@
         //echo 'bad access level';
         die();
     }
-
-    include 'database/dbVolunteerActivity.php';
-    include 'database/dbUsers.php';
-    include 'database/dbOrganizations.php';
-    include 'include/output.php';
-
-
-    //check for sorting
-    //make sure no sql injections
-    $sortby = 'date'; $order = 'asc'; $sortby_display = 'date';
-    //echo $_GET['sortby'] . " " . $_GET['order'] . "\n";
-    if (isset($_GET['sortby']) && in_array($_GET['sortby'], ['student', 'date', 'organization',
-        'hours', 'location', 'poundsoffood', 'description'])) {
-
-        $sortby_display = $_GET['sortby'];
-        switch ($_GET['sortby']) {
-            case 'student': $sortby = 'last_name'; $order = 'asc'; break;
-            case 'date': $sortby = 'date'; $order = 'desc'; break;
-            case 'organization': $sortby = 'organization_name'; $order = 'asc'; break;
-            case 'hours': $sortby = 'hours'; $order = 'asc'; break;
-            case 'location': $sortby = 'location'; $order = 'asc'; break;
-            case 'poundsoffood': $sortby = 'poundsOfFood'; $order = 'asc'; break;
-            case 'description': $sortby = 'description'; $order = 'asc'; break;
-        }
-
-    }
-    //check if order is desc
-    if (isset($_GET['order'])) {
-        switch ($_GET['order']) {
-            case 'desc': $order = 'desc'; break;
-            case 'asc': $order = 'asc'; break;
-        }
-    } else if ($sortby === 'date') {
-            $order = 'desc';
-    }
-
-    //get filters
-    $filters = extract_permitted_filters_on_logs($_GET); //preserve for putting into urls in pagination and header links
-
-    //get page
-    $per_page = 8;
-    $page_display_range = 2;
-    $page_num = max(0, (int)($_GET['page'] ?? 1) - 1);
-    //get max pagination
-    $max_pages = max(0, ceil(get_num_logs_with_filters($filters) / $per_page) - 1); //total allowed pages
-    $page_num = (int) min($max_pages, $page_num);
-
-    $logs = get_all_volunteer_activities_custom_sort_pagination_with_filters($sortby, $order, $per_page, $page_num * $per_page, $filters, $wants_archived = false);
-
-    //include 'domain/Event.php';
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <link rel="stylesheet" href="css/event.css">
-        <script src="js/messages.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
-        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-        <title>View All Volunteer Activity</title>
+        <link rel="stylesheet" href="css/base.css">
+        <title>UMW Alleviating Food Waste Volunteer Tracking | Instructions</title>
+
+
+        <style>
+            /*css goes here*/
+            </style>
+
+
+
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <main class="general">
-            <h1>Volunteer Activity</h1>
+        <main class="general howto-page">
+            <h1>Instructions</h1>
 
-            <h2>Search Volunteer Activity</h2>
-            <form class="log_filters" action="viewAllLogs.php?" method="GET">
-                <input type="hidden" name="page" value="<?php echo hsc($page_num + 1); ?>" />
-                <input type="hidden" name="sortby" value="<?php echo hsc($sortby_display); ?>" />
-                <input type="hidden" name="order" value="<?php echo hsc($order); ?>" />
-                <div class="log_filters--row">
-                    <div class="log_filter">
-                        <label for="studentSelect">Search by Student</label>
-                        <select id="studentSelect" name="students">
-                            <option value=""></option>
-                            <?php foreach (get_students_in_logs() as $row): ?>
-                                <option value="<?php echo hsc($row['id']); ?>" <?php echo isset($filters['students']) && $filters['students'] == $row['id'] ? 'selected' : ''; ?>>
-                                    <?php echo hsc($row['last_name']) . ", " . hsc($row['first_name']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+            <div class="sidebar-wrapper">
+                <div class="sidebar">
+                    <div class="sidebar-item">
+                        <img src="images/settings.png"><h3> Edit Profile</h3>
                     </div>
-
-                    <div class="log_filter">
-                        <label for="organizationSelect">Search by Organization</label>
-                        <select id="organizationSelect" name="organizations">
-                            <option value=""></option>
-                            <?php foreach (get_organizations_in_logs() as $row): ?>
-                                <option value="<?php echo hsc($row['id']); ?>" <?php echo isset($filters['organizations']) && $filters['organizations'] == $row['id'] ? 'selected' : ''; ?>>
-                                    <?php echo hsc($row['name']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-
-                    <div class="log_filter">
-                        <label for="semesterSelect">Search by Semester</label>
-                        <select id="semesterSelect" name="semesters">
-                            <option value=""></option>
-                            <?php foreach (get_semesters_in_users() as $row): ?>
-                                <option value="<?php echo hsc($row['semester']); ?>" <?php echo isset($filters['semesters']) && $filters['semesters'] == $row['semester'] ? 'selected' : ''; ?>>
-                                    <?php echo hsc($row['semester']); ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
+                    <div class="sidebar-item">
+                        <a href="#login">
+                            <img src="images/change-password.png"> Login Credentials
+                        </a>
                     </div>
                 </div>
-                <div class="log_filters--row">
-                    <div class="log_filter">
-                        <label for="startDate">Search after this Date</label>
-                        <input type="date" id="startDate" name="startdate"
-                        value="<?php echo hsc($filters['startdate'] ?? ''); ?>">
+            </div>
 
-                        <label for="endDate">Search Before this Date</label>
-                        <input type="date" id="endDate" name="enddate" value="<?php echo hsc($filters['enddate'] ?? ''); ?>">
-                    </div>
-                    <div class="log_filter">
-                        <label for="minHours">Search for at least this many Hours</label>
-                        <input type="number" id="minHours" name="minhours" min="0" placeholder="From" value="<?php echo hsc($filters['minhours'] ?? ''); ?>">
-                        <label for="maxHours">Search for no more than this many Hours</label>
-                        <input type="number" id="maxHours" name="maxhours" min="0" placeholder="To" value="<?php echo hsc($filters['maxhours'] ?? ''); ?>">
-                    </div>
-                    <div class="log_filter">
-                        <label for="minFood">Search for at least this many Pounds of Food</label>
-                        <input type="number" id="minFood" name="minfood" min="0" placeholder="From" value="<?php echo hsc($filters['minfood'] ?? ''); ?>">
-                        <label for="maxFood">Search for no more than this many Pounds of Food</label>
-                        <input type="number" id="maxFood" name="maxfood" min="0" placeholder="To" value="<?php echo hsc($filters['maxfood'] ?? ''); ?>">
+            <div class="main-content-box">
+                <div class="text-center">
+                    <h2 class="mb-8">Edit Profile</h2>
+                    <div class="info-box">
+                        <p>An asterisk ( <em>*</em> ) indicates a required field.</p>
                     </div>
                 </div>
-                <div style="margin: auto; width: 75%;">
-                    <button type="submit">Apply Filters</button>
-                    <a class="button cancel" href="viewAllLogs.php">Clear Filters</a>
-                </div>
-            </form>
 
-            <?php
 
-                if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != 'guest') {
-                    $user = retrieve_person($userID);
-                }
+                <section id="both">
+                    <h2>Both</h2>
 
-                if (sizeof($logs) > 0): ?>
-                <div class="table-wrapper">
-                    <h2 id="log-table">View All Volunteer Activity</h2>
-                    <table class="general">
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'student') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'student', 'order' => (($sortby_display === 'student') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Student</a><div></div></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'date') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'date', 'order' => (($sortby_display === 'date') ? (($order === 'asc') ? 'desc' : 'asc') : 'desc')], $filters))); ?>#log-table'>Date</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'organization') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'organization', 'order' => (($sortby_display === 'organization') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Organization</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'hours') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'hours', 'order' => (($sortby_display === 'hours') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Hours</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'location') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'location', 'order' => (($sortby_display === 'location') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Location</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'poundsoffood') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'poundsoffood', 'order' => (($sortby_display === 'poundsoffood') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Food Rescued (lbs)</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'description') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'description', 'order' => (($sortby_display === 'description') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Description</a></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                                #require_once('include/output.php');
-                                #$id_to_name_hash = [];
-                                foreach ($logs as $log) {
-                                    $logID = $log->getID();
-                                    $studentID = $log->getVolunteerID();
-                                    $date = $log->getDate();
-                                    $organizationID = $log->getOrganizationID();
-                                    $hours = $log->getHours();
-                                    $location = $log->getLocation();
-                                    $pounds = $log->getPoundsOfFood();
-                                    $description = $log->getDescription();
+                    <section id="add-activity-log">
+                        <h3>Add a Volunteer Activity Log</h3>
+                        <ul>
+                            <li>To add records of your volunteer activities with a non-profit or volunteer organization on a particular date, navigate to the <a href="link goes here">homepage</a> and select the <a href="link goes here">"Add Log" button</a> at the top of the page.</li>
+                            <li>Enter the details about your activity into the form and click "Create Activity."</li>
+                            <li>You are required to provide information about the date, the duration (number of hours), and the organization.</li>
+                            <li>You may additionally provide information about the location, the pounds of food rescued, and a description of the activity.</li>
+                        </ul>
+                    </section>
+                    <div class="blue-div"></div>
+                    <section id="view-logs">
+                        <h3>View All Volunteer Activity Logs</h3>
+                        <ul>
+                            <li>To view volunteer activity logs, navigate to the <a href="link goes here">log display table</a> on the <a href="link goes here">homepage</a>.</li>
+                            <li>Scroll down until you see the section titled "View All Volunteer Activity."</li>
+                            <li>If there are numerous logs, the table will display only one page at a time. Page navigation links are found at the lower right corner of the table. Click the numbered buttons to view that page or the arrows to navigate pages.</li>
+                            <li>By default, the logs are sorted by date. Click any column header link to sort by that field. An arrow will appear next to the selected header, indicating ascending or descending order. Click the header again to reverse the order.</li>
+                            <li>To view the details of a single log, click the "👁" icon to the left of that log's row.</li>
+                        </ul>
+                    </section>
+                    <div class="blue-div"></div>
+                    <section id="search-logs">
+                        <h3>Search Volunteer Activity Logs</h3>
+                        <ul>
+                            <li>To search active volunteer activity logs, navigate to the <a href="link goes here">log display table</a> on the <a href="link goes here">homepage</a>.</li>
+                            <li>At the top of the page, there is a "Search Volunteer Activity" form. Note: Dropdown selections will only display options for students/organizations/semesters that currently appear in active logs.</li>
+                        </ul>
+                        <ul>
+                            <li>Search by Student: Select a student's name to only view logs featuring that student.</li>
+                            <li>Search by Organization: Select an organization to only view logs featuring that non-profit or volunteer organization.</li>
+                            <li>Search by Semester: Select a semester to view logs created by students registered in that semester.</li>
+                            <li>Search After this Date: Select a date to only view activities on or after that date.</li>
+                            <li>Search Before this Date: Select a date to only view activities on or before that date.</li>
+                            <li>Search for at least this many Hours: Enter a number to view logs with a duration of at least that many hours.</li>
+                            <li>Search for no more than this many Hours: Enter a number to view logs with a duration of at most that many hours.</li>
+                            <li>Search for at least this many Pounds of Food: Enter a number to view logs with at least that many pounds of food rescued.</li>
+                            <li>Search for no more than this many Pounds of Food: Enter a number to view logs with at most that many pounds of food rescued.</li>
+                        </ul>
+                        <ul>
+                            <li>Once you have selected your filters, click the "Apply Filters" button. You may continue to <a href="link goes here">view the logs, as described above</a>.</li>
+                        </ul>
+                    </section>
+                    <div class="blue-div"></div>
+                    <section id="edit-log">
+                        <h3>Edit Volunteer Activity Log</h3>
+                        <ul>
+                            <li>Note: Students may only edit their own logs. Instructors may edit any log.</li>
+                            <li>To edit a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
+                            <li>On the log's page, you will see the header "Volunteer Activity Details" with a pencil icon to the right. Click the pencil to open the edit form.</li>
+                            <li>Make your changes and click the "Update Log" button.</li>
+                        </ul>
+                    </section>
+                    <div class="blue-div"></div>
+                    <section id="delete-log">
+                        <h3>Delete Volunteer Activity Log</h3>
+                        <ul>
+                            <li>Note: Students may only delete their own logs. Instructors may delete any log.</li>
+                            <li>To delete a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
+                            <li>On the log's page, you will see the header "Volunteer Activity Details" with a trashcan icon to the right. Click the trashcan to open the delete form.</li>
+                        </ul>
+                    </section>
+                </section>
+                <div class="blue-div"></div>
+                <section id="student">
+                    <h2>Student</h2>
 
-                                    $studentName = get_user_full_name_from_id($studentID);
-                                    $organizationName = get_organization_name_from_id($organizationID);
-                                    ?>
-                                    <tr data-event-id="<?php echo hsc($logID); ?>">
-                                        <td><a href="log.php?id=<?php echo hsc($logID); ?>" class="event-link">👁</a></td>
-                                        <td><?php echo hsc($studentName); ?></td>
-                                        <td><?php echo hsc($date); ?></td>
-                                        <td><?php echo hsc($organizationName); ?></td>
-                                        <td><?php echo hsc($hours); ?></td>
-                                        <td><?php echo hsc($location); ?></td>
-                                        <td><?php echo hsc($pounds); ?></td>
-                                        <td><?php echo hsc($description); ?></td>
-                                    </tr>
-                                <?php
-                                }
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-
-                <ul class="pagination">
-                    <?php if ($page_num - $page_display_range > 0): ?>
-                        <li class="pagination_li">
-                            <a href="viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => 0, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link">&#x21e4;</a>
-                        </li>
-                    <?php endif; ?>
-                    <?php for($x = max(0, $page_num - $page_display_range); $x <= min($max_pages, $page_num + $page_display_range); $x++): ?>
-                        <li class="pagination_li">
-                            <a href="viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $x + 1, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link<?php if ($page_num === $x): ?> pagination_link--active<?php endif; ?>"><?php echo hsc($x + 1); ?></a>
-                        </li>
-                    <?php endfor; ?>
-                    <?php if ($page_num < $max_pages - $page_display_range): ?>
-                    <li class="pagination_li">
-                        <a href="viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $max_pages + 1, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link">&#8677;</a>
-                    </li>
-                    <?php endif; ?>
-                </ul>
-                <?php else: ?>
-                <p class="no-events standout">There are currently no logs available to view.<a class="button add" href="addEvent.php">Create a New Log</a> </p>
-            <?php endif ?>
-            <a class="button cancel" href="index.php" style="margin: auto;">Return to Dashboard</a>
+                    <section id="view-own-logs">
+                        <h3>View Your Own Volunteer Activity Logs</h3>
+                        <!-- Add instructions here if needed -->
+                    </section>
+                </section>
+            </div>
+  
         </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        new Choices('#studentSelect', {
-            searchEnabled: true,
-            removeItemButton: true,
-            placeholder: true,
-            placeholderValue: 'Select students...',
-            shouldSort: false
-        });
-        new Choices('#organizationSelect', {
-            searchEnabled: true,
-            removeItemButton: true,
-            placeholder: true,
-            placeholderValue: 'Select organizations...',
-            shouldSort: false
-        });
-
-        new Choices('#semesterSelect', {
-            searchEnabled: true,
-            removeItemButton: true,
-            placeholder: true,
-            placeholderValue: 'Select semesters...',
-            shouldSort: false
-        });
-    });
-
-
-    </script>
     </body>
 </html>

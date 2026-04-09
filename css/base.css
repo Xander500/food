@@ -223,11 +223,11 @@ nav {
 }
 
 a {
-    color: white;
+    color: var(--accent-color);
 }
 
 a:hover {
-    color: rgb(255, 255, 255, 0.5);
+    color: var(--accent-color-hover);
 }
 
 #vms-logo {
@@ -1031,39 +1031,162 @@ form.signup-form a:hover {
     justify-content: center;
     align-items: flex-start;
     border-radius: calc(var(--button-border-radius) + 5px);
-    background: var(--info-toast-background-color);
+    background: white;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     position: sticky;
     width: 100%;
-    padding: 5px;
+    padding: 1rem;
+}
+/*--------------start of how-to page styles------------------*/
+
+:root {
+    /* CSS variables that will be used across the page */
+    --page-background-color: white;
+    --page-font-color: #213e57;
+    --inactive-font-color: #213e57;
+    --inactive-background-color: white;
+    --standout-background: white;
+
+    --happy-toast-background-color: #5D7E61;
+    --happy-toast-font-color: rgb(255, 255, 255);
+
+    --info-toast-background-color: #2f2f2f;
+    --info-toast-font-color: white;
+
+    --error-toast-background-color: #A66654;
+    --error-toast-font-color: rgb(255, 255, 255);
+
+
+    --shadow-and-border-color: #e8e8e8;
+
+    --main-color: #213e57;
+    --main-color-hover: #4d6579;
+
+    --accent-color: #92c44c;
+    --accent-color-hover: #759d3d;
+ 
+    --secondary-accent-color: rgb(175, 141, 92);
+
+    --accessible-highlight-color: #2563EB;
 }
 
+main.general.howto-page {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+main.general.howto-page > h1 {
+    width: 100%;
+}
+
+main.general.howto-page .sidebar-wrapper {
+    float: none;
+    position: sticky;
+    top: 8rem;
+    width: 250px;
+    flex: 0 0 250px;
+    height: auto;
+}
+
+main.general.howto-page .main-content-box {
+    flex: 1 1 0;
+    max-width: none;
+    min-width: 0;
+}
+
+main.general.howto-page section#both {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+main.general.howto-page section#both section {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+main.general.howto-page section#both section h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1F1F21;
+    margin-bottom: 1rem;
+}
+
+main.general.howto-page section#both section ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    line-height: 1.75;
+}
+
+main.general.howto-page section#both section li {
+    margin-bottom: 0.5rem;
+    color: #374151;
+    font-weight: 400;
+}
+
+main.general.howto-page .blue-div {
+    margin: 0.5rem 0;
+}
+
+@media only screen and (max-width: 900px) {
+    main.general.howto-page {
+        flex-direction: column;
+    }
+
+    main.general.howto-page .sidebar-wrapper {
+        position: relative;
+        top: auto;
+        width: 100%;
+        flex: 1 1 100%;
+    }
+}
+
+/*--------------end of how-to page styles------------------*/
 .sidebar-item {
     display: flex;
-    color: var(--inactive-font-color);
-    align-items: flex-start;
-    justify-content: left;
-    border-radius: var(--button-border-radius);
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 0.5rem;
     background-color: transparent;
-    border: 1px solid var(--light-border);
-    padding: 5px;
+    padding: 0.75rem;
     width: 100%;
+    gap: 0.75rem;
+    color: #1F1F21;
+    font-weight: 500;
 }
 
 .sidebar-item a {
-    color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #1F1F21;
+    text-decoration: none;
+    width: 100%;
+    font-weight: 500;
 }
 
 .sidebar-item:hover {
-    background-color: rgba(255,255,255,0.10);
-    color: hsl(from var(--accent-color) h s calc(l+3));
+    background-color: #f3f4f6;
+}
+
+.sidebar-item a:hover {
+    color: #0f766e;
 }
 
 .sidebar-item img {
-    margin-right: 5px;
-    filter: invert(1);
-    min-height: 20px;
-    max-height: 25px;
-    height: 20px;
+    min-height: 24px;
+    max-height: 24px;
+    height: 24px;
+    width: 24px;
+    object-fit: contain;
 }
 
 .availability-container {
