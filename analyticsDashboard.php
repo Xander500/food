@@ -113,10 +113,11 @@ require_once('database/dbVolunteerActivity.php');
                 <div class="num">Total Pounds of Food Rescued: <?php echo round($pounds, 2); ?></div>
             </div>
 
-            <div class="num-displays">
-                <div class="num"><a href="impactByStudent.php">Impact by Student</a></div>
-                <div class="num"><a href="impactByOrg.php">Impact by Organization</a></div>
-            </div>
+<div class="num-displays">
+    <div class="num"><a href="impactByStudent.php">Impact by Student</a></div>
+    <div class="num"><a href="impactByOrg.php">Impact by Organization</a></div>
+    <div class="num"><a href="monthlyImpact.php">Monthly Impact</a></div>
+</div>
 
             <div class="text-center mt-6">
                 <a href="index.php" class="return-button">Return to Dashboard</a>
