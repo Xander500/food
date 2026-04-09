@@ -1031,12 +1031,10 @@ form.signup-form a:hover {
     justify-content: center;
     align-items: flex-start;
     border-radius: calc(var(--button-border-radius) + 5px);
-    background: white;
-    border: 1px solid #d1d5db;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    background: var(--info-toast-background-color);
     position: sticky;
     width: 100%;
-    padding: 1rem;
+    padding: 5px;
 }
 /*--------------start of how-to page styles------------------*/
 
@@ -1109,27 +1107,11 @@ main.general.howto-page section#both section {
     border: 1px solid #d1d5db;
     border-radius: 1rem;
     padding: 1.5rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
 }
 
 main.general.howto-page section#both section h3 {
     margin-top: 0;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #1F1F21;
-    margin-bottom: 1rem;
-}
-
-main.general.howto-page section#both section ul {
-    list-style-type: disc;
-    margin-left: 1.5rem;
-    line-height: 1.75;
-}
-
-main.general.howto-page section#both section li {
-    margin-bottom: 0.5rem;
-    color: #374151;
-    font-weight: 400;
 }
 
 main.general.howto-page .blue-div {
@@ -1152,41 +1134,31 @@ main.general.howto-page .blue-div {
 /*--------------end of how-to page styles------------------*/
 .sidebar-item {
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    border-radius: 0.5rem;
+    color: var(--inactive-font-color);
+    align-items: flex-start;
+    justify-content: left;
+    border-radius: var(--button-border-radius);
     background-color: transparent;
-    padding: 0.75rem;
+    border: 1px solid var(--light-border);
+    padding: 5px;
     width: 100%;
-    gap: 0.75rem;
-    color: #1F1F21;
-    font-weight: 500;
 }
 
 .sidebar-item a {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: #1F1F21;
-    text-decoration: none;
-    width: 100%;
-    font-weight: 500;
+    color: var(--accent-color);
 }
 
 .sidebar-item:hover {
-    background-color: #f3f4f6;
-}
-
-.sidebar-item a:hover {
-    color: #0f766e;
+    background-color: rgba(255,255,255,0.10);
+    color: hsl(from var(--accent-color) h s calc(l+3));
 }
 
 .sidebar-item img {
-    min-height: 24px;
-    max-height: 24px;
-    height: 24px;
-    width: 24px;
-    object-fit: contain;
+    margin-right: 5px;
+    filter: invert(1);
+    min-height: 20px;
+    max-height: 25px;
+    height: 20px;
 }
 
 .availability-container {
