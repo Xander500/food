@@ -925,16 +925,19 @@ form.signup-form em {
 }
 
 .return-button,
-a.return-button {
+a.return-button,
+.num a {
     background-color: var(--main-color); 
     border-color: var(--main-color-hover);
     border-radius: 0.5rem !important;
     padding-inline: 1.5rem !important;
     padding-block: 0.5rem !important;
-  }
+    font-weight: 550;
+}
   
 .return-button:hover,
-a.return-button:hover {
+a.return-button:hover,
+.num a:hover {
     background-color: var(--main-color-hover) !important;
     color: white;
 }
@@ -1619,15 +1622,33 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     font-size: 2rem;
     font-weight: 700;
     font-weight: 550;
+    margin-bottom: 0;
+}
+
+main.analytics-body {
+    margin: 2%;
+    margin-top: 0;
 }
 
 .display {
     width: 100%;
-}
-
-.num-displays {
     display: flex;
     justify-content: space-between;
+}
+
+.nums-display {
+    background-color: var(--accent-color);
+
+    width: fit-content;
+    height: fit-content;
+    padding: 1.5rem;
+    padding-bottom: 0;
+
+    border: 8px solid var(--main-color);
+    border-radius: 25px;
+    box-shadow: 10px 10px 20px 5px var(--main-color);
+
+    margin-bottom: 3rem;
 }
 
 .num {
@@ -1637,24 +1658,17 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
     display: inline;
     text-align: center;
     position: static !important;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
 
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 550;
     
     color: var(--page-font-color);
 }
 
 .num a {
-    color: var(--page-font-color);
-    /* text-decoration: underline; */
-    background-color: var(--accent-color);
-    border-radius: 12px;
-    padding: 15px;
-}
-
-.num a:hover {
-    background-color: var(--accent-color-hover);
+    font-size: 1.5rem;
 }
 
 .impact table,
@@ -1693,4 +1707,83 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .semester_select > div {
     display: flex;
     flex-direction: column;
+}
+
+.map-container {
+    margin-top: 30px; 
+    text-align: center;
+    display: block;
+}
+
+.map-container h2 {
+    text-align: center; 
+    font-size: 1.75rem;
+    font-weight: 550;
+    margin-bottom: 20px;
+    padding-bottom: .5rem; 
+    color: #23415A;
+}
+
+.map {
+    max-width: 860px;
+    margin: 0 auto 50px auto;
+    background: var(--main-color);
+    padding: 10px;
+    border-radius: 25px;
+    box-shadow: 0px 5px 20px 10px var(--main-color);
+}
+
+.sections {
+    height: 80vh;
+}
+
+.button-section {
+    margin: auto;
+}
+
+.text-section {
+    place-items: center;
+}
+
+.graphs-wrapper {
+    max-width: 1100px;
+    margin-bottom: 5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+
+    background-color: var(--accent-color);
+
+    width: fit-content;
+    height: fit-content;
+    padding: 1rem;
+
+    border: 8px solid var(--main-color);
+    border-radius: 25px;
+    box-shadow: 10px 10px 20px 5px var(--main-color);
+}
+
+.graph-card {
+    background: white;
+    border-radius: 25px;
+    padding: 25px 40px 35px 40px;
+    box-shadow: 0px 0px 20px 5px var(--main-color);
+    text-align: center;
+    min-height: 420px;
+}
+
+.graph-card h2 {
+    text-align: center;
+    color: #213e57;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+canvas {
+    display: block;
+    width: 100% !important;
+    max-width: 900px;
+    height: 320px !important;
+    margin: 0 auto;
 }

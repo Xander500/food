@@ -59,8 +59,6 @@ function get_user_full_name_from_id($id) {
     //     die("Error: add_user type mismatch");
     // }
 
-
-
     // If the result is empty, it means the user doesn't exist, so we can add the user
     if (mysqli_num_rows($result) == 0) {
         // Prepare the insert query
