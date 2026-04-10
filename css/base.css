@@ -1724,3 +1724,15 @@ main.analytics-body {
     border-radius: 14px;
     box-shadow: 0px 5px 20px 10px var(--main-color);
 }
+
+.sections {
+    height: 80vh;
+}
+
+.button-section {
+    margin: auto;
+}
+
+.text-section {
+    place-items: center;
+}

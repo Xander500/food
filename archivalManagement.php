@@ -99,7 +99,7 @@ require_once('header.php');
   <!-- <header class="top-bar"></header> -->
 
   <!-- Main Content -->
-  <main style="margin-top: 100px;">
+  <main>
     <div class="sections">
 
       <!-- Buttons Section -->
