@@ -477,3 +477,31 @@ function find_logs_by_semester($semester) {
     mysqli_close($con);
     return $theLogs;
 }
+
+function get_monthly_hours() {
+    $con = connect();
+    $query = "SELECT month(date) as m, sum(hours) as v FROM dbvolunteeractivity WHERE year(date) = " . date("Y") . " GROUP BY month(date);";
+    $result = mysqli_query($con, $query);
+
+    $months = array();
+    while ($month = mysqli_fetch_assoc($result)) {
+        $months[] = $month;
+    }
+
+    mysqli_close($con);
+    return $months;
+}
+
+function get_monthly_pounds() {
+    $con = connect();
+    $query = "SELECT month(date) as m, sum(poundsOfFood) as v FROM dbvolunteeractivity WHERE year(date) = " . date("Y") . " GROUP BY month(date);";
+    $result = mysqli_query($con, $query);
+
+    $months = array();
+    while ($month = mysqli_fetch_assoc($result)) {
+        $months[] = $month;
+    }
+
+    mysqli_close($con);
+    return $months;
+}

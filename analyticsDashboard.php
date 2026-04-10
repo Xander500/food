@@ -105,27 +105,30 @@
 <body>
   <!-- Main Content -->
     <h1 class="impact-header">Analytics Dashboard</h1>
+    <?php get_monthly_hours(); ?>
     <main class="analytics-body">
         <div class="display">
-            <div class="nums-display">
-                <div class="num">Total Hours Volunteered : <?php echo round($hours, 2);?></div>
-                <div class="num">Total Pounds of Food Rescued: <?php echo round($pounds, 2); ?></div>
-            </div>
-
-            <div class="num-displays">
-                <div class="num"><a href="impactByStudent.php">Impact by Student</a></div>
-                <div class="num"><a href="impactByOrg.php">Impact by Organization</a></div>
-                <div class="num"><a href="monthlyImpact.php">Monthly Impact</a></div>
-            </div>
-
-                <div class="map">
-                    <?php include_once 'map.php'; ?>
+            <div>
+                <div class="nums-display">
+                    <div class="num">Total Hours Volunteered : <?php echo round($hours, 2);?></div>
+                    <div class="num">Total Pounds of Food Rescued: <?php echo round($pounds, 2); ?></div>
+                    <div class="num"><a href="impactByStudent.php">Impact by Student</a></div>
+                    <div class="num"><a href="impactByOrg.php">Impact by Organization</a></div>
+                </div>
+                <div class="map-container">
+                    <h2>Volunteer Activity Map</h2>
+                    <div class="map">
+                        <?php include_once 'map.php'; ?>
+                    </div>
                 </div>
             </div>
-            <div class="text-center mt-6">
-                    <a href="index.php" class="return-button">Return to Dashboard</a>
+            <div>
+                <?php require_once 'monthlyImpact.php'; ?>
+                <div class="text-center mt-6">
+                    <a href="index.php" class="return-button" style="font-size: 1.5rem; box-shadow: 0px 0px 20px 5px var(--main-color);">Return to Dashboard</a>
+                </div>
             </div>
-        <div>
+        </div>
     </main>
 </body>
 </html>
