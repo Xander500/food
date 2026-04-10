@@ -110,11 +110,13 @@
             <div class="nums-display">
                 <div class="num">Total Hours Volunteered : <?php echo round($hours, 2);?></div>
                 <div class="num">Total Pounds of Food Rescued: <?php echo round($pounds, 2); ?></div>
+            </div>
+
+            <div class="num-displays">
                 <div class="num"><a href="impactByStudent.php">Impact by Student</a></div>
                 <div class="num"><a href="impactByOrg.php">Impact by Organization</a></div>
+                <div class="num"><a href="monthlyImpact.php">Monthly Impact</a></div>
             </div>
-            <div class="map-container">
-                <h2>Volunteer Activity Map</h2>
 
                 <div class="map">
                     <?php include_once 'map.php'; ?>
