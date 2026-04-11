@@ -24,20 +24,21 @@
 
     //control who sees which sections
     //0 means everone,1 means student only, 3 means instructor only.
+    //ignore the ones with 0, not coded below for variable appeareance
     $sections = [
-        "add_vol_log" => 0,
-        "view_all_vol_logs" => 0,
-        "search_vol_logs" => 0,
-        "edit_vol_log" => 0,
-        "delete_vol_log" => 0,
-        "view_own_vol_logs" => 1,
-        "viewimpact_summary" => 1,
+        "add_activity_log" => 0,
+        "view_logs" => 0,
+        "search_logs" => 0,
+        "edit_log" => 0,
+        "delete_log" => 0,
+        "view_own_logs" => 1,
+        "view_impact_summary" => 1,
         "add_org" => 0,
         "edit_org" => 0,
         "delete_orgs" => 3,
         "manage_user_roles" => 3,
         "export_data" => 3,
-        "view_analytics_dashboard" => 3,
+        "view_analytics" => 3,
     ];
 ?>
 <!DOCTYPE html>
@@ -60,8 +61,7 @@
         <div class="hero-bg"></div>
 
 
-        <main class="general howto-page">
-            
+        <main class="general howto-page">            
             <div class="sidebar-wrapper">
                 <div class="sidebar">
                     <div class="sidebar-item">
@@ -72,14 +72,14 @@
                             <li><a href="#search-logs">Search Volunteer Activity Logs</a></li>
                             <li><a href="#edit-log">Edit a Volunteer Activity Log</a></li>
                             <li><a href="#delete-log">Delete a Volunteer Activity Log</a></li>
-                            <li><a href="#view-own-logs">View My Volunteer Activity Logs</a></li>
-                            <li><a href="#view-impact-summary">View Your Personal Impact Summary</a></li>
+                            <?php if ($sections['view_own_logs'] == $accessLevel): ?><li><a href="#view-own-logs">View My Volunteer Activity Logs</a></li><?php endif; ?>
+                            <?php if ($sections['view_impact_summary'] == $accessLevel): ?><li><a href="#view-impact-summary">View Your Personal Impact Summary</a></li><?php endif; ?>
                             <li><a href="#add-org">Add Organization</a></li>
                             <li><a href="#edit-org">Edit Organization</a></li>
-                            <li><a href="#delete-orgs">Delete Organizations</a></li>
-                            <li><a href="#manage-user-roles">Manage User Roles</a></li>
-                            <li><a href="#export-data">Export Data</a></li>
-                            <li><a href="#view-analytics">View Analytics Dashboard</a></li>
+                            <?php if ($sections['delete_orgs'] == $accessLevel): ?><li><a href="#delete-orgs">Delete Organizations</a></li><?php endif; ?>
+                            <?php if ($sections['manage_user_roles'] == $accessLevel): ?><li><a href="#manage-user-roles">Manage User Roles</a></li><?php endif; ?>
+                            <?php if ($sections['export_data'] == $accessLevel): ?><li><a href="#export-data">Export Data</a></li><?php endif; ?>
+                            <?php if ($sections['view_analytics'] == $accessLevel): ?><li><a href="#view-analytics">View Analytics Dashboard</a></li><?php endif; ?>
                         </ol>
                     </div>
                 </div>
@@ -145,15 +145,19 @@
                     </ul>
                 </section>
 
+                <?php if ($sections['view_own_logs'] == $accessLevel): ?>
                 <section id="view-own-logs">
                     <h3>View My Volunteer Activity Logs</h3>
                     <!-- Add instructions here if needed -->
                 </section>
+                <?php endif; ?>
 
+                <?php if ($sections['view_impact_summary'] == $accessLevel): ?>
                 <section id="view-impact-summary">
                     <h3>View Your Personal Impact Summary</h3>
                     <!-- Add instructions here if needed -->
                 </section>
+                <?php endif; ?>
 
                 <section id="add-organization">
                     <h3>Add Organization</h3>
@@ -180,25 +184,33 @@
                     <!-- Add instructions here -->
                 </section>
 
+                <?php if ($sections['delete_orgs'] == $accessLevel): ?>
                 <section id="delete-orgs">
                     <h3>Delete Organizations</h3>
                     <!-- Add instructions here -->
                 </section>
+                <?php endif; ?>
 
+                <?php if ($sections['manage_user_roles'] == $accessLevel): ?>
                 <section id="manage-user-roles">
                     <h3>Manage User Roles</h3>
                     <!-- Add instructions here -->
                 </section>
+                <?php endif; ?>
 
+                <?php if ($sections['export_data'] == $accessLevel): ?>
                 <section id="export-data">
                     <h3>Export Data</h3>
                     <!-- Add instructions here -->
                 </section>
+                <?php endif; ?>
 
+                <?php if ($sections['view_analytics'] == $accessLevel): ?>
                 <section id="view-analytics">
                     <h3>View Analytics Dashboard</h3>
                     <!-- Add instructions here -->
                 </section>
+                <?php endif; ?>
             </div>
         </main>
     </body>
