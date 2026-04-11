@@ -1017,12 +1017,13 @@ form.signup-form a:hover {
 
 
 .sidebar-wrapper {
-    position:sticky;
-    float: left;
-    top: 8rem;
-    height:300px;
-    width: 250px;
+    position: static;
+    top: 100px;
+    height: auto;
+    width: fit-content;
     border-radius: var(--button-border-radius);
+
+    display: inline-block;
 }
 
 .sidebar {
@@ -1059,10 +1060,8 @@ main.general.howto-page > h1 {
 }
 
 main.general.howto-page .sidebar-wrapper {
-    float: none;
-    position: sticky;
     top: 8rem;
-    width: 250px;
+    width: fit-content;
     flex: 0 0 250px;
     height: auto;
 }
@@ -1082,6 +1081,7 @@ main.general.howto-page section  {
     border-radius: 1rem;
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    scroll-margin-top: 110px;
 }
 
 main.general.howto-page section  h3 {
@@ -1105,7 +1105,7 @@ main.general.howto-page .blue-div {
     }
 }
 
-.sidebar-item {
+.sidebar-item a {
     display: flex;
     color: var(--inactive-font-color);
     align-items: flex-start;
@@ -1121,7 +1121,7 @@ main.general.howto-page .blue-div {
     color: var(--accent-color);
 }
 
-.sidebar-item:hover {
+.sidebar-item a:hover {
     background-color: rgba(0, 0, 0, 0.1);
     color: hsl(from var(--accent-color) h s calc(l+3));
 }
@@ -1134,7 +1134,8 @@ main.general.howto-page .blue-div {
     height: 20px;
 }
 
-main.general.howto-page section ul {
+main.general.howto-page section ul,
+.sidebar-item ol {
     list-style-type: disc;        
     padding-left: 40px;
     margin: 1em 0;
@@ -1142,6 +1143,11 @@ main.general.howto-page section ul {
 
 main.general.howto-page section ul li {
         list-style-type: disc;        
+}
+
+.sidebar-item ol,
+.sidebar-item li {
+    list-style: decimal;
 }
 
 /*--------------end of how-to page styles------------------*/

@@ -46,33 +46,46 @@
         <?php require_once('universal.inc') ?>
         <link rel="stylesheet" href="css/base.css">
         <title>UMW Alleviating Food Waste Volunteer Tracking | Instructions</title>
+        <script src="https://cdn.tailwindcss.com"></script>
 
-
-        <style>
-            /*css goes here*/
-            </style>
 
 
 
     </head>
-    <body>
+    <body class="bg-gray-100">
+
+        <!-- Hero Banner -->
+        <div class="h-48 relative" style="background-color: var(--page-background-color);"></div>
+
         <?php require_once('header.php') ?>
-        <main class="general howto-page">
-            <h1>Instructions</h1>
-            <div class="sidebar-wrapper">
-                <div class="sidebar">
-                    <div class="sidebar-item">
-                        <img src="images/settings.png"><h3> Edit Profile</h3>
-                    </div>
-                    <div class="sidebar-item">
-                        <a href="#login">
-                            <img src="images/change-password.png"> Login Credentials
-                        </a>
+
+        <!-- Main Content -->
+        <main class="general howto-page max-w-6xl mx-auto px-4 -mt-20 relative z-10">
+            <h1 class="text-3xl font-bold mb-6">Instructions</h1>
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Sidebar -->
+                <div class="sidebar-wrapper">
+                    <div class="sidebar-item bg-white shadow-50 border border-gray-300 rounded-lg p-4">
+                        <ol>
+                            <li><a href="#add-activity-log">Add a Volunteer Activity Log</a></li>
+                            <li><a href="#view-logs">View All Volunteer Activity Logs</a></li>
+                            <li><a href="#search-logs">Search Volunteer Activity Logs</a></li>
+                            <li><a href="#edit-log">Edit a Volunteer Activity Log</a></li>
+                            <li><a href="#delete-log">Delete a Volunteer Activity Log</a></li>
+                            <li><a href="#view-own-logs">View My Volunteer Activity Logs</a></li>
+                            <li><a href="#view-impact-summary">View Your Personal Impact Summary</a></li>
+                            <li><a href="#add-org">Add Organization</a></li>
+                            <li><a href="#edit-org">Edit Organization</a></li>
+                            <li><a href="#delete-orgs">Delete Organizations</a></li>
+                            <li><a href="#manage-user-roles">Manage User Roles</a></li>
+                            <li><a href="#export-data">Export Data</a></li>
+                            <li><a href="#view-analytics">View Analytics Dashboard</a></li>
+                        </ol>
                     </div>
                 </div>
-            </div>
 
-            <div class="main-content-box">
+                <!-- Main Content -->
+                <div class="main-content-box w-full md:w-3/4">
                     <section id="add-activity-log">
                         <h3>Add a Volunteer Activity Log</h3>
                         <ul>
@@ -114,8 +127,7 @@
                         </ul>
                     </section>
                     <section id="edit-log">
-
-                        <h3>Edit Volunteer Activity Log</h3>
+                        <h3>Edit a Volunteer Activity Log</h3>
                         <ul>
                             <li>Note: Students may only edit their own logs. Instructors may edit any log.</li>
                             <li>To edit a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
@@ -124,7 +136,7 @@
                         </ul>
                     </section>
                     <section id="delete-log">
-                        <h3>Delete Volunteer Activity Log</h3>
+                        <h3>Delete a Volunteer Activity Log</h3>
                         <ul>
                             <li>Note: Students may only delete their own logs. Instructors may delete any log.</li>
                             <li>To delete a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
@@ -133,11 +145,61 @@
                     </section>
 
                     <section id="view-own-logs">
-                        <h3>View Your Own Volunteer Activity Logs</h3>
+                        <h3>View My Volunteer Activity Logs</h3>
                         <!-- Add instructions here if needed -->
                     </section>
+
+                    <section id="personal-impact-summary">
+                        <h3>View Your Personal Impact Summary</h3>
+                        <!-- Add instructions here if needed -->
+                    </section>
+
+                    <section id="add-organization">
+                        <h3>Add Organization</h3>
+                        <ul>
+                            <li>To add a new non-profit or volunteer organization, navigate to the <a href="link goes here">"Add Organization" page</a> via the navigation bar dropdown at the top of any page.</li>
+                            <li>Enter the details about the organization and click "Submit."</li>
+                            <li>You are required to provide the organization's name.</li>
+                            <li>You may additionally provide an e-mail, a location, and a description.</li>
+                        </ul>
+                    </section>
+
+                    <section id="edit-org">
+                        <h3>Edit Organization</h3>
+                        <ul>
+                            <li>Note: Students may only edit their own logs. Instructors may edit any log.</li>
+                            <li>To edit the details of a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
+                            <li>On the log's page, you will see the header "Volunteer Activity Details" with a pencil icon to the right. Click the pencil to open the edit form.</li>
+                            <li>Make your changes and click the "Update Log" button.</li>
+                        </ul>
+                    </section>
+
+                    <section id="add-org">
+                        <h3>Add Organization</h3>
+                        <!-- Add instructions here -->
+                    </section>
+
+                    <section id="delete-org">
+                        <h3>Delete Organizations</h3>
+                        <!-- Add instructions here -->
+                    </section>
+
+                    <section id="manage-roles">
+                        <h3>Manage User Roles</h3>
+                        <!-- Add instructions here -->
+                    </section>
+
+                    <section id="export-data">
+                        <h3>Export Data</h3>
+                        <!-- Add instructions here -->
+                    </section>
+
+                    <section id="analytics-dashboard">
+                        <h3>View Analytics Dashboard</h3>
+                        <!-- Add instructions here -->
+                    </section>
+                </div>
             </div>
-  
         </main>
     </body>
 </html>
