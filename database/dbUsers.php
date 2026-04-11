@@ -322,11 +322,11 @@ function get_all_aggregated_poundsOfFood_for_volunteers() {
     return $result;
 }
 
-function archive_users_by_semester($semester, $archived = '1') {
+function archive_users_by_semester($semester, $archived = '1', $role = 'Student') {
     $con=connect();
-    $sql = 'UPDATE dbusers SET archived = ? WHERE semester = ?';
+    $sql = 'UPDATE dbusers SET archived = ? WHERE semester = ? AND role = ?';
     $query = $con->prepare($sql);
-    $query->bind_param("ss", $archived, $semester);
+    $query->bind_param("sss", $archived, $semester, $role);
     $query->execute();
     return $query->affected_rows;
 }
