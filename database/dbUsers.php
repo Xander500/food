@@ -306,14 +306,17 @@ function update_user_required($id, $first_name, $last_name, $email, $semester) {
 }
 
 //aggregate data for a user
-function get_all_aggregated_poundsOfFood_for_volunteers() {
+function get_all_aggregated_poundsOfFood_for_volunteers($archived = '0') {
     $con=connect();
-    $query = "SELECT volunteerID,first_name,last_name,SUM(hours) as totalHours,SUM(poundsOfFood) as totalPoundsRescued
-                FROM dbvolunteeractivity LEFT JOIN dbusers on dbusers.id = dbvolunteeractivity.volunteerID
+    $sql = 'SELECT volunteerID,first_name,last_name,SUM(hours) as totalHours,SUM(poundsOfFood) as totalPoundsRescued
+                FROM dbvolunteeractivity RIGHT JOIN dbusers on dbusers.id = dbvolunteeractivity.volunteerID WHERE (dbusers.archived = 0 OR ? = 1)
                     GROUP BY volunteerID, last_name 
-                        ORDER BY last_name";
+                        ORDER BY last_name';
 
-    $result = mysqli_query($con,$query);
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $archived);
+    $query->execute();
+    $result = $query->get_result();
     mysqli_close($con);
 
     if ($result == null || mysqli_num_rows($result) == 0) {

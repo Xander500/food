@@ -18,12 +18,18 @@ require_once('database/dbOrganizations.php');
 $exportType = $_POST['exportType'] ?? '';
 $format = $_POST['format'] ?? 'csv';
 
+if (isset($_POST['archived']) === false) {
+    $archived = '0';
+} else {
+    $archived = '1';
+}
+
 ///////////////////// USERS
 
 if ($exportType == 'users') {
 
     // Fetch Data
-    $reportData = get_all_aggregated_poundsOfFood_for_volunteers();
+    $reportData = get_all_aggregated_poundsOfFood_for_volunteers($archived);
 
     $eventID = "Volunteer data";
     $eventName = "test";
