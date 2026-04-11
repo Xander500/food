@@ -1016,8 +1016,7 @@ form.signup-form a:hover {
 
 
 .sidebar-wrapper {
-    position: static;
-    top: 100px;
+    position: sticky;
     height: auto;
     width: fit-content;
     border-radius: var(--button-border-radius);
@@ -1051,7 +1050,7 @@ main.general.howto-page {
 }
 
 main.general.howto-page .main-content-box {
-    padding-top: 0%;
+    padding: 0;
 }
 
 main.general.howto-page > h1 {
@@ -1059,10 +1058,11 @@ main.general.howto-page > h1 {
 }
 
 main.general.howto-page .sidebar-wrapper {
-    top: 8rem;
+    top: 6.5rem;
     width: fit-content;
-    flex: 0 0 250px;
+    flex: 0 0 auto;
     height: auto;
+    font-size: 0.9rem;
 }
 
 main.general.howto-page .main-content-box {
@@ -1072,6 +1072,10 @@ main.general.howto-page .main-content-box {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    h3 {
+        font-weight: normal;
+    }
 }
 
 main.general.howto-page section  {
@@ -1081,9 +1085,10 @@ main.general.howto-page section  {
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
     scroll-margin-top: 110px;
+    font-size: 1rem;
 }
 
-main.general.howto-page section  h3 {
+main.general.howto-page section h3 {
     margin-top: 0;
 }
 
@@ -1114,9 +1119,6 @@ main.general.howto-page .blue-div {
     border: 1px solid var(--light-border);
     padding: 5px;
     width: 100%;
-}
-
-.sidebar-item a {
     color: var(--accent-color);
 }
 
@@ -1140,8 +1142,12 @@ main.general.howto-page section ul,
     margin: 1em 0;
 }
 
+.sidebar-item ol {
+    margin: 0;
+}
+
 main.general.howto-page section ul li {
-        list-style-type: disc;        
+    list-style-type: disc;        
 }
 
 .sidebar-item ol,
@@ -1151,7 +1157,7 @@ main.general.howto-page section ul li {
 
 main.general.howto-page {
     position: relative;
-}
+    margin-top: 6rem;}
 .hero-bg {
     position: absolute;
     top: 0;
@@ -1163,7 +1169,7 @@ main.general.howto-page {
 }
 
 .page-content {
-    position: relative;
+    position: relative; 
     z-index: 1;
 }
 
