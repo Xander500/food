@@ -1174,7 +1174,7 @@ main.general.howto-page {
 }
 
 .ht-bg {
-    background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+    background-color: var(--accent-color);
 }
 /*--------------end of how-to page styles------------------*/
 

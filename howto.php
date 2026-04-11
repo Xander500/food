@@ -123,7 +123,7 @@
                         </ul>
                     </ul>
                     <ul>
-                        <li>Once you have selected your filters, click the "Apply Filters" button. You may continue to <a href="link goes here">view the logs, as described above</a>.</li>
+                        <li>Once you have selected your filters, click the "Apply Filters" button. You may continue to <a href="#view-logs">view the logs, as described above</a>.</li>
                     </ul>
                 </section>
                 <section id="edit-log">
@@ -131,7 +131,7 @@
                     <h3>Edit a Volunteer Activity Log</h3>
                     <ul>
                         <li>Note: Students may only edit their own logs. Instructors may edit any log.</li>
-                        <li>To edit a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
+                        <li>To edit a previously created volunteer activity log, navigate to that log's page by <a href="#search-logs">searching for the log</a> on the homepage.</li>
                         <li>On the log's page, you will see the header "Volunteer Activity Details" with a pencil icon to the right. Click the pencil to open the edit form.</li>
                         <li>Make your changes and click the "Update Log" button.</li>
                     </ul>
@@ -140,7 +140,7 @@
                     <h3>Delete a Volunteer Activity Log</h3>
                     <ul>
                         <li>Note: Students may only delete their own logs. Instructors may delete any log.</li>
-                        <li>To delete a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
+                        <li>To delete a previously created volunteer activity log, navigate to that log's page by <a href="#search-logs">searching for the log</a> on the homepage.</li>
                         <li>On the log's page, you will see the header "Volunteer Activity Details" with a trashcan icon to the right. Click the trashcan to open the delete form.</li>
                     </ul>
                 </section>
@@ -171,12 +171,7 @@
 
                 <section id="edit-org">
                     <h3>Edit Organization</h3>
-                    <ul>
-                        <li>Note: Students may only edit their own logs. Instructors may edit any log.</li>
-                        <li>To edit the details of a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
-                        <li>On the log's page, you will see the header "Volunteer Activity Details" with a pencil icon to the right. Click the pencil to open the edit form.</li>
-                        <li>Make your changes and click the "Update Log" button.</li>
-                    </ul>
+                    <!-- Add instructions here -->
                 </section>
 
                 <section id="add-org">
