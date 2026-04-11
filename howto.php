@@ -46,26 +46,26 @@
         <?php require_once('universal.inc') ?>
         <link rel="stylesheet" href="css/base.css">
         <title>UMW Alleviating Food Waste Volunteer Tracking | Instructions</title>
-        <script src="https://cdn.tailwindcss.com"></script>
 
 
 
 
     </head>
-    <body class="bg-gray-100">
+    <body class="ht-bg">
 
-        <!-- Hero Banner -->
-        <div class="h-48 relative" style="background-color: var(--page-background-color);"></div>
 
         <?php require_once('header.php') ?>
 
-        <!-- Main Content -->
-        <main class="general howto-page max-w-6xl mx-auto px-4 -mt-20 relative z-10">
-            <h1 class="text-3xl font-bold mb-6">Instructions</h1>
-            <div class="flex flex-col md:flex-row gap-6">
-                <!-- Sidebar -->
-                <div class="sidebar-wrapper">
-                    <div class="sidebar-item bg-white shadow-50 border border-gray-300 rounded-lg p-4">
+        <!-- Hero Banner -->
+        <div class="hero-bg"></div>
+
+
+        <main class="general howto-page">
+            
+            <div class="sidebar-wrapper">
+                <div class="sidebar">
+                    <div class="sidebar-item">
+                        <h1>Instructions</h1>
                         <ol>
                             <li><a href="#add-activity-log">Add a Volunteer Activity Log</a></li>
                             <li><a href="#view-logs">View All Volunteer Activity Logs</a></li>
@@ -83,122 +83,122 @@
                         </ol>
                     </div>
                 </div>
+            </div>
 
-                <!-- Main Content -->
-                <div class="main-content-box w-full md:w-3/4">
-                    <section id="add-activity-log">
-                        <h3>Add a Volunteer Activity Log</h3>
+            <div class="main-content-box">
+                <section id="add-activity-log">
+                    <h3>Add a Volunteer Activity Log</h3>
+                    <ul>
+                        <li>To add records of your volunteer activities with a non-profit or volunteer organization on a particular date, navigate to the <a href="link goes here">homepage</a> and select the <a href="link goes here">"Add Log" button</a> at the top of the page.</li>
+                        <li>Enter the details about your activity into the form and click "Create Activity."</li>
+                        <li>You are required to provide information about the date, the duration (number of hours), and the organization.</li>
+                        <li>You may additionally provide information about the location, the pounds of food rescued, and a description of the activity.</li>
+                    </ul>
+                </section>
+                <section id="view-logs">
+                    <h3>View All Volunteer Activity Logs</h3>
+                    <ul>
+                        <li>To view volunteer activity logs, navigate to the <a href="link goes here">log display table</a> on the <a href="link goes here">homepage</a>.</li>
+                        <li>Scroll down until you see the section titled "View All Volunteer Activity."</li>
+                        <li>If there are numerous logs, the table will display only one page at a time. Page navigation links are found at the lower right corner of the table. Click the numbered buttons to view that page or the arrows to navigate pages.</li>
+                        <li>By default, the logs are sorted by date. Click any column header link to sort by that field. An arrow will appear next to the selected header, indicating ascending or descending order. Click the header again to reverse the order.</li>
+                        <li>To view the details of a single log, click the "👁" icon to the left of that log's row.</li>
+                    </ul>
+                </section>
+                <section id="search-logs">
+                    <h3>Search Volunteer Activity Logs</h3>
+                    <ul>
+                        <li>To search active volunteer activity logs, navigate to the <a href="link goes here">log display table</a> on the <a href="link goes here">homepage</a>.</li>
+                        <li>At the top of the page, there is a "Search Volunteer Activity" form. Note: Dropdown selections will only display options for students/organizations/semesters that currently appear in active logs.</li>
                         <ul>
-                            <li>To add records of your volunteer activities with a non-profit or volunteer organization on a particular date, navigate to the <a href="link goes here">homepage</a> and select the <a href="link goes here">"Add Log" button</a> at the top of the page.</li>
-                            <li>Enter the details about your activity into the form and click "Create Activity."</li>
-                            <li>You are required to provide information about the date, the duration (number of hours), and the organization.</li>
-                            <li>You may additionally provide information about the location, the pounds of food rescued, and a description of the activity.</li>
+                            <li>Search by Student: Select a student's name to only view logs featuring that student.</li>
+                            <li>Search by Organization: Select an organization to only view logs featuring that non-profit or volunteer organization.</li>
+                            <li>Search by Semester: Select a semester to view logs created by students registered in that semester.</li>
+                            <li>Search After this Date: Select a date to only view activities on or after that date.</li>
+                            <li>Search Before this Date: Select a date to only view activities on or before that date.</li>
+                            <li>Search for at least this many Hours: Enter a number to view logs with a duration of at least that many hours.</li>
+                            <li>Search for no more than this many Hours: Enter a number to view logs with a duration of at most that many hours.</li>
+                            <li>Search for at least this many Pounds of Food: Enter a number to view logs with at least that many pounds of food rescued.</li>
+                            <li>Search for no more than this many Pounds of Food: Enter a number to view logs with at most that many pounds of food rescued.</li>
                         </ul>
-                    </section>
-                    <section id="view-logs">
-                        <h3>View All Volunteer Activity Logs</h3>
-                        <ul>
-                            <li>To view volunteer activity logs, navigate to the <a href="link goes here">log display table</a> on the <a href="link goes here">homepage</a>.</li>
-                            <li>Scroll down until you see the section titled "View All Volunteer Activity."</li>
-                            <li>If there are numerous logs, the table will display only one page at a time. Page navigation links are found at the lower right corner of the table. Click the numbered buttons to view that page or the arrows to navigate pages.</li>
-                            <li>By default, the logs are sorted by date. Click any column header link to sort by that field. An arrow will appear next to the selected header, indicating ascending or descending order. Click the header again to reverse the order.</li>
-                            <li>To view the details of a single log, click the "👁" icon to the left of that log's row.</li>
-                        </ul>
-                    </section>
-                    <section id="search-logs">
-                        <h3>Search Volunteer Activity Logs</h3>
-                        <ul>
-                            <li>To search active volunteer activity logs, navigate to the <a href="link goes here">log display table</a> on the <a href="link goes here">homepage</a>.</li>
-                            <li>At the top of the page, there is a "Search Volunteer Activity" form. Note: Dropdown selections will only display options for students/organizations/semesters that currently appear in active logs.</li>
-                            <ul>
-                                <li>Search by Student: Select a student's name to only view logs featuring that student.</li>
-                                <li>Search by Organization: Select an organization to only view logs featuring that non-profit or volunteer organization.</li>
-                                <li>Search by Semester: Select a semester to view logs created by students registered in that semester.</li>
-                                <li>Search After this Date: Select a date to only view activities on or after that date.</li>
-                                <li>Search Before this Date: Select a date to only view activities on or before that date.</li>
-                                <li>Search for at least this many Hours: Enter a number to view logs with a duration of at least that many hours.</li>
-                                <li>Search for no more than this many Hours: Enter a number to view logs with a duration of at most that many hours.</li>
-                                <li>Search for at least this many Pounds of Food: Enter a number to view logs with at least that many pounds of food rescued.</li>
-                                <li>Search for no more than this many Pounds of Food: Enter a number to view logs with at most that many pounds of food rescued.</li>
-                            </ul>
-                        </ul>
-                        <ul>
-                            <li>Once you have selected your filters, click the "Apply Filters" button. You may continue to <a href="link goes here">view the logs, as described above</a>.</li>
-                        </ul>
-                    </section>
-                    <section id="edit-log">
-                        <h3>Edit a Volunteer Activity Log</h3>
-                        <ul>
-                            <li>Note: Students may only edit their own logs. Instructors may edit any log.</li>
-                            <li>To edit a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
-                            <li>On the log's page, you will see the header "Volunteer Activity Details" with a pencil icon to the right. Click the pencil to open the edit form.</li>
-                            <li>Make your changes and click the "Update Log" button.</li>
-                        </ul>
-                    </section>
-                    <section id="delete-log">
-                        <h3>Delete a Volunteer Activity Log</h3>
-                        <ul>
-                            <li>Note: Students may only delete their own logs. Instructors may delete any log.</li>
-                            <li>To delete a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
-                            <li>On the log's page, you will see the header "Volunteer Activity Details" with a trashcan icon to the right. Click the trashcan to open the delete form.</li>
-                        </ul>
-                    </section>
+                    </ul>
+                    <ul>
+                        <li>Once you have selected your filters, click the "Apply Filters" button. You may continue to <a href="link goes here">view the logs, as described above</a>.</li>
+                    </ul>
+                </section>
+                <section id="edit-log">
 
-                    <section id="view-own-logs">
-                        <h3>View My Volunteer Activity Logs</h3>
-                        <!-- Add instructions here if needed -->
-                    </section>
+                    <h3>Edit a Volunteer Activity Log</h3>
+                    <ul>
+                        <li>Note: Students may only edit their own logs. Instructors may edit any log.</li>
+                        <li>To edit a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
+                        <li>On the log's page, you will see the header "Volunteer Activity Details" with a pencil icon to the right. Click the pencil to open the edit form.</li>
+                        <li>Make your changes and click the "Update Log" button.</li>
+                    </ul>
+                </section>
+                <section id="delete-log">
+                    <h3>Delete a Volunteer Activity Log</h3>
+                    <ul>
+                        <li>Note: Students may only delete their own logs. Instructors may delete any log.</li>
+                        <li>To delete a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
+                        <li>On the log's page, you will see the header "Volunteer Activity Details" with a trashcan icon to the right. Click the trashcan to open the delete form.</li>
+                    </ul>
+                </section>
 
-                    <section id="personal-impact-summary">
-                        <h3>View Your Personal Impact Summary</h3>
-                        <!-- Add instructions here if needed -->
-                    </section>
+                <section id="view-own-logs">
+                    <h3>View My Volunteer Activity Logs</h3>
+                    <!-- Add instructions here if needed -->
+                </section>
 
-                    <section id="add-organization">
-                        <h3>Add Organization</h3>
-                        <ul>
-                            <li>To add a new non-profit or volunteer organization, navigate to the <a href="link goes here">"Add Organization" page</a> via the navigation bar dropdown at the top of any page.</li>
-                            <li>Enter the details about the organization and click "Submit."</li>
-                            <li>You are required to provide the organization's name.</li>
-                            <li>You may additionally provide an e-mail, a location, and a description.</li>
-                        </ul>
-                    </section>
+                <section id="view-impact-summary">
+                    <h3>View Your Personal Impact Summary</h3>
+                    <!-- Add instructions here if needed -->
+                </section>
 
-                    <section id="edit-org">
-                        <h3>Edit Organization</h3>
-                        <ul>
-                            <li>Note: Students may only edit their own logs. Instructors may edit any log.</li>
-                            <li>To edit the details of a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
-                            <li>On the log's page, you will see the header "Volunteer Activity Details" with a pencil icon to the right. Click the pencil to open the edit form.</li>
-                            <li>Make your changes and click the "Update Log" button.</li>
-                        </ul>
-                    </section>
+                <section id="add-organization">
+                    <h3>Add Organization</h3>
+                    <ul>
+                        <li>To add a new non-profit or volunteer organization, navigate to the <a href="link goes here">"Add Organization" page</a> via the navigation bar dropdown at the top of any page.</li>
+                        <li>Enter the details about the organization and click "Submit."</li>
+                        <li>You are required to provide the organization's name.</li>
+                        <li>You may additionally provide an e-mail, a location, and a description.</li>
+                    </ul>
+                </section>
 
-                    <section id="add-org">
-                        <h3>Add Organization</h3>
-                        <!-- Add instructions here -->
-                    </section>
+                <section id="edit-org">
+                    <h3>Edit Organization</h3>
+                    <ul>
+                        <li>Note: Students may only edit their own logs. Instructors may edit any log.</li>
+                        <li>To edit the details of a previously created volunteer activity log, navigate to that log's page by <a href="link goes here">searching for the log</a> on the homepage.</li>
+                        <li>On the log's page, you will see the header "Volunteer Activity Details" with a pencil icon to the right. Click the pencil to open the edit form.</li>
+                        <li>Make your changes and click the "Update Log" button.</li>
+                    </ul>
+                </section>
 
-                    <section id="delete-org">
-                        <h3>Delete Organizations</h3>
-                        <!-- Add instructions here -->
-                    </section>
+                <section id="add-org">
+                    <h3>Add Organization</h3>
+                    <!-- Add instructions here -->
+                </section>
 
-                    <section id="manage-roles">
-                        <h3>Manage User Roles</h3>
-                        <!-- Add instructions here -->
-                    </section>
+                <section id="delete-orgs">
+                    <h3>Delete Organizations</h3>
+                    <!-- Add instructions here -->
+                </section>
 
-                    <section id="export-data">
-                        <h3>Export Data</h3>
-                        <!-- Add instructions here -->
-                    </section>
+                <section id="manage-user-roles">
+                    <h3>Manage User Roles</h3>
+                    <!-- Add instructions here -->
+                </section>
 
-                    <section id="analytics-dashboard">
-                        <h3>View Analytics Dashboard</h3>
-                        <!-- Add instructions here -->
-                    </section>
-                </div>
+                <section id="export-data">
+                    <h3>Export Data</h3>
+                    <!-- Add instructions here -->
+                </section>
+
+                <section id="view-analytics">
+                    <h3>View Analytics Dashboard</h3>
+                    <!-- Add instructions here -->
+                </section>
             </div>
         </main>
     </body>

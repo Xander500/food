@@ -958,7 +958,6 @@ a.return-button:hover {
     margin-bottom: 2rem;
     margin-left: auto;
     margin-right: auto;
-    background-color: var(--page-background-color);
     border-radius: 0.5rem;
     /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); */
 }
@@ -1150,6 +1149,27 @@ main.general.howto-page section ul li {
     list-style: decimal;
 }
 
+main.general.howto-page {
+    position: relative;
+}
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 322px;
+    background: white;
+    z-index: 0;
+}
+
+.page-content {
+    position: relative;
+    z-index: 1;
+}
+
+.ht-bg {
+    background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
 /*--------------end of how-to page styles------------------*/
 
 .availability-container {
