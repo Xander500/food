@@ -15,14 +15,16 @@ class Organization {
 	private $email;
 	private $location;
     private $description;
+    private $archived;
 
 
-	function __construct($id, $name, $email, $location, $description) {
+	function __construct($id, $name, $email, $location, $description, $archived='0') {
         $this->id = $id;
 		$this->name = $name;
 		$this->email = $email;
 		$this->location = $location;
 		$this->description = $description;
+		$this->archived = $archived;
     }
 
 
@@ -45,4 +47,8 @@ class Organization {
     function get_description() {
 		return $this->description;
 	}
+
+    function is_archived() {
+        return $this->archived;
+    }
 }
