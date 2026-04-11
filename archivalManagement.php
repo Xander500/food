@@ -115,6 +115,13 @@ require_once('header.php');
 	  <div>Manage Individual Users</div>
 	  <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
         </button>
+
+        <button onclick="window.location.href='editOrganizationSearch.php';">
+	  <div class="button-left-gray"></div>
+	  <div>Manage Individual Organizations</div>
+	  <img class="button-icon" src="images/organization.svg" alt="Organization Icon">
+        </button>
+	
 	
 	<div class="text-center mt-6">
         	<a href="index.php" class="return-button">Return to Dashboard</a>
