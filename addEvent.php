@@ -103,7 +103,7 @@
                         <option value=""></option>
                         <?php
                         require_once('database/dbUsers.php'); // maybe put at top
-                        $volunteers = retrieve_all();
+                        $volunteers = retrieve_all($want_archived=false);
                         while ($row = $volunteers->fetch_assoc()) {
                             echo "<option value='" . hsc($row['id']) . "'>". hsc($row['first_name']) . " " . hsc($row['last_name']) . "</option>";
                         }
