@@ -30,7 +30,8 @@ function add_organization($org) {
     $con = connect();
     $sql = 'SELECT * FROM dborganizations WHERE name = ?';
     $query = $con->prepare($sql);
-    $query->bind_param("s", $org->get_name());
+    $name = $org->get_name();
+    $query->bind_param("s", $name);
     $query->execute();
     $result = $query->get_result();
 
