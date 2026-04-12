@@ -107,6 +107,7 @@ require_once('include/output.php');
                                 <table>
                                     <thead>
                                         <tr>
+                                            <th>Status</th>
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Location</th>
@@ -118,6 +119,7 @@ require_once('include/output.php');
                             foreach ($orgs as $org) {
                                 echo '
                                         <tr>
+                                            <td>' . (($org->is_archived()==0)?"Active":"Archived") . '</td>
                                             <td>' . hsc($org->get_name()) . '</td>
                                             <td>' . hsc($org->get_description()) . '</td>
                                             <td>' . hsc($org->get_location()) . '</td>
