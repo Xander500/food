@@ -110,7 +110,7 @@ if ($exportType == 'users') {
 else if ($exportType == 'logs') {
 
     // Fetch Data
-    $reportData = get_all_logs_sorted_by_date();
+    $reportData = get_all_logs_sorted_by_date($archived);
 
     $eventID = "Logs Data";
     $eventName = "test";
