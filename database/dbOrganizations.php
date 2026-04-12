@@ -27,8 +27,11 @@ function make_an_organization($result_row) {
 
 function add_organization($org) {
     $con = connect();
-    $query = "SELECT * FROM dborganizations WHERE name = '" . $org->get_name() . "'";
-    $result = mysqli_query($con, $query);
+    $sql = 'SELECT * FROM dborganizations WHERE name = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $org->get_name());
+    $query->execute();
+    $result = $query->get_result();
 
     // If the result is empty, it means the org doesn't exist, so we can add the org
     if (mysqli_num_rows($result) == 0) {

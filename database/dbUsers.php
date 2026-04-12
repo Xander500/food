@@ -306,10 +306,13 @@ function update_user_required($id, $first_name, $last_name, $email, $semester) {
 //aggregate data for a user
 function get_all_aggregated_poundsOfFood_for_volunteers($archived = '0') {
     $con=connect();
-    $sql = 'SELECT volunteerID,first_name,last_name,SUM(hours) as totalHours,SUM(poundsOfFood) as totalPoundsRescued
-                FROM dbvolunteeractivity RIGHT JOIN dbusers on dbusers.id = dbvolunteeractivity.volunteerID WHERE (dbusers.archived = 0 OR ? = 1)
-                    GROUP BY volunteerID, last_name 
-                        ORDER BY last_name';
+    $sql = 'SELECT dbUsers.id AS volunteerID, dbUsers.first_name, dbUsers.last_name, COALESCE(SUM(dbvolunteeractivity.hours), 0) AS totalHours, COALESCE(SUM(dbvolunteeractivity.poundsOfFood), 0) AS totalPoundsRescued
+                FROM dbUsers
+                    LEFT JOIN dbvolunteeractivity 
+                        ON dbUsers.id = dbvolunteeractivity.volunteerID
+                            WHERE (dbUsers.archived = 0 OR ? = 1)
+                                GROUP BY dbUsers.id, dbUsers.first_name, dbUsers.last_name
+                                    ORDER BY dbUsers.last_name';
 
     $query = $con->prepare($sql);
     $query->bind_param("s", $archived);

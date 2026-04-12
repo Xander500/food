@@ -75,7 +75,7 @@ function make_a_volunteer_activity($result_row) {
     return $row['num'];
  }
 
-  function get_num_logs_with_filters($filters_input, $want_archived = false) {
+ function get_num_logs_with_filters($filters_input, $want_archived = false) {
     $con=connect();
     $select_statement = "SELECT count(*) as num FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
