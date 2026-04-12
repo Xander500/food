@@ -7,6 +7,7 @@ if ($_SESSION['access_level'] < 2) {
 }
 
 require_once('database/dbOrganizations.php');
+require_once('include/output.php');
 
 $deletedCount = 0;
 $failedCount = 0;

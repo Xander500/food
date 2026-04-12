@@ -31,7 +31,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $args = sanitize($_POST, null);
         $required = array(
-            "id", "name", "email", "description", "location"
+            "id", "name", "email", "description", "location", "archived"
         );
 
         if (!wereRequiredFieldsSubmitted($args, $required)) {
@@ -44,6 +44,7 @@
             $email = $args['email'];
             $description = $args['description'];
             $location = $args['location'];
+            $archived = $args['archived'];
 
             if (!empty($errors)) {
                 // If there are validation errors, we can display them to the user
@@ -96,6 +97,16 @@
             <form id="edit-org-form" method="post">
                 
                 <input type="hidden" name="id" value="<?php echo $id ?>"/> 
+
+                <?php if ($accessLevel == 3): ?>
+                <label for ="archived">Archival Status</label>
+                <select id="archived" name="archived" required <?php if ($accessLevel < 3) { echo "disabled";} ?>>
+                    <option value="0" <?php if (!$org['archived']) echo 'selected'; ?>>Active</option>
+                    <option value="1" <?php if ($org['archived']) echo 'selected'; ?>>Archived</option>
+                </select>
+                <?php else: ?>
+                    <input type="hidden" name="archived" value="<?php echo hsc($org['archived']); ?>" />
+                <?php endif; ?>
             
                 <label for ="name">Name</label>
                 <input type="text" id="name" name="name"

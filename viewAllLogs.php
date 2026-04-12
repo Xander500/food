@@ -25,6 +25,7 @@
     include 'database/dbVolunteerActivity.php';
     include 'database/dbUsers.php';
     include 'database/dbOrganizations.php';
+    include 'include\output.php';
 
 
     //check for sorting
@@ -86,43 +87,43 @@
         <main class="general">
             <h1>Volunteer Activity</h1>
 
-            <h2>Filter Volunteer Activity</h2>
+            <h2>Search Volunteer Activity</h2>
             <form class="log_filters" action="viewAllLogs.php?" method="GET">
-                <input type="hidden" name="page" value="<?php echo $page_num + 1; ?>" />
-                <input type="hidden" name="sortby" value="<?php echo $sortby_display; ?>" />
-                <input type="hidden" name="order" value="<?php echo $order; ?>" />
+                <input type="hidden" name="page" value="<?php echo hsc($page_num + 1); ?>" />
+                <input type="hidden" name="sortby" value="<?php echo hsc($sortby_display); ?>" />
+                <input type="hidden" name="order" value="<?php echo hsc($order); ?>" />
                 <div class="log_filters--row">
                     <div class="log_filter">
-                        <label for="studentSelect">Students</label>
+                        <label for="studentSelect">Search by Student</label>
                         <select id="studentSelect" name="students">
                             <option value=""></option>
                             <?php foreach (get_students_in_logs() as $row): ?>
-                                <option value="<?php echo $row['id']; ?>" <?php echo isset($filters['students']) && $filters['students'] == $row['id'] ? 'selected' : ''; ?>>
-                                    <?php echo $row['last_name'] . ", " . $row['first_name']; ?>
+                                <option value="<?php echo hsc($row['id']); ?>" <?php echo isset($filters['students']) && $filters['students'] == $row['id'] ? 'selected' : ''; ?>>
+                                    <?php echo hsc($row['last_name']) . ", " . hsc($row['first_name']); ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
 
                     <div class="log_filter">
-                        <label for="organizationSelect">Organizations</label>
+                        <label for="organizationSelect">Search by Organization</label>
                         <select id="organizationSelect" name="organizations">
                             <option value=""></option>
                             <?php foreach (get_organizations_in_logs() as $row): ?>
-                                <option value="<?php echo $row['id']; ?>" <?php echo isset($filters['organizations']) && $filters['organizations'] == $row['id'] ? 'selected' : ''; ?>>
-                                    <?php echo $row['name']; ?>
+                                <option value="<?php echo hsc($row['id']); ?>" <?php echo isset($filters['organizations']) && $filters['organizations'] == $row['id'] ? 'selected' : ''; ?>>
+                                    <?php echo hsc($row['name']); ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
 
                     <div class="log_filter">
-                        <label for="semesterSelect">Semesters</label>
+                        <label for="semesterSelect">Search by Semester</label>
                         <select id="semesterSelect" name="semesters">
                             <option value=""></option>
                             <?php foreach (get_semesters_in_users() as $row): ?>
-                                <option value="<?php echo $row['semester']; ?>" <?php echo isset($filters['semesters']) && $filters['semesters'] == $row['semester'] ? 'selected' : ''; ?>>
-                                    <?php echo $row['semester']; ?>
+                                <option value="<?php echo hsc($row['semester']); ?>" <?php echo isset($filters['semesters']) && $filters['semesters'] == $row['semester'] ? 'selected' : ''; ?>>
+                                    <?php echo hsc($row['semester']); ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>
@@ -130,24 +131,24 @@
                 </div>
                 <div class="log_filters--row">
                     <div class="log_filter">
-                        <label for="startDate">Start Date</label>
+                        <label for="startDate">Search after this Date</label>
                         <input type="date" id="startDate" name="startdate"
-                        value="<?php echo htmlspecialchars($filters['startdate'] ?? ''); ?>">
+                        value="<?php echo hsc($filters['startdate'] ?? ''); ?>">
 
-                        <label for="endDate">End Date</label>
-                        <input type="date" id="endDate" name="enddate" value="<?php echo htmlspecialchars($filters['enddate'] ?? ''); ?>">
+                        <label for="endDate">Search Before this Date</label>
+                        <input type="date" id="endDate" name="enddate" value="<?php echo hsc($filters['enddate'] ?? ''); ?>">
                     </div>
                     <div class="log_filter">
-                        <label for="minHours">Minimum Hours</label>
-                        <input type="number" id="minHours" name="minhours" min="0" placeholder="From" value="<?php echo htmlspecialchars($filters['minhours'] ?? ''); ?>">
-                        <label for="maxHours">Maximum Hours</label>
-                        <input type="number" id="maxHours" name="maxhours" min="0" placeholder="To" value="<?php echo htmlspecialchars($filters['maxhours'] ?? ''); ?>">
+                        <label for="minHours">Search for at least this many Hours</label>
+                        <input type="number" id="minHours" name="minhours" min="0" placeholder="From" value="<?php echo hsc($filters['minhours'] ?? ''); ?>">
+                        <label for="maxHours">Search for no more than this many Hours</label>
+                        <input type="number" id="maxHours" name="maxhours" min="0" placeholder="To" value="<?php echo hsc($filters['maxhours'] ?? ''); ?>">
                     </div>
                     <div class="log_filter">
-                        <label for="minFood">Minimum Pounds of Food Rescued</label>
-                        <input type="number" id="minFood" name="minfood" min="0" placeholder="From" value="<?php echo htmlspecialchars($filters['minfood'] ?? ''); ?>">
-                        <label for="maxFood">Maximum Pounds of Food Rescued</label>
-                        <input type="number" id="maxFood" name="maxfood" min="0" placeholder="To" value="<?php echo htmlspecialchars($filters['maxfood'] ?? ''); ?>">
+                        <label for="minFood">Search for at least this many Pounds of Food</label>
+                        <input type="number" id="minFood" name="minfood" min="0" placeholder="From" value="<?php echo hsc($filters['minfood'] ?? ''); ?>">
+                        <label for="maxFood">Search for no more than this many Pounds of Food</label>
+                        <input type="number" id="maxFood" name="maxfood" min="0" placeholder="To" value="<?php echo hsc($filters['maxfood'] ?? ''); ?>">
                     </div>
                 </div>
                 <div style="margin: auto; width: 75%;">
@@ -169,13 +170,13 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'student') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'student', 'order' => (($sortby_display === 'student') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters)); ?>#log-table'>Student</a><div></div></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'date') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'date', 'order' => (($sortby_display === 'date') ? (($order === 'asc') ? 'desc' : 'asc') : 'desc')], $filters)); ?>#log-table'>Date</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'organization') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'organization', 'order' => (($sortby_display === 'organization') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters)); ?>#log-table'>Organization</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'hours') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'hours', 'order' => (($sortby_display === 'hours') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters)); ?>#log-table'>Hours</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'location') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'location', 'order' => (($sortby_display === 'location') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters)); ?>#log-table'>Location</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'poundsoffood') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'poundsoffood', 'order' => (($sortby_display === 'poundsoffood') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters)); ?>#log-table'>Food Rescued (lbs)</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'description') ? 'sorted-' . $order : '' ?>' href='viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'description', 'order' => (($sortby_display === 'description') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters)); ?>#log-table'>Description</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'student') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'student', 'order' => (($sortby_display === 'student') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Student</a><div></div></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'date') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'date', 'order' => (($sortby_display === 'date') ? (($order === 'asc') ? 'desc' : 'asc') : 'desc')], $filters))); ?>#log-table'>Date</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'organization') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'organization', 'order' => (($sortby_display === 'organization') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Organization</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'hours') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'hours', 'order' => (($sortby_display === 'hours') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Hours</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'location') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'location', 'order' => (($sortby_display === 'location') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Location</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'poundsoffood') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'poundsoffood', 'order' => (($sortby_display === 'poundsoffood') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Food Rescued (lbs)</a></th>
+                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'description') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'description', 'order' => (($sortby_display === 'description') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Description</a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -194,18 +195,18 @@
 
                                     $studentName = get_user_full_name_from_id($studentID);
                                     $organizationName = get_organization_name_from_id($organizationID);
-
-                                    echo "
-                                    <tr data-event-id='$logID'>
-                                        <td><a href='log.php?id=$logID' class='event-link'>👁</a></td>
-                                        <td>$studentName</td>
-                                        <td>$date</td>
-                                        <td>$organizationName</td>
-                                        <td>$hours</td>
-                                        <td>$location</td>
-                                        <td>$pounds</td>
-                                        <td>$description</td>
-                                    </tr>";
+                                    ?>
+                                    <tr data-event-id="<?php echo hsc($logID); ?>">
+                                        <td><a href="log.php?id=<?php echo hsc($logID); ?>" class="event-link">👁</a></td>
+                                        <td><?php echo hsc($studentName); ?></td>
+                                        <td><?php echo hsc($date); ?></td>
+                                        <td><?php echo hsc($organizationName); ?></td>
+                                        <td><?php echo hsc($hours); ?></td>
+                                        <td><?php echo hsc($location); ?></td>
+                                        <td><?php echo hsc($pounds); ?></td>
+                                        <td><?php echo hsc($description); ?></td>
+                                    </tr>
+                                <?php
                                 }
                             ?>
                         </tbody>
@@ -215,17 +216,17 @@
                 <ul class="pagination">
                     <?php if ($page_num - $page_display_range > 0): ?>
                         <li class="pagination_li">
-                            <a href="viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => 0, 'sortby' => $sortby_display, 'order' => $order], $filters)); ?>#log-table" class="pagination_link">&#x21e4;</a>
+                            <a href="viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => 0, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link">&#x21e4;</a>
                         </li>
                     <?php endif; ?>
                     <?php for($x = max(0, $page_num - $page_display_range); $x <= min($max_pages, $page_num + $page_display_range); $x++): ?>
                         <li class="pagination_li">
-                            <a href="viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $x + 1, 'sortby' => $sortby_display, 'order' => $order], $filters)); ?>#log-table" class="pagination_link<?php if ($page_num === $x): ?> pagination_link--active<?php endif; ?>"><?php echo htmlspecialchars($x + 1); ?></a>
+                            <a href="viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $x + 1, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link<?php if ($page_num === $x): ?> pagination_link--active<?php endif; ?>"><?php echo hsc($x + 1); ?></a>
                         </li>
                     <?php endfor; ?>
                     <?php if ($page_num < $max_pages - $page_display_range): ?>
                     <li class="pagination_li">
-                        <a href="viewAllLogs.php?<?php echo http_build_query(array_merge(['page' => $max_pages + 1, 'sortby' => $sortby_display, 'order' => $order], $filters)); ?>#log-table" class="pagination_link">&#8677;</a>
+                        <a href="viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $max_pages + 1, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link">&#8677;</a>
                     </li>
                     <?php endif; ?>
                 </ul>

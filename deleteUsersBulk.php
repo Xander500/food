@@ -8,6 +8,7 @@ $userID = null;
 $isAdmin = false;
 
 require_once('database/dbUsers.php');
+require_once('include/output.php');
 
 if (!isset($_POST['bulk_delete'])) {
     header('Location: deleteUserSearch.php');
@@ -74,7 +75,7 @@ if (isset($_POST['selected_users']) && is_array($_POST['selected_users'])) {
                     <h3>Deleted Users:</h3>
                     <ul>
                         <?php foreach ($deletedUsers as $deleted): ?>
-                            <li><?php echo htmlspecialchars($deleted); ?></li>
+                            <li><?php echo hsc($deleted); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -86,7 +87,7 @@ if (isset($_POST['selected_users']) && is_array($_POST['selected_users'])) {
                     <h3>Failed Users:</h3>
                     <ul>
                         <?php foreach ($failedUsers as $failed): ?>
-                            <li><?php echo htmlspecialchars($failed); ?></li>
+                            <li><?php echo hsc($failed); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
