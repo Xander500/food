@@ -25,7 +25,7 @@
     include 'database/dbVolunteerActivity.php';
     include 'database/dbUsers.php';
     include 'database/dbOrganizations.php';
-    include 'include\output.php';
+    include 'include/output.php';
 
 
     //check for sorting
