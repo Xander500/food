@@ -141,7 +141,7 @@
                         <option value=""></option>
                         <?php
                             require_once('database/dbOrganizations.php'); // maybe put at top
-                            $organizations = get_organizations_id_name();
+                            $organizations = get_organizations_id_name($want_archived=false);
                             while ($row = $organizations->fetch_assoc()) {
                                 echo "<option value='" . hsc($row['id']) . "'>". hsc($row['name']) . "</option>";
                             }

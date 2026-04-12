@@ -73,9 +73,13 @@ function get_organization_name_from_id($id) {
 }
 
 //used to get the full list of organizations of their id and name, used for dropdown in addEvent.php
-function get_organizations_id_name() {
+function get_organizations_id_name($want_archived = false) {
     $con=connect();
-    $query = "SELECT id, name FROM dborganizations";
+    $query = "SELECT id, name FROM dborganizations WHERE archived = 0";
+    if ($want_archived) {
+        //default to showing active orgs, but allow archived orgs to be shown if $want_archived is true
+        $query .= " or archived = 1";
+    }
     $result = mysqli_query($con,$query);
 
     if ($result == null || mysqli_num_rows($result) == 0) {
