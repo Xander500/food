@@ -250,11 +250,12 @@ function get_all_logs_sorted_by_date($archived = '0') {
     $query->bind_param("s", $archived);
     $query->execute();
     $result = $query->get_result();
-    mysqli_close($con);
 
     if ($result == null || mysqli_num_rows($result) == 0) {
+    mysqli_close($con);
         return false;
     }
+    mysqli_close($con);
     return $result;
 }
 

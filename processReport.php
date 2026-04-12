@@ -212,7 +212,7 @@ else if ($exportType == 'logs') {
 else if ($exportType == 'organizations') {
 
     // Fetch Data
-    $reportData = fetch_organizations();
+    $reportData = fetch_organizations($archived);
     $impactData = getImpactByOrg();
 
     $eventID = "Organization Data";

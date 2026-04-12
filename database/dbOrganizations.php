@@ -160,15 +160,17 @@ function delete_organization($id) {
 }
 
 // used to fetch organizaton information for exporting.
-function fetch_organizations() {
+function fetch_organizations($archived = '0') {
     $con=connect();
-    $query = "SELECT * FROM dborganizations";
-    $result = mysqli_query($con,$query);
+    $sql = "SELECT * FROM dborganizations WHERE (dborganizations.archived = 0 OR ? = 1)";
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $archived);
+    $query->execute();
+    $result = $query->get_result();
+    mysqli_close($con);
 
     if ($result == null || mysqli_num_rows($result) == 0) {
-        mysqli_close($con);
         return false;
     }
-    mysqli_close($con);
     return $result;
 }
