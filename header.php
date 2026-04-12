@@ -713,6 +713,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['editlog.php'] = 1;
         $permission_array['deletelog.php'] = 1;
         $permission_array['addevent.php'] = 1;
+        $permission_array['addlog.php'] = 1;
         $permission_array['volunteermanagement.php'] = 1;
         $permission_array['viewprofile.php'] = 1;
         $permission_array['addorganization.php'] = 1;

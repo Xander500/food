@@ -493,7 +493,7 @@
         </button>
     </div>
 
-    <div class="content-box"  onclick="window.location.href='addEvent.php'">
+    <div class="content-box"  onclick="window.location.href='addLog.php'">
         <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
         <div class="large-text">Add Volunteer Log</div>
         <button class="circle-arrow-button">
@@ -774,7 +774,7 @@
     <div class="small-text">Track your service.</div>
     <div class="large-text">Add Volunteer Log</div>
     <div class="nav-buttons">
-        <button class="nav-button" onclick="window.location.href='addEvent.php'">
+        <button class="nav-button" onclick="window.location.href='addLog.php'">
             <span class="arrow"><img src="images/create-report.svg" style="width: 40px; border-radius:5px;"></span>
             <span class="text">Add Logs</span>
         </button>
