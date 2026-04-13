@@ -36,10 +36,6 @@ if (date("H:i:s") > "18:19:59") {
             padding-top: 96px;
             font-size: 14pt;
         }
-        h2 {
-        	font-weight: normal;
-            font-size: 30px;
-        }
 
 /*BEGIN STYLE TEST*/
          .extra-info {

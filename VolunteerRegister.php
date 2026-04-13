@@ -209,7 +209,7 @@ require_once('header.php');
             $showPopup = true;
         } else {
             echo '<head>
-                    <meta HTTP-EQUIV="REFRESH" content="2; url=VolunteerRegister.php">
+                    <meta HTTP-EQUIV="REFRESH" content="2; url=volunteerManagement.php">
                 </head>
                 <div id="popupMessage" class="pop-up">
                     ' . $id . ' has been added as a volunteer.
