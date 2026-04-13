@@ -40,8 +40,10 @@
         "manage_user_roles" => 3,
         "export_data" => 3,
         "view_analytics" => 3,
-        "student_search" => 3,
-    ];
+        "search" => 3,
+        "archive_semester" => 3,
+        "archive_one" => 3,
+        ];
 ?>
 <!DOCTYPE html>
 <html>
@@ -83,6 +85,8 @@
                             <?php if ($sections['manage_user_roles'] == $accessLevel): ?><li><a href="#manage-user-roles">Manage User Roles</a></li><?php endif; ?>
                             <?php if ($sections['export_data'] == $accessLevel): ?><li><a href="#export-data">Export Data</a></li><?php endif; ?>
                             <?php if ($sections['view_analytics'] == $accessLevel): ?><li><a href="#view-analytics">View Analytics Dashboard</a></li><?php endif; ?>
+                            <?php if ($sections['archive_one'] == $accessLevel): ?><li><a href="#archive-one">Archive Student, Organization, or Log</a></li><?php endif; ?>
+                            <?php if ($sections['archive_semester'] == $accessLevel): ?><li><a href="#archive-semester">Archive Semester Data</a></li><?php endif; ?>
                         </ol>
                     </div>
                 </div>
@@ -203,7 +207,7 @@
 
                 <?php if ($sections['search_users'] == $accessLevel): ?>
                 <section id="search-users">
-                    <h3 <?php if ($sections['search_users'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Search Students</h3>
+                    <h3 <?php if ($sections['search_users'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Search Users</h3>
                     <ul>
                         <li>To search for a student, navigate to the <a href="personSearch.php" target="_blank">"Search Users" page</a> via the navigation bar dropdown at the top of any page.</li>
                         <li>Enter the student's name or other details to find their profile.</li>
@@ -219,7 +223,7 @@
                 <section id="manage-user-roles">
                     <h3 <?php if ($sections['manage_user_roles'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Manage User Roles</h3>
                     <ul>
-                        <li>To set a user role to either Student or Instructor, navigate to that students's page by <a href="#student-search">searching for the student</a>.</li>
+                        <li>To set a user role to either Student or Instructor, navigate to that students's page by <a href="#search">searching for the student</a>.</li>
                         <li>Click on a the "Update Status" link in the appropriate user's row in the search results.</li>
                         <li>Make your changes and click the "Update" button.</li>
                     </ul>
@@ -253,6 +257,46 @@
                     </ul>
                 </section>
                 <?php endif; ?>
+
+                <?php if ($sections['archive_one'] == $accessLevel): ?>
+                <section id="archive-one">
+                    <h3 <?php if ($sections['archive_one'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Archive Student, Organization, or Log</h3>
+                    <ul>
+                        <li>To set a user's status to either archived or active, navigate to that students's page by <a href="#search-users">searching for the student</a>.</li>
+                        <ul>
+                            <li>Click on a the "Update Status" link in the appropriate user's row in the search results.</li>
+                            <li>Make your changes and click the "Update" button.</li>
+                        </ul>
+                        <li>To set an organization's status to either archived or active, navigate to that organization's page by <a href="#search-orgs">searching for the organization</a>.</li>
+                        <ul>
+                            <li>Update the organization's status by <a href="#edit-org">editing the organization as described in this guide</a>.</li>
+                        </ul>
+                        <li>To set a volunteer activity log's status to either archived or active, navigate to that logs's page by <a href="#search-logs">searching for the log</a>.</li>
+                        <ul>
+                            <li>Update the log's status by <a href="#edit-log">editing the log as described in this guide</a>.</li>
+                        </ul>
+                    </ul>
+                </section>
+                <?php endif; ?>
+
+                <?php if ($sections['archive_semester'] == $accessLevel): ?>
+                <section id="archive-semester">
+                    <h3 <?php if ($sections['archive_semester'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Archive Semester</h3>
+                    <ul>
+                        <li>To archive multiple reccords associated with a semester, click on the <a href="archivalSearch.php" target="_blank">"Mass Archive/Unarchive Semesters" button</a>.</li>
+                        <li>Select the semester you would like to archive.  The dropdown will only show semester options that have corresponding volunteer activity logs.</li>
+                        <li>Select the action you would like to apply.  "Archive" will mark all selected records as archived.  "Unarchive" will mark all selected records as active.</li>
+                        <li>Select what type of data to affect.</li>
+                        <ul>
+                            <li>If you select "Students," all student accounts (not instructor accounts) labeled as attending in the selected semester will be affected.</li>
+                            <li>If you select "Volunteer Activity Logs," all logs linked to student accounts labeled as attending in the selected semester will be affected.</li>
+                        </ul>
+                        <li>Click the "Apply Action" button to apply the archive/unarchive action.  The page will display a list of all records in the semester, and indicate how many of them were affected by the action.</li>
+                    </ul>
+                </section>
+                <?php endif; ?>
+
+
             </div>
         </main>
     </body>
