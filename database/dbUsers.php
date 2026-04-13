@@ -111,10 +111,16 @@ function retrieve_user($id) { // (username! not id)
     return $theUser;
 }
 
-function retrieve_all() {
+function retrieve_all($wants_archived=false) {
     $con=connect();
     $query = "SELECT distinct * FROM dbusers";
     //$query = "SELECT distinct * FROM dbusers WHERE role = 'Student'"; // used if we only want to get students for volunteer activity creation
+
+    if ($wants_archived) {
+        $query .= " WHERE archived = 1 or archived = 0";
+    } else {
+        $query .= " WHERE archived = 0";
+    }
 
     $result = mysqli_query($con,$query);
     mysqli_close($con);
