@@ -24,6 +24,7 @@
     }
 
     require_once('include/input-validation.php');
+    require_once('include/output.php');
     require_once('database/dbVolunteerActivity.php');
     require_once('database/dbOrganizations.php');
     require_once('database/dbUsers.php');
@@ -117,7 +118,7 @@
             <h2>Log Details</h2>
             <form id="edit-log-form" method="post">
                 
-                <input type="hidden" name="id" value="<?php echo $id ?>"/> 
+                <input type="hidden" name="id" value="<?php echo hsc($id) ?>"/> 
 
                 <?php if ($accessLevel == 3): ?>
                 <label for ="archived">Archival Status</label>
@@ -131,11 +132,11 @@
             
                 <label for ="volunteerID">Volunteer ID <?php if ($accessLevel < 3) { echo "<span>(you do not have permission to change this)</span>";} ?></label>
                 <select id="volunteerID" name="volunteerID" required <?php if ($accessLevel < 3) { echo "disabled";} ?>>
-                    <option value="">Select a volunteer</option>
+                    <option value=""></option>
                     <?php foreach ($volunteers as $volunteer): ?>
-                        <option value="<?php echo htmlspecialchars($volunteer['id']) ?>"
+                        <option value="<?php echo hsc($volunteer['id']) ?>"
                             <?php if ($volunteer['id'] == $log['volunteerID']) echo 'selected'; ?>>
-                            <?php echo htmlspecialchars($volunteer['first_name'] . ' ' . $volunteer['last_name']) ?>
+                            <?php echo hsc($volunteer['first_name'] . ' ' . $volunteer['last_name']) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -147,38 +148,38 @@
 
                 <label for="date">Date</label>
                 <input type="date" id="date" name="date"
-                    value="<?php echo htmlspecialchars($log['date']) ?>" required>
+                    value="<?php echo hsc($log['date']) ?>" required>
 
                 <label for="organizationID">Organization</label>
                 <select id="organizationID" name="organizationID" required>
-                    <option value="">Select an organization</option>
+                    <option value=""></option>
                     <?php foreach ($organizations as $org): ?>
-                        <option value="<?php echo $org['id'] ?>"
+                        <option value="<?php echo hsc($org['id']) ?>"
                             <?php if ($org['id'] == $log['organizationID']) echo 'selected'; ?>>
-                            <?php echo htmlspecialchars($org['name']) ?>
+                            <?php echo hsc($org['name']) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
 
                 <label for="hours">Hours</label>
-                <input type="number" id="hours" name="hours" min="0"
-                    value="<?php echo htmlspecialchars($log['hours']) ?>" required>
+                <input type="number" id="hours" name="hours" min="0" step=".01" max="99"
+                    value="<?php echo hsc($log['hours']) ?>" required>
 
                 <label for="location">Location</label>
                 <input type="text" id="location" name="location"
-                    value="<?php echo htmlspecialchars($log['location']) ?>">
+                    value="<?php echo hsc($log['location']) ?>">
 
                 <label for="poundsOfFood">Pounds of Food</label>
-                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.1"
-                    value="<?php echo htmlspecialchars($log['poundsOfFood']) ?>">
+                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.01" max="9999"
+                    value="<?php echo hsc($log['poundsOfFood']) ?>">
 
                 <label for="description">Description</label>
                 <input type="text" id="description" name="description"
-                    value="<?php echo htmlspecialchars($log['description']) ?>">
+                    value="<?php echo hsc($log['description']) ?>">
   
 
                 <input type="submit" value="Update Log">
-                <a class="button cancel" href="log.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="margin-top: .5rem">Cancel</a>
+                <a class="button cancel" href="log.php?id=<?php echo hsc($_GET['id']) ?>" style="margin-top: .5rem">Cancel</a>
             </form>
         </main>
         <script>

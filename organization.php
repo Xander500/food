@@ -3,12 +3,6 @@
     session_cache_expire(30);
     session_start();
 
-    // Ensure user is logged in
-    if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
-        //header('Location: login.php');
-        //die();
-    }
-
     //get login and permissions
     $loggedIn = false;
     $accessLevel = 0;
@@ -103,6 +97,8 @@
             $description = $org_info['description'];
             $location = $org_info['location'];
             $email = $org_info['email'];
+            $org_archival = ($org_info['archived'] == '1');
+
         ?>
 
         <!-- Organization Information Table -->
@@ -121,6 +117,15 @@
                 </a>
         <?php endif; ?>
         </h2>
+        <p class="org-status-msg">
+            <?php if (!$org_archival): ?>
+            <img class="button-icon" src="images/check-circle.svg" alt="Active Icon" style="margin-right: 5px;">
+            This organization is active.
+            <?php else: ?>
+            <img class="button-icon" src="images/archive.svg" alt="Archive Icon" style="margin-right: 5px;">
+            This organization is archived.
+            <?php endif; ?>
+        </p>
 
         <div id="table-wrapper">
             <table>

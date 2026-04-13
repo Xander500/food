@@ -75,7 +75,7 @@ function make_a_volunteer_activity($result_row) {
     return $row['num'];
  }
 
-  function get_num_logs_with_filters($filters_input, $want_archived = false) {
+ function get_num_logs_with_filters($filters_input, $want_archived = false) {
     $con=connect();
     $select_statement = "SELECT count(*) as num FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
@@ -243,15 +243,19 @@ function internal_apply_filters_to_select($con, $select_statement, $order_statem
     return $theLogs;
  }
 
-function get_all_logs_sorted_by_date() {
+function get_all_logs_sorted_by_date($archived = '0') {
     $con=connect();
-    $query = "SELECT * FROM dbvolunteeractivity" . " ORDER BY date ASC";
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
+    $sql = 'SELECT * FROM dbvolunteeractivity WHERE (dbvolunteeractivity.archived = 0 OR ? = 1) ORDER BY date ASC';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $archived);
+    $query->execute();
+    $result = $query->get_result();
 
     if ($result == null || mysqli_num_rows($result) == 0) {
+    mysqli_close($con);
         return false;
     }
+    mysqli_close($con);
     return $result;
 }
 

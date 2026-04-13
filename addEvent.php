@@ -71,6 +71,7 @@
     }
 
     include_once('database/dbinfo.php');
+    include_once('include/output.php');
     $con=connect();
 
 ?><!DOCTYPE html>
@@ -99,12 +100,12 @@
                 <div class="event-sect">
                     <label for="volunteerID">* Volunteer ID </label>
                     <select id="volunteerID" name="volunteerID" required placeholder="Enter Volunteer ID">
-                        <option value="">Select a volunteer</option>
+                        <option value=""></option>
                         <?php
                         require_once('database/dbUsers.php'); // maybe put at top
-                        $volunteers = retrieve_all();
+                        $volunteers = retrieve_all($want_archived=false);
                         while ($row = $volunteers->fetch_assoc()) {
-                            echo "<option value='{$row['id']}'>" . htmlspecialchars($row['first_name']) . " " . htmlspecialchars($row['last_name']) . "</option>";
+                            echo "<option value='" . hsc($row['id']) . "'>". hsc($row['first_name']) . " " . hsc($row['last_name']) . "</option>";
                         }
                         ?>
                     </select>
@@ -114,7 +115,7 @@
                 <div class="event-sect">
                     <label for="date">* Date </label>
                     <input type="date" id="date" name="date"
-                        <?php if ($date) echo 'value="' . $date . '"'; ?> required>
+                        <?php if ($date) echo 'value="' . hsc($date) . '"'; ?> required>
                     <label for="hours">* Duration (hours) </label>
                     <input type="number" id="hours" name="hours" min="0" step=".01" max="99"
                         required placeholder="e.g. 2">
@@ -125,27 +126,8 @@
                 <input type="text" id="description" name="description" placeholder="Enter description">
 
                 <label for="poundsOfFood"> Pounds of Food </label>
-                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.01" max="9999 placeholder="Enter pounds of food">
+                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.01" max="9999" placeholder="Enter pounds of food">
                 </div>
-
-                <!--   Event visibility checkbox, not sure if we need it at all
-                <div class="event-sect">
-                <label for="name">* Event Visibility</label>
-                <p class="sub-text" style="margin-bottom: 1rem;">Visibility controls who can see the event listing on the calendar.</p>
-                <div class="radio-group">
-                    <div class="radio-element">
-                    <label>
-                        <input type="radio" name="visibility" value="public" checked>Public
-                    </label>
-                    </div>
-                    <div class="radio-element">
-                    <label>
-                        <input type="radio" name="visibility" value="private">Private
-                    </label>
-                    </div>
-                </div>
-                </div>
--->
 
                 <div class="event-sect">
                     <label for="location">Location </label>
@@ -156,12 +138,12 @@
 
                     <label for="organizationID">* Organization </label>
                     <select id="organizationID" name="organizationID" required placeholder="Enter Organization ID">
-                        <option value="">Select organization</option>
+                        <option value=""></option>
                         <?php
                             require_once('database/dbOrganizations.php'); // maybe put at top
-                            $organizations = get_organizations_id_name();
+                            $organizations = get_organizations_id_name($want_archived=false);
                             while ($row = $organizations->fetch_assoc()) {
-                                echo "<option value='{$row['id']}'>" . htmlspecialchars($row['name']) . "</option>";
+                                echo "<option value='" . hsc($row['id']) . "'>". hsc($row['name']) . "</option>";
                             }
                         ?>
                     </select>
@@ -197,80 +179,30 @@
                 </script>
 
                 <?php if ($date): ?>
-                    <a class="button cancel" href="calendar.php?month=<?php echo substr($date, 0, 7) ?>" style="margin-top: -.5rem">Return to Calendar</a>
+                    <a class="button cancel" href="calendar.php?month=<?php echo hsc(substr($date, 0, 7)) ?>" style="margin-top: -.5rem">Return to Calendar</a>
                 <?php else: ?>
                     <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
                 <?php endif ?>
 
-
-                <script>
-                    const organizationID = new Choices('#organizationID', {
-                        searchEnabled: true,
-                        removeItemButton: true,
-                        placeholder: true,
-                        placeholderValue: 'Select organizations',
-                    });
-                </script>
-                <script>
-                    const volunteerID = new Choices('#volunteerID', {
-                        searchEnabled: true,
-                        removeItemButton: true,
-                        placeholder: true,
-                        placeholderValue: 'Select volunteer',
-                    });
-                </script>
-
-
-                <script type="text/javascript">
-                    /* for checkboxes if we need them
-                    $(document).ready(function(){
-                        var checkboxes = $('.checkboxes');
-                        checkboxes.change(function(){
-                            if($('.checkboxes:checked').length>0) {
-                                checkboxes.removeAttr('required');
-                            } else {
-                                checkboxes.attr('required', 'required');
-                            }
-                        });
-                    });
-                    */
-
-                    /* Recurring event/activity options
-                    (function(){
-                        const recurring = document.getElementById('recurring');
-                        const options = document.getElementById('recurring-options');
-                        const recurrenceType = document.getElementById('recurrence_type');
-                        const customBlock = document.getElementById('custom-interval');
-                        const customDays = document.getElementById('custom_days');
-
-                        function toggleOptions(){
-                            const on = recurring && recurring.checked;
-                            if (options) options.style.display = on ? 'block' : 'none';
-                            if (!on) {
-                                if (recurrenceType) recurrenceType.value = '';
-                                if (customBlock) customBlock.style.display = 'none';
-                                if (customDays) customDays.value = '';
-                            }
-                        }
-                        function toggleCustom(){
-                            if (!recurrenceType || !customBlock) return;
-                            customBlock.style.display = (recurrenceType.value === 'custom') ? 'block' : 'none';
-                            customBlock.style.display = (recurrenceType.value === 'custom') ? 'block' : 'none';
-                        }
-
-                        if (recurring) {
-                            recurring.addEventListener('change', toggleOptions);
-                            toggleOptions();
-                        }
-                        if (recurrenceType) {
-                            recurrenceType.addEventListener('change', toggleCustom);
-                            toggleCustom();
-                        }
-                    })();
-                     */
-                </script>
+        </main>
 
 <script>
+const organizationID = new Choices('#organizationID', {
+    searchEnabled: true,
+    removeItemButton: true,
+    placeholder: true,
+    placeholderValue: 'Select organizations',
+    shouldSort: false,
+});
+
+const volunteerID = new Choices('#volunteerID', {
+    searchEnabled: true,
+    removeItemButton: true,
+    placeholder: true,
+    placeholderValue: 'Select volunteer',
+    shouldSort: false,
+});
+ 
 const MAPTILER_KEY = 'EGKCnnMrNWBQqtJG1Izh';
 const input = document.getElementById('location');
 const box = document.getElementById('location-suggestions');
@@ -325,6 +257,5 @@ document.addEventListener('click', function(e){
     }
 });
 </script>
-        </main>
     </body>
 </html>

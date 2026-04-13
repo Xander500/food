@@ -18,12 +18,18 @@ require_once('database/dbOrganizations.php');
 $exportType = $_POST['exportType'] ?? '';
 $format = $_POST['format'] ?? 'csv';
 
+if (isset($_POST['archived']) === false) {
+    $archived = '0';
+} else {
+    $archived = '1';
+}
+
 ///////////////////// USERS
 
 if ($exportType == 'users') {
 
     // Fetch Data
-    $reportData = get_all_aggregated_poundsOfFood_for_volunteers();
+    $reportData = get_all_aggregated_poundsOfFood_for_volunteers($archived);
 
     $eventID = "Volunteer data";
     $eventName = "test";
@@ -104,7 +110,7 @@ if ($exportType == 'users') {
 else if ($exportType == 'logs') {
 
     // Fetch Data
-    $reportData = get_all_logs_sorted_by_date();
+    $reportData = get_all_logs_sorted_by_date($archived);
 
     $eventID = "Logs Data";
     $eventName = "test";
@@ -206,7 +212,7 @@ else if ($exportType == 'logs') {
 else if ($exportType == 'organizations') {
 
     // Fetch Data
-    $reportData = fetch_organizations();
+    $reportData = fetch_organizations($archived);
     $impactData = getImpactByOrg();
 
     $eventID = "Organization Data";
