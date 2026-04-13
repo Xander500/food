@@ -1176,6 +1176,16 @@ main.general.howto-page {
 .ht-bg {
     background-color: var(--accent-color);
 }
+
+.aside_instructor-only::after {
+  content: "Instructor only";
+  font-size: 0.8em;
+  color: #666666;
+  background: #f2f2f2;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
 /*--------------end of how-to page styles------------------*/
 
 .availability-container {
