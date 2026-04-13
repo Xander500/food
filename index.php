@@ -33,7 +33,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="./css/base.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
+    <link rel="icon" type="image/x-icon" href="<?php include 'logo.php'; ?>">
     <title>UMW Alleviating Food Waste Volunteer Tracking | Dashboard</title>
     <?php require_once('universal.inc') ?>
     <style>
