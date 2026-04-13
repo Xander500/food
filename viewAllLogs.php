@@ -3,29 +3,29 @@
 
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
-    session_cache_expire(30);
-    session_start();
+    // session_cache_expire(30);
+    // session_start();
 
-    $loggedIn = false;
-    $accessLevel = 0;
-    $userID = null;
-    if (isset($_SESSION['_id'])) {
-        $loggedIn = true;
-        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
-        $accessLevel = $_SESSION['access_level'];
-        $userID = $_SESSION['_id'];
-    }
-    //require being a logged in user
-    if ($accessLevel < 1) {
-        header('Location: login.php');
-        //echo 'bad access level';
-        die();
-    }
+    // $loggedIn = false;
+    // $accessLevel = 0;
+    // $userID = null;
+    // if (isset($_SESSION['_id'])) {
+    //     $loggedIn = true;
+    //     // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+    //     $accessLevel = $_SESSION['access_level'];
+    //     $userID = $_SESSION['_id'];
+    // }
+    // //require being a logged in user
+    // if ($accessLevel < 1) {
+    //     header('Location: login.php');
+    //     //echo 'bad access level';
+    //     die();
+    // }
 
-    include 'database/dbVolunteerActivity.php';
-    include 'database/dbUsers.php';
-    include 'database/dbOrganizations.php';
-    include 'include\output.php';
+    include_once 'database/dbVolunteerActivity.php';
+    include_once 'database/dbUsers.php';
+    include_once 'database/dbOrganizations.php';
+    include_once 'include/output.php';
 
 
     //check for sorting
@@ -72,23 +72,21 @@
 
     //include 'domain/Event.php';
 ?>
-<!DOCTYPE html>
-<html>
+<!-- <!DOCTYPE html>
+<html> -->
     <head>
-        <?php require_once('universal.inc') ?>
-        <link rel="stylesheet" href="css/event.css">
+        <?php //require_once('universal.inc') ?>
         <script src="js/messages.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"/>
         <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
-        <title>View All Volunteer Activity</title>
     </head>
     <body>
-        <?php require_once('header.php') ?>
-        <main class="general">
-            <h1>Volunteer Activity</h1>
+        <?php //require_once('header.php') ?>
+        <!-- <main class="general"> -->
+            <!-- <h1>Volunteer Activity</h1>
 
-            <h2>Search Volunteer Activity</h2>
-            <form class="log_filters" action="viewAllLogs.php?" method="GET">
+            <h2>Search Volunteer Activity</h2> -->
+            <form class="log_filters" action="index.php?" method="GET">
                 <input type="hidden" name="page" value="<?php echo hsc($page_num + 1); ?>" />
                 <input type="hidden" name="sortby" value="<?php echo hsc($sortby_display); ?>" />
                 <input type="hidden" name="order" value="<?php echo hsc($order); ?>" />
@@ -153,7 +151,7 @@
                 </div>
                 <div style="margin: auto; width: 75%;">
                     <button type="submit">Apply Filters</button>
-                    <a class="button cancel" href="viewAllLogs.php">Clear Filters</a>
+                    <a class="button cancel" href="index.php">Clear Filters</a>
                 </div>
             </form>
 
@@ -165,18 +163,18 @@
 
                 if (sizeof($logs) > 0): ?>
                 <div class="table-wrapper">
-                    <h2 id="log-table">View All Volunteer Activity</h2>
+                    <!-- <h2 id="log-table">View All Volunteer Activity</h2> -->
                     <table class="general">
                         <thead>
                             <tr>
-                                <th></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'student') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'student', 'order' => (($sortby_display === 'student') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Student</a><div></div></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'date') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'date', 'order' => (($sortby_display === 'date') ? (($order === 'asc') ? 'desc' : 'asc') : 'desc')], $filters))); ?>#log-table'>Date</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'organization') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'organization', 'order' => (($sortby_display === 'organization') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Organization</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'hours') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'hours', 'order' => (($sortby_display === 'hours') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Hours</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'location') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'location', 'order' => (($sortby_display === 'location') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Location</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'poundsoffood') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'poundsoffood', 'order' => (($sortby_display === 'poundsoffood') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Food Rescued (lbs)</a></th>
-                                <th style="width:1px"><a class='event-link <?php echo ($sortby_display === 'description') ? 'sorted-'. hsc($order) : '' ?>' href='viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'description', 'order' => (($sortby_display === 'description') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Description</a></th>
+                                <th style="width:2%;"></th>
+                                <th style="width:14%"><a class='event-link <?php echo ($sortby_display === 'student') ? 'sorted-'. hsc($order) : '' ?>' href='index.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'student', 'order' => (($sortby_display === 'student') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Student</a><div></div></th>
+                                <th style="width:14%"><a class='event-link <?php echo ($sortby_display === 'date') ? 'sorted-'. hsc($order) : '' ?>' href='index.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'date', 'order' => (($sortby_display === 'date') ? (($order === 'asc') ? 'desc' : 'asc') : 'desc')], $filters))); ?>#log-table'>Date</a></th>
+                                <th style="width:14%"><a class='event-link <?php echo ($sortby_display === 'organization') ? 'sorted-'. hsc($order) : '' ?>' href='index.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'organization', 'order' => (($sortby_display === 'organization') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Organization</a></th>
+                                <th style="width:5%"><a class='event-link <?php echo ($sortby_display === 'hours') ? 'sorted-'. hsc($order) : '' ?>' href='index.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'hours', 'order' => (($sortby_display === 'hours') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Hours</a></th>
+                                <th style="width:23%"><a class='event-link <?php echo ($sortby_display === 'location') ? 'sorted-'. hsc($order) : '' ?>' href='index.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'location', 'order' => (($sortby_display === 'location') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Location</a></th>
+                                <th style="width:8%"><a class='event-link <?php echo ($sortby_display === 'poundsoffood') ? 'sorted-'. hsc($order) : '' ?>' href='index.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'poundsoffood', 'order' => (($sortby_display === 'poundsoffood') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Food Rescued (lbs)</a></th>
+                                <th style="width:20%"><a class='event-link <?php echo ($sortby_display === 'description') ? 'sorted-'. hsc($order) : '' ?>' href='index.php?<?php echo hsc(http_build_query(array_merge(['page' => $page_num + 1, 'sortby' => 'description', 'order' => (($sortby_display === 'description') ? (($order === 'asc') ? 'desc' : 'asc') : 'asc')], $filters))); ?>#log-table'>Description</a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -216,25 +214,25 @@
                 <ul class="pagination">
                     <?php if ($page_num - $page_display_range > 0): ?>
                         <li class="pagination_li">
-                            <a href="viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => 0, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link">&#x21e4;</a>
+                            <a href="index.php?<?php echo hsc(http_build_query(array_merge(['page' => 0, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link">&#x21e4;</a>
                         </li>
                     <?php endif; ?>
                     <?php for($x = max(0, $page_num - $page_display_range); $x <= min($max_pages, $page_num + $page_display_range); $x++): ?>
                         <li class="pagination_li">
-                            <a href="viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $x + 1, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link<?php if ($page_num === $x): ?> pagination_link--active<?php endif; ?>"><?php echo hsc($x + 1); ?></a>
+                            <a href="index.php?<?php echo hsc(http_build_query(array_merge(['page' => $x + 1, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link<?php if ($page_num === $x): ?> pagination_link--active<?php endif; ?>"><?php echo hsc($x + 1); ?></a>
                         </li>
                     <?php endfor; ?>
                     <?php if ($page_num < $max_pages - $page_display_range): ?>
                     <li class="pagination_li">
-                        <a href="viewAllLogs.php?<?php echo hsc(http_build_query(array_merge(['page' => $max_pages + 1, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link">&#8677;</a>
+                        <a href="index.php?<?php echo hsc(http_build_query(array_merge(['page' => $max_pages + 1, 'sortby' => $sortby_display, 'order' => $order], $filters))); ?>#log-table" class="pagination_link">&#8677;</a>
                     </li>
                     <?php endif; ?>
                 </ul>
                 <?php else: ?>
                 <p class="no-events standout">There are currently no logs available to view.<a class="button add" href="addEvent.php">Create a New Log</a> </p>
             <?php endif ?>
-            <a class="button cancel" href="index.php" style="margin: auto;">Return to Dashboard</a>
-        </main>
+            <!-- <a class="button cancel" href="index.php" style="margin: auto;">Return to Dashboard</a> -->
+        <!-- </main> -->
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

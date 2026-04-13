@@ -132,7 +132,7 @@ img.profile-pic { width: 4rem; height: 4rem; object-fit: cover; border-radius: 4
 /* Keep page defaults consistent */
 html, body { background-color: var(--page-background-color); color: var(--page-font-color); }
 
-.log-status-msg {
+.log-status-msg, .org-status-msg {
     text-align: center;
     display: flex;
     justify-content: center;

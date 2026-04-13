@@ -921,7 +921,7 @@
   }
   main {
     position: relative;
-    z-index: 10;
+    /* z-index: 10; */
     margin-top: calc(var(--spacing) * -12);
     display: flex;
     flex-grow: 1;
@@ -934,10 +934,6 @@
     display: flex;
     cursor: pointer !important;
     justify-content: center;
-    border-radius: var(--radius-2xl) !important;
-    border-style: var(--tw-border-style) !important;
-    border-width: 2px !important;
-    border-color: var(--color-gray-300) !important;
     background-color: var(--color-white);
     padding: calc(var(--spacing) * 6) !important;
     font-size: var(--text-xl) !important;

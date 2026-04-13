@@ -59,8 +59,6 @@ function get_user_full_name_from_id($id) {
     //     die("Error: add_user type mismatch");
     // }
 
-
-
     // If the result is empty, it means the user doesn't exist, so we can add the user
     if (mysqli_num_rows($result) == 0) {
         // Prepare the insert query
@@ -306,14 +304,20 @@ function update_user_required($id, $first_name, $last_name, $email, $semester) {
 }
 
 //aggregate data for a user
-function get_all_aggregated_poundsOfFood_for_volunteers() {
+function get_all_aggregated_poundsOfFood_for_volunteers($archived = '0') {
     $con=connect();
-    $query = "SELECT volunteerID,first_name,last_name,SUM(hours) as totalHours,SUM(poundsOfFood) as totalPoundsRescued
-                FROM dbvolunteeractivity LEFT JOIN dbusers on dbusers.id = dbvolunteeractivity.volunteerID
-                    GROUP BY volunteerID, last_name 
-                        ORDER BY last_name";
+    $sql = 'SELECT dbUsers.id AS volunteerID, dbUsers.first_name, dbUsers.last_name, COALESCE(SUM(dbvolunteeractivity.hours), 0) AS totalHours, COALESCE(SUM(dbvolunteeractivity.poundsOfFood), 0) AS totalPoundsRescued
+                FROM dbUsers
+                    LEFT JOIN dbvolunteeractivity 
+                        ON dbUsers.id = dbvolunteeractivity.volunteerID
+                            WHERE (dbUsers.archived = 0 OR ? = 1)
+                                GROUP BY dbUsers.id, dbUsers.first_name, dbUsers.last_name
+                                    ORDER BY dbUsers.last_name';
 
-    $result = mysqli_query($con,$query);
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $archived);
+    $query->execute();
+    $result = $query->get_result();
     mysqli_close($con);
 
     if ($result == null || mysqli_num_rows($result) == 0) {
@@ -322,11 +326,11 @@ function get_all_aggregated_poundsOfFood_for_volunteers() {
     return $result;
 }
 
-function archive_users_by_semester($semester, $archived = '1') {
+function archive_users_by_semester($semester, $archived = '1', $role = 'Student') {
     $con=connect();
-    $sql = 'UPDATE dbusers SET archived = ? WHERE semester = ?';
+    $sql = 'UPDATE dbusers SET archived = ? WHERE semester = ? AND role = ?';
     $query = $con->prepare($sql);
-    $query->bind_param("ss", $archived, $semester);
+    $query->bind_param("sss", $archived, $semester, $role);
     $query->execute();
     return $query->affected_rows;
 }

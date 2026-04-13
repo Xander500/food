@@ -31,10 +31,9 @@
 
 <!-- BANDAID FIX FOR HEADER BEING WEIRD -->
 <?php
-$tailwind_mode = true;
-require_once('header.php');
-
-require_once('database/dbVolunteerActivity.php');
+    $tailwind_mode = true;
+    require_once('header.php');
+    require_once('database/dbVolunteerActivity.php');
 ?>
 <style>
         .date-box {
@@ -106,38 +105,30 @@ require_once('database/dbVolunteerActivity.php');
 <body>
   <!-- Main Content -->
     <h1 class="impact-header">Analytics Dashboard</h1>
-    <main style="margin: 25px;">
+    <?php get_monthly_hours(); ?>
+    <main class="analytics-body">
         <div class="display">
-            <div class="num-displays">
-                <div class="num">Total Hours Volunteered : <?php echo round($hours, 2);?></div>
-                <div class="num">Total Pounds of Food Rescued: <?php echo round($pounds, 2); ?></div>
+            <div>
+                <div class="nums-display">
+                    <div class="num">Total Hours Volunteered : <?php echo round($hours, 2);?></div>
+                    <div class="num">Total Pounds of Food Rescued: <?php echo round($pounds, 2); ?></div>
+                    <div class="num"><a href="impactByStudent.php">Impact by Student</a></div>
+                    <div class="num"><a href="impactByOrg.php">Impact by Organization</a></div>
+                </div>
+                <div class="map-container">
+                    <h2>Volunteer Activity Map</h2>
+                    <div class="map">
+                        <?php include_once 'map.php'; ?>
+                    </div>
+                </div>
             </div>
-
-            <div class="num-displays">
-                <div class="num"><a href="impactByStudent.php">Impact by Student</a></div>
-                <div class="num"><a href="impactByOrg.php">Impact by Organization</a></div>
+            <div>
+                <?php require_once 'monthlyImpact.php'; ?>
+                <div class="text-center mt-6">
+                    <a href="index.php" class="return-button" style="font-size: 1.5rem; box-shadow: 0px 0px 20px 5px var(--main-color);">Return to Dashboard</a>
+                </div>
             </div>
-
-            <div class="text-center mt-6">
-                <a href="index.php" class="return-button">Return to Dashboard</a>
-            </div>
-        <div>
-<div style="margin-top: 30px; text-align: center;">
-<h2 style="text-align: center; font-size: 28px; font-weight: bold; margin-bottom: 20px; color: #23415A;">
-    Volunteer Activity Map
-</h2>
-
-    <div style="
-        max-width: 860px;
-        margin: 0 auto 50px auto;
-        background: white;
-        padding: 18px;
-        border-radius: 14px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    ">
-        <?php include 'map.php'; ?>
-    </div>
-</div>
+        </div>
     </main>
 </body>
 </html>

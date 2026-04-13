@@ -99,23 +99,36 @@ require_once('header.php');
   <!-- <header class="top-bar"></header> -->
 
   <!-- Main Content -->
-  <main style="margin-top: 100px;">
+  <main>
     <div class="sections">
 
       <!-- Buttons Section -->
       <div class="button-section">
         <button onclick="window.location.href='archivalSearch.php';">
-	  <div class="button-left-gray"></div>
-	  <div>Mass Archive/Unarchive Semesters</div>
-	  <img class="button-icon" src="images\archive-down.svg" alt="Archive Icon">
+          <div class="button-left-gray"></div>
+          <div>Mass Archive/Unarchive Semesters</div>
+          <img class="button-icon" src="images\archive-down.svg" alt="Archive Icon">
         </button>
 
         <button onclick="window.location.href='personSearch.php';">
+          <div class="button-left-gray"></div>
+          <div>Manage Individual Users</div>
+          <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
+        </button>
+
+        <button onclick="window.location.href='editOrganizationSearch.php';">
 	  <div class="button-left-gray"></div>
-	  <div>Manage Individual Users</div>
-	  <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
+	  <div>Manage Individual Organizations</div>
+	  <img class="button-icon" src="images/organization.svg" alt="Organization Icon">
         </button>
 	
+	
+        <button onclick="window.location.href='deleteUserSearch.php';">
+          <div class="button-left-gray"></div>
+          <div>Delete Users</div>
+          <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">
+        </button>
+
 	<div class="text-center mt-6">
         	<a href="index.php" class="return-button">Return to Dashboard</a>
 	</div>

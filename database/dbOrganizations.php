@@ -21,14 +21,19 @@ function make_an_organization($result_row) {
     @$result_row['email'],
     @$result_row['location'],
     @$result_row['description'],
-);
+    @$result_row['archived']
+    );
     return $theOrg;
 }
 
 function add_organization($org) {
     $con = connect();
-    $query = "SELECT * FROM dborganizations WHERE name = '" . $org->get_name() . "'";
-    $result = mysqli_query($con, $query);
+    $sql = 'SELECT * FROM dborganizations WHERE name = ?';
+    $query = $con->prepare($sql);
+    $name = $org->get_name();
+    $query->bind_param("s", $name);
+    $query->execute();
+    $result = $query->get_result();
 
     // If the result is empty, it means the org doesn't exist, so we can add the org
     if (mysqli_num_rows($result) == 0) {
@@ -119,10 +124,11 @@ function update_organization($id, $details) {
     $email = $details['email'];
     $description = $details['description'];
     $location = $details['location'];
+    $archived = $details['archived'];
 
     $query = "
         UPDATE dborganizations
-        SET name='$name', email='$email', description='$description', location='$location'
+        SET name='$name', email='$email', description='$description', location='$location', archived='$archived'
         WHERE id='$id'
     ";
     $result = mysqli_query($connection, $query);
@@ -160,15 +166,17 @@ function delete_organization($id) {
 }
 
 // used to fetch organizaton information for exporting.
-function fetch_organizations() {
+function fetch_organizations($archived = '0') {
     $con=connect();
-    $query = "SELECT * FROM dborganizations";
-    $result = mysqli_query($con,$query);
+    $sql = "SELECT * FROM dborganizations WHERE (dborganizations.archived = 0 OR ? = 1)";
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $archived);
+    $query->execute();
+    $result = $query->get_result();
+    mysqli_close($con);
 
     if ($result == null || mysqli_num_rows($result) == 0) {
-        mysqli_close($con);
         return false;
     }
-    mysqli_close($con);
     return $result;
 }
