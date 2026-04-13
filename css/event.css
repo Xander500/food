@@ -798,6 +798,7 @@ a.sorted-desc::after { content: " \25BC"; }
     padding: 0.75rem;
     font-size: 0.8rem;
 }
+
 .log_filters--row {
     display: flex;
     flex-direction: row;
@@ -812,9 +813,3 @@ a.sorted-desc::after { content: " \25BC"; }
     flex: 1 1 0;
     font-size: 0.8rem;
 }
-
-/*
-.log_filter .choices {
-  width: 250px; 
-}
-*/

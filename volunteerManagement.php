@@ -61,14 +61,6 @@ require_once('header.php');
     background-color: #C9AB81 !important;
   }
 
-
- .button-section button {
-    background-color: var(--accent-color) !important;
-    color: var(--page-font-color) !important;
-    border: none !important;
-    margin: auto;
-  }
-
 .div-blue {
     background-color: var(--page-font-color);
   }
