@@ -721,6 +721,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['organizationmanagement.php'] = 1;
         $permission_array['organization.php'] = 1;
         $permission_array['viewimpactsummary.php'] = 1;
+        $permission_array['howto.php'] = 1;
 
 
 

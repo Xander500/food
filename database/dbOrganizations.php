@@ -21,7 +21,8 @@ function make_an_organization($result_row) {
     @$result_row['email'],
     @$result_row['location'],
     @$result_row['description'],
-);
+    @$result_row['archived']
+    );
     return $theOrg;
 }
 
@@ -119,10 +120,11 @@ function update_organization($id, $details) {
     $email = $details['email'];
     $description = $details['description'];
     $location = $details['location'];
+    $archived = $details['archived'];
 
     $query = "
         UPDATE dborganizations
-        SET name='$name', email='$email', description='$description', location='$location'
+        SET name='$name', email='$email', description='$description', location='$location', archived='$archived'
         WHERE id='$id'
     ";
     $result = mysqli_query($connection, $query);

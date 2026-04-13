@@ -34,6 +34,7 @@
 <?php
 $tailwind_mode = true;
 require_once('header.php');
+require_once('include/output.php');
 require_once('database/dbVolunteerActivity.php');
 ?>
 <style>
@@ -121,10 +122,10 @@ require_once('database/dbVolunteerActivity.php');
                         foreach ($rows as $row) {
                             echo "
                                 <tr>
-                                    <td>" . $row[0] . " " . $row[1] . "</td>
-                                    <td>" . round($row[2], 2) . "</td>
-                                    <td>" . round($row[3], 2) . "</td>
-                                    <td>" . $row[4] . "</td>
+                                    <td>" . hsc($row[0]) . " " . hsc($row[1]) . "</td>
+                                    <td>" . hsc(round($row[2]), 2) . "</td>
+                                    <td>" . hsc(round($row[3]), 2) . "</td>
+                                    <td>" . hsc($row[4]) . "</td>
                                 </tr>";
                         }
                     ?>

@@ -6,6 +6,7 @@
     session_cache_expire(30);
     session_start();
     require_once('database/dbUsers.php');
+    require_once('include/output.php');
 
     $loggedIn = false;
     $accessLevel = 0;
@@ -135,26 +136,18 @@ require_once('header.php');
                                     </tr>
                                 </thead>
                                 <tbody>';
-                        $mailingList = '';
-                        $notFirst = false;
                         foreach ($persons as $person) {
-                            if ($notFirst) {
-                                $mailingList .= ', ';
-                            } else {
-                                $notFirst = true;
-                            }
-                            $mailingList .= $person->get_email();
                             echo '
                                     <tr>
-                                        <td><input type="checkbox" name="selected_users[]" value="' . $person->get_id() . '"></td>
+                                        <td><input type="checkbox" name="selected_users[]" value="' . hsc($person->get_id()) . '"></td>
                                         <td>' . (($person->is_archived()==0)?"Active":"Archived") . '</td>
-                                        <td>' . $person->get_first_name() . '</td>
-                                        <td>' . $person->get_last_name() . '</td>
-                                        <td style="word-break: break-word;">' . $person->get_id() . '</td>
-                                        <td>' . $person->get_semester() . '</td>
-                                        <td>' . ucfirst($person->get_role() ?? '') . '</td>
-                                        <td><a href="viewProfile.php?id=' . $person->get_id() . '" class="text-blue-700 underline">Profile</a></td>
-                                        <td><a href="deleteUser.php?id=' . $person->get_id() . '" onclick="return confirm(\'Are You Sure?  This action will permanently delete the user AND their volunteer activity.\');" class="text-blue-700 underline">Delete User</a></td>
+                                        <td>' . hsc($person->get_first_name()) . '</td>
+                                        <td>' . hsc($person->get_last_name()) . '</td>
+                                        <td style="word-break: break-word;">' . hsc($person->get_id()) . '</td>
+                                        <td>' . hsc($person->get_semester()) . '</td>
+                                        <td>' . ucfirst(hsc($person->get_role() ?? '')) . '</td>
+                                        <td><a href="viewProfile.php?id=' . hsc($person->get_id()) . '" class="text-blue-700 underline">Profile</a></td>
+                                        <td><a href="deleteUser.php?id=' . hsc($person->get_id()) . '" onclick="return confirm(\'Are You Sure?  This action will permanently delete the user AND their volunteer activity.\');" class="text-blue-700 underline">Delete User</a></td>
                                     </tr>';
                         }
 echo '
@@ -168,12 +161,6 @@ echo '
 </div>
 </form>';
 echo "</div>";
-
-                        /*echo '
-                        <div class="mt-4">
-                            <label>Result Mailing List:</label>
-                            <p class="text-gray-700 break-words">' . $mailingList . '</p>
-                        </div>';*/
                     } else {
                         echo '<div class="error-block">Your search returned no results.</div>';
                     }
@@ -188,12 +175,12 @@ echo "</div>";
 
             <div>
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" class="w-full" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']); ?>" placeholder="Enter the user's first and/or last name">
+                <input type="text" id="name" name="name" class="w-full" value="<?php if (isset($name)) echo hsc($_GET['name']); ?>" placeholder="Enter the user's first and/or last name">
             </div>
 
             <div>
                 <label for="id">Username</label>
-                <input type="text" id="id" name="id" class="w-full" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']); ?>" placeholder="Enter the user's username (login ID)">
+                <input type="text" id="id" name="id" class="w-full" value="<?php if (isset($id)) echo hsc($_GET['id']); ?>" placeholder="Enter the user's username (login ID)">
             </div>
             <div>
                 <label for="role">Role</label>
@@ -209,7 +196,7 @@ echo "</div>";
                 <select id="semester" name="semester" class="w-full">
                     <option value="">Any</option>
                     <?php foreach (get_semesters_in_users() as ['semester' => $s]): ?>
-                    <option value="<?php echo $s ?>" <?php if (isset($semester) && $semester == $s) echo 'selected'; ?>><?php echo $s ?></option>
+                    <option value="<?php echo hsc($s) ?>" <?php if (isset($semester) && $semester == $s) echo 'selected'; ?>><?php echo hsc($s) ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

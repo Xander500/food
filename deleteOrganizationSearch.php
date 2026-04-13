@@ -31,6 +31,7 @@
 <?php
 $tailwind_mode = true;
 require_once('header.php');
+require_once('include/output.php');
 ?>
 <style>
         .date-box {
@@ -123,11 +124,11 @@ $resultsHtml = '
 foreach ($orgs as $org) {
     $resultsHtml .= '
             <tr>
-                <td>' . $org->get_name() . '</td>
-                <td>' . $org->get_description() . '</td>
-                <td>' . $org->get_location() . '</td>
-                <td><a href="mailto:' . $org->get_email() . '" class="text-blue-700 underline">' . $org->get_email() . '</a></td>
-                <td><input type="checkbox" name="selected_orgs[]" value="' . $org->get_id() . '"></td>
+                <td>' . hsc($org->get_name()) . '</td>
+                <td>' . hsc($org->get_description()) . '</td>
+                <td>' . hsc($org->get_location()) . '</td>
+                <td><a href="mailto:' . hsc($org->get_email()) . '" class="text-blue-700 underline">' . hsc($org->get_email()) . '</a></td>
+                <td><input type="checkbox" name="selected_orgs[]" value="' . hsc($org->get_id()) . '"></td>
             </tr>';
 }
 
@@ -160,11 +161,11 @@ $resultsHtml .= '
             ?>
             <div>
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" class="w-full" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']); ?>" placeholder="Enter the name of the organization">
+                <input type="text" id="name" name="name" class="w-full" value="<?php if (isset($name)) echo hsc($_GET['name']); ?>" placeholder="Enter the name of the organization">
             </div>
             <div>
                 <label for="location">Location</label>
-                <input type="text" id="location" name="location" class="w-full" value="<?php if (isset($location)) echo htmlspecialchars($_GET['location']); ?>" placeholder="Enter the location of the organization">
+                <input type="text" id="location" name="location" class="w-full" value="<?php if (isset($location)) echo hsc($_GET['location']); ?>" placeholder="Enter the location of the organization">
             </div>
 <div class="text-center pt-4">
     <input type="submit" value="Search" class="blue-button">
