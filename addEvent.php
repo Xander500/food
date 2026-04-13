@@ -126,7 +126,7 @@
                 <input type="text" id="description" name="description" placeholder="Enter description">
 
                 <label for="poundsOfFood"> Pounds of Food </label>
-                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.01" max="9999 placeholder="Enter pounds of food">
+                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.01" max="9999" placeholder="Enter pounds of food">
                 </div>
 
                 <div class="event-sect">
