@@ -921,7 +921,7 @@
   }
   main {
     position: relative;
-    z-index: 10;
+    /* z-index: 10; */
     margin-top: calc(var(--spacing) * -12);
     display: flex;
     flex-grow: 1;

@@ -223,7 +223,7 @@ nav {
 }
 
 a {
-    color: var(--accent-color);
+    color: white;
 }
 
 a:hover {
@@ -930,11 +930,12 @@ form.signup-form em {
 a.return-button,
 .num a {
     background-color: var(--main-color); 
-    border-color: var(--main-color-hover);
+    border: 3px solid var(--main-color-hover);
     border-radius: 0.5rem !important;
     padding-inline: 1.5rem !important;
     padding-block: 0.5rem !important;
     font-weight: 550;
+    text-align: center;
 }
   
 .return-button:hover,
@@ -1371,15 +1372,11 @@ table.general { /* used by View All Events! */
 table.general th,
 table.general td {
     padding: 0.75rem 1rem;
-    vertical-align: top;
+    padding-bottom: 0;
+    vertical-align: middle;
+    text-align: center;
     background-color: var(--page-background-color);
     border-bottom: 1px solid var(--main-color);
-    color: var(--page-font-color);
-}
-
-table.general td {
-    text-align:left;
-    vertical-align: middle;
     color: var(--page-font-color);
 }
 
@@ -2018,4 +2015,83 @@ canvas {
 
 .profile-tab-section-item-data a:hover {
     color: var(--main-color-hover);
+}
+
+.log_filters {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    border: .25rem solid var(--shadow-and-border-color);
+    border-radius: 1rem;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+}
+
+.log_filters--row {
+    display: flex;
+    flex-direction: row;
+    flex: 1 1 0;
+    gap: 0.5rem;
+    align-items: flex-start;
+}
+
+.log_filter {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    font-size: 0.8rem;
+}
+
+.table-wrapper h2{
+    text-align: center;
+}
+
+.pagination {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+}
+
+.pagination_link, .pagination_link:visited {
+    display: block;
+    color: var(--accent-color);
+    font-weight: bold;
+    width: 1.8rem;
+    height: 1.8rem;
+    text-decoration: none;
+    text-align: center;
+    line-height: 1.6rem;
+    border-radius: .5rem;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    border: 0.15rem solid var(--shadow-and-border-color);
+}
+
+.pagination_link:hover {
+    color: var(--page-font-color);
+    border: 0.25rem solid var(--accent-color);
+}
+
+.pagination_li {
+    padding: 0;
+}
+
+.pagination_link--active {
+    color: var(--accent-color);
+    border-color: var(--accent-color) !important;
+}
+
+a.sorted-asc::after { 
+    content: " \25B2"; 
+}
+
+a.sorted-desc::after { 
+    content: " \25BC"; 
+}
+
+#log-table {
+  scroll-margin-top: 100px; /*so ancor links to log-table will show top of table (due to fixed header nav bar)*/
 }

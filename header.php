@@ -214,12 +214,12 @@ if (date("H:i:s") > "18:19:59") {
             gap: 20px;
         }
 
-        .nav-links div, .nav-item a {
+        /* .nav-links div, .nav-item a {
             font-size: 24px;
             font-weight: 700;
             color: var(--page-font-color);
             cursor: pointer;
-        }
+        } */
 
         /* Right Section: Date & Icon */
         .right-section {
@@ -227,7 +227,7 @@ if (date("H:i:s") > "18:19:59") {
             display: flex;
             align-items: center;
             gap: 20px;
-	}
+	    }
 
         /* Dropdown Control */
         .nav-item, .nav-item a {
@@ -235,10 +235,9 @@ if (date("H:i:s") > "18:19:59") {
             cursor: pointer;
             padding: 0px;
             transition: color 0.3s, outline 0.3s;
-        }
-
-        .nav-item a {
             font-size: 30px;
+            color: var(--page-font-color);
+            font-weight: 700;
         }
 
         .dropdown {
@@ -264,7 +263,7 @@ if (date("H:i:s") > "18:19:59") {
             background: rgba(0, 0, 0, 0.1);
         }
 
-        .nav-item:hover, .nav-item:focus-visible, .nav-item.active {
+        .nav-item:hover, .nav-item:focus-visible, .nav-item.active, .nav-item a.home-link:hover {
             color: var(--accent-color);
             /* outline: 1px solid var(--accent-color); */
             outline-offset: 7px;
@@ -657,7 +656,9 @@ if (date("H:i:s") > "18:19:59") {
             <div class="logo-container">
                 <a href="index.php"><img src="' . $logo . '" alt="Logo"></a>
             </div>
-            <div class="nav-item"><a href="index.php">Dashboard</a></div>
+            <div class="nav-item">
+                <a class="home-link" href="index.php">Home</a>
+            </div>
         </div>
 
         <!-- Right Section: Date & Icon -->
@@ -886,43 +887,43 @@ if (date("H:i:s") > "18:19:59") {
             <div class="logo-container">
                 <a href="index.php"><img src="' . $logo . '" alt="Logo"></a>
             </div>
-            <div class="nav-item"><a href="index.php">Dashboard</a></div>'.
-            //     <!--<a href="viewCheckInOut.php" style="color: white; text-decoration: none;"><div class="date-box">Check In/Out</div></a>-->
-            // <div class="nav-links">
-            //     <div class="nav-item">Events
-            //         <div class="dropdown">
-            //             <a href="addEvent.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/plus-solid.svg">
-            //                 <span>Create Event</span>
-            //             </div>
-            //             </a>
-            //             <a href="calendar.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/list-solid.svg">
-            //                 <span>View Events</span>
-            //             </div>
-            //             </a>
-            //             <a href="editHours.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/clock-regular.svg">
-            //                 <span>Change Event Hours</span>
-            //             </div>
-            //             </a>
-            //             <a href="viewPendingApps.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/users-solid.svg">
-            //                 <span>Pending Applications</span>
-            //             </div>
-            //             </a>
-            //             <a href="adminViewingEvents.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/list-solid.svg">
-            //                 <span>Edit Event</span>
-            //             </div>
-            //             </a>
-            //         </div>
-            //     </div>
+            <div class="nav-links">
+                <div class="nav-item">
+                    <a class="home-link" href="index.php">Home</a>
+                </div>
+                <div class="nav-item">Management
+                    <div class="dropdown">
+                        <a href="volunteerManagement.php" style="text-decoration: none;">
+                        <div class="in-nav">
+                            <span>Manage Volunteers</span>
+                        </div>
+                        </a>
+                        <a href="organizationManagement.php" style="text-decoration: none;">
+                        <div class="in-nav">
+                            <span>Manage Organizations</span>
+                        </div>
+                        </a>
+                        <a href="archivalManagement.php" style="text-decoration: none;">
+                        <div class="in-nav">
+                            <span>Manage Archives</span>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-item">Analytics
+                    <div class="dropdown">
+                        <a href="analyticsDashboard.php" style="text-decoration: none;">
+                        <div class="in-nav">
+                            <span>Analytics Dashboard</span>
+                        </div>
+                        </a>
+                        <a href="generateReport.php" style="text-decoration: none;">
+                        <div class="in-nav">
+                            <span>Export to CSV/XLS</span>
+                        </div>
+                        </a>
+                    </div>
+                </div>' .
             //     <div class="nav-item">
             //         <div class="dropdown">
             //             <a href="createGroup.php" style="text-decoration: none;">
@@ -945,8 +946,8 @@ if (date("H:i:s") > "18:19:59") {
             //             </a>
             //         </div>
             //    </div>
-            // </div>
-        '</div>
+            '</div>
+        </div>
 
         <!-- Right Section: Date & Icon -->
         <div class="right-section">
@@ -983,7 +984,9 @@ if (date("H:i:s") > "18:19:59") {
             <div class="logo-container">
                 <a href="index.php"><img src="' . $logo . '" alt="Logo"></a>
             </div>
-            <div class="nav-item"><a href="index.php">Dashboard</a></div>'.
+            <div class="nav-item">
+                <a class="home-link" href="index.php">Home</a>
+            </div>'.
             // <div class="nav-links">
             //     <div class="nav-item">Events
             //         <div class="dropdown">

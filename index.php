@@ -32,7 +32,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="./css/base.css" rel="stylesheet">
+    <!-- <link href="./css/base.css" rel="stylesheet"> -->
     <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
     <title>UMW Alleviating Food Waste Volunteer Tracking | Dashboard</title>
     <?php require_once('universal.inc') ?>
@@ -194,12 +194,12 @@
             gap: 20px;
         }
 
-        .nav-links div {
+        /* .nav-links div {
             font-size: 24px;
             font-weight: 700;
             color: black;
             cursor: pointer;
-        }
+        } */
 
         /* Right Section: Date & Icon */
         .right-section {
@@ -457,98 +457,69 @@
     <div style="margin-top: 0px; padding: 30px 20px;">
         <h2><b>Welcome <?php echo $user->get_first_name() ?>!</b> Let's get started.</h2>
     </div>
+    <div class="full-width-bar">
+        <div style="width: 100%;">
+            <a class="return-button" style="display:flex; width: fit-content; margin-left:auto; margin-right:auto; margin-bottom: 1rem;" href="addEvent.php">Add Volunteer Log</a>
+            <?php require_once("viewAllLogs.php") ?>
+        </div>
 
-            <?php if (isset($_GET['pcSuccess'])): ?>
-                <div class="happy-toast">Password changed successfully!</div>
-            <?php elseif (isset($_GET['deleteService'])): ?>
-                <div class="happy-toast">Service successfully removed!</div>
-            <?php elseif (isset($_GET['serviceAdded'])): ?>
-                <div class="happy-toast">Service successfully added!</div>
-            <?php elseif (isset($_GET['animalRemoved'])): ?>
-                <div class="happy-toast">Animal successfully removed!</div>
-            <?php elseif (isset($_GET['locationAdded'])): ?>
-                <div class="happy-toast">Location successfully added!</div>
-            <?php elseif (isset($_GET['deleteLocation'])): ?>
-                <div class="happy-toast">Location successfully removed!</div>
-            <?php elseif (isset($_GET['registerSuccess'])): ?>
-                <div class="happy-toast">Volunteer registered successfully!</div>
-            <?php endif ?>
+        <!--<div class="content-box" onclick="window.location.href='volunteerManagement.php'">
+            <div class="large-text">Manage Volunteers</div>
+            <button class="circle-arrow-button">
+                <span class="button-text">Go</span>
+                <div class="circle">&gt;</div>
+            </button>
+        </div>
 
-<div class="full-width-bar">
-    <div class="content-box" onclick="window.location.href='volunteerManagement.php'">
-        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
-        <div class="large-text">Manage Volunteers</div>
-        <button class="circle-arrow-button">
-            <span class="button-text">Go</span>
+        <div class="content-box" onclick="window.location.href='archivalManagement.php'">
+            <div class="large-text">Manage Archives</div>
+            <button class="circle-arrow-button">
+                <span class="button-text">Go</span>
+                <div class="circle">&gt;</div>
+            </button>
+        </div>
+
+        <div class="content-box"  onclick="window.location.href='addEvent.php'">
+            <div class="large-text">Add Volunteer Log</div>
+            <button class="circle-arrow-button">
+                <span class="button-text">
+                    <?php
+                    require_once('database/dbEvents.php');
+                    require_once('database/dbUsers.php');
+                    require_once('database/dbApplications.php');
+                    $pendingsignups = all_pending_names();
+                    if (sizeof($pendingsignups) > 0) {
+                        echo '<span class="colored-box">' . sizeof($pendingsignups) . '</span>';
+                    }
+                    ?> Go </span>
             <div class="circle">&gt;</div>
-        </button>
+            </button>
+        </div>
+
+        <div class="content-box" onclick="window.location.href='viewAllLogs.php'">
+            <div class="large-text">View Volunteer Logs</div>
+            <button class="circle-arrow-button">
+                <span class="button-text">Go</span>
+                <div class="circle">&gt;</div>
+            </button>
+        </div>
+
+        <div class="content-box" onclick="window.location.href='organizationManagement.php'">
+            <div class="large-text">Manage Organizations</div>
+            <button class="circle-arrow-button">
+                <span class="button-text">Go</span>
+                <div class="circle">&gt;</div>
+            </button>
+        </div> -->
+
     </div>
 
-    <div class="content-box" onclick="window.location.href='archivalManagement.php'">
-        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
-        <div class="large-text">Manage Archives</div>
-        <button class="circle-arrow-button">
-            <span class="button-text">Go</span>
-            <div class="circle">&gt;</div>
-        </button>
-    </div>
+    <!-- <div style="margin-top: 50px; padding: 0px 80px;">
+        <h2><b>Admin Dashboard</b></h2>
+    </div> -->
 
-    <div class="content-box"  onclick="window.location.href='addEvent.php'">
-        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
-        <div class="large-text">Add Volunteer Log</div>
-        <button class="circle-arrow-button">
-            <span class="button-text"><?php
-                require_once('database/dbEvents.php');
-                require_once('database/dbUsers.php');
-                require_once('database/dbApplications.php');
-                $pendingsignups = all_pending_names();
-                if (sizeof($pendingsignups) > 0) {
-                    echo '<span class="colored-box">' . sizeof($pendingsignups) . '</span>';
-                }
-                ?> Go </span>
-        <div class="circle">&gt;</div>
-        </button>
-    </div>
+    <!-- <div class="full-width-bar-sub"> -->
 
-    <div class="content-box" onclick="window.location.href='viewAllLogs.php'">
-        <!-- <img src="images/whiskeyBarrels.png" style="filter:brightness(3) contrast(25%) blur(4px);"> -->
-
-        <div class="large-text">View Volunteer Logs</div>
-        <button class="circle-arrow-button">
-            <span class="button-text">Go</span>
-            <div class="circle">&gt;</div>
-        </button>
-    </div>
-
-    <div class="content-box" onclick="window.location.href='organizationManagement.php'">
-        <div class="large-text">Manage Organizations</div>
-        <button class="circle-arrow-button">
-            <span class="button-text">Go</span>
-            <div class="circle">&gt;</div>
-        </button>
-    </div>
-
-</div>
-
-<div style="margin-top: 50px; padding: 0px 80px;">
-    <h2><b>Admin Dashboard</b></h2>
-</div>
-
-<div class="full-width-bar-sub">
-
-    <?php
-        require_once('database/dbMessages.php');
-
-        // Ensure variable is always defined
-        $unreadMessageCount = 0;
-        $inboxIcon = 'inbox.svg';
-        if (isset($user)) {
-            $unreadMessageCount = get_user_unread_count($user->get_id());
-            if ($unreadMessageCount > 0) {
-                $inboxIcon = 'inbox-unread.svg';
-            }
-        }
-    ?>
 <!--
      Calendar
     <div class="content-box-test" onclick="window.location.href='calendar.php'">
@@ -594,8 +565,8 @@
             -->
 
 
-    <!-- Generate Report -->
-    <div class="content-box-test" onclick="window.location.href='analyticsDashboard.php'">
+    <!-- Analytics Dashboard -->
+    <!-- <div class="content-box-test" onclick="window.location.href='analyticsDashboard.php'">
         <div class="icon-overlay">
             <img style="border-radius: 5px;" src="images/menu.png" alt="Report Icon">
         </div>
@@ -603,10 +574,10 @@
         <div class="large-text-sub">Analytics Dashboard</div>
 
         <button class="arrow-button">→</button>
-    </div>
+    </div> -->
 
     <!-- Generate Report -->
-    <div class="content-box-test" onclick="window.location.href='generateReport.php'">
+    <!-- <div class="content-box-test" onclick="window.location.href='generateReport.php'">
         <div class="icon-overlay">
             <img style="border-radius: 5px;" src="images/create-report.svg" alt="Report Icon">
         </div>
@@ -614,7 +585,7 @@
         <div class="large-text-sub">Export Report</div>
 
         <button class="arrow-button">→</button>
-    </div>
+    </div> -->
 
     <!-- Create Email -->
    <!-- <div class="content-box-test" onclick="window.location.href='createEmail.php'">
@@ -663,19 +634,15 @@
         <button class="arrow-button">→</button>
     </div>
             -->
-</div>
+    <!-- </div> -->
 
-
-
-
-
-<div style="width: 90%; /* Stops before page ends */
-            height: 100%;
-            outline: 1px var(--page-font-color) solid;
-            outline-offset: -0.5px;
-            margin: 70px auto; /* Adds vertical space and centers */
-            padding: 1px 0;"> <!-- Adds spacing inside the div -->
-</div>
+    <div style="width: 90%; /* Stops before page ends */
+                height: 100%;
+                outline: 1px var(--page-font-color) solid;
+                outline-offset: -0.5px;
+                margin: 70px auto; /* Adds vertical space and centers */
+                padding: 1px 0;"> <!-- Adds spacing inside the div -->
+    </div>
 
 
     <!-- <footer class="footer" style="margin-top: 100px;"> -->
