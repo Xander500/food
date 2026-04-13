@@ -920,7 +920,11 @@ if (date("H:i:s") > "18:19:59") {
                         </div>
                         </a>
                     </div>
-                </div>' .
+                </div>
+                <div class="nav-item">
+                    <a class="home-link" href="howto.php">Instructions</a>
+                </div>'
+                .
             //     <div class="nav-item">
             //         <div class="dropdown">
             //             <a href="createGroup.php" style="text-decoration: none;">

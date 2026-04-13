@@ -94,6 +94,10 @@ require_once('include/output.php');
                         $location = null;
                     }
 
+                    $status = $args['status'] ?? [];
+                    $want_archived = in_array('1', $status);
+                    $want_active = in_array('0', $status);
+
                     if (!($name || $location)) {
                         echo '<div class="error-block">At least one search criterion is required.</div>';
                     } else {
@@ -107,6 +111,7 @@ require_once('include/output.php');
                                 <table>
                                     <thead>
                                         <tr>
+                                            <th>Status</th>
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Location</th>
@@ -118,6 +123,7 @@ require_once('include/output.php');
                             foreach ($orgs as $org) {
                                 echo '
                                         <tr>
+                                            <td>' . (($org->is_archived()==0)?"Active":"Archived") . '</td>
                                             <td>' . hsc($org->get_name()) . '</td>
                                             <td>' . hsc($org->get_description()) . '</td>
                                             <td>' . hsc($org->get_location()) . '</td>
@@ -145,6 +151,15 @@ require_once('include/output.php');
                 <label for="location">Location</label>
                 <input type="text" id="location" name="location" class="w-full" value="<?php if (isset($location)) echo hsc($_GET['location']); ?>" placeholder="Enter the location of the organization">
             </div>
+
+            <div>
+                <input type="checkbox" id="active" name="status[]" value="0" <?php echo ((($want_active ?? true) || ($want_active === false && $want_archived === false)) ? 'checked' : '');?>>
+                <label for="active">Active Organizations</label>
+                <input type="checkbox" id="archived" name="status[]" value="1" <?php echo ((($want_archived ?? true) || ($want_archived === false && $want_active === false)) ? 'checked' : '');?>>
+                <label for="archived">Archived Organizations</label>
+            </div>  
+
+
             <div class="text-center pt-4">
                 <input type="submit" value="Search" class="blue-button">
             </div>

@@ -162,7 +162,7 @@
                 </select>
 
                 <label for="hours">Hours</label>
-                <input type="number" id="hours" name="hours" min="0"
+                <input type="number" id="hours" name="hours" min="0" step=".01" max="99"
                     value="<?php echo hsc($log['hours']) ?>" required>
 
                 <label for="location">Location</label>
@@ -170,7 +170,7 @@
                     value="<?php echo hsc($log['location']) ?>">
 
                 <label for="poundsOfFood">Pounds of Food</label>
-                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.1"
+                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.01" max="9999"
                     value="<?php echo hsc($log['poundsOfFood']) ?>">
 
                 <label for="description">Description</label>

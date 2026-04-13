@@ -103,7 +103,7 @@
                         <option value=""></option>
                         <?php
                         require_once('database/dbUsers.php'); // maybe put at top
-                        $volunteers = retrieve_all();
+                        $volunteers = retrieve_all($want_archived=false);
                         while ($row = $volunteers->fetch_assoc()) {
                             echo "<option value='" . hsc($row['id']) . "'>". hsc($row['first_name']) . " " . hsc($row['last_name']) . "</option>";
                         }
@@ -126,7 +126,7 @@
                 <input type="text" id="description" name="description" placeholder="Enter description">
 
                 <label for="poundsOfFood"> Pounds of Food </label>
-                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.01" max="9999 placeholder="Enter pounds of food">
+                <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.01" max="9999" placeholder="Enter pounds of food">
                 </div>
 
                 <div class="event-sect">
@@ -141,7 +141,7 @@
                         <option value=""></option>
                         <?php
                             require_once('database/dbOrganizations.php'); // maybe put at top
-                            $organizations = get_organizations_id_name();
+                            $organizations = get_organizations_id_name($want_archived=false);
                             while ($row = $organizations->fetch_assoc()) {
                                 echo "<option value='" . hsc($row['id']) . "'>". hsc($row['name']) . "</option>";
                             }
