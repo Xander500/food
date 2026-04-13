@@ -223,7 +223,7 @@ nav {
 }
 
 a {
-    color: white;
+    color: var(--accent-color);
 }
 
 a:hover {
@@ -936,8 +936,9 @@ a.return-button,
     padding-block: 0.5rem !important;
     font-weight: 550;
     text-align: center;
+    color: white;
 }
-  
+
 .return-button:hover,
 a.return-button:hover,
 .num a:hover {
