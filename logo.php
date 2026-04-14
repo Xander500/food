@@ -1,3 +1,4 @@
 <?php
-echo 'images/alleviatingFoodWasteLogo.png';
+$photo = include 'photos.php';
+echo $photo['logo'] ?? 'images/alleviatingFoodWasteLogo.png';
 ?>
