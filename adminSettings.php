@@ -7,6 +7,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['access_level'] < 2) {
     die();
 }
 
+include_once('header.php');
+
 $photos = 'photos.php';
 if(file_exists($photos)) {
     $config = include($photos);
@@ -84,7 +86,7 @@ $currentLogo = $config['logo']       ?? 'images/default_logo.png';
 </head>
 <body class="bg-gray-100 min-h-screen p-8">
 
-    <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+    <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8 mt-20">
         <h1 class="text-3xl font-bold text-[#213e57] mb-2">Admin Settings</h1>
         <p class="text-gray-500 mb-6">Update the login page images below.</p>
 
