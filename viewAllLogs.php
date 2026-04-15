@@ -164,7 +164,7 @@
                 if (sizeof($logs) > 0): ?>
                 <div class="table-wrapper">
                     <!-- <h2 id="log-table">View All Volunteer Activity</h2> -->
-                    <table class="general">
+                    <table class="general" id="log-table">
                         <thead>
                             <tr>
                                 <th style="width:2%;"></th>
