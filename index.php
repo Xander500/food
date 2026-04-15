@@ -32,8 +32,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- <link href="./css/base.css" rel="stylesheet"> -->
-    <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
+    <link href="./css/base.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="<?php include 'logo.php'; ?>">
     <title>UMW Alleviating Food Waste Volunteer Tracking | Dashboard</title>
     <?php require_once('universal.inc') ?>
     <style>
@@ -459,7 +459,7 @@
     </div>
     <div class="full-width-bar">
         <div style="width: 100%;">
-            <a class="return-button" style="display:flex; width: fit-content; margin-left:auto; margin-right:auto; margin-bottom: 1rem;" href="addEvent.php">Add Volunteer Log</a>
+            <a class="return-button" style="display:flex; width: fit-content; margin-left:auto; margin-right:auto; margin-bottom: 1rem;" href="addLog.php">Add Volunteer Log</a>
             <?php require_once("viewAllLogs.php") ?>
         </div>
     </div>

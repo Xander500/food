@@ -709,7 +709,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['viewalllogs.php'] = 1;
         $permission_array['editlog.php'] = 1;
         $permission_array['deletelog.php'] = 1;
-        $permission_array['addevent.php'] = 1;
+        $permission_array['addlog.php'] = 1;
         $permission_array['volunteermanagement.php'] = 1;
         $permission_array['viewprofile.php'] = 1;
         $permission_array['addorganization.php'] = 1;
@@ -958,6 +958,7 @@ if (date("H:i:s") > "18:19:59") {
                         <img src="images/usaicon.png" alt="User Icon" class="icon-img in-nav-img">
                         <div class="dropdown">
                             <a href="changePassword.php" class="dropdown-link"><div>Change Password</div></a>
+                            <a href="adminSettings.php" class="dropdown-link"><div>Admin Settings</div></a>
                             <a href="logout.php" class="dropdown-link"><div>Log Out</div></a>
                         </div>
                     </div>

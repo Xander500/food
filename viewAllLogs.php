@@ -164,7 +164,7 @@
                 if (sizeof($logs) > 0): ?>
                 <div class="table-wrapper">
                     <!-- <h2 id="log-table">View All Volunteer Activity</h2> -->
-                    <table class="general">
+                    <table class="general" id="log-table">
                         <thead>
                             <tr>
                                 <th style="width:2%;"></th>
@@ -229,7 +229,7 @@
                     <?php endif; ?>
                 </ul>
                 <?php else: ?>
-                <p class="no-events standout">There are currently no logs available to view.<a class="button add" href="addEvent.php">Create a New Log</a> </p>
+                <p class="no-events standout">There are currently no logs available to view.<a class="button add" href="addLog.php">Create a New Log</a> </p>
             <?php endif ?>
             <!-- <a class="button cancel" href="index.php" style="margin: auto;">Return to Dashboard</a> -->
         <!-- </main> -->
