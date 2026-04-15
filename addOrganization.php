@@ -65,7 +65,8 @@ $tailwind_mode = true;
             $location = null;
         }
 
-        if (isset($_POST['email'])) {
+        // if (isset($_POST['email'])) {
+        if ($_POST['email'] != null) {
             $email = strtolower($args['email']);
             if (!validateEmail($email)) {
                 echo "<p>Invalid email.</p>";

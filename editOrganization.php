@@ -30,9 +30,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $args = sanitize($_POST, null);
-        $required = array(
-            "id", "name", "email", "description", "location", "archived"
-        );
+        $required = array("name", "archived");
 
         if (!wereRequiredFieldsSubmitted($args, $required)) {
             echo 'bad form data';
@@ -113,15 +111,15 @@
                     value="<?php echo htmlspecialchars($org['name']) ?>" required>
 
                 <label for="description">Description</label>
-                <textarea id="description" name="description"required><?php echo htmlspecialchars($org['description']) ?></textarea>
+                <textarea id="description" name="description"><?php echo htmlspecialchars($org['description']) ?></textarea>
 
                 <label for="location">Location</label>
                 <input type="text" id="location" name="location"
-                    value="<?php echo htmlspecialchars($org['location']) ?>" required>
+                    value="<?php echo htmlspecialchars($org['location']) ?>">
 
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email"
-                    value="<?php echo htmlspecialchars($org['email']) ?>" required>
+                    value="<?php echo htmlspecialchars($org['email']) ?>">
 
                 <input type="submit" value="Update Organization">
                 <a class="button cancel" href="organization.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="margin-top: .5rem">Cancel</a>

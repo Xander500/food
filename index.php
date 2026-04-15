@@ -462,180 +462,7 @@
             <a class="return-button" style="display:flex; width: fit-content; margin-left:auto; margin-right:auto; margin-bottom: 1rem;" href="addLog.php">Add Volunteer Log</a>
             <?php require_once("viewAllLogs.php") ?>
         </div>
-
-        <!--<div class="content-box" onclick="window.location.href='volunteerManagement.php'">
-            <div class="large-text">Manage Volunteers</div>
-            <button class="circle-arrow-button">
-                <span class="button-text">Go</span>
-                <div class="circle">&gt;</div>
-            </button>
-        </div>
-
-        <div class="content-box" onclick="window.location.href='archivalManagement.php'">
-            <div class="large-text">Manage Archives</div>
-            <button class="circle-arrow-button">
-                <span class="button-text">Go</span>
-                <div class="circle">&gt;</div>
-            </button>
-        </div>
-
-        <div class="content-box"  onclick="window.location.href='addEvent.php'">
-            <div class="large-text">Add Volunteer Log</div>
-            <button class="circle-arrow-button">
-                <span class="button-text">
-                    <?php
-                    require_once('database/dbEvents.php');
-                    require_once('database/dbUsers.php');
-                    require_once('database/dbApplications.php');
-                    $pendingsignups = all_pending_names();
-                    if (sizeof($pendingsignups) > 0) {
-                        echo '<span class="colored-box">' . sizeof($pendingsignups) . '</span>';
-                    }
-                    ?> Go </span>
-            <div class="circle">&gt;</div>
-            </button>
-        </div>
-
-        <div class="content-box" onclick="window.location.href='viewAllLogs.php'">
-            <div class="large-text">View Volunteer Logs</div>
-            <button class="circle-arrow-button">
-                <span class="button-text">Go</span>
-                <div class="circle">&gt;</div>
-            </button>
-        </div>
-
-        <div class="content-box" onclick="window.location.href='organizationManagement.php'">
-            <div class="large-text">Manage Organizations</div>
-            <button class="circle-arrow-button">
-                <span class="button-text">Go</span>
-                <div class="circle">&gt;</div>
-            </button>
-        </div> -->
-
     </div>
-
-    <!-- <div style="margin-top: 50px; padding: 0px 80px;">
-        <h2><b>Admin Dashboard</b></h2>
-    </div> -->
-
-    <!-- <div class="full-width-bar-sub"> -->
-
-<!--
-     Calendar
-    <div class="content-box-test" onclick="window.location.href='calendar.php'">
-        <div class="icon-overlay">
-            <img style="border-radius: 5px;" src="images/view-calendar.svg" alt="Calendar Icon">
-        </div>
-
-        <div class="large-text-sub">Calendar</div>
-        <div class="graph-text">See upcoming events/trainings.</div>
-        <button class="arrow-button">→</button>
-    </div>
-            -->
-
-
-    <!-- Manage Documents -->
-    <!--<div class="content-box-test" onclick="window.location.href='view_encrypted_gallery.php'"> <!--style="position: relative;">-->
-      <!--  <div class="icon-overlay">
-            <img style="border-radius: 5px;" src="images/file-regular.svg" alt="Document Icon">
-        </div>
-
-        <div class="large-text-sub">View Pending IDs </div>
-        <div class="graph-text">View pending and arbitrate user submitted IDs.</div>
-        <button class="arrow-button">→</button>
-    </div>
-            -->
-
-    <!-- System Notifications -->
-    <!--<div class="content-box-test" onclick="window.location.href='inbox.php'">
-        <div class="icon-overlay">
-            <img style="border-radius: 5px;" src="images/<?php echo $inboxIcon ?>" alt="Notification Icon">
-        </div>
-
-        <div class="large-text-sub">
-            System Notifications<?php
-                if ($unreadMessageCount > 0) {
-                    echo ' (' . $unreadMessageCount . ')';
-                }
-            ?>
-        </div>
-        <div class="graph-text">Stay up to date.</div>
-        <button class="arrow-button">→</button>
-    </div>
-            -->
-
-
-    <!-- Analytics Dashboard -->
-    <!-- <div class="content-box-test" onclick="window.location.href='analyticsDashboard.php'">
-        <div class="icon-overlay">
-            <img style="border-radius: 5px;" src="images/menu.png" alt="Report Icon">
-        </div>
-
-        <div class="large-text-sub">Analytics Dashboard</div>
-
-        <button class="arrow-button">→</button>
-    </div> -->
-
-    <!-- Generate Report -->
-    <!-- <div class="content-box-test" onclick="window.location.href='generateReport.php'">
-        <div class="icon-overlay">
-            <img style="border-radius: 5px;" src="images/create-report.svg" alt="Report Icon">
-        </div>
-
-        <div class="large-text-sub">Export Report</div>
-
-        <button class="arrow-button">→</button>
-    </div> -->
-
-    <!-- Create Email -->
-   <!-- <div class="content-box-test" onclick="window.location.href='createEmail.php'">
-        <div class="icon-overlay">
-            <img style="border-radius: 5px;" src="images/inbox.svg" alt="Email Icon">
-        </div>
-
-        <div class="large-text-sub">Create Email</div>
-        <div class="graph-text">Send new messages to volunteers.</div>
-        <button class="arrow-button">→</button>
-    </div>
-            -->
-
-    <!-- View Drafts -->
-   <!-- <div class="content-box-test" onclick="window.location.href='viewDrafts.php'">
-        <div class="icon-overlay">
-            <img style="border-radius: 5px;" src="images/search.svg" alt="Drafts Icon">
-        </div>
-
-        <div class="large-text-sub">View Drafts</div>
-        <div class="graph-text">Check saved email drafts.</div>
-        <button class="arrow-button">→</button>
-    </div>
-            -->
-
-    <!-- Generate Email List -->
-   <!-- <div class="content-box-test" onclick="window.location.href='generateEmailList.php'">
-        <div class="icon-overlay">
-            <img style="border-radius: 5px;" src="images/send.png" alt="Email List Icon">
-        </div>
-
-        <div class="large-text-sub">Generate Email List</div>
-        <div class="graph-text">Volunteer Emails</div>
-        <button class="arrow-button">→</button>
-    </div>
-            -->
-
-    <!-- Discussions -->
-    <!--<div class="content-box-test" onclick="window.location.href='viewSuggestions.php'">
-        <div class="icon-overlay">
-            <img style="border-radius: 5px;" src="images/clipboard-regular.svg" alt="Discussions Icon">
-        </div>
-
-        <div class="large-text-sub">User Suggestions</div>
-        <div class="graph-text">View user submitted suggestions.</div>
-        <button class="arrow-button">→</button>
-    </div>
-            -->
-    <!-- </div> -->
-
     <div style="width: 90%; /* Stops before page ends */
                 height: 100%;
                 outline: 1px var(--page-font-color) solid;
@@ -643,8 +470,6 @@
                 margin: 70px auto; /* Adds vertical space and centers */
                 padding: 1px 0;"> <!-- Adds spacing inside the div -->
     </div>
-
-
     <!-- <footer class="footer" style="margin-top: 100px;"> -->
         <!-- Left Side: Logo & Socials -->
         <!-- <div class="footer-left">
@@ -684,19 +509,8 @@
 <?php if ($_SESSION['access_level'] < 2): ?>
 <body>
 <?php require 'header.php';?>
-
-
-
-  <!-- Icon Container -->
-<div style="position: absolute; top: 110px; right: 30px; z-index: 999; display: flex; flex-direction: row; gap: 30px; align-items: center; text-align: center;">
-
-
-
-
-
-</div>
-
-
+    <!-- Icon Container -->
+    <div style="position: absolute; top: 110px; right: 30px; z-index: 999; display: flex; flex-direction: row; gap: 30px; align-items: center; text-align: center;"></div>
 
     <!-- Dummy content to enable scrolling -->
     <div style="margin-top: 0px; padding: 30px 20px;">
@@ -704,118 +518,18 @@
     </div>
 
     <div class="full-width-bar">
-    <div class="content-box">
-    <!-- <img src="images/VolM.png" />    -->
-       <div class="small-text">Make a difference.</div>
-        <div class="large-text">My Profile</div>
-        <div class="nav-buttons">
-            <button class="nav-button" onclick="window.location.href='viewProfile.php'">
-                <span class="arrow"><img src="images/view-profile.svg" style="width: 40px; border-radius:5px;"></span>
-                <span class="text">View</span>
-            </button>
-            <button class="nav-button" onclick="window.location.href='viewImpactSummary.php'">
-                <span class="arrow"><img src="images/flag.png" style="width: 40px; border-radius: 5px;"></span>
-                <span class="text">Impact</span>
-            </button>
-            <button class="nav-button" onclick="window.location.href='editProfile.php'">
-                <span class="arrow"><img src="images/manage-account.svg" style="width: 40px; border-radius:5px;"></span>
-                <span class="text">Edit</span>
-            </button>
-
+        <div style="width: 100%;">
+            <a class="return-button" style="display:flex; width: fit-content; margin-left:auto; margin-right:auto; margin-bottom: 1rem;" href="addEvent.php">Add Volunteer Log</a>
+            <?php require_once("viewAllLogs.php") ?>
         </div>
     </div>
-
-    <div class="content-box">
-        <!-- <img src="images/EvM.png" /> -->
-        <div class="large-text">My Volunteer Activity Logs</div>
-        <div class="nav-buttons">
-            <button class="nav-button" onclick="window.location.href='viewAllLogs.php?<?php echo http_build_query(['students' => $user->get_id()])?>'">
-                <span class="arrow"><img src="images/list-solid.svg" style="width: 40px; border-radius:5px;"></span>
-                <span class="text">View Logs</span>
-            </button>
-
-        </div>
+    <div style="width: 90%; /* Stops before page ends */
+                height: 100%;
+                outline: 1px #828282 solid;
+                outline-offset: -0.5px;
+                margin: 70px auto; /* Adds vertical space and centers */
+                padding: 1px 0;"> <!-- Adds spacing inside the div -->
     </div>
-
-    <div class="content-box">
-    <div class="small-text">Track your service.</div>
-    <div class="large-text">Add Volunteer Log</div>
-    <div class="nav-buttons">
-        <button class="nav-button" onclick="window.location.href='addLog.php'">
-            <span class="arrow"><img src="images/create-report.svg" style="width: 40px; border-radius:5px;"></span>
-            <span class="text">Add Logs</span>
-        </button>
-    </div>
-</div>
-
-
-    </div>
-
-    <div style="margin-top: 50px; padding: 0px 80px;">
-        <h2><b>Your Dashboard</h2>
-    </div>
-    <div class="full-width-bar-sub">
-        <div class="content-box-test" onclick="window.location.href='calendar.php'">
-            <div class="icon-overlay">
-                <img style="border-radius: 5px;" src="images/view-calendar.svg" alt="Calendar Icon">
-            </div>
-            <img class="background-image" src="images/blank-white-background.jpg" />
-            <div class="large-text-sub">Calendar</div>
-            <div class="graph-text">See upcoming events/trainings.</div>
-            <button class="arrow-button">→</button>
-        </div>
-
-               <?php
-                    require_once('database/dbMessages.php');
-                    $unreadMessageCount = get_user_unread_count($user->get_id());
-                    $inboxIcon = 'inbox.svg';
-                    if ($unreadMessageCount) {
-                        $inboxIcon = 'inbox-unread.svg';
-                    }
-                ?>
-                <!--
-
-        <div class="content-box-test" onclick="window.location.href='upload_encrypted_image.php'">
-            <div class="icon-overlay">
-                <img style="border-radius: 5px;" src="images/file-regular.svg" alt="Calendar Icon">
-            </div>
-            <img class="background-image" src="images/blank-white-background.jpg" />
-            <div class="large-text-sub">Documentation Upload</div>
-            <div class="graph-text">Upload an ID for verification.</div>
-            <button class="arrow-button">→</button>
-        </div>
--->
-        <!--
-        <div class="content-box-test" onclick="window.location.href='createSuggestion.php'">
-            <div class="icon-overlay">
-                <img style="border-radius: 5px;" src="images/clipboard-regular.svg" alt="Report Icon">
-            </div>
-            <img class="background-image" src="images/blank-white-background.jpg" />
-            <div class="large-text-sub">Suggestions</div>
-            <div class="graph-text">Suggest opportunities for charity events.</div>
-            <button class="arrow-button">→</button>
-        </div>
--->
-
-        <div class="content-box-test" onclick="window.location.href='inbox.php'">
-            <div class="icon-overlay">
-                <img style="border-radius: 5px;" src="images/<?php echo $inboxIcon ?>" alt="Notification Icon">
-            </div>
-            <img class="background-image" src="images/blank-white-background.jpg" />
-            <div class="large-text-sub">Notifications</div>
-            <div class="graph-text">Stay up to date.</div>
-            <button class="arrow-button">→</button>
-        </div>
-
-    </div>
-
-<div style="width: 90%; /* Stops before page ends */
-            height: 100%;
-            outline: 1px #828282 solid;
-            outline-offset: -0.5px;
-            margin: 70px auto; /* Adds vertical space and centers */
-            padding: 1px 0;"> <!-- Adds spacing inside the div -->
-</div>
 
     <!-- <footer class="footer" style="margin-top: 100px;"> -->
         <!-- Left Side: Logo & Socials -->
