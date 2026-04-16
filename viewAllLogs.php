@@ -149,8 +149,8 @@
                         <input type="number" id="maxFood" name="maxfood" min="0" placeholder="To" value="<?php echo hsc($filters['maxfood'] ?? ''); ?>">
                     </div>
                 </div>
-                <div style="margin: auto; width: 75%;">
-                    <button type="submit">Apply Filters</button>
+                <div style="margin: auto; width: 25%;">
+                    <button style="margin-bottom: 5%;" type="submit">Apply Filters</button>
                     <a class="button cancel" href="index.php">Clear Filters</a>
                 </div>
             </form>

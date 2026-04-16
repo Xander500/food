@@ -464,11 +464,8 @@
         </div>
     </div>
     <div style="width: 90%; /* Stops before page ends */
-                height: 100%;
-                outline: 1px var(--page-font-color) solid;
-                outline-offset: -0.5px;
-                margin: 70px auto; /* Adds vertical space and centers */
-                padding: 1px 0;"> <!-- Adds spacing inside the div -->
+                border-bottom: 2px solid var(--main-color);
+                margin: 2% auto; /* Adds vertical space and centers */">
     </div>
     <!-- <footer class="footer" style="margin-top: 100px;"> -->
         <!-- Left Side: Logo & Socials -->
@@ -524,11 +521,8 @@
         </div>
     </div>
     <div style="width: 90%; /* Stops before page ends */
-                height: 100%;
-                outline: 1px #828282 solid;
-                outline-offset: -0.5px;
-                margin: 70px auto; /* Adds vertical space and centers */
-                padding: 1px 0;"> <!-- Adds spacing inside the div -->
+                border-bottom: 2px solid var(--main-color);
+                margin: 2% auto; /* Adds vertical space and centers */">
     </div>
 
     <!-- <footer class="footer" style="margin-top: 100px;"> -->
