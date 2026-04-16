@@ -2106,3 +2106,26 @@ a.sorted-desc::after {
 #log-table {
   scroll-margin-top: 100px; /*so ancor links to log-table will show top of table (due to fixed header nav bar)*/
 }
+
+.choices__inner {
+    background-color: var(--page-background-color) !important;
+    border: var(--text-field-border) !important;
+    border-radius: 0 !important;
+    padding: 0.5rem !important;
+    width: 100% !important;
+    margin-bottom: 0.5rem !important;
+    scroll-margin: 7.5rem !important;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important;
+    color: var(--page-font-color) !important;
+    font-weight: 550 !important;
+}
+
+.choices__placeholder {
+    color: var(--main-color-hover) !important;
+    opacity: initial !important;
+}
+
+.choices__item {
+    font-weight: 550 !important;
+    color: var(--page-font-color) !important;
+}
