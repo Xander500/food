@@ -47,7 +47,7 @@
 	<div class="text-center">
           <h2 class="mb-8">Edit Profile</h2>
             <div class="info-box">
-              <p>An asterisk ( <em>*</em> ) indicates a required field.</p>
+              <p>An asterisk (*) indicates a required field.</p>
             </div>
 	</div>
         <fieldset class="section-box">
@@ -61,13 +61,13 @@
 
         <fieldset class="section-box">
             <h3 class="mt-2" id="personal-info">Account Information</h3>
-            <label for="first_name"><em>* </em>First Name</label>
+            <label for="first_name">* First Name</label>
             <input type="text" id="first_name" name="first_name" value="<?php echo hsc($person->get_first_name()); ?>" required placeholder="Enter your first name">
 
-            <label for="last_name"><em>* </em>Last Name</label>
+            <label for="last_name">* Last Name</label>
             <input type="text" id="last_name" name="last_name" value="<?php echo hsc($person->get_last_name()); ?>" required placeholder="Enter your last name">
 
-            <label for="email"><em>* </em>E-mail</label>
+            <label for="email">* E-mail</label>
             <input type="email" id="email" name="email" value="<?php echo hsc($person->get_email()); ?>" required placeholder="Enter your e-mail address">
             
             <div class="semester_select">
@@ -76,14 +76,14 @@
                     list($season, $year) = $parts = preg_split('/\s+/', trim($semester));
                 ?>
                 <div>
-                    <label for="season"><em>* </em>Semester:</label>
+                    <label for="season">* Semester:</label>
                     <select id="season" name="season" required>
                         <option value="Fall" <?php if ($season === "Fall") {echo "selected";}?>>Fall</option>
                         <option value="Spring" <?php if ($season === "Spring") {echo "selected";}?>>Spring</option>
                     </select>
                 </div>
                 <div>
-                    <label for="year"><em>* </em>Year:</label>
+                    <label for="year">* Year:</label>
                     <select id="year" name="year" required>
                         <?php
                             $currentYear = date("Y");
@@ -98,15 +98,14 @@
                 </div>
             </div>
             <p>Select the semester you enrolled in the course MKTG 427.</p>
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="submit" name="profile-edit-form" value="Update Profile" style="width: 50%; margin: auto; margin-top: +0.5rem;">
+            <?php if ($editingSelf): ?>
+                <a class="button cancel" href="viewProfile.php" style="width: 50%; margin: auto;">Cancel</a>
+            <?php else: ?>
+                <a class="button cancel" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="width: 50%; margin: auto;">Cancel</a>
+            <?php endif ?>
         </fieldset>
-
-        <input type="hidden" name="id" value="<?php echo $id; ?>">
-        <input type="submit" name="profile-edit-form" value="Update Profile">
-        <?php if ($editingSelf): ?>
-            <a class="button cancel" href="viewProfile.php" style="margin-top: -.5rem">Cancel</a>
-        <?php else: ?>
-            <a class="button cancel" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="margin-top: -.5rem">Cancel</a>
-        <?php endif ?>
     </form>
     </div>
 </main>

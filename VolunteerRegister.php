@@ -1,11 +1,11 @@
 <?php
     require_once('include/input-validation.php');
+    session_start();
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <?php require_once('database/dbMessages.php'); ?>
     <title>UMW Alleviating Food Waste Volunteer Tracking | Register</title>
     <link href="css/base.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">

@@ -398,6 +398,7 @@ h1 , .impact-header{
 h2 {
     font-size: 1.5rem;
     font-weight: 550;
+    text-align: center;
 }
 
 h3 {
@@ -574,10 +575,7 @@ main.calendar-view th {
     overflow: auto;
     margin: auto;
     text-align: center;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 2.5px;
-    padding-bottom: 2.5px;
+    padding: 0.5rem 0.5rem;
     color: white;
     border-collapse: collapse;
 }
@@ -867,7 +865,9 @@ main.dashboard > p {
 }
 
 form.signup-form,
-form.add-org-form {
+form.add-org-form,
+form.password-change,
+form.modUser {
     display: flex;
     gap: 1rem;
     flex-direction: column;
@@ -877,9 +877,11 @@ form.add-org-form {
 form.signup-form .section-box,
 form#person-search.section-box,
 form#org-search.section-box,
-form.add-org-form .section-box {
+form.add-org-form .section-box,
+form.password-change .section-box,
+form.modUser .section-box {
     border: 3px solid var(--main-color);
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 15px;
     margin-bottom: 20px;
     background-color: var(--accent-color);
@@ -891,7 +893,9 @@ textarea#description {
     resize: none;
 }
 
-form.signup-form > fieldset {
+form.signup-form > fieldset,
+form.password-change > fieldset,
+form.modUser > fieldset {
     padding: 1.5rem;
     display: flex;
     gap: .5rem;
@@ -900,7 +904,9 @@ form.signup-form > fieldset {
 
 form.signup-form > fieldset > label,
 form#org-searcg > div > label,  
-form#person-search > div > label {
+form#person-search > div > label,
+form.password-change > div > label,
+form.modUser > div > label {
     margin-bottom: -.25rem;
 }
 
@@ -1010,19 +1016,9 @@ a.return-button:hover,
     margin: 0.5rem 2rem;
     background-color: var(--inactive-font-color);
 }
-
-form.signup-form a {
-    color: var(--error-color);
-}
-
-form.signup-form a:hover {
-    color: var(--error-toast-background-color);
-}
 /* end normal_tw conversion ~Blue*/
 
 /*--------------start of how-to page styles------------------*/
-
-
 .sidebar-wrapper {
     position: sticky;
     height: auto;
@@ -1382,8 +1378,7 @@ table.general { /* used by View All Events! */
 
 table.general th,
 table.general td {
-    padding: 0.75rem 1rem;
-    padding-bottom: 0;
+    padding: 0.5rem 0.5rem;
     vertical-align: middle;
     text-align: center;
     background-color: var(--page-background-color);
@@ -2142,5 +2137,10 @@ a.sorted-desc::after {
 
 .choices__item {
     font-weight: 550 !important;
-    color: var(--page-font-color) !important;
+}
+
+.event-sect .choices__inner,
+.event-sect .choices__placeholder,
+.event-sect .choices__item {
+    font-size: 1rem !important;
 }
