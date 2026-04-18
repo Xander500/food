@@ -94,19 +94,60 @@ function get_organizations_id_name($want_archived = false) {
     return $result;
 }
 
-function find_organizations($name, $location) {
-    if ($name && $location) {
-        $query = 'select * from dborganizations where name like "%' . $name . '%" and location like "%' . $location . '%";';
-    } else if ($name) {
-        $query = 'select * from dborganizations where name like "%' . $name . '%";';
-    } else if ($location) {
-        $query = 'select * from dborganizations where location like "%' . $location . '%";';
-    } else {
+function find_organizations($name, $location, $archival_statuses = []) {
+
+    if (!($name || $location || $archival_statuses)) {
         return [];
     }
-    // echo $query;
+
+    //make sure statuses are valid (0 or 1)
+    $statuses_to_search = array_intersect($archival_statuses, ['0', '1']);
+    if (empty($statuses_to_search)) {
+        $archival_statuses = ['0', '1']; //if no valid status provided, search all
+    }
+    
+
+    $bindings = []; $types= "";
+    $where = 'select * from dborganizations where 1=1';
+
+    if ($name) {
+        $where .= " and name like ?";
+        $bindings[] = "%$name%";
+        $types .= "s";
+    }
+    if ($location) {
+        $where .= " and location like ?";
+        $bindings[] = "%$location%";
+        $types .= "s";
+    }
+    if ($archival_statuses) {
+        $placeholders = implode(',', array_fill(0, count($archival_statuses), '?'));
+        $where .= " and archived in ($placeholders)";
+        foreach ($archival_statuses as $status) {
+            $bindings[] = $status;
+            $types .= "s";
+        }
+    }
+
+    $where .= " order by archived, name";
     $connection = connect();
-    $result = mysqli_query($connection, $query);
+    $query = $connection->prepare($where);
+
+    //you have to do this to get a proper array to pass for dynamic bindings
+    if ($bindings) {
+        $refs = [];
+        foreach ($bindings as $key => $value) {
+            $refs[$key] = &$bindings[$key]; //passing by reference required
+            //[ 0 => thing0, 1 => thing1, etc...]
+        }
+        array_unshift($refs, $types); //prepend $types to $refs
+        call_user_func_array([$query, 'bind_param'], $refs);
+        //does $query->bind_param("ssi...", $first, $last, $id, ...all of the values...);
+        //but dynamically with any number of bindings
+    }
+
+    $query->execute();
+    $result = $query->get_result();
     if (!$result) {
         mysqli_close($connection);
         return [];

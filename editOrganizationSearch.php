@@ -102,7 +102,7 @@ require_once('include/output.php');
                         echo '<div class="error-block">At least one search criterion is required.</div>';
                     } else {
                         echo "<h3>Search Results</h3>";
-                        $orgs = find_organizations($name, $location);
+                        $orgs = find_organizations($name, $location, $archive_statuses = $status);
                         require_once('include/output.php');
 
                         if (count($orgs) > 0) {
