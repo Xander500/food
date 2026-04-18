@@ -39,7 +39,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Whiskey Valor | Personal Impact Summary</title>
+  <title>UMW Alleviating Food Waste Volunteer Tracking | Personal Impact Summary</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <?php require_once('header.php'); ?>
 </head>
