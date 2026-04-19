@@ -53,8 +53,23 @@ function get_user_full_name_from_id($id) {
 
  function add_user($user) {
     $con = connect();
-    $query = "SELECT * FROM dbusers WHERE id = '" . $user->get_id() . "'";
-    $result = mysqli_query($con, $query);
+
+    $username = $user->get_id();
+    $start_date = $user->get_start_date();
+    $first_name = $user->get_first_name();
+    $last_name = $user->get_last_name();
+    $email = $user->get_email();
+    $password = $user->get_password();
+    $role = $user->get_role();
+    $semester = $user->get_semester();
+
+
+    $sql = 'SELECT * FROM dbusers WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $username);
+    $query->execute();
+    $result = $query->get_result();
+
     // if (!$user instanceof user) {
     //     die("Error: add_user type mismatch");
     // }
@@ -62,24 +77,15 @@ function get_user_full_name_from_id($id) {
     // If the result is empty, it means the user doesn't exist, so we can add the user
     if (mysqli_num_rows($result) == 0) {
         // Prepare the insert query
-        $insert_query = 'INSERT INTO dbusers (id, start_date, first_name, last_name, email, password, role, semester) 
-            VALUES ("' .
-            $user->get_id() . '","' .
-            $user->get_start_date() . '","' .
-            $user->get_first_name() . '","' .
-            $user->get_last_name() . '","' .
-            $user->get_email() . '","' .
-            $user->get_password() . '","' .
-            $user->get_role() . '","' .
-            $user->get_semester() . '");';
-
+        $insert_query = 'INSERT INTO dbusers (id, start_date, first_name, last_name, email, password, role, semester) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
         // Check if the query is properly built
         if (empty($insert_query)) {
             die("Error: insert query is empty");
         }
+        $query = $con->prepare($insert_query);
+        $query->bind_param("ssssssss", $username, $start_date, $first_name, $last_name, $email, $password, $role, $semester);
 
-        // Perform the insert
-        if (mysqli_query($con, $insert_query)) {
+        if ($query->execute()) {
             mysqli_close($con);
             return true;
         } else {
@@ -98,16 +104,19 @@ function get_user_full_name_from_id($id) {
 
 function retrieve_user($id) { // (username! not id)
     $con=connect();
-    $query = "SELECT * FROM dbusers WHERE id = '" . $id . "'";
-    $result = mysqli_query($con,$query);
-    if (mysqli_num_rows($result) !== 1) {
+    $sql = 'SELECT * FROM dbusers WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+    $query->execute();
+
+    $result = $query->get_result();
+    if ($result->num_rows === 0) {
         mysqli_close($con);
         return false;
     }
-    $result_row = mysqli_fetch_assoc($result);
-    // var_dump($result_row);
+    $result_row = $result->fetch_assoc();
+    mysqli_close($con);
     $theUser = make_a_user($result_row);
-//    mysqli_close($con);
     return $theUser;
 }
 
