@@ -390,7 +390,7 @@ function delete_log($id) {
 
 function get_impact_summary_by_volunteer($id) {
     $con = connect();
-    $sql = "SELECT SUM(hours) AS total_hours, SUM(poundsOfFood) AS total_pounds, COUNT(*) AS total_logs FROM dbvolunteeractivity WHERE volunteerID = '$id'";
+    $sql = 'SELECT SUM(hours) AS total_hours, SUM(poundsOfFood) AS total_pounds, COUNT(*) AS total_logs FROM dbvolunteeractivity WHERE volunteerID = ?';
     $query = $con->prepare($sql);
     $query->bind_param("s", $id);
     $query->execute();
