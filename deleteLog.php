@@ -47,7 +47,7 @@
     }    
 
     if (delete_log($id)) {
-        header('Location: viewAllLogs.php?deleteSuccess');
+        header('Location: index.php?deleteSuccess');
         die();
     }
 
