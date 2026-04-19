@@ -67,7 +67,7 @@ function add_organization($org) {
 
 function get_organization_name_from_id($id) {
     $con=connect();
-    $sql = 'SELECT name FROM dborganizations WHERE id = "?"';
+    $sql = 'SELECT name FROM dborganizations WHERE id = ?';
     $query = $con->prepare($sql);
     $query->bind_param("s", $id);
     $query->execute();
