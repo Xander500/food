@@ -398,17 +398,31 @@ function get_impact_summary_by_organization($id) {
     return $rows;
 }
 
-function getTotalHours() {
+function getTotalHours($sem = "All") {
     $con = connect();
-    $query = "SELECT sum(hours) as h FROM dbvolunteeractivity;";
+    $query = "SELECT sum(hours) as h FROM dbvolunteeractivity";
+    if ($sem != "All") {
+        if (str_contains($sem, "Spring")) {
+            $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
+        } else {
+            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+        }
+    }
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_assoc($result);
     return $result['h'];
 }
 
-function getTotalPounds() {
+function getTotalPounds($sem = "All") {
     $con = connect();
-    $query = "SELECT sum(poundsOfFood) as lb FROM dbvolunteeractivity;";
+    $query = "SELECT sum(poundsOfFood) as lb FROM dbvolunteeractivity";
+    if ($sem != "All") {
+        if (str_contains($sem, "Spring")) {
+            $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
+        } else {
+            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+        }
+    }
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_assoc($result);
     return $result['lb'];
@@ -429,11 +443,18 @@ function getImpactByOrg() {
     $result = mysqli_fetch_all($result);
     return $result;
 }
-function get_all_activity_locations_for_map() {
+function get_all_activity_locations_for_map($sem = "All") {
     $con = connect();
     $query = "SELECT id, location, latitude, longitude
               FROM dbvolunteeractivity
               WHERE latitude IS NOT NULL AND longitude IS NOT NULL";
+    if ($sem != "All") {
+        if (str_contains($sem, "Spring")) {
+            $query .= " AND month(date) < 6 and year(date) = " . substr($sem, -4);
+        } else {
+            $query .= " AND month(date) >= 7 and year(date) = " . substr($sem, -4);
+        }
+    }
     $result = mysqli_query($con, $query);
 
     $rows = array();
@@ -482,9 +503,14 @@ function find_logs_by_semester($semester) {
     return $theLogs;
 }
 
-function get_monthly_hours() {
+function get_monthly_hours($sem = "All") {
     $con = connect();
-    $query = "SELECT month(date) as m, sum(hours) as v FROM dbvolunteeractivity WHERE year(date) = " . date("Y") . " GROUP BY month(date);";
+    $query = "SELECT month(date) as m, sum(hours) as v FROM dbvolunteeractivity WHERE ";
+    if ($sem != "All") {
+        $query .= "year(date) = " . substr($sem, -4) . " GROUP BY month(date)";
+    } else {
+        $query .= "year(date) = " . date("Y") . " GROUP BY month(date)";
+    }
     $result = mysqli_query($con, $query);
 
     $months = array();
@@ -496,9 +522,14 @@ function get_monthly_hours() {
     return $months;
 }
 
-function get_monthly_pounds() {
+function get_monthly_pounds($sem = "All") {
     $con = connect();
-    $query = "SELECT month(date) as m, sum(poundsOfFood) as v FROM dbvolunteeractivity WHERE year(date) = " . date("Y") . " GROUP BY month(date);";
+    $query = "SELECT month(date) as m, sum(poundsOfFood) as v FROM dbvolunteeractivity WHERE ";
+    if ($sem != "All") {
+        $query .= "year(date) = " . substr($sem, -4) . " GROUP BY month(date)";
+    } else {
+        $query .= "year(date) = " . date("Y") . " GROUP BY month(date)";
+    }
     $result = mysqli_query($con, $query);
 
     $months = array();

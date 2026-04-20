@@ -3,6 +3,9 @@
 
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
+
+use function PHPSTORM_META\type;
+
     session_cache_expire(30);
     session_start();
 
@@ -34,6 +37,8 @@
     $tailwind_mode = true;
     require_once('header.php');
     require_once('database/dbVolunteerActivity.php');
+    require_once('database/dbUsers.php');
+    include_once 'include/output.php';
 ?>
 <style>
         .date-box {
@@ -98,20 +103,51 @@
 </head>
 
 <?php
-    $hours = getTotalHours();
-    $pounds = getTotalPounds();
+    $hours = getTotalHours(isset($_GET['semester']) ? $_GET['semester'] : "All");
+    $pounds = getTotalPounds(isset($_GET['semester']) ? $_GET['semester'] : "All");
+
+    function sem_sort($a, $b) {
+        if ($a['semester'] == $b['semester']) {
+            return 0;
+        }
+        if ((int)substr($a['semester'], -4) < (int)substr($b['semester'], -4)) {
+            return 1;
+        } else if ((int)substr($a['semester'], -4) > (int)substr($b['semester'], -4)){
+            return -1;
+        } else {
+            if (str_contains($a['semester'], "Spring")) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+    }
+
+    $sems = get_semesters_in_users();
+    usort($sems, "sem_sort");
 ?>
 
 <body>
   <!-- Main Content -->
-    <h1 class="impact-header">Analytics Dashboard</h1>
-    <?php get_monthly_hours(); ?>
+    <div style="display: inline;">
+        <h1 class="impact-header">Analytics Dashboard</h1>
+        <form class="analytics-semester-select" action="analyticsDashboard.php?" method="GET">
+            <select id="semesterSelect" name="semester" onchange="this.form.submit()">
+                <option <?php echo !isset($_GET['semester']) ? 'selected' : ''; ?>>All</option>
+                <?php foreach ($sems as $row): ?>
+                    <option value="<?php echo hsc($row['semester']); ?>" <?php echo isset($_GET['semester']) && $_GET['semester'] == $row['semester'] ? 'selected' : ''; ?>>
+                        <?php echo hsc($row['semester']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </form>
+    </div>
     <main class="analytics-body">
         <div class="display">
             <div>
                 <div class="nums-display">
-                    <div class="num">Total Hours Volunteered : <?php echo round($hours, 2);?></div>
-                    <div class="num">Total Pounds of Food Rescued: <?php echo round($pounds, 2); ?></div>
+                    <div class="num">Total Hours Volunteered : <?php echo $hours != null ? round($hours, 2) : 0;?></div>
+                    <div class="num">Total Pounds of Food Rescued: <?php echo $pounds != null ? round($pounds, 2) : 0; ?></div>
                     <div class="num"><a href="impactByStudent.php">Impact by Student</a></div>
                     <div class="num"><a href="impactByOrg.php">Impact by Organization</a></div>
                 </div>
@@ -123,7 +159,7 @@
                 </div>
             </div>
             <div>
-                <?php require_once 'monthlyImpact.php'; ?>
+                <?php include_once 'monthlyImpact.php'; ?>
                 <div class="text-center mt-6">
                     <a href="index.php" class="return-button" style="font-size: 1.5rem; box-shadow: 0px 0px 20px 5px var(--main-color);">Return to Dashboard</a>
                 </div>
