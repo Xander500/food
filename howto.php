@@ -26,6 +26,8 @@
     //0 means everone,1 means student only, 3 means instructor only.
     //ignore the ones with 0, not coded below for variable appeareance
     $sections = [
+        "share_register" => 3,
+        "student_locked_out" => 3,
         "add_log" => 0,
         "view_logs" => 0,
         "search_logs" => 0,
@@ -44,12 +46,15 @@
         "archive_semester" => 3,
         "archive_one" => 3,
         ];
+
+    $host = $_SERVER['HTTP_HOST'];
+    $root_url =  $host . "/";
+
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <?php require_once('universal.inc') ?>
-        <link rel="stylesheet" href="css/base.css">
+        <?php require_once('universal.inc'); //contains base.css ?>
         <title>UMW Alleviating Food Waste Volunteer Tracking | Instructions</title>
 
 
@@ -66,11 +71,14 @@
 
 
         <main class="general howto-page">            
+            <button id="scroll-to-top" class="scroll-to-top-btn" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top"><span aria-hidden="true">&#x25B2;</span></button>
             <div class="sidebar-wrapper">
                 <div class="sidebar">
                     <div class="sidebar-item">
                         <h1>Instructions</h1>
                         <ol>
+                            <li><a href="#share-register">Share Registration with Students</a></li>
+                            <li><a href="#student-locked-out">Student Locked Out of Account</a></li>
                             <li><a href="#add-log">Add a Volunteer Activity Log</a></li>
                             <li><a href="#view-logs">View All Volunteer Activity Logs</a></li>
                             <li><a href="#search-logs">Search Volunteer Activity Logs</a></li>
@@ -93,6 +101,31 @@
             </div>
 
             <div class="main-content-box">
+                <section id="share-register">
+                    <h3 <?php if ($sections['share_register'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Share Registration with Students</h3>
+                    <ul>
+                        <li>To allow students to register, email students this link.</li>
+                        <li>Anyone with this link can create an account.</li>
+                        <li>
+                            <div class="code-wrapper">
+                                <div class="code-container">
+                                    <pre><code><?php echo $root_url; ?>VolunteerRegister.php</code></pre>
+                                </div>
+                                <button class="copy-btn">copy</button>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+                <section id="student-locked-out">
+                    <h3 <?php if ($sections['student_locked_out'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Student Locked Out of Account</h3>
+                    <ul>
+                        <li>Normally, students can reset their password on the login screen.  This will send an email to their email address on record.  However, if they no longer have access to their email, or if the email on record is incorrect, they will be locked out of their account.</li>
+                        <li>In this case, an instructor may update the student's email address by <a href="#search-users">searching for the student's account, described below.</a></li>
+                        <li>Once on the student's profile page, click the button "Edit Profile."</li>
+                        <li>Update the email address and click "Update Profile."</li>
+                        <li>The student will be able to reset their password using the updated email address.</li>
+                    </ul>
+                </section>
                 <section id="add-log">
                     <h3 <?php if ($sections['add_log'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Add a Volunteer Activity Log</h3>
                     <ul>
@@ -105,7 +138,7 @@
                 <section id="view-logs">
                     <h3 <?php if ($sections['view_logs'] == 3) { echo 'class="aside_instructor-only"'; } ?>>View All Volunteer Activity Logs</h3>
                     <ul>
-                        <li>To view volunteer activity logs, navigate to the <a href="viewAllLogs.php" target="_blank">log display table</a> on the <a href="index.php" target="_blank">homepage</a>.</li>
+                        <li>To view volunteer activity logs, navigate to the <a href="index.php" target="_blank">log display table</a> on the <a href="index.php" target="_blank">homepage</a>.</li>
                         <li>Scroll down until you see the section titled "View All Volunteer Activity."</li>
                         <li>If there are numerous logs, the table will display only one page at a time. Page navigation links are found at the lower right corner of the table. Click the numbered buttons to view that page or the arrows to navigate pages.</li>
                         <li>By default, the logs are sorted by date. Click any column header link to sort by that field. An arrow will appear next to the selected header, indicating ascending or descending order. Click the header again to reverse the order.</li>
@@ -115,7 +148,7 @@
                 <section id="search-logs">
                     <h3 <?php if ($sections['search_logs'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Search Volunteer Activity Logs</h3>
                     <ul>
-                        <li>To search active volunteer activity logs, navigate to the <a href="viewAllLogs.php" target="_blank">log display table</a> on the <a href="index.php" target="_blank">homepage</a>.</li>
+                        <li>To search active volunteer activity logs, navigate to the <a href="index.php" target="_blank">log display table</a> on the <a href="index.php" target="_blank">homepage</a>.</li>
                         <li>At the top of the page, there is a "Search Volunteer Activity" form. Note: Dropdown selections will only display options for students/organizations/semesters that currently appear in active logs.</li>
                         <ul>
                             <li>Search by Student: Select a student's name to only view logs featuring that student.</li>
@@ -223,7 +256,7 @@
                 <section id="manage-user-roles">
                     <h3 <?php if ($sections['manage_user_roles'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Manage User Roles</h3>
                     <ul>
-                        <li>To set a user role to either Student or Instructor, navigate to that students's page by <a href="#search">searching for the student</a>.</li>
+                        <li>To set a user role to either Student or Instructor, navigate to that students's page by <a href="#search-users">searching for the student</a>.</li>
                         <li>Click on a the "Update Status" link in the appropriate user's row in the search results.</li>
                         <li>Make your changes and click the "Update" button.</li>
                     </ul>
@@ -299,5 +332,32 @@
 
             </div>
         </main>
+        <script>
+            function scrollToTop() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+            // Show button when scrolled down
+            window.addEventListener('scroll', function() {
+                const button = document.getElementById('scroll-to-top');
+                if (window.scrollY > 300) {
+                    button.style.display = 'flex';
+                } else {
+                    button.style.display = 'none';
+                }
+            });
+
+            document.querySelectorAll(".copy-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const code = this.previousElementSibling.innerText;
+
+                navigator.clipboard.writeText(code).then(() => {
+                this.textContent = "✓";
+                setTimeout(() => {
+                    this.textContent = "copy";
+                }, 1200);
+                });
+            });
+            });
+        </script>
     </body>
 </html>

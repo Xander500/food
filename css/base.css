@@ -1024,8 +1024,48 @@ a.return-button:hover,
 /* end normal_tw conversion ~Blue*/
 
 /*--------------start of how-to page styles------------------*/
+.code-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.code-container {
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: monospace;
+  max-width: 100%;
+  overflow-x: auto;
+  filter: brightness(0.9);
+
+  /*stole the same css from the how-to section outlining*/
+  background-color: var(--page-background-color);
+  border: 1px solid #d1d5db;
+}
+
+.code-container pre {
+  margin: 0;
+  white-space: pre;
+}
+
+.copy-btn {
+  width: 2rem;
+  background: var(--accent-color);
+  color: var(--page-font-color);
+  border: 1px solid var(--accent-color-hover);
+  border-radius: .5rem;
+  font-size: .75rem;
+  line-height: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.copy-btn:hover {
+  background: var(--accent-color-hover);
+}
+
 .sidebar-wrapper {
-    position: sticky;
     height: auto;
     width: fit-content;
     border-radius: var(--button-border-radius);
@@ -1042,7 +1082,6 @@ a.return-button:hover,
     align-items: flex-start;
     border-radius: calc(var(--button-border-radius) + 5px);
     background: var(--page-background-color);
-    position: sticky;
     width: 100%;
     padding: 5px;
 
@@ -1056,6 +1095,10 @@ main.general.howto-page {
     flex-wrap: wrap;
     gap: 1.5rem;
     align-items: flex-start;
+
+    a {
+        font-weight: bold;
+    }
 }
 
 main.general.howto-page .main-content-box {
@@ -1092,7 +1135,7 @@ main.general.howto-page section  {
     border: 1px solid #d1d5db;
     border-radius: 1rem;
     padding: 1.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
     scroll-margin-top: 110px;
     font-size: 1rem;
 }
@@ -1509,6 +1552,37 @@ a.event-link:hover {
 .full-capacity::after {
     color: var(--error-color);
     content: ' Full! ';
+}
+
+.scroll-to-top-btn {
+    position: fixed;
+    bottom: 40px;
+    z-index: 1000;
+    background-color: var(--page-background-color);
+    color: var(--accent-color);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    display: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    text-align: center;
+}
+
+.scroll-to-top-btn:hover {
+    background-color: var(--page-font-color);
+}
+
+@media only screen and (min-width: 1024px) {
+    .scroll-to-top-btn {
+        left: 9rem; /* 8rem margin + 1rem padding */
+    }
 }
 
 .application-view-container {

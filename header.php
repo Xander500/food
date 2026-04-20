@@ -705,6 +705,7 @@ if (date("H:i:s") > "18:19:59") {
 
         $permission_array['log.php'] = 1;
         $permission_array['viewalllogs.php'] = 1;
+        $permission_array['viewallorgs.php'] = 1;
         $permission_array['editlog.php'] = 1;
         $permission_array['deletelog.php'] = 1;
         $permission_array['addlog.php'] = 1;
