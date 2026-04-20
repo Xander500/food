@@ -26,6 +26,7 @@
     //0 means everone,1 means student only, 3 means instructor only.
     //ignore the ones with 0, not coded below for variable appeareance
     $sections = [
+        "student_locked_out" => 3,
         "add_log" => 0,
         "view_logs" => 0,
         "search_logs" => 0,
@@ -66,11 +67,13 @@
 
 
         <main class="general howto-page">            
+            <button id="scroll-to-top" class="scroll-to-top-btn" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top"><span aria-hidden="true">&#x25B2;</span></button>
             <div class="sidebar-wrapper">
                 <div class="sidebar">
                     <div class="sidebar-item">
                         <h1>Instructions</h1>
                         <ol>
+                            <li><a href="#student-locked-out">Student Locked Out of Account</a></li>
                             <li><a href="#add-log">Add a Volunteer Activity Log</a></li>
                             <li><a href="#view-logs">View All Volunteer Activity Logs</a></li>
                             <li><a href="#search-logs">Search Volunteer Activity Logs</a></li>
@@ -93,6 +96,16 @@
             </div>
 
             <div class="main-content-box">
+                <section id="student-locked-out">
+                    <h3 <?php if ($sections['student_locked_out'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Student Locked Out of Account</h3>
+                    <ul>
+                        <li>Normally, students can reset their password on the login screen.  This will send an email to their email address on record.  However, if they no longer have access to their email, or if the email on record is incorrect, they will be locked out of their account.</li>
+                        <li>In this case, an instructor may update the student's email address by <a href="#search-users">searching for the student's account, described below.</a></li>
+                        <li>Once on the student's profile page, click the button "Edit Profile."</li>
+                        <li>Update the email address and click "Update Profile."</li>
+                        <li>The student will be able to reset their password using the updated email address.</li>
+                    </ul>
+                </section>
                 <section id="add-log">
                     <h3 <?php if ($sections['add_log'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Add a Volunteer Activity Log</h3>
                     <ul>
@@ -299,5 +312,19 @@
 
             </div>
         </main>
+        <script>
+            function scrollToTop() {
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            }
+            // Show button when scrolled down
+            window.addEventListener('scroll', function() {
+                const button = document.getElementById('scroll-to-top');
+                if (window.scrollY > 300) {
+                    button.style.display = 'flex';
+                } else {
+                    button.style.display = 'none';
+                }
+            });
+        </script>
     </body>
 </html>
