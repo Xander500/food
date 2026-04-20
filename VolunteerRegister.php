@@ -214,10 +214,6 @@ require_once('header.php');
                 <div id="popupMessage" class="pop-up">
                     ' . $id . ' has been added as a volunteer.
                 </div>';
-            // echo '<script>document.location = "login.php?registerSuccess";</script>';
-            $title = $id . " has been added as a volunteer";
-            $body = "New volunteer account has been created";
-            system_message_all_admins($title, $body);
         }
     } else {
         require_once('registrationForm.php');

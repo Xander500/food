@@ -374,7 +374,6 @@ if (date("H:i:s") > "18:19:59") {
         /* Footer */
         .footer {
             width: 100%;
-            background: #C9AB81;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -422,20 +421,20 @@ if (date("H:i:s") > "18:19:59") {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            color: white;
+            color: var(--main-color);
             font-family: Inter, sans-serif;
             font-size: 16px;
             font-weight: 500;
         }
 
         .footer-topic {
-            font-size: 18px;
             font-weight: bold;
         }
 
         .footer a {
-            color: white;
-            text-decoration: none;
+            color: var(--page-font-color);
+            text-decoration: underline;
+            font-weight: 550;
             transition: background 0.2s ease, color 0.2s ease;
             padding: 5px 10px;
             border-radius: 5px;
@@ -443,8 +442,7 @@ if (date("H:i:s") > "18:19:59") {
 
         .footer a:hover,
         .footer a:focus-visible {
-            background: rgba(255, 255, 255, 0.1);
-            color: #dcdcdc;
+            color: var(--main-color-hover);
         }
 
         /* Icon Overlay */
