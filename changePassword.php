@@ -81,7 +81,7 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Change Password</h1>
+        <h2 style="margin-top: 2%;">Change Password</h2>
         <main class="login">
             <?php if (isset($error1)): ?>
                 <p class="error-toast">Your entry for Current Password was incorrect.</p>
@@ -90,23 +90,25 @@
             <?php elseif (isset($error3)): ?>
                 <p class="error-toast">Your new password must contain at least 8 characters, one uppercase letter, one lowercase letter, and one number.</p>
             <?php endif ?>
-            <form id="password-change" method="post">
-                <?php if (!$forced): ?>
-                    <label for="password">Current Password</label>
-                    <input type="password" id="password" name="password" placeholder="Enter old password" required>
-                <?php else: ?>
-                    <p>You must change your password before continuing.</p>
-                <?php endif ?>
-                <label for="new-password">New Password</label>
-                <input type="password" id="new-password" name="new-password" placeholder="Enter new password" required>
-                 <p id="password-error" class="error hidden">Password needs to be at least 8 characters long, contain at least one number, one uppercase letter, and one lowercase letter!</p>
-                <label for="reenter-new-password">New Password</label>
-                <input type="password" id="new-password-reenter" placeholder="Re-enter new password" required>
-                <p id="password-match-error" class="error hidden">Passwords must match!</p>
-                <input type="submit" id="submit" name="submit" value="Change Password">
-                <?php if (!$forced): ?>
-                    <a class="button cancel" href="index.php">Cancel</a>
-                <?php endif ?>
+            <form class="password-change" id="password-change" method="post">
+                <fieldset class="section-box">
+                    <?php if (!$forced): ?>
+                        <label for="password">Current Password</label>
+                        <input type="password" id="password" name="password" placeholder="Enter old password" required>
+                    <?php else: ?>
+                        <p>You must change your password before continuing.</p>
+                    <?php endif ?>
+                    <label for="new-password">New Password</label>
+                    <input type="password" id="new-password" name="new-password" placeholder="Enter new password" required>
+                    <p id="password-error" class="error hidden">Password needs to be at least 8 characters long, contain at least one number, one uppercase letter, and one lowercase letter!</p>
+                    <label for="reenter-new-password">New Password</label>
+                    <input type="password" id="new-password-reenter" placeholder="Re-enter new password" required>
+                    <p id="password-match-error" class="error hidden">Passwords must match!</p>
+                    <input type="submit" id="submit" name="submit" value="Change Password" style="margin:auto; width: 60%;">
+                    <?php if (!$forced): ?>
+                        <a class="button cancel" href="index.php" style="margin:auto; width: 60%;">Cancel</a>
+                    <?php endif ?>
+                </fieldset>
             </form>
         </main>
     </body>

@@ -88,19 +88,11 @@
         <main class="date">
             <h2>New Activity Form</h2>
             <form id="new-event-form" method="POST">
-                <!--
-                <div class="event-sect">
-                <label for="name">* Activity Name </label>
-                <input type="text" id="name" name="name" required placeholder="Enter name">
-                </div>
--->
-
-<!--            //FOODDB only shows if it is an admin, otherwise we just take from the session what the Volunteer ID is-->
+            <!-- FOODDB only shows if it is an admin, otherwise we just take from the session what the Volunteer ID is -->
                 <?php if ($_SESSION['access_level'] >= 2): ?>
                 <div class="event-sect">
                     <label for="volunteerID">* Volunteer ID </label>
                     <select id="volunteerID" name="volunteerID" required placeholder="Enter Volunteer ID">
-                        <option value=""></option>
                         <?php
                         require_once('database/dbUsers.php'); // maybe put at top
                         $volunteers = retrieve_all($want_archived=false);
@@ -139,7 +131,6 @@
 
                     <label for="organizationID">* Organization </label>
                     <select id="organizationID" name="organizationID" required placeholder="Enter Organization ID">
-                        <option value=""></option>
                         <?php
                             require_once('database/dbOrganizations.php'); // maybe put at top
                             $organizations = get_organizations_id_name($want_archived=false);
@@ -149,42 +140,10 @@
                         ?>
                     </select>
                 </div>
-
-                <input type="submit" value="Create Activity" style="width:100%;">
-
+                <div style="text-align: center;">
+                    <input type="submit" value="Create Activity" style="width: 25%;">
+                </div>
             </form>
-                <script>
-                    // Debug: log submit attempts and list invalid fields
-                    (function(){
-                        const form = document.getElementById('new-event-form');
-                        if(!form) return;
-                        form.addEventListener('submit', function(e){
-                            try{
-                                console.log('addEvent form submit event', e);
-                                const ok = form.checkValidity();
-                                console.log('form.checkValidity()', ok);
-                                if(!ok){
-                                    e.preventDefault();
-                                    const invalids = [];
-                                    form.querySelectorAll(':invalid').forEach(function(el){ invalids.push({name: el.name, type: el.type, value: el.value}); });
-                                    console.error('Form invalid fields:', invalids);
-                                    alert('Form validation failed for: ' + invalids.map(i=>i.name).join(', '));
-                                } else {
-                                    console.log('Form appears valid; letting submit proceed');
-                                }
-                            }catch(err){
-                                console.error('Error in submit debug handler', err);
-                            }
-                        }, false);
-                    })();
-                </script>
-
-                <?php if ($date): ?>
-                    <a class="button cancel" href="calendar.php?month=<?php echo hsc(substr($date, 0, 7)) ?>" style="margin-top: -.5rem">Return to Calendar</a>
-                <?php else: ?>
-                    <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
-                <?php endif ?>
-
         </main>
 
 <script>

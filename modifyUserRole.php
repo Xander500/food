@@ -111,50 +111,50 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Modify Role</h1>
-        <main class="user-role">
-            <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Role</h2>
-
+        <h2 style="margin-top: 2%;">Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Role</h2>
+        <main class="login">
             <form class="modUser" method="post">
-                <?php if (isset($typeChange) || isset($archivedChange) || isset($statusChange)): ?>
-                    <div class="happy-toast">User's access is updated.</div>
-                <?php endif ?>
+                <fieldset class="section-box">
+                    <?php if (isset($typeChange) || isset($archivedChange) || isset($statusChange)): ?>
+                        <div class="happy-toast">User's access is updated.</div>
+                    <?php endif ?>
                     <?php
                         // Provides drop down of the role types to select and change the role
-			//other than the person's current role type is displayed
-            if ($accessLevel == 3) {
-				$roles = array('Student' => 'Student', 'Instructor' => 'Instructor');
-                echo '<label for="role">Change Role</label><select id="role" class="form-select-sm" name="s_role">' ;
-                // echo '<option value="" SELECTED></option>' ;
-                $currentRole = $thePerson->get_role();
-                foreach ($roles as $role => $typename) {
-                    if($role != $currentRole) {
-                        echo '<option value="'. $role .'">'. $typename .'</option>';
-                    } else {
-                        echo '<option value="'. $role .'" selected>'. $typename .' (current)</option>';
-                    }
-                }
-                echo '</select>';
+                        //other than the person's current role type is displayed
+                        if ($accessLevel == 3) {
+                            $roles = array('Student' => 'Student', 'Instructor' => 'Instructor');
+                            echo '<label for="role">Change Role</label><select id="role" class="form-select-sm" name="s_role">' ;
+                            // echo '<option value="" SELECTED></option>' ;
+                            $currentRole = $thePerson->get_role();
+                            foreach ($roles as $role => $typename) {
+                                if($role != $currentRole) {
+                                    echo '<option value="'. $role .'">'. $typename .'</option>';
+                                } else {
+                                    echo '<option value="'. $role .'" selected>'. $typename .' (current)</option>';
+                                }
+                            }
+                            echo '</select>';
 
-                // Drop down to select whether the user is archived or not
-				$archivals = array('0' => 'Active', '1' => 'Archived');
-                echo '<label for="archival">Change Archival Status</label><select id="archival" class="form-select-sm" name="s_archival">' ;
-                // echo '<option value="" SELECTED></option>' ;
-                $currentArchival = $thePerson->is_archived();
-                foreach ($archivals as $archival => $typename) {
-                    if($archival != $currentArchival) {
-                        echo '<option value="'. $archival .'">'. $typename .'</option>';
-                    } else {
-                        echo '<option value="'. $archival .'" selected>'. $typename .' (current)</option>';
-                    }
-                }
-                echo '</select>';
-            }
-        ?>
-                <input type="hidden" name="id" value="<?php echo $id; ?>" style="margin: auto;">
-                <input type="submit" name="user_access_modified" value="Update" style="margin: auto;">
-                <a class="button cancel" href="personSearch.php" style="margin: auto;">Cancel</a>
-		</form>
+                            // Drop down to select whether the user is archived or not
+                            $archivals = array('0' => 'Active', '1' => 'Archived');
+                            echo '<label for="archival">Change Archival Status</label><select id="archival" class="form-select-sm" name="s_archival">' ;
+                            // echo '<option value="" SELECTED></option>' ;
+                            $currentArchival = $thePerson->is_archived();
+                            foreach ($archivals as $archival => $typename) {
+                                if($archival != $currentArchival) {
+                                    echo '<option value="'. $archival .'">'. $typename .'</option>';
+                                } else {
+                                    echo '<option value="'. $archival .'" selected>'. $typename .' (current)</option>';
+                                }
+                            }
+                            echo '</select>';
+                        }
+                    ?>
+                    <input type="hidden" name="id" value="<?php echo $id; ?>" style="margin: auto;">
+                    <input type="submit" name="user_access_modified" value="Update" style="margin: auto; width:60%;">
+                    <a class="button cancel" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="margin: auto; width: 60%;">Cancel</a>
+                </fieldset>
+		    </form>
         </main>
     </body>
 </html>

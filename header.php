@@ -374,7 +374,6 @@ if (date("H:i:s") > "18:19:59") {
         /* Footer */
         .footer {
             width: 100%;
-            background: #C9AB81;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -422,20 +421,20 @@ if (date("H:i:s") > "18:19:59") {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            color: white;
+            color: var(--main-color);
             font-family: Inter, sans-serif;
             font-size: 16px;
             font-weight: 500;
         }
 
         .footer-topic {
-            font-size: 18px;
             font-weight: bold;
         }
 
         .footer a {
-            color: white;
-            text-decoration: none;
+            color: var(--page-font-color);
+            text-decoration: underline;
+            font-weight: 550;
             transition: background 0.2s ease, color 0.2s ease;
             padding: 5px 10px;
             border-radius: 5px;
@@ -443,8 +442,7 @@ if (date("H:i:s") > "18:19:59") {
 
         .footer a:hover,
         .footer a:focus-visible {
-            background: rgba(255, 255, 255, 0.1);
-            color: #dcdcdc;
+            color: var(--main-color-hover);
         }
 
         /* Icon Overlay */
@@ -924,33 +922,9 @@ if (date("H:i:s") > "18:19:59") {
                 </div>
                 <div class="nav-item">
                     <a class="home-link" href="howto.php">Instructions</a>
-                </div>'
-                .
-            //     <div class="nav-item">
-            //         <div class="dropdown">
-            //             <a href="createGroup.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/creategroup.svg">
-            //                 <span>Create Group</span>
-            //             </div>
-            //             </a>
-            //             <a href="showGroups.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/group.svg">
-            //                 <span>View Groups</span>
-            //             </div>
-            //             </a>
-            //             <a href="noShows.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/group.svg">
-            //                 <span>No Shows</span>
-            //             </div>
-            //             </a>
-            //         </div>
-            //    </div>
-            '</div>
+                </div>
+            </div>
         </div>
-
         <!-- Right Section: Date & Icon -->
         <div class="right-section">
             <div class="nav-links">
@@ -1001,54 +975,11 @@ if (date("H:i:s") > "18:19:59") {
                         </a>
                     </div>
                 </div>
-            </div>'.
-            // <div class="nav-links">
-            //     <div class="nav-item">Events
-            //         <div class="dropdown">
-            //             <a href="viewMyUpcomingEvents.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/list-solid.svg">
-            //                 <span>My Upcoming</span>
-            //             </div>
-            //             </a>
-            //             <a href="calendar.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/new-event.svg">
-            //                 <span>Sign-Up</span>
-            //             </div>
-            //             </a>
-            //             <a href="editHours.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/clock-regular.svg">
-            //                 <span>Edit Hours</span>
-            //             </div>
-            //             </a>
-            //        </div>
-            //     </div>
-            //     <div class="nav-item">
-            //         <div class="dropdown">
-            //             <a href="volunteerViewGroup.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/group.svg">
-            //                 <span>My Groups</span>
-            //             </div>
-            //             </a>
-            //         </div>
-            //    </div>
-            // </div>
-        '</div>
-
+            </div>
+        </div>
         <!-- Right Section: Date & Icon -->
-        <div class="right-section">' . 
-            // <a href="calendar.php">
-            // <div class="icon-butt">
-            //         <svg width="30" height="30" viewBox="0 0 24 24" fill=var(--page-font-color) xmlns="http://www.w3.org/2000/svg">
-            //             <path d="M3 4C3 3.44772 3.44772 3 4 3H6V2C6 1.44772 6.44772 1 7 1C7.55228 1 8 1.44772 8 2V3H16V2C16 1.44772 16.4477 1 17 1C17.5523 1 18 1.44772 18 2V3H20C20.5523 3 21 3.44772 21 4V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V4ZM5 5V20H19V5H5ZM7 10H9V12H7V10ZM11 10H13V12H11V10ZM15 10H17V12H15V10ZM7 14H9V16H7V14ZM11 14H13V16H11V14ZM15 14H17V16H15V14Z"/>
-            //         </svg>
-            // </div>
-            // </a>
-            // <div class="date-box"></div>
-            '<div class="nav-links">
+        <div class="right-section">
+            <div class="nav-links">
                 <div class="nav-item" style="outline:none;">
                     <div class="icon">
                         <img src="images/usaicon.png" alt="User Icon" class="icon-img in-nav-img">
@@ -1064,8 +995,6 @@ if (date("H:i:s") > "18:19:59") {
         </div>
     </div>');
         }
-
-
     }
     ?>
 <script>
