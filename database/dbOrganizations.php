@@ -28,9 +28,14 @@ function make_an_organization($result_row) {
 
 function add_organization($org) {
     $con = connect();
+
+    $name = $org->get_name();
+    $email = $org->get_email();
+    $description = $org->get_description();
+    $location = $org->get_location();
+
     $sql = 'SELECT * FROM dborganizations WHERE name = ?';
     $query = $con->prepare($sql);
-    $name = $org->get_name();
     $query->bind_param("s", $name);
     $query->execute();
     $result = $query->get_result();
@@ -38,20 +43,17 @@ function add_organization($org) {
     // If the result is empty, it means the org doesn't exist, so we can add the org
     if (mysqli_num_rows($result) == 0) {
         // Prepare the insert query
-        $insert_query = 'INSERT INTO dborganizations (name, email, description, location) 
-            VALUES ("' .
-            $org->get_name() . '","' .
-            $org->get_email() . '","' .
-            $org->get_description() . '","' .
-            $org->get_location() . '");';  
-    
+        $insert_query = 'INSERT INTO dborganizations (name, email, description, location) VALUES (?, ?, ?, ?)';  
+
         // Check if the query is properly built
         if (empty($insert_query)) {
             die("Error: insert query is empty");
         }
 
         // Perform the insert
-        if (mysqli_query($con, $insert_query)) {
+        $insert = $con->prepare($insert_query);
+        $insert->bind_param("ssss", $name, $email, $description, $location);
+        if ($insert->execute()) {
             mysqli_close($con);
             return true;
         } else {
@@ -65,8 +67,11 @@ function add_organization($org) {
 
 function get_organization_name_from_id($id) {
     $con=connect();
-    $query = 'SELECT name FROM dborganizations WHERE id = "' . $id . '"';
-    $result = mysqli_query($con,$query);
+    $sql = 'SELECT name FROM dborganizations WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+    $query->execute();
+    $result = $query->get_result();
     if ($result == null || mysqli_num_rows($result) == 0) {
         mysqli_close($con);
         return false;
@@ -77,7 +82,7 @@ function get_organization_name_from_id($id) {
 }
 
 //used to get the full list of organizations of their id and name, used for dropdown in addEvent.php
-function get_organizations_id_name($want_archived = false) {
+function get_organizations_id_name($want_archived = false) { 
     $con=connect();
     $query = "SELECT id, name FROM dborganizations WHERE archived = 0";
     if ($want_archived) {
@@ -106,7 +111,6 @@ function find_organizations($name, $location, $archival_statuses = []) {
         $archival_statuses = ['0', '1']; //if no valid status provided, search all
     }
     
-
     $bindings = []; $types= "";
     $where = 'select * from dborganizations where 1=1';
 
@@ -148,10 +152,11 @@ function find_organizations($name, $location, $archival_statuses = []) {
 
     $query->execute();
     $result = $query->get_result();
+
     if (!$result) {
         mysqli_close($connection);
         return [];
-    }
+    } 
     $raw = mysqli_fetch_all($result, MYSQLI_ASSOC);
     $orgs = [];
     foreach ($raw as $row) {
@@ -171,15 +176,19 @@ function update_organization($id, $details) {
     $location = $details['location'];
     $archived = $details['archived'];
 
-    $query = "
-        UPDATE dborganizations
-        SET name='$name', email='$email', description='$description', location='$location', archived='$archived'
-        WHERE id='$id'
-    ";
-    $result = mysqli_query($connection, $query);
-    mysqli_commit($connection);
-    mysqli_close($connection);
-    return $result;
+    $sql = 'UPDATE dborganizations SET name=?, email=?, description=?, location=?, archived=? WHERE id=?';
+
+    $query = $connection->prepare($sql);
+    $query->bind_param("ssssss", $name, $email, $description, $location, $archived, $id);
+
+    if ($query->execute()) {
+        mysqli_commit($connection);
+        mysqli_close($connection);
+        return true;
+    } 
+        mysqli_close($connection);
+    return false;
+
 }
 
 function fetch_organization_by_id($id) {
@@ -203,11 +212,19 @@ function fetch_organization_by_id($id) {
 
 function delete_organization($id) {
     $con=connect();
-    $query = "DELETE FROM dborganizations WHERE id = '$id'";
-    $result = mysqli_query($con, $query);
-    $result = boolval($result);
+    $sql = "DELETE FROM dborganizations WHERE id = ?";
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+
+    if (!$query->execute()) {
+        mysqli_close($con);
+        return false;
+    }
+
+    $affected = $query->affected_rows;
     mysqli_close($con);
-    return $result;
+
+    return $affected > 0; 
 }
 
 // used to fetch organizaton information for exporting.

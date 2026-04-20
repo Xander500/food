@@ -356,43 +356,64 @@ function update_volunteerLog($id, $logDetails) {
 
     $query = "
         UPDATE dbvolunteeractivity
-        SET volunteerID='$volunteerID', organizationID='$organizationID', hours='$hours', poundsOfFood='$poundsOfFood', date='$date', location='$location', description='$description', archived='$archived'
-        WHERE id='$id'
+        SET volunteerID=?, organizationID=?, hours=?, poundsOfFood=?, date=?, location=?, description=?, archived=?
+        WHERE id=?
     ";
-    $result = mysqli_query($connection, $query);
-    mysqli_commit($connection);
+    $stmt = $connection->prepare($query);
+    $stmt->bind_param("ssddsssss", $volunteerID, $organizationID, $hours, $poundsOfFood, $date, $location, $description, $archived, $id);
+
+    if ($stmt->execute()) {
+        mysqli_commit($connection);
+        mysqli_close($connection);
+        return true;
+    }
+
     mysqli_close($connection);
-    return $result;
+    return false;
 }
 
 function delete_log($id) {
     $con=connect();
-    $query = "DELETE FROM dbvolunteeractivity WHERE id = '$id'";
-    $result = mysqli_query($con, $query);
-    $result = boolval($result);
+    $sql = 'DELETE FROM dbvolunteeractivity WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+
+    if (!$query->execute()) {
+        mysqli_close($con);
+        return false;
+    }
+
+    $affected = $query->affected_rows;
     mysqli_close($con);
-    return $result;
+    return $affected > 0;
 }
 
 function get_impact_summary_by_volunteer($id) {
     $con = connect();
-    $sql = "SELECT SUM(hours) AS total_hours, SUM(poundsOfFood) AS total_pounds, COUNT(*) AS total_logs FROM dbvolunteeractivity WHERE volunteerID = '$id'";
-    $result = mysqli_query($con, $sql);
-    $row = mysqli_fetch_assoc($result);
+    $sql = 'SELECT SUM(hours) AS total_hours, SUM(poundsOfFood) AS total_pounds, COUNT(*) AS total_logs FROM dbvolunteeractivity WHERE volunteerID = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+    $query->execute();
+    $result = $query->get_result();
+    $row = $result->fetch_assoc();
     mysqli_close($con);
     return $row;
 }
 
 function get_impact_summary_by_organization($id) {
     $con = connect();
-    $query = "SELECT dborganizations.name AS organization_name, SUM(hours) AS hours,
+    $sql = "SELECT dborganizations.name AS organization_name, SUM(hours) AS hours,
         SUM(poundsOfFood) AS pounds
         FROM dbvolunteeractivity
         JOIN dborganizations ON organizationID = dborganizations.id
-        WHERE volunteerID = '$id'
+        WHERE volunteerID = ?
         GROUP BY organizationID
         ORDER BY hours DESC";
-    $result = mysqli_query($con, $query);
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+    $query->execute();
+    $result = $query->get_result();
+
     $rows = $result->fetch_all(MYSQLI_ASSOC);
     mysqli_close($con);
     return $rows;
