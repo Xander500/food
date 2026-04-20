@@ -168,21 +168,6 @@
         </div>
         <button class="cursor-pointer w-full bg-[#213e57] hover:bg-[#92c44c] text-white font-semibold py-3 rounded-lg transition duration-300">Login</button>
       </form>
-
-      <!-- Divider -->
-      <div class="flex items-center my-6 w-full">
-        <div class="flex-grow border-t border-gray-300"></div>
-        <span class="mx-4 text-gray-500">or</span>
-        <div class="flex-grow border-t border-gray-300"></div>
-      </div>
-
-      <!-- Sign Up Section -->
-      <p class="text-center text-gray-700">
-        Don’t have an account?
-        <a href="VolunteerRegister.php" class="text-[#759d3d] font-semibold hover:underline">Sign Up Now</a>
-      </p>
-
-    </div>
   </div>
 
 </div>
