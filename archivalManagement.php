@@ -129,6 +129,12 @@ require_once('header.php');
           <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">
         </button>
 
+        <button onclick="window.location.href='deleteOrganizationSearch.php';">
+            <div class="button-left-gray"></div>
+            <div>Delete Organizations</div>
+            <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">
+        </button>
+
 	<div class="text-center mt-6">
         	<a href="index.php" class="return-button">Return to Dashboard</a>
 	</div>
