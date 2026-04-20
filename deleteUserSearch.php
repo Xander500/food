@@ -114,14 +114,14 @@ require_once('header.php');
                     echo '<div class="error-block">The system did not understand your request.</div>';
                 }else {
                     echo '<div class="section-box mb-6" style="background-color:#92c44c; padding:25px; border-radius:10px; max-width:900px; margin:0 auto;"><h3 style="color:white;">Search Results</h3>';
-                    $persons = search_users($name, $id, $semester, $role, ['1']);
+                    $persons = search_users($name, $id, $semester, $role, ['0', '1']);
                     require_once('include/output.php');
 
                     if (count($persons) > 0) {
                         echo '
                         <form method="post" action="deleteUsersBulk.php" onsubmit="return confirm(\'Are you sure you want to delete the selected users?  This action will permanently delete the users AND their volunteer activity.\');">
-                        <div class="search-results-table" style="margin-top:10px; display:flex; justify-content:center;">
-                            <table style="width:100%;">
+                        <div class="search-results-table" style="margin-top:10px; width:100%; overflow-x:auto;">
+                            <table style="width:100%; min-width:800px;">
                                 <thead>
                                     <tr>
                                         <th><input type="checkbox" id="select-all"></th>
