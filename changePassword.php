@@ -77,7 +77,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Whiskey Valor | Change Password</title>
+        <title>UMW Alleviating Food Waste Volunteer Tracking | Change Password</title>
     </head>
     <body>
         <?php require_once('header.php') ?>

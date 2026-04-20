@@ -95,7 +95,7 @@
     }
 
     $organizations = get_organizations_id_name();
-    $volunteers = get_students_in_logs();
+    $volunteers = retrieve_all($want_archived=false);
 
     require_once('include/output.php');
 
@@ -134,6 +134,7 @@
                 <select id="volunteerID" name="volunteerID" required <?php if ($accessLevel < 3) { echo "disabled";} ?>>
                     <option value=""></option>
                     <?php foreach ($volunteers as $volunteer): ?>
+                        <?php if ($volunteer['role'] !== "Student") continue; // only show volunteers ?>
                         <option value="<?php echo hsc($volunteer['id']) ?>"
                             <?php if ($volunteer['id'] == $log['volunteerID']) echo 'selected'; ?>>
                             <?php echo hsc($volunteer['first_name'] . ' ' . $volunteer['last_name']) ?>
