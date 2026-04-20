@@ -1022,6 +1022,46 @@ form.signup-form a:hover {
 
 /*--------------start of how-to page styles------------------*/
 
+.code-wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.code-container {
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: monospace;
+  max-width: 100%;
+  overflow-x: auto;
+  filter: brightness(0.9);
+
+  /*stole the same css from the how-to section outlining*/
+  background-color: var(--page-background-color);
+  border: 1px solid #d1d5db;
+}
+
+.code-container pre {
+  margin: 0;
+  white-space: pre;
+}
+
+.copy-btn {
+  width: 2rem;
+  background: var(--accent-color);
+  color: var(--page-font-color);
+  border: 1px solid var(--accent-color-hover);
+  border-radius: .5rem;
+  font-size: .75rem;
+  line-height: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.copy-btn:hover {
+  background: var(--accent-color-hover);
+}
 
 .sidebar-wrapper {
     height: auto;

@@ -26,6 +26,7 @@
     //0 means everone,1 means student only, 3 means instructor only.
     //ignore the ones with 0, not coded below for variable appeareance
     $sections = [
+        "share_register" => 3,
         "student_locked_out" => 3,
         "add_log" => 0,
         "view_logs" => 0,
@@ -45,12 +46,15 @@
         "archive_semester" => 3,
         "archive_one" => 3,
         ];
+
+    $host = $_SERVER['HTTP_HOST'];
+    $root_url =  $host . "/";
+
 ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <?php require_once('universal.inc') ?>
-        <link rel="stylesheet" href="css/base.css">
+        <?php require_once('universal.inc'); //contains base.css ?>
         <title>UMW Alleviating Food Waste Volunteer Tracking | Instructions</title>
 
 
@@ -73,6 +77,7 @@
                     <div class="sidebar-item">
                         <h1>Instructions</h1>
                         <ol>
+                            <li><a href="#share-register">Share Registration with Students</a></li>
                             <li><a href="#student-locked-out">Student Locked Out of Account</a></li>
                             <li><a href="#add-log">Add a Volunteer Activity Log</a></li>
                             <li><a href="#view-logs">View All Volunteer Activity Logs</a></li>
@@ -96,6 +101,21 @@
             </div>
 
             <div class="main-content-box">
+                <section id="share-register">
+                    <h3 <?php if ($sections['share_register'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Share Registration with Students</h3>
+                    <ul>
+                        <li>To allow students to register, email students this link.</li>
+                        <li>Anyone with this link can create an account.</li>
+                        <li>
+                            <div class="code-wrapper">
+                                <div class="code-container">
+                                    <pre><code><?php echo $root_url; ?>VolunteerRegister.php</code></pre>
+                                </div>
+                                <button class="copy-btn">copy</button>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
                 <section id="student-locked-out">
                     <h3 <?php if ($sections['student_locked_out'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Student Locked Out of Account</h3>
                     <ul>
@@ -324,6 +344,19 @@
                 } else {
                     button.style.display = 'none';
                 }
+            });
+
+            document.querySelectorAll(".copy-btn").forEach(button => {
+            button.addEventListener("click", function () {
+                const code = this.previousElementSibling.innerText;
+
+                navigator.clipboard.writeText(code).then(() => {
+                this.textContent = "✓";
+                setTimeout(() => {
+                    this.textContent = "copy";
+                }, 1200);
+                });
+            });
             });
         </script>
     </body>
