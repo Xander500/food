@@ -1,11 +1,11 @@
 <?php
     require_once('include/input-validation.php');
+    session_start();
 ?>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <?php require_once('database/dbMessages.php'); ?>
     <title>UMW Alleviating Food Waste Volunteer Tracking | Register</title>
     <link href="css/base.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
@@ -214,10 +214,6 @@ require_once('header.php');
                 <div id="popupMessage" class="pop-up">
                     ' . $id . ' has been added as a volunteer.
                 </div>';
-            // echo '<script>document.location = "login.php?registerSuccess";</script>';
-            $title = $id . " has been added as a volunteer";
-            $body = "New volunteer account has been created";
-            system_message_all_admins($title, $body);
         }
     } else {
         require_once('registrationForm.php');

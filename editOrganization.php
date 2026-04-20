@@ -82,48 +82,49 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Edit Organization</title>
+        <title>UMW Alleviating Food Waste | Edit Organization</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Edit Organization</h1>
-        <main class="date">
-            <?php if ($errors): ?>
-                <div class="error-toast"><?php echo $errors ?></div>
-            <?php endif ?>
-            <h2>Organization Details</h2>
-            <form id="edit-org-form" method="post">
-                
-                <input type="hidden" name="id" value="<?php echo $id ?>"/> 
+        <main class="signup-form">
+            <div class="main-content-box">
+                <?php if ($errors): ?>
+                    <div class="error-toast"><?php echo $errors ?></div>
+                <?php endif ?>
+                <h2 style="margin-bottom: 1rem;">Edit Organization Details</h2>
+                <form id="edit-org-form" method="post" class="edit-org-form">
+                    <fieldset class="section-box">
+                        <input type="hidden" name="id" value="<?php echo $id ?>"/> 
+                        <?php if ($accessLevel == 3): ?>
+                        <label for ="archived">Archival Status</label>
+                        <select id="archived" name="archived" required <?php if ($accessLevel < 3) { echo "disabled";} ?>>
+                            <option value="0" <?php if (!$org['archived']) echo 'selected'; ?>>Active</option>
+                            <option value="1" <?php if ($org['archived']) echo 'selected'; ?>>Archived</option>
+                        </select>
+                        <?php else: ?>
+                            <input type="hidden" name="archived" value="<?php echo hsc($org['archived']); ?>" />
+                        <?php endif; ?>
+                    
+                        <label for ="name">Name</label>
+                        <input type="text" id="name" name="name"
+                            value="<?php echo htmlspecialchars($org['name']) ?>" required>
 
-                <?php if ($accessLevel == 3): ?>
-                <label for ="archived">Archival Status</label>
-                <select id="archived" name="archived" required <?php if ($accessLevel < 3) { echo "disabled";} ?>>
-                    <option value="0" <?php if (!$org['archived']) echo 'selected'; ?>>Active</option>
-                    <option value="1" <?php if ($org['archived']) echo 'selected'; ?>>Archived</option>
-                </select>
-                <?php else: ?>
-                    <input type="hidden" name="archived" value="<?php echo hsc($org['archived']); ?>" />
-                <?php endif; ?>
-            
-                <label for ="name">Name</label>
-                <input type="text" id="name" name="name"
-                    value="<?php echo htmlspecialchars($org['name']) ?>" required>
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description"><?php echo htmlspecialchars($org['description']) ?></textarea>
 
-                <label for="description">Description</label>
-                <textarea id="description" name="description"><?php echo htmlspecialchars($org['description']) ?></textarea>
+                        <label for="location">Location</label>
+                        <input type="text" id="location" name="location"
+                            value="<?php echo htmlspecialchars($org['location']) ?>">
 
-                <label for="location">Location</label>
-                <input type="text" id="location" name="location"
-                    value="<?php echo htmlspecialchars($org['location']) ?>">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email"
+                            value="<?php echo htmlspecialchars($org['email']) ?>">
 
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email"
-                    value="<?php echo htmlspecialchars($org['email']) ?>">
-
-                <input type="submit" value="Update Organization">
-                <a class="button cancel" href="organization.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="margin-top: .5rem">Cancel</a>
-            </form>
+                        <input type="submit" value="Update Organization" style="margin: auto; width: 40%;">
+                        <a class="button cancel" style="margin: auto; width: 40%;" href="organization.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="margin-top: .5rem">Cancel</a>
+                    </fieldset>
+                </form>
+            </div>
         </main>
     </body>
 </html>

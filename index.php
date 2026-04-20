@@ -295,7 +295,7 @@
         /* Footer */
         .footer {
             width: 100%;
-            background: #C9AB81;
+            background: var(--accent-color);
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -351,7 +351,7 @@
         }
 
         .footer-topic {
-            font-size: 18px;
+            font-size: 1.25rem;
             font-weight: bold;
         }
 
@@ -361,11 +361,6 @@
             transition: background 0.2s ease, color 0.2s ease;
             padding: 5px 10px;
             border-radius: 5px;
-        }
-
-        .footer a:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #dcdcdc;
         }
 
         /* Icon Overlay */
@@ -455,7 +450,7 @@
 
     <!-- Dummy content to enable scrolling -->
     <div style="margin-top: 0px; padding: 30px 20px;">
-        <h2><b>Welcome <?php echo $user->get_first_name() ?>!</b> Let's get started.</h2>
+        <h2 style="text-align: left;"><b>Welcome <?php echo $user->get_first_name() ?>!</b> Let's get started.</h2>
     </div>
     <div class="full-width-bar">
         <div style="width: 100%;">
@@ -464,39 +459,11 @@
         </div>
     </div>
     <div style="width: 90%; /* Stops before page ends */
-                height: 100%;
-                outline: 1px var(--page-font-color) solid;
-                outline-offset: -0.5px;
-                margin: 70px auto; /* Adds vertical space and centers */
-                padding: 1px 0;"> <!-- Adds spacing inside the div -->
+                border-bottom: 2px solid var(--main-color);
+                margin: 2% auto; /* Adds vertical space and centers */">
     </div>
-    <!-- <footer class="footer" style="margin-top: 100px;"> -->
-        <!-- Left Side: Logo & Socials -->
-        <!-- <div class="footer-left">
-            <img src="<?php include('logo.php'); ?>" alt="Logo" class="footer-logo">
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-        </div> -->
-
-        <!-- Right Side: Page Links -->
-        <!-- <div class="footer-right">
-            <div class="footer-section">
-                <div class="footer-topic">Connect</div>
-                <a href="https://www.facebook.com/profile.php?id=61566628001672&mibextid=LQQJ4d">Facebook</a>
-                <a href="https://www.instagram.com/whiskeyvalor/#">Instagram</a>
-                <a href="https://whiskeyvalor.org">Main Website</a>
-            </div>
-            <div class="footer-section">
-                <div class="footer-topic">Contact Us</div>
-                <a href="https://whiskeyvalor.org/pages/contact">Send Us An Email</a> -->
-                <!-- <a href="tel:5408981500">540-898-1500 (ext 117)</a> -->
-            <!-- </div>
-        </div>
-    </footer> -->
+    
+    <?php include_once("footer.php"); ?>
 
     <!-- Font Awesome for Icons -->
     <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
@@ -514,7 +481,7 @@
 
     <!-- Dummy content to enable scrolling -->
     <div style="margin-top: 0px; padding: 30px 20px;">
-        <h2><b>Welcome <?php echo $user->get_first_name() ?>!</b> Let's get started.</h2>
+        <h2 style="text-align: left;"><b>Welcome <?php echo $user->get_first_name() ?>!</b> Let's get started.</h2>
     </div>
 
     <div class="full-width-bar">
@@ -524,41 +491,11 @@
         </div>
     </div>
     <div style="width: 90%; /* Stops before page ends */
-                height: 100%;
-                outline: 1px #828282 solid;
-                outline-offset: -0.5px;
-                margin: 70px auto; /* Adds vertical space and centers */
-                padding: 1px 0;"> <!-- Adds spacing inside the div -->
+                border-bottom: 2px solid var(--main-color);
+                margin: 2% auto; /* Adds vertical space and centers */">
     </div>
 
-    <!-- <footer class="footer" style="margin-top: 100px;"> -->
-        <!-- Left Side: Logo & Socials -->
-        <!-- <div class="footer-left">
-            <img src="<?php include('logo.php'); ?>" alt="Logo" class="footer-logo">
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-            </div>
-        </div> -->
-
-        <!-- Right Side: Page Links -->
-        <!-- <div class="footer-right">
-            <div class="footer-section">
-                <div class="footer-topic">Connect</div>
-                <a href="https://www.facebook.com/profile.php?id=61566628001672&mibextid=LQQJ4d">Facebook</a>
-                <a href="https://www.instagram.com/whiskeyvalor/#">Instagram</a>
-                <a href="https://whiskeyvalor.org">Main Website</a>
-            </div>
-            <div class="footer-section">
-                <div class="footer-topic">Contact Us</div>
-                <a href="https://whiskeyvalor.org/pages/contact">Send Us An Email</a> -->
-                <!-- <a href="tel:5408981500">540-898-1500 (ext 117)</a> -->
-            <!-- </div>
-        </div>
-    </footer>
-    <p>_</p> -->
+    <?php include_once("footer.php"); ?>
 
     <!-- Font Awesome for Icons -->
     <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>

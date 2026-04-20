@@ -137,7 +137,7 @@ require_once('header.php');
                                         <td>' . hsc($person->get_id()) . '</td>
                                         <td>' . hsc($person->get_semester()) . '</td>
                                         <td>' . ucfirst(hsc($person->get_role() ?? '')) . '</td>
-                                        <td><a href="viewProfile.php?id=' . hsc($person->get_id()) . '" class="text-blue-700 underline">Profile</a></td>
+                                        <td><a href="editProfile.php?id=' . hsc($person->get_id()) . '" class="text-blue-700 underline">Edit</a></td>
                                         <td><a href="modifyUserRole.php?id=' . hsc($person->get_id()) . '" class="text-blue-700 underline">Update Status</a></td>
                                     </tr>';
                         }
@@ -184,7 +184,7 @@ require_once('header.php');
                 </select>
             </div>
 
-            <div>
+            <div style="margin: 2% auto;">
                 <input type="checkbox" id="active" name="status[]" value="0" <?php echo ((($want_active ?? true) || ($want_active === false && $want_archived === false)) ? 'checked' : '');?>>
                 <label for="active">Active Users</label>
                 <input type="checkbox" id="archived" name="status[]" value="1" <?php echo ((($want_archived ?? true) || ($want_archived === false && $want_active === false)) ? 'checked' : '');?>>
@@ -197,7 +197,7 @@ require_once('header.php');
 
         </form>
         <div class="text-center mt-6">
-            <a href="index.php" class="return-button">Return to Dashboard</a>
+            <a href="volunteerManagement.php" class="return-button">Return to Dashboard</a>
         </div>
     </div>
 

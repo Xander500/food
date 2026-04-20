@@ -152,7 +152,7 @@ require_once('include/output.php');
                 <input type="text" id="location" name="location" class="w-full" value="<?php if (isset($location)) echo hsc($_GET['location']); ?>" placeholder="Enter the location of the organization">
             </div>
 
-            <div>
+            <div style="margin: 2% auto;">
                 <input type="checkbox" id="active" name="status[]" value="0" <?php echo ((($want_active ?? true) || ($want_active === false && $want_archived === false)) ? 'checked' : '');?>>
                 <label for="active">Active Organizations</label>
                 <input type="checkbox" id="archived" name="status[]" value="1" <?php echo ((($want_archived ?? true) || ($want_archived === false && $want_active === false)) ? 'checked' : '');?>>
@@ -161,10 +161,10 @@ require_once('include/output.php');
 
 
             <div class="text-center pt-4">
-                <input type="submit" value="Search" class="blue-button">
+                <input type="submit" value="Search" class="blue-button" style="width: 35%;">
             </div>
         </form>
-        <div class="text-center mt-6">
+        <div class="text-center" style="margin-top: 5%; font-size: 1.25rem;">
             <a href="index.php" class="return-button">Return to Dashboard</a>
         </div>
     </div>

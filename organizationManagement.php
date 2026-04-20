@@ -69,7 +69,6 @@ require_once('header.php');
  .button-section button {
     background-color: var(--accent-color) !important;
     color: var(--page-font-color) !important;
-    border: none !important;
   }
 
 .div-blue {
