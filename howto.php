@@ -256,7 +256,7 @@
                 <section id="manage-user-roles">
                     <h3 <?php if ($sections['manage_user_roles'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Manage User Roles</h3>
                     <ul>
-                        <li>To set a user role to either Student or Instructor, navigate to that students's page by <a href="#search">searching for the student</a>.</li>
+                        <li>To set a user role to either Student or Instructor, navigate to that students's page by <a href="#search-users">searching for the student</a>.</li>
                         <li>Click on a the "Update Status" link in the appropriate user's row in the search results.</li>
                         <li>Make your changes and click the "Update" button.</li>
                     </ul>
