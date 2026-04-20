@@ -27,7 +27,6 @@
     <title>UMW Alleviating Food Waste Volunteer Tracking | Organization Search</title>
     <!-- <link href="css/management_tw.css" rel="stylesheet"> -->
     <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
-<!-- BANDAID FIX FOR HEADER BEING WEIRD -->
 <?php
 $tailwind_mode = true;
 require_once('header.php');
@@ -49,19 +48,17 @@ require_once('include/output.php');
         }   
 
         body, main {
-        background-color: white;
+            background-color: white;
         }   
 
         .info-section .info-text {
-         color: #92c44c !important;
+            color: #92c44c !important;
         }
 
         .blue-div {
-        background-color: #92c44c !important;
+            background-color: #92c44c !important;
         }
-    
 </style>
-<!-- BANDAID END, REMOVE ONCE SOME GENIUS FIXES -->
 </head>
 <body>
 <main>
@@ -73,92 +70,74 @@ require_once('include/output.php');
             </div>
         </div>
 
-        <form id="org-search" class="section-box mb-4" method="get">
-            <?php
-                $name = null;
-                $location = null;
-                $orgs = [];
-                if (isset($_GET['name']) || isset($_GET['location'])) {
-                    require_once('include/input-validation.php');
-                    require_once('database/dbOrganizations.php');
-                    
-                    $args = sanitize($_GET);
+        <?php
+            $name = null;
+            $location = null;
+            $orgs = [];
 
-                    if (isset($_GET['name'])) {
-                        $name = $args['name'];
-                    } else {
-                        $name = null;
-                    }
+            if (isset($_GET['name']) || isset($_GET['location'])) {
+                require_once('include/input-validation.php');
+                require_once('database/dbOrganizations.php');
 
-                    if (isset($_GET['location'])) {
-                        $location = $args['location'];
-                    } else {
-                        $location = null;
-                    }
+                $args = sanitize($_GET);
 
-                    if (!($name || $location)) {
-                        echo '<div class="error-block">At least one search criterion is required.</div>';
-                    } else {
-                        echo "<h3>Search Results</h3>";
-                        $orgs = find_organizations($name, $location);
-                        require_once('include/output.php');
+                $name = isset($_GET['name']) ? $args['name'] : null;
+                $location = isset($_GET['location']) ? $args['location'] : null;
 
-                        if (count($orgs) > 0) {
-$resultsHtml = '
-<div class="search-results-table" style="margin-bottom: 16px;">
-    <table>
-<thead>
-    <tr>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Location</th>
-        <th>Email</th>
-<th style="text-align: center;">
-    Select All<br>
-    <input type="checkbox" id="selectAll">
-</th>
-    </tr>
-</thead>
-        <tbody>';
+                if (!($name || $location)) {
+                    echo '<div class="error-block">At least one search criterion is required.</div>';
+                } else {
+                    $orgs = find_organizations($name, $location);
 
-foreach ($orgs as $org) {
-    $resultsHtml .= '
-            <tr>
-                <td>' . hsc($org->get_name()) . '</td>
-                <td>' . hsc($org->get_description()) . '</td>
-                <td>' . hsc($org->get_location()) . '</td>
-                <td><a href="mailto:' . hsc($org->get_email()) . '" class="text-blue-700 underline">' . hsc($org->get_email()) . '</a></td>
-                <td><input type="checkbox" name="selected_orgs[]" value="' . hsc($org->get_id()) . '"></td>
-            </tr>';
-}
+                    if (count($orgs) > 0) {
+                        echo '
+                        <div class="section-box mb-6" style="background-color:#92c44c; padding:25px; border-radius:10px; max-width:900px; margin:0 auto 24px auto;">
+                            <h3 style="color:white;">Search Results</h3>
+                            <form method="post" action="deleteOrganizationBulk.php" onsubmit="return confirm(\'Are you sure you want to delete the selected organizations?\');">
+                                <div class="search-results-table" style="margin-top:10px; display:flex; justify-content:center;">
+                                    <table style="width:100%;">
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox" id="select-all-orgs"></th>
+                                                <th>Name</th>
+                                                <th>Description</th>
+                                                <th>Location</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>';
 
-$resultsHtml .= '
-        </tbody>
-    </table>
-</div>
-<div class="text-center mt-6" style="margin-top: 20px;">
-    <div id="selectedCount" style="margin-top: 10px; margin-bottom: 12px; font-weight: 600;">
-        0 organizations selected
-    </div>
-
-    <button type="submit" id="deleteSelectedBtn" name="bulk_delete"
-        style="background-color: #d9534f; color: white; margin-top: 8px; width: 60%; padding: 10px;"
-        onmouseover="this.style.backgroundColor=\'#c9302c\'"
-        onmouseout="this.style.backgroundColor=\'#d9534f\'"
-        disabled
-        onclick="return confirm(\'Are you sure you want to delete the selected organizations?\');">
-        Delete Selected
-    </button>
-</div>';
-
-                            
-
-                        } else {
-                            echo '<div class="error-block">Your search returned no results.</div>';
+                        foreach ($orgs as $org) {
+                            echo '
+                                            <tr>
+                                                <td><input type="checkbox" name="selected_orgs[]" value="' . hsc($org->get_id()) . '"></td>
+                                                <td>' . hsc($org->get_name()) . '</td>
+                                                <td>' . hsc($org->get_description()) . '</td>
+                                                <td>' . hsc($org->get_location()) . '</td>
+                                                <td><a href="mailto:' . hsc($org->get_email()) . '" class="text-blue-700 underline">' . hsc($org->get_email()) . '</a></td>
+                                            </tr>';
                         }
+
+                        echo '
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center pt-4">
+                                    <p id="selected-org-count" style="margin-bottom:10px; color:white; font-weight:bold;">0 organizations selected</p>
+                                    <input type="hidden" name="bulk_delete" value="1">
+                                    <input type="submit" id="bulk-delete-org-btn" value="Delete Selected Organizations" class="blue-button" style="background-color: #b91c1c; opacity:0.5; cursor:not-allowed;" disabled>
+                                </div>
+                            </form>
+                        </div>';
+                    } else {
+                        echo '<div class="error-block">Your search returned no results.</div>';
                     }
                 }
-            ?>
+                echo '<h3 style="margin-top:20px;">Search Again</h3>';
+            }
+        ?>
+
+        <form id="org-search" class="section-box mb-4" method="get" style="max-width:900px; margin:20px auto 0 auto;">
             <div>
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" class="w-full" value="<?php if (isset($name)) echo hsc($_GET['name']); ?>" placeholder="Enter the name of the organization">
@@ -167,89 +146,59 @@ $resultsHtml .= '
                 <label for="location">Location</label>
                 <input type="text" id="location" name="location" class="w-full" value="<?php if (isset($location)) echo hsc($_GET['location']); ?>" placeholder="Enter the location of the organization">
             </div>
-<div class="text-center pt-4">
-    <input type="submit" value="Search" class="blue-button">
-</div>
-</form>
+            <div class="text-center pt-4">
+                <input type="submit" value="Search" class="blue-button">
+            </div>
+        </form>
 
-<?php
-if (isset($resultsHtml)) {
-    echo '<div style="background-color: #92c44c; padding: 20px; border-radius: 8px; margin-top: 24px;">';
-    echo '<form method="POST" action="deleteOrganizationBulk.php">';
-    echo '<h3 style="margin-bottom: 16px;">Matching Organizations</h3>';
-    echo $resultsHtml;
-    echo '</form>';
-    echo '</div>';
-}
-?>
-
-
-<div class="text-center" style="margin-top: 60px;">
-    <a href="index.php" class="return-button">Return to Dashboard</a>
-</div>
+        <div class="text-center" style="margin-top: 60px;">
+            <a href="index.php" class="return-button">Return to Dashboard</a>
+        </div>
     </div>
-
 </main>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+    const selectAll = document.getElementById('select-all-orgs');
     const checkboxes = document.querySelectorAll('input[name="selected_orgs[]"]');
-    const deleteBtn = document.getElementById('deleteSelectedBtn');
-    const selectedCount = document.getElementById('selectedCount');
-    const selectAll = document.getElementById('selectAll');
+    const deleteBtn = document.getElementById('bulk-delete-org-btn');
+    const counter = document.getElementById('selected-org-count');
 
-    function updateDeleteButton() {
-        let checkedCount = 0;
+    if (!selectAll || !deleteBtn || checkboxes.length === 0) {
+        return;
+    }
 
-        checkboxes.forEach(function (checkbox) {
-            if (checkbox.checked) {
-                checkedCount++;
-            }
-        });
+    function updateButtonState() {
+        const checkedBoxes = Array.from(checkboxes).filter(cb => cb.checked);
+        const count = checkedBoxes.length;
 
-        deleteBtn.disabled = checkedCount === 0;
+        deleteBtn.disabled = count === 0;
 
-        if (checkedCount === 1) {
-            selectedCount.textContent = '1 organization selected';
+        if (count > 0) {
+            deleteBtn.style.opacity = "1";
+            deleteBtn.style.cursor = "pointer";
         } else {
-            selectedCount.textContent = checkedCount + ' organizations selected';
+            deleteBtn.style.opacity = "0.5";
+            deleteBtn.style.cursor = "not-allowed";
         }
 
-        if (selectAll) {
-            let allChecked = true;
-
-            checkboxes.forEach(function (checkbox) {
-                if (!checkbox.checked) {
-                    allChecked = false;
-                }
-            });
-
-            selectAll.checked = allChecked && checkboxes.length > 0;
+        if (counter) {
+            counter.textContent = count + (count === 1 ? " organization selected" : " organizations selected");
         }
+
+        selectAll.checked = count === checkboxes.length && checkboxes.length > 0;
     }
 
-    checkboxes.forEach(function (checkbox) {
-        checkbox.addEventListener('change', updateDeleteButton);
+    selectAll.addEventListener('change', function () {
+        checkboxes.forEach(cb => cb.checked = this.checked);
+        updateButtonState();
     });
 
-    if (selectAll) {
-        selectAll.addEventListener('change', function () {
-            checkboxes.forEach(function (checkbox) {
-                checkbox.checked = selectAll.checked;
-            });
-
-            updateDeleteButton();
-        });
-    }
-
-    checkboxes.forEach(function (checkbox) {
-        checkbox.addEventListener('change', function () {
-            if (!this.checked && selectAll) {
-                selectAll.checked = false;
-            }
-        });
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', updateButtonState);
     });
 
-    updateDeleteButton();
+    updateButtonState();
 });
 </script>
 </body>

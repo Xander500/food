@@ -67,7 +67,9 @@
             <label for="last_name">* Last Name</label>
             <input type="text" id="last_name" name="last_name" value="<?php echo hsc($person->get_last_name()); ?>" required placeholder="Enter your last name">
 
+
             <label for="email">* E-mail</label>
+            <class="mb-2">Use a valid email address you have access to. You will need this if you need to reset your password.</p>
             <input type="email" id="email" name="email" value="<?php echo hsc($person->get_email()); ?>" required placeholder="Enter your e-mail address">
             
             <div class="semester_select">

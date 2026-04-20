@@ -135,10 +135,11 @@
 
         <fieldset class="section-box mb-4">
             <h3>Contact Information</h3>
-            <p class="mb-2">The following information will help us determine the best way to contact you regarding event coordination.</p>
-	    <!-- <div class="blue-div"></div> -->
+        <!--    <p class="mb-2">The following information will help us determine the best way to contact you regarding event coordination.</p>
+	     <div class="blue-div"></div> -->
 
             <label for="email">* E-mail</label>
+            <p class="mb-2">Use a valid email address you have access to. You will need this if you need to reset your password.</p>
             <input type="email" id="email" name="email" required placeholder="Enter your e-mail address">
 
             <!-- <label for="email_consent">E-mail Notifications</label>

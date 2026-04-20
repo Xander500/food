@@ -105,7 +105,7 @@
                 <section id="view-logs">
                     <h3 <?php if ($sections['view_logs'] == 3) { echo 'class="aside_instructor-only"'; } ?>>View All Volunteer Activity Logs</h3>
                     <ul>
-                        <li>To view volunteer activity logs, navigate to the <a href="viewAllLogs.php" target="_blank">log display table</a> on the <a href="index.php" target="_blank">homepage</a>.</li>
+                        <li>To view volunteer activity logs, navigate to the <a href="index.php" target="_blank">log display table</a> on the <a href="index.php" target="_blank">homepage</a>.</li>
                         <li>Scroll down until you see the section titled "View All Volunteer Activity."</li>
                         <li>If there are numerous logs, the table will display only one page at a time. Page navigation links are found at the lower right corner of the table. Click the numbered buttons to view that page or the arrows to navigate pages.</li>
                         <li>By default, the logs are sorted by date. Click any column header link to sort by that field. An arrow will appear next to the selected header, indicating ascending or descending order. Click the header again to reverse the order.</li>
@@ -115,7 +115,7 @@
                 <section id="search-logs">
                     <h3 <?php if ($sections['search_logs'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Search Volunteer Activity Logs</h3>
                     <ul>
-                        <li>To search active volunteer activity logs, navigate to the <a href="viewAllLogs.php" target="_blank">log display table</a> on the <a href="index.php" target="_blank">homepage</a>.</li>
+                        <li>To search active volunteer activity logs, navigate to the <a href="index.php" target="_blank">log display table</a> on the <a href="index.php" target="_blank">homepage</a>.</li>
                         <li>At the top of the page, there is a "Search Volunteer Activity" form. Note: Dropdown selections will only display options for students/organizations/semesters that currently appear in active logs.</li>
                         <ul>
                             <li>Search by Student: Select a student's name to only view logs featuring that student.</li>
