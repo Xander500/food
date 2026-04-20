@@ -99,40 +99,60 @@ function get_organizations_id_name($want_archived = false) {
     return $result;
 }
 
-function find_organizations($name, $location) {
+function find_organizations($name, $location, $archival_statuses = []) {
+
+    if (!($name || $location || $archival_statuses)) {
+        return [];
+    }
+
+    //make sure statuses are valid (0 or 1)
+    $statuses_to_search = array_intersect($archival_statuses, ['0', '1']);
+    if (empty($statuses_to_search)) {
+        $archival_statuses = ['0', '1']; //if no valid status provided, search all
+    }
+    
+    $bindings = []; $types= "";
+    $where = 'select * from dborganizations where 1=1';
+
+    if ($name) {
+        $where .= " and name like ?";
+        $bindings[] = "%$name%";
+        $types .= "s";
+    }
+    if ($location) {
+        $where .= " and location like ?";
+        $bindings[] = "%$location%";
+        $types .= "s";
+    }
+    if ($archival_statuses) {
+        $placeholders = implode(',', array_fill(0, count($archival_statuses), '?'));
+        $where .= " and archived in ($placeholders)";
+        foreach ($archival_statuses as $status) {
+            $bindings[] = $status;
+            $types .= "s";
+        }
+    }
+
+    $where .= " order by archived, name";
     $connection = connect();
+    $query = $connection->prepare($where);
 
-if ($name && $location) {
-    $sql = 'SELECT * FROM dborganizations WHERE name LIKE ? AND location LIKE ?';
-    $query = $connection->prepare($sql);
+    //you have to do this to get a proper array to pass for dynamic bindings
+    if ($bindings) {
+        $refs = [];
+        foreach ($bindings as $key => $value) {
+            $refs[$key] = &$bindings[$key]; //passing by reference required
+            //[ 0 => thing0, 1 => thing1, etc...]
+        }
+        array_unshift($refs, $types); //prepend $types to $refs
+        call_user_func_array([$query, 'bind_param'], $refs);
+        //does $query->bind_param("ssi...", $first, $last, $id, ...all of the values...);
+        //but dynamically with any number of bindings
+    }
 
-    $nameLike = "%$name%";
-    $locationLike = "%$location%";
+    $query->execute();
+    $result = $query->get_result();
 
-    $query->bind_param("ss", $nameLike, $locationLike);
-
-} else if ($name) {
-    $sql = 'SELECT * FROM dborganizations WHERE name LIKE ?';
-    $query = $connection->prepare($sql);
-
-    $nameLike = "%$name%";
-    $query->bind_param("s", $nameLike);
-
-} else if ($location) {
-    $sql = 'SELECT * FROM dborganizations WHERE location LIKE ?';
-    $query = $connection->prepare($sql);
-
-    $locationLike = "%$location%";
-    $query->bind_param("s", $locationLike);
-
-} else {
-    return [];
-}
-
-$query->execute();
-$result = $query->get_result();
-
-    // echo $query;
     if (!$result) {
         mysqli_close($connection);
         return [];
