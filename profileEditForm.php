@@ -44,12 +44,12 @@
     <div class="main-content-box">
 
     <form class="signup-form" method="post">
-	<div class="text-center">
-          <h2 class="mb-8">Edit Profile</h2>
-            <div class="info-box">
-              <p>An asterisk (*) indicates a required field.</p>
-            </div>
-	</div>
+        <div class="text-center">
+            <h2 class="mb-8">Edit Profile</h2>
+                <div class="info-box">
+                <p>An asterisk (*) indicates a required field.</p>
+                </div>
+        </div>
         <fieldset class="section-box">
             <h3 class="mt-2" id="login">Login Credentials</h3>
             <label for="username">Username <span>(Cannot be modified.)</span></label>

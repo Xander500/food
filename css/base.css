@@ -867,7 +867,8 @@ main.dashboard > p {
 form.signup-form,
 form.add-org-form,
 form.password-change,
-form.modUser {
+form.modUser,
+form.edit-org-form {
     display: flex;
     gap: 1rem;
     flex-direction: column;
@@ -879,7 +880,8 @@ form#person-search.section-box,
 form#org-search.section-box,
 form.add-org-form .section-box,
 form.password-change .section-box,
-form.modUser .section-box {
+form.modUser .section-box,
+form.edit-org-form .section-box {
     border: 3px solid var(--main-color);
     border-radius: 20px;
     padding: 15px;
@@ -895,7 +897,8 @@ textarea#description {
 
 form.signup-form > fieldset,
 form.password-change > fieldset,
-form.modUser > fieldset {
+form.modUser > fieldset,
+form.edit-org-form > fieldset {
     padding: 1.5rem;
     display: flex;
     gap: .5rem;
@@ -906,11 +909,13 @@ form.signup-form > fieldset > label,
 form#org-searcg > div > label,  
 form#person-search > div > label,
 form.password-change > div > label,
-form.modUser > div > label {
+form.modUser > div > label,
+form.edit-org-form > div > label {
     margin-bottom: -.25rem;
 }
 
-form.signup-form textarea {
+form.signup-form textarea,
+form.edit-org-form textarea {
     height: 7rem;
 }
 
