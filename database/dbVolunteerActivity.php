@@ -297,6 +297,11 @@ function create_activitylog($log, $volunteer = true) {
     $latitude       = $log["latitude"] ?? null;
     $longitude      = $log["longitude"] ?? null;
 
+    if($latitude === '' || $longitude === ''){
+        $latitude = null;
+        $longitude = null;
+    }
+
     //optional
     $description    = $log["description"] ?? null;
     $poundsOfFood   = $log["poundsOfFood"] ?? null;
@@ -318,7 +323,11 @@ function create_activitylog($log, $volunteer = true) {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $query = $connection->prepare($sql);
-    $query->bind_param("ssddissdd", 
+    if ($latitude === null || $longitude === null){
+        $latitude = null;
+        $longitude = null;
+    }
+    $query->bind_param("ssddissss", 
             $date,
             $volunteerID,
             $hours,
