@@ -570,3 +570,13 @@ function get_monthly_pounds($sem = "All") {
     mysqli_close($con);
     return $months;
 }
+
+function get_years_logs() {
+    $con = connect();
+    $query = "SELECT DISTINCT year(date) as year FROM dbvolunteeractivity";
+    $result = mysqli_query($con, $query);
+    $result = mysqli_fetch_all($result);
+
+    mysqli_close($con);
+    return $result;
+}
