@@ -458,17 +458,33 @@ function getTotalPounds($sem = "All") {
     return $result['lb'];
 }
 
-function getImpactByStudent() {
+function getImpactByStudent($sem = "All") {
     $con = connect();
-    $query = "SELECT first_name, last_name, sum(hours), sum(poundsOfFood), count(*) FROM dbvolunteeractivity JOIN dbusers on volunteerID=dbusers.id GROUP BY volunteerID;";
+    $query = "SELECT first_name, last_name, sum(hours), sum(poundsOfFood), count(*) FROM dbvolunteeractivity JOIN dbusers on volunteerID=dbusers.id";
+    if ($sem != "All") {
+        if (str_contains($sem, "Spring")) {
+            $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
+        } else {
+            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+        }
+    }
+    $query .= " GROUP BY volunteerID;";
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_all($result);
     return $result;
 }
 
-function getImpactByOrg() {
+function getImpactByOrg($sem = "All") {
     $con = connect();
-    $query = "SELECT dborganizations.name, sum(hours), sum(poundsOfFood), count(*) FROM dbvolunteeractivity JOIN dborganizations on organizationID=dborganizations.id GROUP BY organizationID;";
+    $query = "SELECT dborganizations.name, sum(hours), sum(poundsOfFood), count(*) FROM dbvolunteeractivity JOIN dborganizations on organizationID=dborganizations.id";
+    if ($sem != "All") {
+        if (str_contains($sem, "Spring")) {
+            $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
+        } else {
+            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+        }
+    }
+    $query .= " GROUP BY organizationID;";
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_all($result);
     return $result;

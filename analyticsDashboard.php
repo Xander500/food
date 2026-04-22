@@ -105,26 +105,6 @@ use function PHPSTORM_META\type;
     $hours = getTotalHours(isset($_GET['semester']) ? $_GET['semester'] : "All");
     $pounds = getTotalPounds(isset($_GET['semester']) ? $_GET['semester'] : "All");
 
-    // function sem_sort($a, $b) {
-    //     if ($a['semester'] == $b['semester']) {
-    //         return 0;
-    //     }
-    //     if ((int)substr($a['semester'], -4) < (int)substr($b['semester'], -4)) {
-    //         return 1;
-    //     } else if ((int)substr($a['semester'], -4) > (int)substr($b['semester'], -4)){
-    //         return -1;
-    //     } else {
-    //         if (str_contains($a['semester'], "Spring")) {
-    //             return 1;
-    //         } else {
-    //             return -1;
-    //         }
-    //     }
-    // }
-
-    // $sems = get_semesters_in_users();
-    // usort($sems, "sem_sort");
-
     $sems = get_years_logs();
 ?>
 
@@ -136,12 +116,11 @@ use function PHPSTORM_META\type;
             <select id="semesterSelect" name="semester" onchange="this.form.submit()">
                 <option <?php echo !isset($_GET['semester']) ? 'selected' : ''; ?>>All</option>
                 <?php foreach ($sems as $row): ?>
-                    <!-- <option value="<?php echo hsc($row['semester']); ?>" <?php echo isset($_GET['semester']) && $_GET['semester'] == $row['semester'] ? 'selected' : ''; ?>>
-                        <?php echo hsc($row['semester']); ?>
-                    </option> -->
-                    <option value="<?php echo "Fall " . hsc($row[0]); ?>" <?php echo isset($_GET['semester']) && $_GET['semester'] == "Fall " . hsc($row[0]) ? 'selected' : ''; ?>>
-                        <?php echo "Fall " . hsc($row[0]); ?>
-                    </option>
+                    <?php if ($row[0] != date("Y") || ($row[0] == date("Y") && (int)date("M") >= 7)): ?>
+                        <option value="<?php echo "Fall " . hsc($row[0]); ?>" <?php echo isset($_GET['semester']) && $_GET['semester'] == "Fall " . hsc($row[0]) ? 'selected' : ''; ?>>
+                            <?php echo "Fall " . hsc($row[0]); ?>
+                        </option>
+                    <?php endif ?>
                     <option value="<?php echo "Spring " . hsc($row[0]); ?>" <?php echo isset($_GET['semester']) && $_GET['semester'] == "Spring " . hsc($row[0]) ? 'selected' : ''; ?>>
                         <?php echo "Spring " . hsc($row[0]); ?>
                     </option>
@@ -155,8 +134,8 @@ use function PHPSTORM_META\type;
                 <div class="nums-display">
                     <div class="num">Total Hours Volunteered : <?php echo $hours != null ? round($hours, 2) : 0;?></div>
                     <div class="num">Total Pounds of Food Rescued: <?php echo $pounds != null ? round($pounds, 2) : 0; ?></div>
-                    <div class="num"><a href="impactByStudent.php">Impact by Student</a></div>
-                    <div class="num"><a href="impactByOrg.php">Impact by Organization</a></div>
+                    <div class="num"><a href="impactByStudent.php<?php echo isset($_GET['semester']) && $_GET['semester'] != "All" ? "?semester=" . hsc(substr($_GET['semester'], 0, -5)) . "+" . hsc(substr($_GET['semester'], -4)) : "" ?>">Impact by Student</a></div>
+                    <div class="num"><a href="impactByOrg.php<?php echo isset($_GET['semester']) && $_GET['semester'] != "All" ? "?semester=" . hsc(substr($_GET['semester'], 0, -5)) . "+" . hsc(substr($_GET['semester'], -4)) : "" ?>">Impact by Organization</a></div>
                 </div>
                 <div class="map-container">
                     <h2>Volunteer Activity Map</h2>
