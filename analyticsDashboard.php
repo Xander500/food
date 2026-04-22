@@ -126,7 +126,6 @@ use function PHPSTORM_META\type;
     // usort($sems, "sem_sort");
 
     $sems = get_years_logs();
-    var_dump($sems);
 ?>
 
 <body>
@@ -140,11 +139,11 @@ use function PHPSTORM_META\type;
                     <!-- <option value="<?php echo hsc($row['semester']); ?>" <?php echo isset($_GET['semester']) && $_GET['semester'] == $row['semester'] ? 'selected' : ''; ?>>
                         <?php echo hsc($row['semester']); ?>
                     </option> -->
-                    <option value="<?php echo "Spring " . hsc($row[0]); ?>" <?php echo isset($_GET['semester']) && $_GET['semester'] == "Spring " . hsc($row[0]) ? 'selected' : ''; ?>>
-                        <?php echo "Spring " . hsc($row[0]); ?>
-                    </option>
                     <option value="<?php echo "Fall " . hsc($row[0]); ?>" <?php echo isset($_GET['semester']) && $_GET['semester'] == "Fall " . hsc($row[0]) ? 'selected' : ''; ?>>
                         <?php echo "Fall " . hsc($row[0]); ?>
+                    </option>
+                    <option value="<?php echo "Spring " . hsc($row[0]); ?>" <?php echo isset($_GET['semester']) && $_GET['semester'] == "Spring " . hsc($row[0]) ? 'selected' : ''; ?>>
+                        <?php echo "Spring " . hsc($row[0]); ?>
                     </option>
                 <?php endforeach; ?>
             </select>
