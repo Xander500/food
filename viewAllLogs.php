@@ -133,7 +133,7 @@
                         <input type="date" id="startDate" name="startdate"
                         value="<?php echo hsc($filters['startdate'] ?? ''); ?>">
 
-                        <label for="endDate">Search Before this Date</label>
+                        <label for="endDate">Search before this Date</label>
                         <input type="date" id="endDate" name="enddate" value="<?php echo hsc($filters['enddate'] ?? ''); ?>">
                     </div>
                     <div class="log_filter">
