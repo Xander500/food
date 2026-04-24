@@ -61,13 +61,6 @@ require_once('header.php');
     background-color: #C9AB81 !important;
   }
 
-
- .button-section button {
-    background-color: var(--accent-color) !important;
-    color: var(--page-font-color) !important;
-    border: none !important;
-  }
-
 .div-blue {
     background-color: var(--page-font-color);
   }
@@ -99,33 +92,32 @@ require_once('header.php');
   <!-- <header class="top-bar"></header> -->
 
   <!-- Main Content -->
-  <main style="margin-top: 100px;">
+  <main>
     <div class="sections">
 
       <!-- Buttons Section -->
       <div class="button-section">
         <button onclick="window.location.href='VolunteerRegister.php';">
-	  <div class="button-left-gray"></div>
-	  <div>Register New User</div>
-	  <img class="button-icon" src="images/add-person.svg" alt="Person Icon">
+          <div class="button-left-gray"></div>
+          <div>Register New User</div>
+          <img class="button-icon" src="images/add-person.svg" alt="Person Icon">
         </button>
 
         <button onclick="window.location.href='personSearch.php';">
-	  <div class="button-left-gray"></div>
-	  <div>Edit Registered Users</div>
-	  <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
+          <div class="button-left-gray"></div>
+          <div>Edit Registered Users</div>
+          <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
         </button>
 
-    <button onclick="window.location.href='deleteUserSearch.php';">
-        <div class="button-left-gray"></div>
-        <div>Delete Users</div>
-        <img class="button-icon h-10 w-10 left-5" src="images/trash.svg" alt="Person Icon">
-    </button>
+        <button onclick="window.location.href='viewAllUsers.php';">
+          <div class="button-left-gray"></div>
+          <div>View All Users</div>
+          <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
+        </button>
 	
-	<div class="text-center mt-6">
-        	<a href="index.php" class="return-button">Return to Dashboard</a>
-	</div>
-		
+        <div class="text-center mt-6">
+          <a href="index.php" class="return-button">Return to Homepage</a>
+        </div>
      </div>
 
       <!-- Text Section -->

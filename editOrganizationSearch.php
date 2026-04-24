@@ -31,6 +31,8 @@
 <?php
 $tailwind_mode = true;
 require_once('header.php');
+require_once('include/output.php');
+
 ?>
 <style>
         .date-box {
@@ -92,11 +94,15 @@ require_once('header.php');
                         $location = null;
                     }
 
+                    $status = $args['status'] ?? [];
+                    $want_archived = in_array('1', $status);
+                    $want_active = in_array('0', $status);
+
                     if (!($name || $location)) {
                         echo '<div class="error-block">At least one search criterion is required.</div>';
                     } else {
                         echo "<h3>Search Results</h3>";
-                        $orgs = find_organizations($name, $location);
+                        $orgs = find_organizations($name, $location, $archive_statuses = $status);
                         require_once('include/output.php');
 
                         if (count($orgs) > 0) {
@@ -105,6 +111,7 @@ require_once('header.php');
                                 <table>
                                     <thead>
                                         <tr>
+                                            <th>Status</th>
                                             <th>Name</th>
                                             <th>Description</th>
                                             <th>Location</th>
@@ -116,11 +123,12 @@ require_once('header.php');
                             foreach ($orgs as $org) {
                                 echo '
                                         <tr>
-                                            <td>' . $org->get_name() . '</td>
-                                            <td>' . $org->get_description() . '</td>
-                                            <td>' . $org->get_location() . '</td>
-                                            <td><a href="mailto:' . $org->get_email() . '" class="text-blue-700 underline">' . $org->get_email() . '</a></td>
-                                            <td><a href="editOrganization.php?id=' . $org->get_id() . '" class="text-blue-700 underline">Edit</a></td>
+                                            <td>' . (($org->is_archived()==0)?"Active":"Archived") . '</td>
+                                            <td>' . hsc($org->get_name()) . '</td>
+                                            <td>' . hsc($org->get_description()) . '</td>
+                                            <td>' . hsc($org->get_location()) . '</td>
+                                            <td><a href="mailto:' . hsc($org->get_email()) . '" class="text-blue-700 underline">' . hsc($org->get_email()) . '</a></td>
+                                            <td><a href="editOrganization.php?id=' . hsc($org->get_id()) . '" class="text-blue-700 underline">Edit</a></td>
                                         </tr>';
                             }
                             echo '
@@ -137,17 +145,26 @@ require_once('header.php');
             ?>
             <div>
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" class="w-full" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']); ?>" placeholder="Enter the name of the organization">
+                <input type="text" id="name" name="name" class="w-full" value="<?php if (isset($name)) echo hsc($_GET['name']); ?>" placeholder="Enter the name of the organization">
             </div>
             <div>
                 <label for="location">Location</label>
-                <input type="text" id="location" name="location" class="w-full" value="<?php if (isset($location)) echo htmlspecialchars($_GET['location']); ?>" placeholder="Enter the location of the organization">
+                <input type="text" id="location" name="location" class="w-full" value="<?php if (isset($location)) echo hsc($_GET['location']); ?>" placeholder="Enter the location of the organization">
             </div>
+
+            <div style="margin: 2% auto;">
+                <input type="checkbox" id="active" name="status[]" value="0" <?php echo ((($want_active ?? true) || ($want_active === false && $want_archived === false)) ? 'checked' : '');?>>
+                <label for="active">Active Organizations</label>
+                <input type="checkbox" id="archived" name="status[]" value="1" <?php echo ((($want_archived ?? true) || ($want_archived === false && $want_active === false)) ? 'checked' : '');?>>
+                <label for="archived">Archived Organizations</label>
+            </div>  
+
+
             <div class="text-center pt-4">
-                <input type="submit" value="Search" class="blue-button">
+                <input type="submit" value="Search" class="blue-button" style="width: 35%;">
             </div>
         </form>
-        <div class="text-center mt-6">
+        <div class="text-center" style="margin-top: 5%; font-size: 1.25rem;">
             <a href="index.php" class="return-button">Return to Dashboard</a>
         </div>
     </div>

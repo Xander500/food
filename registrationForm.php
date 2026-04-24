@@ -8,8 +8,8 @@
 <main>
   <div class="main-content-box">
     <form class="signup-form" method="post">
-	<div class="text-center spacing-bottom">
-        <h2 class="mb-8">Registration Form</h2>
+	<div class="text-center">
+        <h2 style="font-weight: 550;">Registration Form</h2>
         <div class="info-box">
             <p class="sub-text">Please fill out each section of the following form to create your account.
                 <br>An asterisk (*) indicates a required field.</p>
@@ -135,10 +135,11 @@
 
         <fieldset class="section-box mb-4">
             <h3>Contact Information</h3>
-            <p class="mb-2">The following information will help us determine the best way to contact you regarding event coordination.</p>
-	    <!-- <div class="blue-div"></div> -->
+        <!--    <p class="mb-2">The following information will help us determine the best way to contact you regarding event coordination.</p>
+	     <div class="blue-div"></div> -->
 
             <label for="email">* E-mail</label>
+            <p class="mb-2">Use a valid email address you have access to. You will need this if you need to reset your password.</p>
             <input type="email" id="email" name="email" required placeholder="Enter your e-mail address">
 
             <!-- <label for="email_consent">E-mail Notifications</label>
@@ -296,8 +297,7 @@
                 </div>
             </div>
         </fieldset> -->
-        <p class="text-center notice"></p>
-        <input type="submit" name="registration-form" value="Submit" style="width: 50%; margin: auto;">
+        <input type="submit" name="registration-form" value="Submit" style="width: 25%; margin: auto;">
     </form>
    </div> 
 </main>

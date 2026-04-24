@@ -18,6 +18,9 @@
     $badLogin = false;
     $archivedAccount = false;
 
+    $photo = file_exists('photos.php') ? include('photos.php') : [];
+    $currentBg = $photo['background'] ?? 'images/UMW_campus.jpg';
+
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once('include/input-validation.php');
         $ignoreList = array('password');
@@ -116,7 +119,7 @@
 
   <!-- Left: Image Section (Hidden on small screens) -->
   <div class="hidden md:block md:w-1/2 bg-center rounded-r-[50px] bg-[#1F1F21]">
-      <img src="images/UMW_campus.jpg"
+      <img src="<?= htmlspecialchars($currentBg) ?>"
             alt="Barrels"
             style="height: 100%;">
   </div>
@@ -165,21 +168,6 @@
         </div>
         <button class="cursor-pointer w-full bg-[#213e57] hover:bg-[#92c44c] text-white font-semibold py-3 rounded-lg transition duration-300">Login</button>
       </form>
-
-      <!-- Divider -->
-      <div class="flex items-center my-6 w-full">
-        <div class="flex-grow border-t border-gray-300"></div>
-        <span class="mx-4 text-gray-500">or</span>
-        <div class="flex-grow border-t border-gray-300"></div>
-      </div>
-
-      <!-- Sign Up Section -->
-      <p class="text-center text-gray-700">
-        Don’t have an account?
-        <a href="VolunteerRegister.php" class="text-[#759d3d] font-semibold hover:underline">Sign Up Now</a>
-      </p>
-
-    </div>
   </div>
 
 </div>

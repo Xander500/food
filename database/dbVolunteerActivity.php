@@ -75,7 +75,7 @@ function make_a_volunteer_activity($result_row) {
     return $row['num'];
  }
 
-  function get_num_logs_with_filters($filters_input, $want_archived = false) {
+ function get_num_logs_with_filters($filters_input, $want_archived = false) {
     $con=connect();
     $select_statement = "SELECT count(*) as num FROM dbvolunteeractivity AS va" .
             " JOIN dbusers AS u ON u.id = va.volunteerID" .
@@ -243,15 +243,19 @@ function internal_apply_filters_to_select($con, $select_statement, $order_statem
     return $theLogs;
  }
 
-function get_all_logs_sorted_by_date() {
+function get_all_logs_sorted_by_date($archived = '0') {
     $con=connect();
-    $query = "SELECT * FROM dbvolunteeractivity" . " ORDER BY date ASC";
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
+    $sql = 'SELECT * FROM dbvolunteeractivity WHERE (dbvolunteeractivity.archived = 0 OR ? = 1) ORDER BY date ASC';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $archived);
+    $query->execute();
+    $result = $query->get_result();
 
     if ($result == null || mysqli_num_rows($result) == 0) {
+    mysqli_close($con);
         return false;
     }
+    mysqli_close($con);
     return $result;
 }
 
@@ -293,6 +297,11 @@ function create_activitylog($log, $volunteer = true) {
     $latitude       = $log["latitude"] ?? null;
     $longitude      = $log["longitude"] ?? null;
 
+    if($latitude === '' || $longitude === ''){
+        $latitude = null;
+        $longitude = null;
+    }
+
     //optional
     $description    = $log["description"] ?? null;
     $poundsOfFood   = $log["poundsOfFood"] ?? null;
@@ -314,7 +323,11 @@ function create_activitylog($log, $volunteer = true) {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $query = $connection->prepare($sql);
-    $query->bind_param("ssddissdd", 
+    if ($latitude === null || $longitude === null){
+        $latitude = null;
+        $longitude = null;
+    }
+    $query->bind_param("ssddissss", 
             $date,
             $volunteerID,
             $hours,
@@ -352,59 +365,94 @@ function update_volunteerLog($id, $logDetails) {
 
     $query = "
         UPDATE dbvolunteeractivity
-        SET volunteerID='$volunteerID', organizationID='$organizationID', hours='$hours', poundsOfFood='$poundsOfFood', date='$date', location='$location', description='$description', archived='$archived'
-        WHERE id='$id'
+        SET volunteerID=?, organizationID=?, hours=?, poundsOfFood=?, date=?, location=?, description=?, archived=?
+        WHERE id=?
     ";
-    $result = mysqli_query($connection, $query);
-    mysqli_commit($connection);
+    $stmt = $connection->prepare($query);
+    $stmt->bind_param("ssddsssss", $volunteerID, $organizationID, $hours, $poundsOfFood, $date, $location, $description, $archived, $id);
+
+    if ($stmt->execute()) {
+        mysqli_commit($connection);
+        mysqli_close($connection);
+        return true;
+    }
+
     mysqli_close($connection);
-    return $result;
+    return false;
 }
 
 function delete_log($id) {
     $con=connect();
-    $query = "DELETE FROM dbvolunteeractivity WHERE id = '$id'";
-    $result = mysqli_query($con, $query);
-    $result = boolval($result);
+    $sql = 'DELETE FROM dbvolunteeractivity WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+
+    if (!$query->execute()) {
+        mysqli_close($con);
+        return false;
+    }
+
+    $affected = $query->affected_rows;
     mysqli_close($con);
-    return $result;
+    return $affected > 0;
 }
 
 function get_impact_summary_by_volunteer($id) {
     $con = connect();
-    $sql = "SELECT SUM(hours) AS total_hours, SUM(poundsOfFood) AS total_pounds, COUNT(*) AS total_logs FROM dbvolunteeractivity WHERE volunteerID = '$id'";
-    $result = mysqli_query($con, $sql);
-    $row = mysqli_fetch_assoc($result);
+    $sql = 'SELECT SUM(hours) AS total_hours, SUM(poundsOfFood) AS total_pounds, COUNT(*) AS total_logs FROM dbvolunteeractivity WHERE volunteerID = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+    $query->execute();
+    $result = $query->get_result();
+    $row = $result->fetch_assoc();
     mysqli_close($con);
     return $row;
 }
 
 function get_impact_summary_by_organization($id) {
     $con = connect();
-    $query = "SELECT dborganizations.name AS organization_name, SUM(hours) AS hours,
+    $sql = "SELECT dborganizations.name AS organization_name, SUM(hours) AS hours,
         SUM(poundsOfFood) AS pounds
         FROM dbvolunteeractivity
         JOIN dborganizations ON organizationID = dborganizations.id
-        WHERE volunteerID = '$id'
+        WHERE volunteerID = ?
         GROUP BY organizationID
         ORDER BY hours DESC";
-    $result = mysqli_query($con, $query);
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+    $query->execute();
+    $result = $query->get_result();
+
     $rows = $result->fetch_all(MYSQLI_ASSOC);
     mysqli_close($con);
     return $rows;
 }
 
-function getTotalHours() {
+function getTotalHours($sem = "All") {
     $con = connect();
-    $query = "SELECT sum(hours) as h FROM dbvolunteeractivity;";
+    $query = "SELECT sum(hours) as h FROM dbvolunteeractivity";
+    if ($sem != "All") {
+        if (str_contains($sem, "Spring")) {
+            $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
+        } else {
+            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+        }
+    }
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_assoc($result);
     return $result['h'];
 }
 
-function getTotalPounds() {
+function getTotalPounds($sem = "All") {
     $con = connect();
-    $query = "SELECT sum(poundsOfFood) as lb FROM dbvolunteeractivity;";
+    $query = "SELECT sum(poundsOfFood) as lb FROM dbvolunteeractivity";
+    if ($sem != "All") {
+        if (str_contains($sem, "Spring")) {
+            $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
+        } else {
+            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+        }
+    }
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_assoc($result);
     return $result['lb'];
@@ -425,11 +473,18 @@ function getImpactByOrg() {
     $result = mysqli_fetch_all($result);
     return $result;
 }
-function get_all_activity_locations_for_map() {
+function get_all_activity_locations_for_map($sem = "All") {
     $con = connect();
     $query = "SELECT id, location, latitude, longitude
               FROM dbvolunteeractivity
               WHERE latitude IS NOT NULL AND longitude IS NOT NULL";
+    if ($sem != "All") {
+        if (str_contains($sem, "Spring")) {
+            $query .= " AND month(date) < 6 and year(date) = " . substr($sem, -4);
+        } else {
+            $query .= " AND month(date) >= 7 and year(date) = " . substr($sem, -4);
+        }
+    }
     $result = mysqli_query($con, $query);
 
     $rows = array();
@@ -476,4 +531,52 @@ function find_logs_by_semester($semester) {
     }
     mysqli_close($con);
     return $theLogs;
+}
+
+function get_monthly_hours($sem = "All") {
+    $con = connect();
+    $query = "SELECT month(date) as m, sum(hours) as v FROM dbvolunteeractivity WHERE ";
+    if ($sem != "All") {
+        $query .= "year(date) = " . substr($sem, -4) . " GROUP BY month(date)";
+    } else {
+        $query .= "year(date) = " . date("Y") . " GROUP BY month(date)";
+    }
+    $result = mysqli_query($con, $query);
+
+    $months = array();
+    while ($month = mysqli_fetch_assoc($result)) {
+        $months[] = $month;
+    }
+
+    mysqli_close($con);
+    return $months;
+}
+
+function get_monthly_pounds($sem = "All") {
+    $con = connect();
+    $query = "SELECT month(date) as m, sum(poundsOfFood) as v FROM dbvolunteeractivity WHERE ";
+    if ($sem != "All") {
+        $query .= "year(date) = " . substr($sem, -4) . " GROUP BY month(date)";
+    } else {
+        $query .= "year(date) = " . date("Y") . " GROUP BY month(date)";
+    }
+    $result = mysqli_query($con, $query);
+
+    $months = array();
+    while ($month = mysqli_fetch_assoc($result)) {
+        $months[] = $month;
+    }
+
+    mysqli_close($con);
+    return $months;
+}
+
+function get_years_logs() {
+    $con = connect();
+    $query = "SELECT DISTINCT year(date) as year FROM dbvolunteeractivity";
+    $result = mysqli_query($con, $query);
+    $result = mysqli_fetch_all($result);
+
+    mysqli_close($con);
+    return $result;
 }

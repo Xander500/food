@@ -6,6 +6,8 @@
     session_cache_expire(30);
     session_start();
     require_once('database/dbUsers.php');
+    require_once('include/output.php');
+
 
 
     $loggedIn = false;
@@ -108,7 +110,6 @@ require_once('header.php');
                 }else {
                     echo "<h3>Search Results</h3>";
                     $persons = search_users($name, $id, $semester, $role, $status);
-                    require_once('include/output.php');
 
                     if (count($persons) > 0) {
                         echo '
@@ -127,25 +128,17 @@ require_once('header.php');
                                     </tr>
                                 </thead>
                                 <tbody>';
-                        $mailingList = '';
-                        $notFirst = false;
                         foreach ($persons as $person) {
-                            if ($notFirst) {
-                                $mailingList .= ', ';
-                            } else {
-                                $notFirst = true;
-                            }
-                            $mailingList .= $person->get_email();
                             echo '
                                     <tr>
                                         <td>' . (($person->is_archived()==0)?"Active":"Archived") . '</td>
-                                        <td>' . $person->get_first_name() . '</td>
-                                        <td>' . $person->get_last_name() . '</td>
-                                        <td>' . $person->get_id() . '</td>
-                                        <td>' . $person->get_semester() . '</td>
-                                        <td>' . ucfirst($person->get_role() ?? '') . '</td>
-                                        <td><a href="viewProfile.php?id=' . $person->get_id() . '" class="text-blue-700 underline">Profile</a></td>
-                                        <td><a href="modifyUserRole.php?id=' . $person->get_id() . '" class="text-blue-700 underline">Update Status</a></td>
+                                        <td>' . hsc($person->get_first_name()) . '</td>
+                                        <td>' . hsc($person->get_last_name()) . '</td>
+                                        <td>' . hsc($person->get_id()) . '</td>
+                                        <td>' . hsc($person->get_semester()) . '</td>
+                                        <td>' . ucfirst(hsc($person->get_role() ?? '')) . '</td>
+                                        <td><a href="editProfile.php?id=' . hsc($person->get_id()) . '" class="text-blue-700 underline">Edit</a></td>
+                                        <td><a href="modifyUserRole.php?id=' . hsc($person->get_id()) . '" class="text-blue-700 underline">Update Status</a></td>
                                     </tr>';
                         }
                         echo '
@@ -163,12 +156,12 @@ require_once('header.php');
 
             <div>
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" class="w-full" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']); ?>" placeholder="Enter the user's first and/or last name">
+                <input type="text" id="name" name="name" class="w-full" value="<?php if (isset($name)) echo hsc($_GET['name']); ?>" placeholder="Enter the user's first and/or last name">
             </div>
 
             <div>
                 <label for="id">Username</label>
-                <input type="text" id="id" name="id" class="w-full" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']); ?>" placeholder="Enter the user's username (login ID)">
+                <input type="text" id="id" name="id" class="w-full" value="<?php if (isset($id)) echo hsc($_GET['id']); ?>" placeholder="Enter the user's username (login ID)">
             </div>
 
             <div>
@@ -184,13 +177,14 @@ require_once('header.php');
                 <label for="semester">Semester</label>
                 <select id="semester" name="semester" class="w-full">
                     <option value="">Any</option>
-                    <?php foreach (get_semesters_in_users() as ['semester' => $s]): ?>
-                    <option value="<?php echo $s ?>" <?php if (isset($semester) && $semester == $s) echo 'selected'; ?>><?php echo $s ?></option>
-                    <?php endforeach; ?>
+                    <?php foreach (get_semesters_in_users() as ['semester' => $s]):
+                        if (!empty(hsc($s))) : ?>
+                            <option value="<?php echo hsc($s) ?>" <?php if (isset($semester) && $semester == $s) echo 'selected'; ?>><?php echo hsc($s); ?></option>
+                    <?php endif; endforeach; ?>
                 </select>
             </div>
 
-            <div>
+            <div style="margin: 2% auto;">
                 <input type="checkbox" id="active" name="status[]" value="0" <?php echo ((($want_active ?? true) || ($want_active === false && $want_archived === false)) ? 'checked' : '');?>>
                 <label for="active">Active Users</label>
                 <input type="checkbox" id="archived" name="status[]" value="1" <?php echo ((($want_archived ?? true) || ($want_archived === false && $want_active === false)) ? 'checked' : '');?>>
@@ -203,7 +197,7 @@ require_once('header.php');
 
         </form>
         <div class="text-center mt-6">
-            <a href="index.php" class="return-button">Return to Dashboard</a>
+            <a href="volunteerManagement.php" class="return-button">Return to Dashboard</a>
         </div>
     </div>
 

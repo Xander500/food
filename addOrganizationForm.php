@@ -5,7 +5,7 @@
 <main>
     <div class="main-content-box">
         <form class="add-org-form" method="post">
-	        <div class="text-center spacing-bottom">
+	        <div class="text-center">
                 <h2 class="mb-8">Add Organization Form</h2>
                 <div class="info-box">
                     <p class="sub-text">Please fill out each section of the following form to create your account.
@@ -24,11 +24,9 @@
                 <input type="text" id="location" name="location" placeholder="Enter the location of the organization">
 
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="Enter the e-mail address of the organization">
+                <input type="email" id="email" name="email" required placeholder="Enter the e-mail address of the organization">
             </fieldset>
-        
-            <p class="text-center notice"></p>
-            <input type="submit" name="registration-form" value="Submit" style="width: 50%; margin: auto;">
+            <input type="submit" name="registration-form" value="Submit" style="width: 35%; margin: auto;">
         </form>
    </div> 
 </main>

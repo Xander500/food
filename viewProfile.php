@@ -87,7 +87,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Whiskey Valor | Profile Page</title>
+  <title>UMW Alleviating Food Waste | Profile Page</title>
+  <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     function showSection(sectionId) {
@@ -97,13 +98,13 @@
 
       const tabs = document.querySelectorAll('.tab-button');
       tabs.forEach(tab => {
-        tab.classList.remove('border-b-4', 'border-[#C9AB81]');
-        tab.classList.add('hover:border-b-2', 'hover:border-[#C9AB81]');
+        tab.classList.remove('border-b-4', 'border-[#759d3d]');
+        tab.classList.add('hover:border-b-2', 'hover:border-[#759d3d]');
       });
 
       const activeTab = document.querySelector(`[data-tab="${sectionId}"]`);
-      activeTab.classList.add('border-b-4', 'border-[#C9AB81]');
-      activeTab.classList.remove('hover:border-b-2', 'hover:border-[#C9AB81]');
+      activeTab.classList.add('border-b-4', 'border-[#759d3d]');
+      activeTab.classList.remove('hover:border-b-2', 'hover:border-[#759d3d]');
     }
 
     window.onload = () => showSection('personal');
@@ -142,66 +143,59 @@
 		<div class="absolute left-[40%] top-[15%] z-50 bg-green-800 p-4 text-white rounded-xl text-xl">User role updated successfully!</div>
             <?php endif ?>
 
-<body class="bg-gray-100">
-  <!-- Hero Section -->
-  <div class="h-48 relative" style="background-color: var(--page-background-color);">
-  </div>
-
+<body>
   <!-- Profile Content -->
-  <div class="max-w-6xl mx-auto px-4 -mt-20 relative z-10 flex flex-col md:flex-row gap-6">
+  <div class="profile-container">
     <!-- Left Box -->
-    <div class="w-full md:w-1/3 bg-white border border-gray-300 rounded-2xl shadow-lg p-6 flex flex-col justify-between">
+    <div class="profile-box-left">
       <div>
-	<div class="flex justify-between items-center">
-	<?php if ($viewingOwnProfile): ?>
-          <h2 class="text-xl font-semibold mb-4">My Profile</h2>
-
-	<?php else: ?>
-	  <h2 class="text-xl font-semibold mb-4">Viewing <?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?></h2>
-	<?php endif ?>
-	</div>
-        <div class="space-y-2 divide-y divide-gray-300">
-          <div class="flex justify-between py-2">
-            <span class="font-medium">Joined</span><span><?php echo hsc(date('m/d/Y', strtotime($user->get_start_date()))) ?></span>
+	      <?php if ($viewingOwnProfile): ?>
+          <h2 class="profile-name">My Profile</h2>
+	      <?php else: ?>
+	        <h2 class="profile-name">Viewing <?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?></h2>
+	      <?php endif ?>
+	      <div class="profile-info">
+          <div class="profile-info-item">
+            <span>Joined</span><span><?php echo hsc(date('m/d/Y', strtotime($user->get_start_date()))) ?></span>
           </div>
-          <div class="flex justify-between py-2">
-            <span class="font-medium">Semester</span><span><?php echo hsc($user->get_semester()) ?></span>
+          <div class="profile-info-item">
+            <span>Semester</span><span><?php echo hsc($user->get_semester()) ?></span>
           </div>
-          <div class="flex justify-between py-2">
-            <span class="font-medium">Status</span><span><?php echo ($user->is_archived() ? 'Archived' : 'Active') ?></span>
+          <div class="profile-info-item">
+            <span>Status</span><span><?php echo ($user->is_archived() ? 'Archived' : 'Active') ?></span>
           </div>
         </div>
       </div>
-      <div class="mt-6 space-y-2">
-        <button onclick="window.location.href='editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>';" class="text-lg font-medium w-full px-4 py-2 bg-[#92c44c] text-[#1F1F21] rounded-md hover:bg-[#1F1F21] hover:text-[#C9AB81] cursor-pointer">Edit Profile</button>
-        <button onclick="window.location.href='index.php';" class="text-lg font-medium w-full px-4 py-2 border-2 border-gray-300 text-black rounded-md hover:border-[#1F1F21] cursor-pointer">Return to Dashboard</button>
+      <div class="profile-buttons">
+        <button onclick="window.location.href='editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>';">Edit Profile</button>
+        <button onclick="window.location.href='volunteerManagement.php';">Return to Dashboard</button>
       </div>
     </div>
 
     <!-- Right Box -->
-    <div class="w-full md:w-2/3 bg-white rounded-2xl shadow-lg border border-gray-300 p-6">
+    <div class="profile-box-right">
       <!-- Tabs -->
-      <div class="flex border-b border-gray-300 mb-4">
-        <h3 class="tab-button px-4 py-2 text-lg font-medium text-[#2B2B2E] border-b-4 border-[#1F1F21]" data-tab="personal" onclick="showSection('personal')">Personal Information</h3>
+      <div class="profile-tab-header">
+        <h3 class="tab-button profile-tab" data-tab="personal" onclick="showSection('personal')">Personal Information</h3>
       </div>
 
       <!-- Personal Section -->
-      <div id="personal" class="profile-section space-y-4">
-        <div>
-          <span class="block text-sm font-medium text-[#1F1F21]">Name</span>
-          <p class="text-gray-900 font-medium text-xl"><?php echo hsc($user->get_first_name()) ?> <?php echo hsc($user->get_last_name()) ?></p>
+      <div id="personal" class="profile-section profile-tab-section">
+        <div class="profile-tab-section-item">
+          <span class="profile-tab-section-item-heading">Name</span>
+          <p class="profile-tab-section-item-data"><?php echo hsc($user->get_first_name()) ?> <?php echo hsc($user->get_last_name()) ?></p>
         </div>
-        <div>
-          <span class="block text-sm font-medium text-[#1F1F21]">Username</span>
-          <p class="text-gray-900 font-medium text-xl"><?php echo hsc($user->get_id()) ?></p>
+        <div class="profile-tab-section-item">
+          <span class="profile-tab-section-item-heading">Username</span>
+          <p class="profile-tab-section-item-data"><?php echo hsc($user->get_id()) ?></p>
         </div>
-        <div>
-          <span class="block text-sm font-medium text-[#1F1F21]">Email</span>
-          <p class="text-gray-900 font-medium text-xl"><a href="mailto:<?php echo hsc($user->get_email()) ?>"><?php echo hsc($user->get_email()) ?></a></p>
+        <div class="profile-tab-section-item">
+          <span class="profile-tab-section-item-heading">Email</span>
+          <p class="profile-tab-section-item-data"><a href="mailto:<?php echo hsc($user->get_email()) ?>"><?php echo hsc($user->get_email()) ?></a></p>
         </div>
-        <div>
-          <span class="block text-sm font-medium text-[#1F1F21]">Role</span>
-          <p class="text-gray-900 font-medium text-xl"><?php echo hsc($user->get_role()) ?></p>
+        <div class="profile-tab-section-item">
+          <span class="profile-tab-section-item-heading">Role</span>
+          <p class="profile-tab-section-item-data"><?php echo hsc($user->get_role()) ?></p>
         </div>
       </div>	      
     </div>

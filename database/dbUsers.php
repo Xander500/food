@@ -53,35 +53,39 @@ function get_user_full_name_from_id($id) {
 
  function add_user($user) {
     $con = connect();
-    $query = "SELECT * FROM dbusers WHERE id = '" . $user->get_id() . "'";
-    $result = mysqli_query($con, $query);
+
+    $username = $user->get_id();
+    $start_date = $user->get_start_date();
+    $first_name = $user->get_first_name();
+    $last_name = $user->get_last_name();
+    $email = $user->get_email();
+    $password = $user->get_password();
+    $role = $user->get_role();
+    $semester = $user->get_semester();
+
+
+    $sql = 'SELECT * FROM dbusers WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $username);
+    $query->execute();
+    $result = $query->get_result();
+
     // if (!$user instanceof user) {
     //     die("Error: add_user type mismatch");
     // }
 
-
-
     // If the result is empty, it means the user doesn't exist, so we can add the user
     if (mysqli_num_rows($result) == 0) {
         // Prepare the insert query
-        $insert_query = 'INSERT INTO dbusers (id, start_date, first_name, last_name, email, password, role, semester) 
-            VALUES ("' .
-            $user->get_id() . '","' .
-            $user->get_start_date() . '","' .
-            $user->get_first_name() . '","' .
-            $user->get_last_name() . '","' .
-            $user->get_email() . '","' .
-            $user->get_password() . '","' .
-            $user->get_role() . '","' .
-            $user->get_semester() . '");';
-
+        $insert_query = 'INSERT INTO dbusers (id, start_date, first_name, last_name, email, password, role, semester) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
         // Check if the query is properly built
         if (empty($insert_query)) {
             die("Error: insert query is empty");
         }
+        $query = $con->prepare($insert_query);
+        $query->bind_param("ssssssss", $username, $start_date, $first_name, $last_name, $email, $password, $role, $semester);
 
-        // Perform the insert
-        if (mysqli_query($con, $insert_query)) {
+        if ($query->execute()) {
             mysqli_close($con);
             return true;
         } else {
@@ -100,23 +104,32 @@ function get_user_full_name_from_id($id) {
 
 function retrieve_user($id) { // (username! not id)
     $con=connect();
-    $query = "SELECT * FROM dbusers WHERE id = '" . $id . "'";
-    $result = mysqli_query($con,$query);
-    if (mysqli_num_rows($result) !== 1) {
+    $sql = 'SELECT * FROM dbusers WHERE id = ?';
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $id);
+    $query->execute();
+
+    $result = $query->get_result();
+    if ($result->num_rows === 0) {
         mysqli_close($con);
         return false;
     }
-    $result_row = mysqli_fetch_assoc($result);
-    // var_dump($result_row);
+    $result_row = $result->fetch_assoc();
+    mysqli_close($con);
     $theUser = make_a_user($result_row);
-//    mysqli_close($con);
     return $theUser;
 }
 
-function retrieve_all() {
+function retrieve_all($wants_archived=false) {
     $con=connect();
     $query = "SELECT distinct * FROM dbusers";
     //$query = "SELECT distinct * FROM dbusers WHERE role = 'Student'"; // used if we only want to get students for volunteer activity creation
+
+    if ($wants_archived) {
+        $query .= " WHERE archived = 1 or archived = 0";
+    } else {
+        $query .= " WHERE archived = 0";
+    }
 
     $result = mysqli_query($con,$query);
     mysqli_close($con);
@@ -306,14 +319,20 @@ function update_user_required($id, $first_name, $last_name, $email, $semester) {
 }
 
 //aggregate data for a user
-function get_all_aggregated_poundsOfFood_for_volunteers() {
+function get_all_aggregated_poundsOfFood_for_volunteers($archived = '0') {
     $con=connect();
-    $query = "SELECT volunteerID,first_name,last_name,SUM(hours) as totalHours,SUM(poundsOfFood) as totalPoundsRescued
-                FROM dbvolunteeractivity LEFT JOIN dbusers on dbusers.id = dbvolunteeractivity.volunteerID
-                    GROUP BY volunteerID, last_name 
-                        ORDER BY last_name";
+    $sql = 'SELECT dbUsers.id AS volunteerID, dbUsers.first_name, dbUsers.last_name, COALESCE(SUM(dbvolunteeractivity.hours), 0) AS totalHours, COALESCE(SUM(dbvolunteeractivity.poundsOfFood), 0) AS totalPoundsRescued
+                FROM dbUsers
+                    LEFT JOIN dbvolunteeractivity 
+                        ON dbUsers.id = dbvolunteeractivity.volunteerID
+                            WHERE (dbUsers.archived = 0 OR ? = 1)
+                                GROUP BY dbUsers.id, dbUsers.first_name, dbUsers.last_name
+                                    ORDER BY dbUsers.last_name';
 
-    $result = mysqli_query($con,$query);
+    $query = $con->prepare($sql);
+    $query->bind_param("s", $archived);
+    $query->execute();
+    $result = $query->get_result();
     mysqli_close($con);
 
     if ($result == null || mysqli_num_rows($result) == 0) {
@@ -322,11 +341,11 @@ function get_all_aggregated_poundsOfFood_for_volunteers() {
     return $result;
 }
 
-function archive_users_by_semester($semester, $archived = '1') {
+function archive_users_by_semester($semester, $archived = '1', $role = 'Student') {
     $con=connect();
-    $sql = 'UPDATE dbusers SET archived = ? WHERE semester = ?';
+    $sql = 'UPDATE dbusers SET archived = ? WHERE semester = ? AND role = ?';
     $query = $con->prepare($sql);
-    $query->bind_param("ss", $archived, $semester);
+    $query->bind_param("sss", $archived, $semester, $role);
     $query->execute();
     return $query->affected_rows;
 }

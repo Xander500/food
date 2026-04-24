@@ -36,10 +36,6 @@ if (date("H:i:s") > "18:19:59") {
             padding-top: 96px;
             font-size: 14pt;
         }
-        h2 {
-        	font-weight: normal;
-            font-size: 30px;
-        }
 
 /*BEGIN STYLE TEST*/
          .extra-info {
@@ -218,12 +214,12 @@ if (date("H:i:s") > "18:19:59") {
             gap: 20px;
         }
 
-        .nav-links div, .nav-item a {
+        /* .nav-links div, .nav-item a {
             font-size: 24px;
             font-weight: 700;
             color: var(--page-font-color);
             cursor: pointer;
-        }
+        } */
 
         /* Right Section: Date & Icon */
         .right-section {
@@ -231,7 +227,7 @@ if (date("H:i:s") > "18:19:59") {
             display: flex;
             align-items: center;
             gap: 20px;
-	}
+	    }
 
         /* Dropdown Control */
         .nav-item, .nav-item a {
@@ -239,10 +235,9 @@ if (date("H:i:s") > "18:19:59") {
             cursor: pointer;
             padding: 0px;
             transition: color 0.3s, outline 0.3s;
-        }
-
-        .nav-item a {
             font-size: 30px;
+            color: var(--page-font-color);
+            font-weight: 700;
         }
 
         .dropdown {
@@ -268,7 +263,7 @@ if (date("H:i:s") > "18:19:59") {
             background: rgba(0, 0, 0, 0.1);
         }
 
-        .nav-item:hover, .nav-item:focus-visible, .nav-item.active {
+        .nav-item:hover, .nav-item:focus-visible, .nav-item.active, .nav-item a.header-link:hover {
             color: var(--accent-color);
             /* outline: 1px solid var(--accent-color); */
             outline-offset: 7px;
@@ -379,7 +374,6 @@ if (date("H:i:s") > "18:19:59") {
         /* Footer */
         .footer {
             width: 100%;
-            background: #C9AB81;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -427,20 +421,20 @@ if (date("H:i:s") > "18:19:59") {
             display: flex;
             flex-direction: column;
             gap: 10px;
-            color: white;
+            color: var(--main-color);
             font-family: Inter, sans-serif;
             font-size: 16px;
             font-weight: 500;
         }
 
         .footer-topic {
-            font-size: 18px;
             font-weight: bold;
         }
 
         .footer a {
-            color: white;
-            text-decoration: none;
+            color: var(--page-font-color);
+            text-decoration: underline;
+            font-weight: 550;
             transition: background 0.2s ease, color 0.2s ease;
             padding: 5px 10px;
             border-radius: 5px;
@@ -448,8 +442,7 @@ if (date("H:i:s") > "18:19:59") {
 
         .footer a:hover,
         .footer a:focus-visible {
-            background: rgba(255, 255, 255, 0.1);
-            color: #dcdcdc;
+            color: var(--main-color-hover);
         }
 
         /* Icon Overlay */
@@ -489,7 +482,7 @@ if (date("H:i:s") > "18:19:59") {
 
         .icon .dropdown{
             top: 130%;
-            left: -415%;
+            left: -485%;
         }
 
         .in-nav {
@@ -659,7 +652,10 @@ if (date("H:i:s") > "18:19:59") {
         <!-- Left Section: Logo & Nav Links -->
         <div class="left-section">
             <div class="logo-container">
-                <a href="index.php"><img src="'. $logo . '" alt="Logo"></a>
+                <a href="index.php"><img src="' . $logo . '" alt="Logo"></a>
+            </div>
+            <div class="nav-item">
+                <a class="header-link" href="index.php">Home</a>
             </div>
         </div>
 
@@ -709,9 +705,10 @@ if (date("H:i:s") > "18:19:59") {
 
         $permission_array['log.php'] = 1;
         $permission_array['viewalllogs.php'] = 1;
+        $permission_array['viewallorgs.php'] = 1;
         $permission_array['editlog.php'] = 1;
         $permission_array['deletelog.php'] = 1;
-        $permission_array['addevent.php'] = 1;
+        $permission_array['addlog.php'] = 1;
         $permission_array['volunteermanagement.php'] = 1;
         $permission_array['viewprofile.php'] = 1;
         $permission_array['addorganization.php'] = 1;
@@ -724,8 +721,7 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['organizationmanagement.php'] = 1;
         $permission_array['organization.php'] = 1;
         $permission_array['viewimpactsummary.php'] = 1;
-
-
+        $permission_array['howto.php'] = 1;
 
         $permission_array['personsearch.php'] = 3;
         $permission_array['deleteusersearch.php'] = 3;
@@ -739,6 +735,8 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['generatereport.php'] = 3;
         $permission_array['archivalsearch.php'] = 3;
         $permission_array['archivalmanagement.php'] = 3;
+        $permission_array['monthlyimpact.php'] = 3;
+        $permission_array['viewallusers.php'] = 3;
 
         /*
         $permission_array['about.php'] = 0; //WVF - Not able to directly access - Likely just need to re-route to
@@ -857,7 +855,6 @@ if (date("H:i:s") > "18:19:59") {
         // LOWERCASE
         */
 
-
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') + 1));
         $current_page = substr($current_page, strpos($current_page,"/"));
@@ -887,83 +884,57 @@ if (date("H:i:s") > "18:19:59") {
             <div class="logo-container">
                 <a href="index.php"><img src="' . $logo . '" alt="Logo"></a>
             </div>
-            <div class="nav-item"><a href="index.php">Dashboard</a></div>'.
-            //     <!--<a href="viewCheckInOut.php" style="color: white; text-decoration: none;"><div class="date-box">Check In/Out</div></a>-->
-            // <div class="nav-links">
-            //     <div class="nav-item">Events
-            //         <div class="dropdown">
-            //             <a href="addEvent.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/plus-solid.svg">
-            //                 <span>Create Event</span>
-            //             </div>
-            //             </a>
-            //             <a href="calendar.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/list-solid.svg">
-            //                 <span>View Events</span>
-            //             </div>
-            //             </a>
-            //             <a href="editHours.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/clock-regular.svg">
-            //                 <span>Change Event Hours</span>
-            //             </div>
-            //             </a>
-            //             <a href="viewPendingApps.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/users-solid.svg">
-            //                 <span>Pending Applications</span>
-            //             </div>
-            //             </a>
-            //             <a href="adminViewingEvents.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/list-solid.svg">
-            //                 <span>Edit Event</span>
-            //             </div>
-            //             </a>
-            //         </div>
-            //     </div>
-            //     <div class="nav-item">
-            //         <div class="dropdown">
-            //             <a href="createGroup.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/creategroup.svg">
-            //                 <span>Create Group</span>
-            //             </div>
-            //             </a>
-            //             <a href="showGroups.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/group.svg">
-            //                 <span>View Groups</span>
-            //             </div>
-            //             </a>
-            //             <a href="noShows.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/group.svg">
-            //                 <span>No Shows</span>
-            //             </div>
-            //             </a>
-            //         </div>
-            //    </div>
-            // </div>
-        '</div>
-
+            <div class="nav-links">
+                <div class="nav-item">
+                    <a class="header-link" href="index.php">Home</a>
+                </div>
+                <div class="nav-item">Management
+                    <div class="dropdown">
+                        <a href="volunteerManagement.php" style="text-decoration: none;">
+                        <div class="in-nav">
+                            <span>Manage Volunteers</span>
+                        </div>
+                        </a>
+                        <a href="organizationManagement.php" style="text-decoration: none;">
+                        <div class="in-nav">
+                            <span>Manage Organizations</span>
+                        </div>
+                        </a>
+                        <a href="archivalManagement.php" style="text-decoration: none;">
+                        <div class="in-nav">
+                            <span>Manage Archives</span>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-item">Analytics
+                    <div class="dropdown">
+                        <a href="analyticsDashboard.php" style="text-decoration: none;">
+                        <div class="in-nav">
+                            <span>Analytics Dashboard</span>
+                        </div>
+                        </a>
+                        <a href="generateReport.php" style="text-decoration: none;">
+                        <div class="in-nav">
+                            <span>Export to CSV/XLS</span>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a class="home-link" href="howto.php">Instructions</a>
+                </div>
+            </div>
+        </div>
         <!-- Right Section: Date & Icon -->
         <div class="right-section">
-            <!--<a href="calendar.php">
-                <div class="icon-butt">
-                        <svg width="30" height="30" viewBox="0 0 24 24" fill="#C9AB81" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 4C3 3.44772 3.44772 3 4 3H6V2C6 1.44772 6.44772 1 7 1C7.55228 1 8 1.44772 8 2V3H16V2C16 1.44772 16.4477 1 17 1C17.5523 1 18 1.44772 18 2V3H20C20.5523 3 21 3.44772 21 4V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V4ZM5 5V20H19V5H5ZM7 10H9V12H7V10ZM11 10H13V12H11V10ZM15 10H17V12H15V10ZM7 14H9V16H7V14ZM11 14H13V16H11V14ZM15 14H17V16H15V14Z"/>
-                        </svg>
-                </div>
-            </a>-->
             <div class="nav-links">
                 <div class="nav-item">
                     <div class="icon">
                         <img src="images/usaicon.png" alt="User Icon" class="icon-img in-nav-img">
                         <div class="dropdown">
                             <a href="changePassword.php" class="dropdown-link"><div>Change Password</div></a>
+                            <a href="adminSettings.php" class="dropdown-link"><div>Admin Settings</div></a>
                             <a href="logout.php" class="dropdown-link"><div>Log Out</div></a>
                         </div>
                     </div>
@@ -983,53 +954,37 @@ if (date("H:i:s") > "18:19:59") {
         <div class="left-section">
             <div class="logo-container">
                 <a href="index.php"><img src="' . $logo . '" alt="Logo"></a>
-            </div>' .
-            // <div class="nav-links">
-            //     <div class="nav-item">Events
-            //         <div class="dropdown">
-            //             <a href="viewMyUpcomingEvents.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/list-solid.svg">
-            //                 <span>My Upcoming</span>
-            //             </div>
-            //             </a>
-            //             <a href="calendar.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/new-event.svg">
-            //                 <span>Sign-Up</span>
-            //             </div>
-            //             </a>
-            //             <a href="editHours.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/clock-regular.svg">
-            //                 <span>Edit Hours</span>
-            //             </div>
-            //             </a>
-            //        </div>
-            //     </div>
-            //     <div class="nav-item">
-            //         <div class="dropdown">
-            //             <a href="volunteerViewGroup.php" style="text-decoration: none;">
-            //             <div class="in-nav">
-            //                 <img src="images/group.svg">
-            //                 <span>My Groups</span>
-            //             </div>
-            //             </a>
-            //         </div>
-            //    </div>
-            // </div>
-        '</div>
-
+            </div>
+            <div class="nav-links">
+                <div class="nav-item">
+                    <a class="header-link" href="index.php">Home</a>
+                </div>
+                <div class="nav-item">
+                    <a class="header-link" href="viewImpactSummary.php">Impact Summary</a>
+                </div>
+<div class="nav-item">Organizations
+    <div class="dropdown">
+        <a href="addOrganization.php" style="text-decoration: none;">
+        <div class="in-nav">
+            <span>Add Organization</span>
+        </div>
+        </a>
+        <a href="editOrganizationSearch.php" style="text-decoration: none;">
+        <div class="in-nav">
+            <span>Edit Organizations</span>
+        </div>
+        </a>
+        <a href="viewAllOrgs.php" style="text-decoration: none;">
+        <div class="in-nav">
+            <span>View All Organizations</span>
+        </div>
+        </a>
+    </div>
+</div>
+            </div>
+        </div>
         <!-- Right Section: Date & Icon -->
         <div class="right-section">
-            <a href="calendar.php">
-            <div class="icon-butt">
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill=var(--page-font-color) xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 4C3 3.44772 3.44772 3 4 3H6V2C6 1.44772 6.44772 1 7 1C7.55228 1 8 1.44772 8 2V3H16V2C16 1.44772 16.4477 1 17 1C17.5523 1 18 1.44772 18 2V3H20C20.5523 3 21 3.44772 21 4V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V4ZM5 5V20H19V5H5ZM7 10H9V12H7V10ZM11 10H13V12H11V10ZM15 10H17V12H15V10ZM7 14H9V16H7V14ZM11 14H13V16H11V14ZM15 14H17V16H15V14Z"/>
-                    </svg>
-            </div>
-            </a>
-            <div class="date-box"></div>
             <div class="nav-links">
                 <div class="nav-item" style="outline:none;">
                     <div class="icon">
@@ -1046,8 +1001,6 @@ if (date("H:i:s") > "18:19:59") {
         </div>
     </div>');
         }
-
-
     }
     ?>
 <script>

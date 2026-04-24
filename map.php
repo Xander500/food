@@ -1,6 +1,6 @@
 <?php
 require_once('database/dbVolunteerActivity.php');
-$locations = get_all_activity_locations_for_map();
+$locations = get_all_activity_locations_for_map(isset($_GET['semester']) ? $_GET['semester'] : "All");
 ?>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
