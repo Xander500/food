@@ -175,7 +175,7 @@
             </table>
         </div>
 
-        <a class="button cancel" href="viewAllLogs.php" style="margin-left: auto; margin-right: auto;">View All Volunteer Activity</a>
+        <a class="button cancel" href="index.php" style="margin-left: auto; margin-right: auto;">View All Volunteer Activity</a>
         <a class="button cancel" href="addEvent.php" style="margin-left: auto; margin-right: auto;">Add Volunteer Actitvity</a>
         <a class="button cancel" href="index.php" style="margin-left: auto; margin-right: auto;">Return to Dashboard</a>
 
