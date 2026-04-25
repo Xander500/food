@@ -230,7 +230,7 @@ function delete_organization($id) {
 // used to fetch organizaton information for exporting.
 function fetch_organizations($archived = '0') {
     $con=connect();
-    $sql = "SELECT * FROM dborganizations WHERE (dborganizations.archived = 0 OR ? = 1)";
+    $sql = "SELECT * FROM dborganizations WHERE (dborganizations.archived = 0 OR ? = 1) ORDER BY dborganizations.id";
     $query = $con->prepare($sql);
     $query->bind_param("s", $archived);
     $query->execute();
