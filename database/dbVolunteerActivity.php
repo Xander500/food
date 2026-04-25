@@ -435,7 +435,7 @@ function getTotalHours($sem = "All") {
         if (str_contains($sem, "Spring")) {
             $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
         } else {
-            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+            $query .= " WHERE month(date) >= 6 and year(date) = " . substr($sem, -4);
         }
     }
     $result = mysqli_query($con, $query);
@@ -450,7 +450,7 @@ function getTotalPounds($sem = "All") {
         if (str_contains($sem, "Spring")) {
             $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
         } else {
-            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+            $query .= " WHERE month(date) >= 6 and year(date) = " . substr($sem, -4);
         }
     }
     $result = mysqli_query($con, $query);
@@ -465,7 +465,7 @@ function getImpactByStudent($sem = "All") {
         if (str_contains($sem, "Spring")) {
             $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
         } else {
-            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+            $query .= " WHERE month(date) >= 6 and year(date) = " . substr($sem, -4);
         }
     }
     $query .= " GROUP BY volunteerID;";
@@ -481,7 +481,7 @@ function getImpactByOrg($sem = "All") {
         if (str_contains($sem, "Spring")) {
             $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
         } else {
-            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+            $query .= " WHERE month(date) >= 6 and year(date) = " . substr($sem, -4);
         }
     }
     $query .= " GROUP BY organizationID;";
@@ -498,7 +498,7 @@ function get_all_activity_locations_for_map($sem = "All") {
         if (str_contains($sem, "Spring")) {
             $query .= " AND month(date) < 6 and year(date) = " . substr($sem, -4);
         } else {
-            $query .= " AND month(date) >= 7 and year(date) = " . substr($sem, -4);
+            $query .= " AND month(date) >= 6 and year(date) = " . substr($sem, -4);
         }
     }
     $result = mysqli_query($con, $query);

@@ -105,7 +105,7 @@ use function PHPSTORM_META\type;
     $hours = getTotalHours(isset($_GET['semester']) ? $_GET['semester'] : "All");
     $pounds = getTotalPounds(isset($_GET['semester']) ? $_GET['semester'] : "All");
 
-    $sems = get_years_logs();
+    $years = get_years_logs();
 ?>
 
 <body>
@@ -115,7 +115,7 @@ use function PHPSTORM_META\type;
         <form class="analytics-semester-select" action="analyticsDashboard.php?" method="GET">
             <select id="semesterSelect" name="semester" onchange="this.form.submit()">
                 <option <?php echo !isset($_GET['semester']) ? 'selected' : ''; ?>>All</option>
-                <?php foreach ($sems as $row): ?>
+                <?php foreach ($years as $row): ?>
                     <?php if ($row[0] != date("Y") || ($row[0] == date("Y") && (int)date("M") >= 7)): ?>
                         <option value="<?php echo "Fall " . hsc($row[0]); ?>" <?php echo isset($_GET['semester']) && $_GET['semester'] == "Fall " . hsc($row[0]) ? 'selected' : ''; ?>>
                             <?php echo "Fall " . hsc($row[0]); ?>
