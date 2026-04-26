@@ -99,7 +99,7 @@
                     </select>
                 </div>
             </div>
-            <p>Select the semester you enrolled in the course MKTG 427.</p>
+            <p>Select the most reccent semester you enrolled in the course MKTG 427.</p>
             <input type="hidden" name="id" value="<?php echo $id; ?>">
             <input type="submit" name="profile-edit-form" value="Update Profile" style="width: 50%; margin: auto; margin-top: +0.5rem;">
             <?php if ($editingSelf): ?>

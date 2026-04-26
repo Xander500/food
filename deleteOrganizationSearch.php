@@ -66,7 +66,8 @@ require_once('include/output.php');
         <div class="text-center mb-8">
             <h2>Find an Organization</h2>
             <div class="info-box">
-                <p class="sub-text">Use the fields below to filter and search for organizations.</p>
+                <p class="sub-text">Use the fields below to filter and search for organizations. You may only search and delete archived organizations. Deleting organizations is permanent and will remove all data associated with them, including volunteer activity logs.</p>        
+
             </div>
         </div>
 

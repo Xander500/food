@@ -111,9 +111,10 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h2 style="margin-top: 2%;">Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Role</h2>
         <main class="login">
+            <h2 style="margin-top: 2%;">Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Role</h2>
             <form class="modUser" method="post">
+                <p>Use this form to modify the user's role and archival status.  Role refers to whether the user is an instructor or student, which affects their associated permissions.  Archival status refers to whether the user is active or archived, which affects the visibility of the account throughout the site and whether it can be deleted permanently.</p>
                 <fieldset class="section-box">
                     <?php if (isset($typeChange) || isset($archivedChange) || isset($statusChange)): ?>
                         <div class="happy-toast">User's access is updated.</div>

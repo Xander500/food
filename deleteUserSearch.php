@@ -87,7 +87,7 @@ require_once('header.php');
         <div class="text-center mb-8">
             <h2>Find a User</h2>
             <div class="info-box">
-                <p class="sub-text">Use the fields below to filter and search for users.</p>        
+                <p class="sub-text">Use the fields below to filter and search for users.  You may only search and delete archived users. Deleting users is permanent and will remove all data associated with them, including volunteer activity logs.</p>        
             </div>
         </div>
 

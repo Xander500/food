@@ -8,7 +8,7 @@
 	        <div class="text-center">
                 <h2 class="mb-8">Add Organization Form</h2>
                 <div class="info-box">
-                    <p class="sub-text">Please fill out each section of the following form to create your account.
+                    <p>Add a reccord of a non-profit or community organization with whom students may volunteer.
                         <br>An asterisk (*) indicates a required field.</p>
                 </div>
 	        </div>

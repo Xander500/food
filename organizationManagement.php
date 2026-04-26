@@ -160,7 +160,7 @@ require_once('header.php');
                 <h1>Organization Management</h1>
                 <div class="div-blue"></div>
                 <p>
-                Welcome to the organization management hub. From this menu, you will have access to operations such as creating, deleting, and searching organizations.
+                Welcome to the organization management hub. From this menu, you will have access to operations such as creating, searching, and modifying organizations.
                 </p>
             </div>
 
