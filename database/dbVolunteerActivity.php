@@ -365,11 +365,11 @@ function update_volunteerLog($id, $logDetails) {
 
     $query = "
         UPDATE dbvolunteeractivity
-        SET volunteerID=?, organizationID=?, hours=?, poundsOfFood=?, date=?, location=?, description=?, archived=?
+        SET volunteerID=?, organizationID=?, hours=?, poundsOfFood=?, date=?, location=?, description=?, latitude=?, longitude=?, archived=?
         WHERE id=?
     ";
     $stmt = $connection->prepare($query);
-    $stmt->bind_param("ssddsssss", $volunteerID, $organizationID, $hours, $poundsOfFood, $date, $location, $description, $archived, $id);
+    $stmt->bind_param("ssddsssssss", $volunteerID, $organizationID, $hours, $poundsOfFood, $date, $location, $description, $latitude, $longitude, $archived, $id);
 
     if ($stmt->execute()) {
         mysqli_commit($connection);
