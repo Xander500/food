@@ -169,6 +169,9 @@
                 <label for="location">Location</label>
                 <input type="text" id="location" name="location"
                     value="<?php echo hsc($log['location']) ?>">
+                <input type="hidden" id="longitude" name="longitude" value="<?php echo hsc($log['longitude'] ?? '') ?>">
+                <input type="hidden" id="latitude" name="latitude" value="<?php echo hsc($log['latitude'] ?? '') ?>">
+                <div id="location-suggestions" style="position:relative;"></div>
 
                 <label for="poundsOfFood">Pounds of Food</label>
                 <input type="number" id="poundsOfFood" name="poundsOfFood" min="0" step="0.01" max="9999"
@@ -197,6 +200,61 @@
                 placeholder: true,
                 placeholderValue: 'Select an organization...',
                 shouldSort: false
+            });
+        </script>
+        <script>
+            const MAPTILER_KEY = 'EGKCnnMrNWBQqtJG1Izh';
+            const locationInput = document.getElementById('location');
+            const suggestionBox = document.getElementById('location-suggestions');
+
+            let locationTimeout = null;
+
+            locationInput.addEventListener('input', function () {
+                clearTimeout(locationTimeout);
+
+                const query = this.value;
+
+                if (query.length < 3) {
+                    suggestionBox.innerHTML = '';
+                    return;
+                }
+
+                locationTimeout = setTimeout(async () => {
+                    const url = `https://api.maptiler.com/geocoding/${encodeURIComponent(query)}.json?key=${MAPTILER_KEY}`;
+
+                    const res = await fetch(url);
+                    const data = await res.json();
+
+                    suggestionBox.innerHTML = '';
+
+                    data.features.forEach(feature => {
+                        const div = document.createElement('div');
+
+                        div.textContent = feature.place_name;
+                        div.style.padding = '8px';
+                        div.style.cursor = 'pointer';
+                        div.style.background = '#fff';
+                        div.style.border = '1px solid #ddd';
+
+                        div.addEventListener('click', () => {
+                            locationInput.value = feature.place_name;
+
+                            document.getElementById('latitude').value = feature.center[1];
+                            document.getElementById('longitude').value = feature.center[0];
+
+                            suggestionBox.innerHTML = '';
+                        });
+
+                        suggestionBox.appendChild(div);
+                    });
+
+                }, 300);
+            });
+
+            document.addEventListener('click', function (e) {
+                if (e.target !== locationInput) {
+                    suggestionBox.innerHTML = '';
+                }
             });
         </script>
     </body>

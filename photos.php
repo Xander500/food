@@ -1,5 +1,5 @@
 <?php
 return [
-    'background' => 'images/UMW_campus.jpg',
+    'background' => 'images/uploads/background.jpg',
     'logo' => 'images/alleviatingFoodWasteLogo.png',
 ];
