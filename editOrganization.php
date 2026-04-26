@@ -117,7 +117,7 @@
                             value="<?php echo htmlspecialchars($org['location']) ?>">
 
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email"
+                        <input type="email" id="email" name="email" required
                             value="<?php echo htmlspecialchars($org['email']) ?>">
 
                         <input type="submit" value="Update Organization" style="margin: auto; width: 40%;">
