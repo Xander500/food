@@ -6,7 +6,7 @@ $locations = get_all_activity_locations_for_map(isset($_GET['semester']) ? $_GET
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    <div id="map" style="height: 500px; width: 100%; border-radius: 10px;"></div>
+    <div id="map" style="height: 500px; width: 100%; border-radius: 10px; z-index: 0;"></div>
 
     <script>
         var map = L.map('map').setView([38.30086584212594, -77.4606028485915], 13);

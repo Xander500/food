@@ -435,7 +435,7 @@ function getTotalHours($sem = "All") {
         if (str_contains($sem, "Spring")) {
             $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
         } else {
-            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+            $query .= " WHERE month(date) >= 6 and year(date) = " . substr($sem, -4);
         }
     }
     $result = mysqli_query($con, $query);
@@ -450,7 +450,7 @@ function getTotalPounds($sem = "All") {
         if (str_contains($sem, "Spring")) {
             $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
         } else {
-            $query .= " WHERE month(date) >= 7 and year(date) = " . substr($sem, -4);
+            $query .= " WHERE month(date) >= 6 and year(date) = " . substr($sem, -4);
         }
     }
     $result = mysqli_query($con, $query);
@@ -458,17 +458,33 @@ function getTotalPounds($sem = "All") {
     return $result['lb'];
 }
 
-function getImpactByStudent() {
+function getImpactByStudent($sem = "All") {
     $con = connect();
-    $query = "SELECT first_name, last_name, sum(hours), sum(poundsOfFood), count(*) FROM dbvolunteeractivity JOIN dbusers on volunteerID=dbusers.id GROUP BY volunteerID;";
+    $query = "SELECT first_name, last_name, sum(hours), sum(poundsOfFood), count(*) FROM dbvolunteeractivity JOIN dbusers on volunteerID=dbusers.id";
+    if ($sem != "All") {
+        if (str_contains($sem, "Spring")) {
+            $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
+        } else {
+            $query .= " WHERE month(date) >= 6 and year(date) = " . substr($sem, -4);
+        }
+    }
+    $query .= " GROUP BY volunteerID;";
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_all($result);
     return $result;
 }
 
-function getImpactByOrg() {
+function getImpactByOrg($sem = "All") {
     $con = connect();
-    $query = "SELECT dborganizations.name, sum(hours), sum(poundsOfFood), count(*) FROM dbvolunteeractivity JOIN dborganizations on organizationID=dborganizations.id GROUP BY organizationID;";
+    $query = "SELECT dborganizations.name, sum(hours), sum(poundsOfFood), count(*) FROM dbvolunteeractivity JOIN dborganizations on organizationID=dborganizations.id";
+    if ($sem != "All") {
+        if (str_contains($sem, "Spring")) {
+            $query .= " WHERE month(date) < 6 and year(date) = " . substr($sem, -4);
+        } else {
+            $query .= " WHERE month(date) >= 6 and year(date) = " . substr($sem, -4);
+        }
+    }
+    $query .= " GROUP BY organizationID;";
     $result = mysqli_query($con, $query);
     $result = mysqli_fetch_all($result);
     return $result;
@@ -482,7 +498,7 @@ function get_all_activity_locations_for_map($sem = "All") {
         if (str_contains($sem, "Spring")) {
             $query .= " AND month(date) < 6 and year(date) = " . substr($sem, -4);
         } else {
-            $query .= " AND month(date) >= 7 and year(date) = " . substr($sem, -4);
+            $query .= " AND month(date) >= 6 and year(date) = " . substr($sem, -4);
         }
     }
     $result = mysqli_query($con, $query);
@@ -569,4 +585,14 @@ function get_monthly_pounds($sem = "All") {
 
     mysqli_close($con);
     return $months;
+}
+
+function get_years_logs() {
+    $con = connect();
+    $query = "SELECT DISTINCT year(date) as year FROM dbvolunteeractivity";
+    $result = mysqli_query($con, $query);
+    $result = mysqli_fetch_all($result);
+
+    mysqli_close($con);
+    return $result;
 }

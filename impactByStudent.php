@@ -100,7 +100,7 @@ require_once('database/dbVolunteerActivity.php');
 </head>
 
 <?php
-    $rows = getImpactByStudent();
+    $rows = getImpactByStudent(isset($_GET['semester']) ? $_GET['semester'] : "All");
 ?>
 
 <body>
@@ -123,8 +123,8 @@ require_once('database/dbVolunteerActivity.php');
                             echo "
                                 <tr>
                                     <td>" . hsc($row[0]) . " " . hsc($row[1]) . "</td>
-                                    <td>" . hsc(round($row[2]), 2) . "</td>
-                                    <td>" . hsc(round($row[3]), 2) . "</td>
+                                    <td>" . hsc(round($row[2], 2)) . "</td>
+                                    <td>" . hsc(round($row[3], 2)) . "</td>
                                     <td>" . hsc($row[4]) . "</td>
                                 </tr>";
                         }
