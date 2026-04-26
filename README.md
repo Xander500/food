@@ -1,15 +1,15 @@
 # Student Names
-Mustafa Adnan
-Claire Davis
-Joshua LaMoy
-Timothy Moore
-Erick Niyonkuru
-Laura Rider
+Mustafa Adnan,
+Claire Davis,
+Joshua LaMoy,
+Timothy Moore,
+Erick Niyonkuru,
+Laura Rider.
 
 # Volunteer Impact Tracking System (VITS) for Dr. Majid's MKTG 427 – Alleviating Food Waste
 
 ## Purpose
-This project is the result of a semester's worth of collaboration among UMW students.  The system provides an organized platform for students taking MKTG 427 and the instructor to record their volunteer activities at food-related organizations throughout the semester for data analytics.  Shared student and instructor functionality includes creating and managing volunteer activity logs and volunteer organization records.  In addition, students may view a personal impact summary based on data from their volunteer activities, while the instructor may view an analytics dashboard displaying overall trends in volunteer impact, create data exports, and manage records.
+This project is the result of a semester's worth of collaboration among UMW students.  The system provides an organized platform for the instructor and the students taking MKTG 427 to record their volunteer activities at food-related organizations throughout the semester for data analytics.  Shared student and instructor functionality includes creating and managing volunteer activity logs and volunteer organization records.  In addition, students may view a personal impact summary based on data from their volunteer activities, while the instructor may view an analytics dashboard displaying overall trends in volunteer impact, create data exports, and manage records.
 
 ## Authors
 The Volunteer Impact Tracking System is based on an old open source project named "Homebase". Homebase was originally developed for the Ronald McDonald Houses in Maine and Rhode Island by Oliver Radwan, Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
@@ -57,32 +57,48 @@ Instructors can:
 Below is an in-depth list of features that were implemented within the system
 * User registration and log in
 * Homepage
-* Volunteer Management
-  * Change own password
-  * View volunteer hours (print-friendly)
-  * Change hours
+* Admin Settings
+  * Change login page bacground image
+  * Change logo image
+* User Actions
   * Modify profile
+  * Reset password via email
   * Reset password
-  * User Search
-* Events and Event Management
-  * Calendar with event listings
-  * Calendar day view with event listings
-  * Event search
-  * Event details page
-  * Volunteer event sign up
-  * View Upcoming Events
-  * View Volunteer Event Roster
-  * Modify event details
-  * Create new event
-  * Delete event
-  * Complete event
-  * Check-in and check-out for event
-* Reports (print-friendly)
-  * Volunteer Hour Reports
-* Notification system, with notifications generated when
-  * A volunteer has requested sign-up
-  * A user has canceled their sign-up
-  * Approved sign-up
+* User Management
+  * Add user
+  * Edit user
+  * Manage user role
+  * Delete user
+  * Archive user
+  * Unarchive user
+* Volunteer Activity Management
+  * Add volunteer activity logs
+  * Edit volunteer activity logs
+  * Delete volunteer activity logs
+  * Archive volunteer activity logs
+  * Unarchive volunteer activity logs
+* Organization Management
+  * Add organiations
+  * Edit organiations
+  * Delete organiations
+  * Archive organiations
+  * Unarchive organiations
+* Additional Archival Management
+  * Mass archive users per semester
+  * Mass archive volunteer activity logs per semester
+  * Batch delete archived users
+  * Batch delete archived volunteer activity logs
+* Analytics Dashboard
+  * Filter analytics by semester
+  * Impact by student
+  * Impact by organization
+  * Volunteer hours by 
+  * Pounds of food rescued by month
+  * Geographical distribution map of volunteer activity
+* Export Data
+  * Export volunteer activity logs to CSV and EXCEL
+  * Export organizations to CSV and EXCEL
+  * Export users to CSV and EXCEL
 
 ## Design Documentation
 Several types of diagrams describing the design of the VITS code, including sequence diagrams and use case diagrams, are available. Please contact Dr. Polack for access.
@@ -128,13 +144,13 @@ Follow these steps to transfter your localhost version of the VITS code to Siteg
 1. Create an FTP Account on Siteground, giving you the necessary FTP credentials. (Hostname, Username, Password, Port)
 2. Use FTP File Transfer Software (Filezilla, etc.) to transfer the files from your localhost folders to your siteground folders using the FTP credentials from step 1.
 3. Create the following database-related credentials on Siteground under the MySQL tab:
-  - Database - Create the database for the siteground version under the Databases tab in the MySQL Manager by selecting the 'Create Database' button. Database name is auto-generated and can be changed if you like.
-  - User - Create a user for the database by either selecting the 'Create User' button under the Users tab, or by selecting the 'Add New User' button from the newly created database under the Databases tab. User name is auto-generated and can be changed  if you like.
-  - Password - Created when user is created. Password is auto generated and can be changed if you like.
+  - `Database` - Create the database for the siteground version under the Databases tab in the MySQL Manager by selecting the 'Create Database' button. Database name is auto-generated and can be changed if you like.
+  - `User` - Create a user for the database by either selecting the 'Create User' button under the Users tab, or by selecting the 'Add New User' button from the newly created database under the Databases tab. User name is auto-generated and can be changed  if you like.
+  - `Password` - Created when user is created. Password is auto generated and can be changed if you like.
 4. Access the newly created database by navigating to the PHPMyAdmin tab and selecting the 'Access PHPMyAdmin' button. This will redirect you to the PHPMyAdmin page for the database you just created. Navigate to the new database by selecting it from the database list on the left side of the page.
-5. Select the 'Import' option from the database options at the top of the page. Select the 'Choose File' button and import the "foodDb.sql" file from your software files.
+5. Select the 'Import' option from the database options at the top of the page. Select the 'Choose File' button and import the `foodDb.sql` file from your software files.
   - Ensure that you're keeping your .sql file up to date in order to reduce errors in your Siteground code. Keep in mind that Siteground is case-sensitive, and your database names in the Siteground files must be identical to the database names in the database.  Best practice dictates listing them in all-lowercase.
-6. Navigate to the 'database/dbInfo.php' page in your Siteground files. Inside the connect() function, you will see a series of PHP variables. ($host, $database, $user, $pass) Change the server name in the 'if' statement to the name of your server, and change the $database, $user, and $pass variables to the database name, user name, and password that you created in step 3. 
+6. Navigate to the `database/dbInfo.php` page in your Siteground files. Inside the connect() function, you will see a series of PHP variables. (`$host`, `$database`, `$user`, `$pass`) Change the `server name` in the 'if' statement to the name of your server, and change the `$database`, `$user`, and `$pass` variables to the database name, user name, and password that you created in step 3. 
 
 ### Clearing the SiteGround cache
 #### Chrome
@@ -162,17 +178,9 @@ The following library exists in the VITS code and was inherited from the Step VA
 ### Potential Improvements
 Below is a list of improvements that could be made to the system in subsequent semesters.
 * Rename the database
-* Adding special buttons across pages (e.g. ‘View and Change Hours’ may have a ‘Return to My Hours’ option rather than only ‘Return to Dashboard’)
-* Added functionality for users who are participants, some participant functionality code exists within the current code, only it is commented out
-* Link calendar to Google calendar, add links to Google forms
-* Edits so screen size may no longer affect alignment of headers and tables
-* Remove the admin's ability to sign up admin account for an event
+* Update the CSS for a more modern and consistent design
+* Update CSS and formatting to make a resposive and mobile-freindly layout
 * Increase password security
-* Ensure volunteers cannot sign up for events during time frames in which they will be signed up for another event
-* If an admin creates conflicting events, bring it to their attention while allowing the option to continue
-* If an admin exceeds the occupancy limit, bring it to their attention while allowing the option to continue
-* Notifications: add delete functionality to the button, add a ‘view message’ functionality when a message is selected
-* Additonal items related to volunteer training
 
 ## License
 The project remains under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl.txt).
