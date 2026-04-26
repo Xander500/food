@@ -157,9 +157,6 @@
 
             <?php
 
-                if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != 'guest') {
-                    $user = retrieve_person($userID);
-                }
 
                 if (sizeof($logs) > 0): ?>
                 <div class="table-wrapper">
