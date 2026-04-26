@@ -486,7 +486,7 @@
 
     <div class="full-width-bar">
         <div style="width: 100%;">
-            <a class="return-button" style="display:flex; width: fit-content; margin-left:auto; margin-right:auto; margin-bottom: 1rem;" href="addlog.php">Add Volunteer Log</a>
+            <a class="return-button" style="display:flex; width: fit-content; margin-left:auto; margin-right:auto; margin-bottom: 1rem;" href="addLog.php">Add Volunteer Log</a>
             <?php require_once("viewAllLogs.php") ?>
         </div>
     </div>

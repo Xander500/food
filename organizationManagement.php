@@ -142,6 +142,12 @@ require_once('header.php');
                     <div>Edit Organizations</div>
                     <img class="button-icon" src="images/person-search.svg" alt="Person Icon">
                 </button>
+
+                <button onclick="window.location.href='viewAllOrgs.php';">
+    <div class="button-left-gray"></div>
+    <div>View All Organizations</div>
+    <img class="button-icon" src="images/person-search.svg" alt="Organization Icon">
+</button>
 	
                 <div class="text-center mt-6">
                         <a href="index.php" class="return-button">Return to Dashboard</a>

@@ -24,7 +24,7 @@
                 <input type="text" id="location" name="location" placeholder="Enter the location of the organization">
 
                 <label for="email">E-mail</label>
-                <input type="email" id="email" name="email" placeholder="Enter the e-mail address of the organization">
+                <input type="email" id="email" name="email" required placeholder="Enter the e-mail address of the organization">
             </fieldset>
             <input type="submit" name="registration-form" value="Submit" style="width: 35%; margin: auto;">
         </form>

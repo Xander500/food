@@ -736,6 +736,9 @@ if (date("H:i:s") > "18:19:59") {
         $permission_array['archivalsearch.php'] = 3;
         $permission_array['archivalmanagement.php'] = 3;
         $permission_array['monthlyimpact.php'] = 3;
+        $permission_array['adminsettings.php'] = 3;
+        
+        $permission_array['viewallusers.php'] = 3;
 
         /*
         $permission_array['about.php'] = 0; //WVF - Not able to directly access - Likely just need to re-route to
@@ -961,20 +964,25 @@ if (date("H:i:s") > "18:19:59") {
                 <div class="nav-item">
                     <a class="header-link" href="viewImpactSummary.php">Impact Summary</a>
                 </div>
-                <div class="nav-item">Organizations
-                    <div class="dropdown">
-                        <a href="addOrganization.php" style="text-decoration: none;">
-                        <div class="in-nav">
-                            <span>Add Organization</span>
-                        </div>
-                        </a>
-                        <a href="editOrganizationSearch.php" style="text-decoration: none;">
-                        <div class="in-nav">
-                            <span>Edit Organizations</span>
-                        </div>
-                        </a>
-                    </div>
-                </div>
+<div class="nav-item">Organizations
+    <div class="dropdown">
+        <a href="addOrganization.php" style="text-decoration: none;">
+        <div class="in-nav">
+            <span>Add Organization</span>
+        </div>
+        </a>
+        <a href="editOrganizationSearch.php" style="text-decoration: none;">
+        <div class="in-nav">
+            <span>Edit Organizations</span>
+        </div>
+        </a>
+        <a href="viewAllOrgs.php" style="text-decoration: none;">
+        <div class="in-nav">
+            <span>View All Organizations</span>
+        </div>
+        </a>
+    </div>
+</div>
             </div>
         </div>
         <!-- Right Section: Date & Icon -->
