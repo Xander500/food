@@ -157,6 +157,7 @@ require_once('include/output.php');
                 <label for="active">Active Organizations</label>
                 <input type="checkbox" id="archived" name="status[]" value="1" <?php echo ((($want_archived ?? true) || ($want_archived === false && $want_active === false)) ? 'checked' : '');?>>
                 <label for="archived">Archived Organizations</label>
+                <p>Use the checkboxes above to filter by status.  Active organizations appear throughout the site and when adding new volunteer activities.  Archived organizations are hidden from view.</p>
             </div>  
 
 

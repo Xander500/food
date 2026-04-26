@@ -119,7 +119,7 @@ require_once('header.php');
         <h1>User Account Management</h1>
         <div class="div-blue"></div>
         <p>
-          Welcome to the user management hub. From this menu, you will have access to operations such as creating, deleting, and searching accounts.
+          Welcome to the user management hub. From this menu, you will have access to operations such as creating, searching, and modifying accounts.
         </p>
       </div>
 
