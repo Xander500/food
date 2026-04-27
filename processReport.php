@@ -243,15 +243,15 @@ else if ($exportType == 'organizations') {
         //data rows
         $i = 0;
         while ($log = $reportData->fetch_assoc()) {
-            $logimpact = $impactData[$i];
+            $logimpact = $impactData[$i] ?? null;
             fputcsv($output, [
                 $log["id"],
                 $log["name"],
                 $log["email"],
                 $log["description"],
                 $log["location"],
-                $logimpact[1],
-                $logimpact[2],
+                $logimpact[1] ?? '',
+                $logimpact[2] ?? '',
             ]);
             $i++;
         }
