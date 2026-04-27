@@ -69,8 +69,6 @@
     $page_num = (int) min($max_pages, $page_num);
 
     $logs = get_all_volunteer_activities_custom_sort_pagination_with_filters($sortby, $order, $per_page, $page_num * $per_page, $filters, $wants_archived = false);
-
-    //include 'domain/Event.php';
 ?>
 <!-- <!DOCTYPE html>
 <html> -->
@@ -133,7 +131,7 @@
                         <input type="date" id="startDate" name="startdate"
                         value="<?php echo hsc($filters['startdate'] ?? ''); ?>">
 
-                        <label for="endDate">Search Before this Date</label>
+                        <label for="endDate">Search before this Date</label>
                         <input type="date" id="endDate" name="enddate" value="<?php echo hsc($filters['enddate'] ?? ''); ?>">
                     </div>
                     <div class="log_filter">
@@ -157,9 +155,6 @@
 
             <?php
 
-                if(isset($_SESSION['user_id']) && $_SESSION['user_id'] != 'guest') {
-                    $user = retrieve_person($userID);
-                }
 
                 if (sizeof($logs) > 0): ?>
                 <div class="table-wrapper">

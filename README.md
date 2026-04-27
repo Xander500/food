@@ -1,18 +1,18 @@
 # Student Names
-Joshua LaMoy
+Mustafa Adnan
 Claire Davis
+Joshua LaMoy
+Timothy Moore
 Erick Niyonkuru
 Laura Rider
-Mustafa Adnan
-Timothy Moore
 
-# Fredericksburg SPCA Volunteer Management Web Application 
+# Volunteer Impact Tracking System (VITS) for Dr. Majid's MKTG 427 – Alleviating Food Waste
 
 ## Purpose
-This project is the result of a semester's worth of collaboration among UMW students. The goal of the project was to create a web application that better suits the needs of Fredericksburg SPCA, specifically as a system to manage their volunteers. The system allows volunteers to check-in and out of shifts on site, view their hours volunteered and sign up for events. For the Fred SPCA staff the system allows them to keep track of volunteer hours, create events, share announcements, and managed volunteer accounts.
+This project is the result of a semester's worth of collaboration among UMW students.  The system provides an organized platform for students taking MKTG 427 and the instructor to record their volunteer activities at food-related organizations throughout the semester for data analytics.  Shared student and instructor functionality includes creating and managing volunteer activity logs and volunteer organization records.  In addition, students may view a personal impact summary based on data from their volunteer activities, while the instructor may view an analytics dashboard displaying overall trends in volunteer impact, create data exports, and manage records.
 
 ## Authors
-The ODHS Medicine Tracker is based on an old open source project named "Homebase". [Homebase](https://a.link.will.go.here/) was originally developed for the Ronald McDonald Houses in Maine and Rhode Island by Oliver Radwan, Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
+The Volunteer Impact Tracking System is based on an old open source project named "Homebase". Homebase was originally developed for the Ronald McDonald Houses in Maine and Rhode Island by Oliver Radwan, Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
 
 Modifications to the original Homebase code were made by the Fall 2022 semester's group of students. That team consisted of Jeremy Buechler, Rebecca Daniel, Luke Gentry, Christopher Herriott, Ryan Persinger, and Jennifer Wells.
 
@@ -24,10 +24,38 @@ The ODHS Medicine Tracker code was modified in the Fall of 2024, changing the co
 
 In Spring 2025, the Step VA Volunteer Management code was adapted to develop the Fredericksburg SCPA Volunteer Management Web Application. Numerous existing database tables were retained with modifications or renamed, while new tables were introduced as needed. Certain files and functionalities from the original system were integrated, while additional features were designed specifically for the Fredericksburg SCPA Volunteer Management system. The team responsible for these updates and enhancements included Yalda Alemy, Luke Blair, Madison Van Buren, Sean Foley, Luke Gibson, Aiden Meyer, and Israel Ortiz.
 
+In Spring 2026, the codebase, then the Whiskey Valor site, was adapted into the Volunteer Impact Tracking System for Dr. Majid.  A few of the original database tables and codebase files were retained and adapted to serve new functionality, while others were deleted.  Additional features were designed and added specifically to meet the needs of the Volunteer Impact Tracking System.  The team responsible for these modifications includes Mustafa Adnan, Claire Davis, Joshua LaMoy, Timothy Moore, Erick Niyonkuru, and Laura Rider.
+
+## Entities
+There are three types of entities within the Volunteer Impact Tracking System (VITS).
+* `Users` refer to both student and instructor accounts. `dbusers` in the database.
+* `Organizations` refer to non-profit organizations with whom students may volunteer. `dborganizations` in the database.
+* `VolunteerActivity` (also referred to ad `logs`) refers to a record of students volunteering with an organization on a particular day.  `dbvolunteeractivity` in the database.
+
 ## User Types
-There are two types of users (also referred to as 'roles') within FredSPCA.
-* Admins
-* Volunteers
+There are two types of users (also referred to as 'roles') within the Volunteer Impact Tracking System (VITS).
+* Students
+* Instructors
+
+
+Students can:
+- register an account, modify the personal information associated with their account, and reset their password.
+- add and modify organizations.
+- add, modify, and delete volunteer activity logs under their own account.
+- view and filter all active volunteer activity logs on the display page.
+- view their 'personal impact summary' to see aggregate details about their own logs.
+
+Instructors can:
+- register student accounts, modify the personal information associated with any account, manage the role for any account, and reset their own password.
+- add, modify, and delete organizations.
+- add, modify, and delete volunteer activity logs under any own account.
+- view and filter all active volunteer activity logs on the display page.
+- export User, Organization, and VolunteerActivity database reccords to CSV or EXCEL format files.
+- view an analytics dashboard displaying the total hours volunteered, the total pounds of food rescued, impact by organization, impact by student, monthly impact charts, and a geographic display map for each semester.
+- mark individual users, organizations, and volunteer activity logs as archived (which will then be removed from view throughout the site) or as active (which will then be visib)
+
+
+
 
 Admins can create and edit events, view and approve sign-ups, and view sign-ups and volunteer hours.
 
@@ -96,7 +124,7 @@ Installation is now complete.
 In the event of being locked out of the root user, the following steps will allow resetting the root user's login credentials:
 1. Using the PHPMyAdmin console, delete the `vmsroot` user row from the `dbPersons` table
 2. Clear the SiteGround dynamic cache [using the steps outlined below](#clearing-the-siteground-cache)
-3. Navigate to gwyneth/insertAdmin.php. You should see a message that says `ROOT USER CREATION SUCCESS`
+3. Navigate to food/insertAdmin.php. You should see a message that says `ROOT USER CREATION SUCCESS`
 4. You may now log in with the username and password `vmsroot`
 
 ## Platform
@@ -159,4 +187,4 @@ Below is a list of improvements that could be made to the system in subsequent s
 The project remains under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl.txt).
 
 ## Acknowledgements
-Thank you to Dr. Polack and Fredericksburg SPCA for the opportunity to work on this project.
+Thank you to Dr. Polack and Dr. Majid for the opportunity to work on this project.
