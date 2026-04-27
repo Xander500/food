@@ -69,8 +69,6 @@
     $page_num = (int) min($max_pages, $page_num);
 
     $logs = get_all_volunteer_activities_custom_sort_pagination_with_filters($sortby, $order, $per_page, $page_num * $per_page, $filters, $wants_archived = false);
-
-    //include 'domain/Event.php';
 ?>
 <!-- <!DOCTYPE html>
 <html> -->

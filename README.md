@@ -124,7 +124,7 @@ Installation is now complete.
 In the event of being locked out of the root user, the following steps will allow resetting the root user's login credentials:
 1. Using the PHPMyAdmin console, delete the `vmsroot` user row from the `dbPersons` table
 2. Clear the SiteGround dynamic cache [using the steps outlined below](#clearing-the-siteground-cache)
-3. Navigate to gwyneth/insertAdmin.php. You should see a message that says `ROOT USER CREATION SUCCESS`
+3. Navigate to food/insertAdmin.php. You should see a message that says `ROOT USER CREATION SUCCESS`
 4. You may now log in with the username and password `vmsroot`
 
 ## Platform
