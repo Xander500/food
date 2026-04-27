@@ -5,7 +5,7 @@
     include_once('database/dbUsers.php');
 
     $person = Array();
-    $person['id'] = 'vmsroot2';
+    $person['id'] = 'vmsroot';
     $person['first_name'] = 'vmsroot';
     $person['last_name'] = '';
     $person['email'] = 'vmsroot';
