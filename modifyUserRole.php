@@ -43,7 +43,6 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        require_once('database/dbMessages.php');
         $post = sanitize($_POST);
         $new_role = $post['s_role'];
         $new_status = $post['s_archival'];

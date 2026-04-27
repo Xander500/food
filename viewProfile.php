@@ -72,6 +72,7 @@
 
     $viewingOwnProfile = $id == $userID;
 
+    /*
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if (isset($_POST['url'])) {
         if (!update_profile_pic($id, $_POST['url'])) {
@@ -81,6 +82,7 @@
         }
       }
     }
+      */
 ?>
 <!DOCTYPE html>
 <html lang="en">
