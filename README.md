@@ -37,6 +37,39 @@ There are two types of users (also referred to as 'roles') within the Volunteer 
 * Students
 * Instructors
 
+
+Students can:
+- register an account, modify the personal information associated with their account, and reset their password.
+- add and modify organizations.
+- add, modify, and delete volunteer activity logs under their own account.
+- view and filter all active volunteer activity logs on the display page.
+- view their 'personal impact summary' to see aggregate details about their own logs.
+
+Instructors can:
+- register student accounts, modify the personal information associated with any account, manage the role for any account, and reset their own password.
+- add, modify, and delete organizations.
+- add, modify, and delete volunteer activity logs under any own account.
+- view and filter all active volunteer activity logs on the display page.
+- export User, Organization, and VolunteerActivity database reccords to CSV or EXCEL format files.
+- view an analytics dashboard displaying the total hours volunteered, the total pounds of food rescued, impact by organization, impact by student, monthly impact charts, and a geographic display map for each semester.
+- mark individual users, organizations, and volunteer activity logs as archived (which will then be removed from view throughout the site) or as active (which will then be visib)
+
+
+
+
+Admins can create and edit events, view and approve sign-ups, and view sign-ups and volunteer hours.
+
+## Entities
+There are three types of entities within the Volunteer Impact Tracking System (VITS).
+* `Users` refer to both student and instructor accounts. `dbusers` in the database.
+* `Organizations` refer to non-profit organizations with whom students may volunteer. `dborganizations` in the database.
+* `VolunteerActivity` (also referred to ad `logs`) refers to a record of students volunteering with an organization on a particular day.  `dbvolunteeractivity` in the database.
+
+## User Types
+There are two types of users (also referred to as 'roles') within the Volunteer Impact Tracking System (VITS).
+* Students
+* Instructors
+
 Students can:
 - register an account, modify the personal information associated with their account, and reset their password.
 - add and modify organizations.
@@ -130,7 +163,7 @@ Installation is now complete.
 In the event of being locked out of the root user, the following steps will allow resetting the root user's login credentials:
 1. Using the PHPMyAdmin console, delete the `vmsroot` user row from the `dbusers` table
 2. Clear the SiteGround dynamic cache [using the steps outlined below](#clearing-the-siteground-cache)
-3. Navigate to gwyneth/insertAdmin.php. You should see a message that says `ROOT USER CREATION SUCCESS`
+3. Navigate to food/insertAdmin.php. You should see a message that says `ROOT USER CREATION SUCCESS`
 4. You may now log in with the username and password `vmsroot`
 
 ## Platform

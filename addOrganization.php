@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <?php require_once('database/dbMessages.php'); ?>
     <title>UMW Alleviating Food Waste Volunteer Tracking | Add Organization</title>
     <link href="css/base.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
@@ -100,9 +99,9 @@ $tailwind_mode = true;
                     ' . $name . ' has been added as an organization.
                 </div>';
             // echo '<script>document.location = "login.php?registerSuccess";</script>';
-            $title = $name . " has been added as an organization";
-            $body = "A new organization has been added";
-            system_message_all_admins($title, $body);
+            //$title = $name . " has been added as an organization";
+            //$body = "A new organization has been added";
+            //system_message_all_admins($title, $body);
             // echo 'Organization added';
         }
     } else {

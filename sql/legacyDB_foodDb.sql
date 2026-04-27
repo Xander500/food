@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Sep 21, 2025 at 05:53 PM
--- Server version: 8.0.43-34
--- PHP Version: 8.2.29
+-- Generation Time: Feb 09, 2026 at 11:09 AM
+-- Server version: 8.4.5-5
+-- PHP Version: 8.2.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,8 +18,51 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dbkzrh4cfmxbt0`
+-- Database: `dbkxnmd1xwle9j`
 --
+CREATE DATABASE IF NOT EXISTS `foodDb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+USE `foodDb`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dbapplications`
+--
+
+CREATE TABLE `dbapplications` (
+  `id` int NOT NULL,
+  `user_id` varchar(256) COLLATE utf8mb4_general_ci NOT NULL,
+  `event_id` int NOT NULL,
+  `status` enum('Approved','Denied','Pending') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'Pending',
+  `flagged` tinyint(1) NOT NULL DEFAULT '0',
+  `note` text COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dbapplications`
+--
+
+INSERT INTO `dbapplications` (`id`, `user_id`, `event_id`, `status`, `flagged`, `note`) VALUES
+(1, 'test_person', 118, 'Denied', 0, 'TEST'),
+(2, 'test_acc', 121, 'Denied', 0, 'DENIED'),
+(3, 'test_persona', 126, 'Approved', 0, ''),
+(4, 'navyspouse', 178, 'Denied', 0, 'Example denial message'),
+(5, 'vmsroot', 173, 'Approved', 0, ''),
+(6, 'vmsroot', 173, 'Approved', 0, ''),
+(7, 'edarnell', 180, 'Denied', 1, 'DENY');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dbapplication_comments`
+--
+
+CREATE TABLE `dbapplication_comments` (
+  `id` int NOT NULL,
+  `application_id` int NOT NULL,
+  `user_id` varchar(256) COLLATE utf8mb4_general_ci NOT NULL,
+  `comment` text COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -69,6 +112,21 @@ INSERT INTO `dbarchived_volunteers` (`id`, `start_date`, `first_name`, `last_nam
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dbattendance`
+--
+
+CREATE TABLE `dbattendance` (
+  `id` int NOT NULL,
+  `eventId` int NOT NULL,
+  `userId` varchar(256) COLLATE utf8mb4_general_ci NOT NULL,
+  `loggedById` varchar(256) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `attended` tinyint(1) NOT NULL DEFAULT '0',
+  `attendanceNote` text COLLATE utf8mb4_general_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dbdiscussions`
 --
 
@@ -85,6 +143,21 @@ CREATE TABLE `dbdiscussions` (
 
 INSERT INTO `dbdiscussions` (`author_id`, `title`, `body`, `time`) VALUES
 ('vmsroot', 'test', 'this is test', '2025-04-30-10:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dbdrafts`
+--
+
+CREATE TABLE `dbdrafts` (
+  `draftID` int NOT NULL,
+  `userID` varchar(256) COLLATE utf8mb4_general_ci NOT NULL,
+  `recipientID` varchar(256) COLLATE utf8mb4_general_ci NOT NULL,
+  `subject` text COLLATE utf8mb4_general_ci NOT NULL,
+  `body` text COLLATE utf8mb4_general_ci NOT NULL,
+  `scheduledSend` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -110,21 +183,47 @@ CREATE TABLE `dbeventmedia` (
 --
 
 CREATE TABLE `dbeventpersons` (
+  `id` int NOT NULL,
   `eventID` int NOT NULL,
   `userID` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `position` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `notes` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `attended` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `dbeventpersons`
 --
 
-INSERT INTO `dbeventpersons` (`eventID`, `userID`, `position`, `notes`) VALUES
-(64, 'vmsroot', 'v', 'Skills:  | Dietary restrictions:  | Disabilities:  | Materials: '),
-(100, 'john_doe', 'v', 'Skills:  | Dietary restrictions:  | Disabilities:  | Materials: '),
-(64, 'vmsroot', 'v', 'Skills:  | Dietary restrictions:  | Disabilities:  | Materials: '),
-(100, 'john_doe', 'v', 'Skills:  | Dietary restrictions:  | Disabilities:  | Materials: ');
+INSERT INTO `dbeventpersons` (`id`, `eventID`, `userID`, `notes`, `attended`) VALUES
+(7, 0, 'EvanTester', 'v', 0),
+(8, 0, 'EvanTester', 'p', 0),
+(9, 0, 'tester4', 'v', 0),
+(10, 0, 'acarmich@mail.umw.edu', 'v', 0),
+(11, 0, 'armyuser', 'p', 0),
+(12, 0, 'armyuser', 'p', 0),
+(13, 0, 'edarnell', 'p', 0),
+(14, 0, 'EvanTester', 'p', 0),
+(15, 0, 'toaster', 'v', 0),
+(16, 0, 'edarnell', 'p', 0),
+(17, 0, 'toaster', 'p', 0),
+(18, 0, 'toaster', 'Skills: dancin | Dietary restrictions:  | Disabilities: n/a | Materials: good vibes', 0),
+(19, 0, 'toaster', 'Skills: dancin | Dietary restrictions:  | Disabilities: n/a | Materials: good vibes', 0),
+(20, 0, 'toaster', 'v', 0),
+(21, 0, 'toaster', 'v', 0),
+(22, 12, 'vmsroot', 'p', 0),
+(24, 165, 'edarnell', 'Skills:  | Dietary restrictions:  | Disabilities:  | Materials: ', 0),
+(26, 177, 'armyuser', 'Skills:  | Dietary restrictions:  | Disabilities:  | Materials: ', 0),
+(29, 129, 'test_persona', '', 0),
+(30, 129, 'test_persona', '', 0),
+(31, 128, 'vmsroot', 'Skills: dancin | Dietary restrictions:  | Disabilities: n/a | Materials: good vibes', 0),
+(32, 164, 'vmsroot', 'Skills: dancin | Dietary restrictions:  | Disabilities: n/a | Materials: good vibes', 0),
+(33, 165, 'vmsroot', 'Skills: dancin | Dietary restrictions:  | Disabilities: n/a | Materials: good vibes', 0),
+(34, 174, 'toaster', 'Skills: dancin | Dietary restrictions:  | Disabilities: n/a | Materials: good vibes', 0),
+(35, 165, 'fakename', 'Skills: allergies | Dietary restrictions:  | Disabilities:  | Materials: ', 0),
+(36, 184, 'edarnell', 'Skills: 11 | Dietary restrictions:  | Disabilities: 22 | Materials: 33', 0),
+(37, 178, 'edarnell', 'Skills: Skills | Dietary restrictions:  | Disabilities: Alergies | Materials: Nope', 0),
+(38, 186, 'amongustest', 'Skills: sus | Dietary restrictions:  | Disabilities:  | Materials: ', 0),
+(39, 186, 'vmsroot', 'Skills: among us | Dietary restrictions:  | Disabilities:  | Materials: ', 0);
 
 -- --------------------------------------------------------
 
@@ -135,38 +234,64 @@ INSERT INTO `dbeventpersons` (`eventID`, `userID`, `position`, `notes`) VALUES
 CREATE TABLE `dbevents` (
   `id` int NOT NULL,
   `name` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` enum('Retreat','Normal') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Normal',
+  `startDate` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `startTime` char(5) COLLATE utf8mb4_unicode_ci NOT NULL,
   `endTime` char(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `endDate` char(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `capacity` int NOT NULL,
-  `completed` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `restricted_signup` tinyint(1) NOT NULL,
   `location` text COLLATE utf8mb4_unicode_ci,
-  `training_level_required` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `type` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `affiliation` int DEFAULT NULL,
+  `branch` int DEFAULT NULL,
+  `access` enum('Public','Private') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Public',
+  `completed` enum('Y','N') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'N',
+  `series_id` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `dbevents`
 --
 
-INSERT INTO `dbevents` (`id`, `name`, `date`, `startTime`, `endTime`, `description`, `capacity`, `completed`, `restricted_signup`, `location`, `training_level_required`, `type`) VALUES
-(112, 'DOGGIE WALKIES', '2025-04-30', '13:00', '15:00', 'walking the doggies in the woods', 20, 'yes', 0, 'Miami, USA', 'None', 'blah'),
-(117, 'Color Test', '2025-05-02', '13:00', '14:00', 'Testing the colors in the calendar', 12, 'no', 0, 'Fred', 'Green', 'Test'),
-(118, 'Halloween Event', '2025-10-31', '18:00', '20:30', 'It is halloween!!', 50, 'no', 0, 'Fredericksburg, VA', 'Orange', 'Holiday'),
-(119, 'party :)', '2026-01-14', '01:00', '01:01', 'dancin', 1, 'no', 0, 'my house', 'Green', 'party :)'),
-(120, 'SDLFjkafs', '2025-09-10', '12:00', '14:00', 'j;aksdfj', 99999, 'no', 0, 'asdf;j', 'None', 'sadj'),
-(121, 'Whikey Valor Tasting', '2025-09-24', '15:00', '18:00', 'Come have a taste of fine barrel aged whiskey with fellow Vets.', 25, 'no', 0, 'Old Silk Mill', 'None', 'Tasting'),
-(122, 'Event', '2025-12-01', '13:00', '14:00', 'Use Case Event', 77, 'no', 0, 'UMW', 'Green', 'Group'),
-(123, 'Ethan&#039;s Birthday Party', '2025-10-03', '07:30', '19:30', 'Ethan is going to eat my cake.', 2147483647, 'no', 0, 'Eagle 225', 'Pink', 'Party'),
-(124, 'Example event', '2025-09-11', '12:00', '14:00', 'This is a test event', 42, 'no', 0, 'UMW', 'Pink', 'A test'),
-(125, 'Pet Adoption', '2025-09-13', '11:00', '17:00', 'Pet Adoption', 50, 'no', 0, 'Fredericksburg, Virginia', 'None', 'Pet Adoption'),
-(126, 'Squirrel Watching', '2025-09-22', '06:00', '09:00', 'Watch the squirrels to make sure they do not eat the bird seed', 6, 'no', 0, '275 Butler Rd, Fredericksburg, VA 22405', 'Green', 'Squirrel'),
-(127, 'Whoosky Volar Tasting', '2025-09-15', '09:00', '13:00', 'Test Event', 42, 'no', 0, 'House', 'None', 'Get-Together'),
-(128, 'Event', '2025-12-01', '13:30', '14:00', 'Use Case Event', 77, 'no', 0, 'UMW', 'Orange', 'Person'),
-(129, 'Test event Woak', '2025-10-31', '15:00', '18:00', 'testing thsi woa', 99, 'no', 0, 'required but not listed', 'Green', 'not listed as req'),
-(130, 'Class Example', '2025-09-24', '12:00', '14:00', 'This is an example', 10, 'no', 0, 'Farmer', 'Green', 'Shit storm');
+INSERT INTO `dbevents` (`id`, `name`, `type`, `startDate`, `startTime`, `endTime`, `endDate`, `description`, `capacity`, `location`, `affiliation`, `branch`, `access`, `completed`, `series_id`) VALUES
+(118, 'Halloween Event', 'Normal', '2025-10-31', '18:00', '20:30', '', 'It is halloween!!', 50, 'Fredericksburg, VA', NULL, NULL, 'Public', 'Y', NULL),
+(119, 'party :)', 'Normal', '2026-01-14', '01:00', '01:01', '', 'dancin', 1, 'my house', NULL, NULL, 'Public', 'N', NULL),
+(120, 'SDLFjkafs', 'Normal', '2025-09-10', '12:00', '14:00', '', 'j;aksdfj', 99999, 'asdf;j', NULL, NULL, 'Public', 'N', NULL),
+(121, 'Whikey Valor Tasting', 'Normal', '2025-09-24', '15:00', '18:00', '', 'Come have a taste of fine barrel aged whiskey with fellow Vets.', 25, 'Old Silk Mill', NULL, NULL, 'Public', 'N', NULL),
+(122, 'Event', 'Normal', '2025-12-01', '13:00', '14:00', '', 'Use Case Event', 77, 'UMW', NULL, NULL, 'Public', 'N', NULL),
+(123, 'Ethan&#039;s Birthday Party', 'Normal', '2025-10-03', '07:30', '19:30', '', 'Ethan is going to eat my cake.', 2147483647, 'Eagle 225', NULL, NULL, 'Public', 'N', NULL),
+(124, 'Example event', 'Normal', '2025-09-11', '12:00', '14:00', '', 'This is a test event', 42, 'UMW', NULL, NULL, 'Public', 'N', NULL),
+(125, 'Pet Adoption', 'Normal', '2025-09-13', '11:00', '17:00', '', 'Pet Adoption', 50, 'Fredericksburg, Virginia', NULL, NULL, 'Public', 'N', NULL),
+(126, 'Squirrel Watching', 'Normal', '2025-09-22', '06:00', '09:00', '', 'Watch the squirrels to make sure they do not eat the bird seed', 6, '275 Butler Rd, Fredericksburg, VA 22405', NULL, NULL, 'Public', 'Y', NULL),
+(127, 'Whoosky Volar Tasting', 'Normal', '2025-09-15', '09:00', '13:00', '', 'Test Event', 42, 'House', NULL, NULL, 'Public', 'N', NULL),
+(128, 'Meet n&#039; Greet', 'Normal', '2025-12-01', '00:00', '14:00', '2025-12-01', 'Come say hello!', 77, 'UMW', NULL, NULL, 'Public', 'N', NULL),
+(129, 'Test event Woak', 'Normal', '2025-10-31', '15:00', '18:00', '', 'testing thsi woa', 99, 'required but not listed', NULL, NULL, 'Public', 'Y', NULL),
+(130, 'Class Example', 'Normal', '2025-09-24', '12:00', '14:00', '', 'This is an example', 10, 'Farmer', NULL, NULL, 'Public', 'N', NULL),
+(131, 'sdfsgfsgdgfs', 'Normal', '2025-11-30', '13:00', '14:00', '2025-11-30', 'erfeere', 4, 'errereter', NULL, NULL, 'Public', 'N', 526),
+(163, 'Testing event creation', 'Normal', '2025-12-01', '12:00', '20:00', '2025-12-01', 'Testing event', 11, 'Fredericksburg', NULL, NULL, 'Public', '', 90),
+(164, 'Testing', 'Normal', '2025-12-03', '08:00', '13:00', '2025-12-03', 'Testing - A', 10, 'Fred', NULL, NULL, 'Public', 'N', 0),
+(165, 'yello :D', 'Normal', '2025-12-01', '17:00', '18:00', '2025-12-01', 'fgdgdfgfd', 5, 'gfdgdfg', NULL, NULL, 'Public', 'N', 19),
+(166, 'yello :D', 'Normal', '2026-01-01', '17:00', '18:00', '2026-01-01', 'fgdgdfgfd', 5, 'gfdgdfg', NULL, NULL, 'Public', 'N', 19),
+(167, 'yello :D', 'Normal', '2026-02-01', '17:00', '18:00', '2026-02-01', 'fgdgdfgfd', 5, 'gfdgdfg', NULL, NULL, 'Public', 'N', 19),
+(168, 'yello :D', 'Normal', '2026-03-01', '17:00', '18:00', '2026-03-01', 'fgdgdfgfd', 5, 'gfdgdfg', NULL, NULL, 'Public', '', 19),
+(169, 'yello :D', 'Normal', '2026-04-01', '17:00', '18:00', '2026-04-01', 'fgdgdfgfd', 5, 'gfdgdfg', NULL, NULL, 'Public', 'N', 19),
+(170, 'yello :D', 'Normal', '2026-05-01', '17:00', '18:00', '2026-05-01', 'fgdgdfgfd', 5, 'gfdgdfg', NULL, NULL, 'Public', 'N', 19),
+(171, 'yello :D', 'Normal', '2026-06-01', '17:00', '18:00', '2026-06-01', 'fgdgdfgfd', 5, 'gfdgdfg', NULL, NULL, 'Public', 'N', 19),
+(172, 'Retreat Testing', 'Retreat', '2025-12-05', '08:00', '20:00', '2025-12-05', 'Retreat', 11, 'Fredericksburg', NULL, NULL, 'Public', 'N', 0),
+(173, 'Retreat', 'Retreat', '2025-12-04', '12:00', '20:00', '2025-12-04', 'RETREAT', 11, 'FRED', NULL, NULL, 'Public', 'N', 0),
+(174, 'The Rat God', 'Normal', '2025-12-26', '12:00', '13:00', '2025-12-26', '1', 10, 'SPACE', NULL, NULL, 'Public', 'N', 595285),
+(175, 'Test event before Dryrun', 'Normal', '2025-12-18', '12:00', '13:00', '2025-12-18', '1', 20, 'SPACE', NULL, NULL, 'Public', '', 34),
+(176, 'DRY RUN Retreat', 'Retreat', '2025-12-18', '12:00', '13:00', '2025-12-18', '1', 25, 'SPACE', NULL, NULL, 'Public', '', 0),
+(177, '12/18/2025', 'Normal', '2025-12-18', '12:00', '13:00', '2025-12-18', '1', 20, 'SPACE', NULL, NULL, 'Public', '', 0),
+(178, 'CMON RETREAT', 'Retreat', '2025-12-27', '07:30', '20:00', '2025-12-27', 'TEST', 20, 'SPACE', NULL, NULL, 'Public', 'N', 75),
+(179, 'The Rat God', 'Retreat', '2025-12-27', '10:00', '23:30', '2025-12-27', 'TEST', 20, 'SPACE', NULL, NULL, 'Public', 'N', 0),
+(180, 'Evan Darnell', 'Retreat', '2025-12-23', '22:15', '22:30', '2025-12-23', 'a', 3, 's', NULL, NULL, 'Public', 'N', 0),
+(181, '7-day Retreat', 'Retreat', '2025-12-10', '09:30', '14:30', '2025-12-10', 'A retreat-type event.', 12, 'The Bahamas', NULL, NULL, 'Public', 'N', 0),
+(182, 'Example Event', 'Normal', '2025-12-11', '12:46', '12:49', '2025-12-11', 'Wow! My super cool normal event!', 29, 'A place', NULL, NULL, 'Public', 'N', 0),
+(183, 'Random Event', 'Normal', '2025-12-12', '10:30', '12:30', '2025-12-12', 'TEST', 20, 'SPACE', NULL, NULL, 'Public', 'N', 29795),
+(184, 'Evan test', 'Normal', '2026-01-22', '22:01', '23:42', '2026-01-22', 'ssss', 10, 'Home', NULL, NULL, 'Public', 'N', 8),
+(185, 'EVENT TEXT', 'Normal', '2026-01-10', '09:45', '21:45', '2026-01-10', 'EVENT TEXT', 99, 'Home', NULL, NULL, 'Public', 'N', 0),
+(186, 'Whiskey Tasting', 'Normal', '2026-02-06', '19:00', '21:30', '2026-02-06', 'Whiskey Tasting', 50, 'Fredericksburg, VA', NULL, NULL, 'Public', 'N', 90);
 
 -- --------------------------------------------------------
 
@@ -468,7 +593,51 @@ INSERT INTO `dbmessages` (`id`, `senderID`, `recipientID`, `title`, `body`, `tim
 (422, 'vmsroot', 'Volunteer25', 'A new discussion has been created. View under discussions page.', 'New Discussion', '2025-05-01-11:32', 0, 0),
 (423, 'vmsroot', 'maddiev', 'You have been added to a group. View under Groups page.', 'You have been added to test', '2025-05-01-11:32', 0, 0),
 (427, 'vmsroot', 'vmsroot', 'You have been added to a group. View under Groups page.', 'You have been added to cool guys', '2025-09-10-11:35', 1, 0),
-(428, 'vmsroot', 'vmsroot', 'vmsroot has replied to test. View under discussions page.', 'A user has replied to a discussion.', '2025-09-10-11:40', 1, 0);
+(428, 'vmsroot', 'vmsroot', 'vmsroot has replied to test. View under discussions page.', 'A user has replied to a discussion.', '2025-09-10-11:40', 1, 0),
+(429, 'vmsroot', 'vmsroot', 'test_person has been added as a volunteer', 'New volunteer account has been created', '2025-10-26-22:59', 1, 0),
+(430, 'vmsroot', 'vmsroot', 'test_persona has been added as a volunteer', 'New volunteer account has been created', '2025-10-28-13:53', 1, 0),
+(431, 'vmsroot', 'test_person', 'You are now signed up for Ethan&#039;s Birthday Party!', 'Thank you for signing up for Ethan&#039;s Birthday Party!', '2025-10-29-12:21', 0, 0),
+(432, 'vmsroot', 'vmsroot', 'armyuser has been added as a volunteer', 'New volunteer account has been created', '2025-11-30-14:33', 1, 0),
+(433, 'vmsroot', 'vmsroot', 'navyspouse has been added as a volunteer', 'New volunteer account has been created', '2025-11-30-14:36', 1, 0),
+(434, 'vmsroot', 'vmsroot', 'EvanTester has been added as a volunteer', 'New volunteer account has been created', '2025-12-01-10:38', 1, 0),
+(435, 'vmsroot', 'vmsroot', 'tester4 has been added as a volunteer', 'New volunteer account has been created', '2025-12-01-11:51', 1, 0),
+(436, 'vmsroot', 'vmsroot', 'acarmich@mail.umw.edu has been added as a volunteer', 'New volunteer account has been created', '2025-12-01-12:05', 1, 0),
+(437, 'vmsroot', 'vmsroot', 'Jlipinsk has been added as a volunteer', 'New volunteer account has been created', '2025-12-03-18:05', 1, 0),
+(438, 'vmsroot', 'vmsroot', 'edarnell has been added as a volunteer', 'New volunteer account has been created', '2025-12-03-21:56', 1, 0),
+(439, 'vmsroot', 'vmsroot', 'Welp has been added as a volunteer', 'New volunteer account has been created', '2025-12-04-22:14', 1, 0),
+(440, 'vmsroot', 'vmsroot', 'toaster has been added as a volunteer', 'New volunteer account has been created', '2025-12-08-16:08', 1, 0),
+(441, 'vmsroot', 'vmsroot', 'toaster2 has been added as a volunteer', 'New volunteer account has been created', '2025-12-09-21:40', 1, 0),
+(442, 'vmsroot', 'edarnell', 'You are now signed up for The Rat God!', 'Thank you for signing up for The Rat God!', '2025-12-10-07:30', 0, 0),
+(443, 'vmsroot', 'edarnell', 'Your request to sign up for DRY RUN Retreat has been sent to an admin.', 'Your request to sign up for DRY RUN Retreat will be reviewed by an admin shortly. You will get another notification when you are approved or denied.', '2025-12-10-07:40', 0, 0),
+(444, 'vmsroot', 'edarnell', 'You are now signed up for yello :D!', 'Thank you for signing up for yello :D!', '2025-12-10-07:40', 0, 0),
+(445, 'vmsroot', 'edarnell', 'You are now signed up for party :)!', 'Thank you for signing up for party :)!', '2025-12-10-07:41', 0, 0),
+(446, 'vmsroot', 'vmsroot', 'Your request to sign up for Evan Darnell has been sent to an admin.', 'Your request to sign up for Evan Darnell will be reviewed by an admin shortly. You will get another notification when you are approved or denied.', '2025-12-10-09:04', 1, 0),
+(447, 'vmsroot', 'armyuser', 'Your request to sign up for 7-day Retreat has been sent to an admin.', 'Your request to sign up for 7-day Retreat will be reviewed by an admin shortly. You will get another notification when you are approved or denied.', '2025-12-10-09:24', 0, 0),
+(448, 'vmsroot', 'armyuser', 'You are now signed up for 12/18/2025!', 'Thank you for signing up for 12/18/2025!', '2025-12-10-10:05', 0, 0),
+(449, 'vmsroot', 'armyuser', 'Your request to sign up for DRY RUN Retreat has been sent to an admin.', 'Your request to sign up for DRY RUN Retreat will be reviewed by an admin shortly. You will get another notification when you are approved or denied.', '2025-12-10-10:30', 0, 0),
+(450, 'vmsroot', 'navyspouse', 'Your request to sign up for DRY RUN Retreat has been sent to an admin.', 'Your request to sign up for DRY RUN Retreat will be reviewed by an admin shortly. You will get another notification when you are approved or denied.', '2025-12-10-10:40', 0, 0),
+(451, 'vmsroot', 'navyspouse', 'Your request to sign up for CMON RETREAT has been sent to an admin.', 'Your request to sign up for CMON RETREAT will be reviewed by an admin shortly. You will get another notification when you are approved or denied.', '2025-12-10-10:41', 0, 0),
+(452, 'vmsroot', 'vmsroot', 'Your request to sign up for Retreat has been sent to an admin.', 'Your request to sign up for Retreat will be reviewed by an admin shortly. You will get another notification when you are approved or denied.', '2025-12-10-10:56', 1, 0),
+(453, 'vmsroot', 'vmsroot', 'fakename has been added as a volunteer', 'New volunteer account has been created', '2025-12-10-11:25', 1, 0),
+(454, 'vmsroot', 'fakename', 'You are now signed up for The Rat God!', 'Thank you for signing up for The Rat God!', '2025-12-10-11:37', 0, 0),
+(455, 'vmsroot', 'fakename', 'You are now signed up for Test event before Dryrun!', 'Thank you for signing up for Test event before Dryrun!', '2025-12-10-11:55', 0, 0),
+(456, 'vmsroot', 'vmsroot', 'You are now signed up for Meet n&#039; Greet!', 'Thank you for signing up for Meet n&#039; Greet!', '2025-12-10-11:59', 1, 0),
+(457, 'vmsroot', 'vmsroot', 'You are now signed up for Testing!', 'Thank you for signing up for Testing!', '2025-12-10-11:59', 1, 0),
+(458, 'vmsroot', 'vmsroot', 'You are now signed up for yello :D!', 'Thank you for signing up for yello :D!', '2025-12-10-12:00', 1, 0),
+(459, 'vmsroot', 'toaster', 'You are now signed up for The Rat God!', 'Thank you for signing up for The Rat God!', '2025-12-10-12:01', 1, 0),
+(460, 'vmsroot', 'vmsroot', 'Your request to sign up for Retreat has been sent to an admin.', 'Your request to sign up for Retreat will be reviewed by an admin shortly. You will get another notification when you are approved or denied.', '2025-12-10-12:16', 1, 0),
+(461, 'vmsroot', 'vmsroot', 'firstName has been added as a volunteer', 'New volunteer account has been created', '2025-12-10-13:22', 1, 0),
+(462, 'vmsroot', 'fakename', 'You are now signed up for yello :D!', 'Thank you for signing up for yello :D!', '2025-12-10-13:24', 0, 0),
+(463, 'vmsroot', 'edarnell', 'You are now signed up for Evan test!', 'Thank you for signing up for Evan test!', '2025-12-10-19:41', 0, 0),
+(464, 'vmsroot', 'edarnell', 'Your request to sign up for Evan Darnell has been sent to an admin.', 'Your request to sign up for Evan Darnell will be reviewed by an admin shortly. You will get another notification when you are approved or denied.', '2025-12-10-19:42', 0, 0),
+(465, 'vmsroot', 'edarnell', 'You are now signed up for CMON RETREAT!', 'Thank you for signing up for CMON RETREAT!', '2025-12-10-19:42', 0, 0),
+(466, 'vmsroot', 'vmsroot', 'japper has been added as a volunteer', 'New volunteer account has been created', '2026-02-02-09:12', 1, 0),
+(467, 'vmsroot', 'vmsroot', 'gabriel has been added as a volunteer', 'New volunteer account has been created', '2026-02-02-14:45', 1, 0),
+(468, 'vmsroot', 'vmsroot', 'olivia has been added as a volunteer', 'New volunteer account has been created', '2026-02-04-13:19', 1, 0),
+(469, 'vmsroot', 'vmsroot', 'Britorsk has been added as a volunteer', 'New volunteer account has been created', '2026-02-05-13:32', 1, 0),
+(470, 'vmsroot', 'vmsroot', 'You are now signed up for Whiskey Tasting!', 'Thank you for signing up for Whiskey Tasting!', '2026-02-06-16:11', 1, 0),
+(471, 'vmsroot', 'vmsroot', 'You are now signed up for Whiskey Tasting!', 'Thank you for signing up for Whiskey Tasting!', '2026-02-06-16:12', 1, 0),
+(472, 'vmsroot', 'vmsroot', 'johnDoe123 has been added as a volunteer', 'New volunteer account has been created', '2026-02-07-20:46', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -479,19 +648,29 @@ INSERT INTO `dbmessages` (`id`, `senderID`, `recipientID`, `title`, `body`, `tim
 CREATE TABLE `dbpendingsignups` (
   `username` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL,
   `eventname` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `notes` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
+  `notes` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `attended` tinyint(1) NOT NULL DEFAULT '0',
+  `role` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `dbpendingsignups`
 --
 
-INSERT INTO `dbpendingsignups` (`username`, `eventname`, `role`, `notes`) VALUES
-('vmsroot', '108', 'v', 'Skills: non | Dietary restrictions: ojnjo | Disabilities: jonoj | Materials: knock'),
-('vmsroot', '101', 'v', 'Skills: rvwav | Dietary restrictions: varv | Disabilities: var | Materials: arv'),
-('vmsroot', '108', 'v', 'Skills: non | Dietary restrictions: ojnjo | Disabilities: jonoj | Materials: knock'),
-('vmsroot', '101', 'v', 'Skills: rvwav | Dietary restrictions: varv | Disabilities: var | Materials: arv');
+INSERT INTO `dbpendingsignups` (`username`, `eventname`, `notes`, `attended`, `role`) VALUES
+('vmsroot', '108', 'Skills: non | Dietary restrictions: ojnjo | Disabilities: jonoj | Materials: knock', 0, ''),
+('vmsroot', '101', 'Skills: rvwav | Dietary restrictions: varv | Disabilities: var | Materials: arv', 0, ''),
+('vmsroot', '108', 'Skills: non | Dietary restrictions: ojnjo | Disabilities: jonoj | Materials: knock', 0, ''),
+('vmsroot', '101', 'Skills: rvwav | Dietary restrictions: varv | Disabilities: var | Materials: arv', 0, ''),
+('john_doe', '118', '', 0, ''),
+('ameyer123', '126', '', 0, ''),
+('test_persona', '129', '', 0, ''),
+('test_persona', '129', '', 0, ''),
+('edarnell', '176', 'Skills:  | Dietary restrictions:  | Disabilities:  | Materials: ', 0, 'p'),
+('edarnell', '180', 'Skills:  | Dietary restrictions:  | Disabilities:  | Materials: ', 0, 'p'),
+('armyuser', '181', 'Skills:  | Dietary restrictions:  | Disabilities:  | Materials: ', 0, 'p'),
+('armyuser', '176', 'Skills:  | Dietary restrictions:  | Disabilities:  | Materials: ', 0, 'p'),
+('navyspouse', '176', 'Skills:  | Dietary restrictions:  | Disabilities:  | Materials: ', 0, 'p');
 
 -- --------------------------------------------------------
 
@@ -512,7 +691,9 @@ CREATE TABLE `dbpersonhours` (
 
 INSERT INTO `dbpersonhours` (`personID`, `eventID`, `start_time`, `end_time`) VALUES
 ('john_doe', 100, '2024-11-23 22:00:00', '2024-11-23 23:00:00'),
-('john_doe', 100, '2024-11-23 22:00:00', '2024-11-23 23:00:00');
+('john_doe', 100, '2024-11-23 22:00:00', '2024-11-23 23:00:00'),
+('vmsroot', 186, '2026-02-06 16:13:21', '2026-02-06 16:13:23'),
+('vmsroot', 186, '2026-02-06 16:13:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -529,47 +710,134 @@ CREATE TABLE `dbpersons` (
   `city` text,
   `state` varchar(2) DEFAULT NULL,
   `zip_code` text,
-  `phone1` varchar(12) NOT NULL,
+  `phone1` varchar(12) DEFAULT NULL,
+  `over21` enum('true','false') DEFAULT NULL,
   `phone1type` text,
   `emergency_contact_phone` varchar(12) DEFAULT NULL,
   `emergency_contact_phone_type` text,
   `birthday` text,
   `email` text,
-  `emergency_contact_first_name` text NOT NULL,
+  `email_prefs` enum('true','false') DEFAULT NULL,
+  `emergency_contact_first_name` text,
   `contact_num` varchar(255) DEFAULT 'n/a',
-  `emergency_contact_relation` text NOT NULL,
+  `emergency_contact_relation` text,
   `contact_method` text,
   `type` text,
   `status` text,
   `notes` text,
   `password` text,
-  `skills` text NOT NULL,
-  `interests` text NOT NULL,
-  `archived` tinyint(1) NOT NULL,
-  `emergency_contact_last_name` text NOT NULL,
-  `is_new_volunteer` tinyint(1) NOT NULL DEFAULT '1',
-  `is_community_service_volunteer` tinyint(1) NOT NULL DEFAULT '0',
-  `total_hours_volunteered` decimal(5,2) DEFAULT '0.00',
-  `volunteer_of_the_month` tinyint(1) DEFAULT '0',
-  `votm_awarded_month` date DEFAULT NULL,
-  `training_level` text
+  `affiliation` varchar(100) DEFAULT NULL,
+  `branch` varchar(100) DEFAULT NULL,
+  `archived` tinyint(1) DEFAULT NULL,
+  `emergency_contact_last_name` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `dbpersons`
 --
 
-INSERT INTO `dbpersons` (`id`, `start_date`, `first_name`, `last_name`, `street_address`, `city`, `state`, `zip_code`, `phone1`, `phone1type`, `emergency_contact_phone`, `emergency_contact_phone_type`, `birthday`, `email`, `emergency_contact_first_name`, `contact_num`, `emergency_contact_relation`, `contact_method`, `type`, `status`, `notes`, `password`, `skills`, `interests`, `archived`, `emergency_contact_last_name`, `is_new_volunteer`, `is_community_service_volunteer`, `total_hours_volunteered`, `volunteer_of_the_month`, `votm_awarded_month`, `training_level`) VALUES
-('ameyer123', '2025-05-01', 'Aidan', 'Meyer', '1541 Surry Hill Court', 'Charlottesville', 'VA', '22901', '4344222910', 'home', '4344222910', 'home', '2003-08-17', 'aidanmeyer32@gmail.com', 'Aidan', 'n/a', 'Father', NULL, 'participant', 'Inactive', NULL, '$2y$10$2VDZjrW0EacO0VA5hIYIl.fKqPC5wUdSSQ1lXXRSgC0eWxVslPcOC', 'a', 'a', 0, 'Meyer', 0, 0, 0.00, 0, NULL, 'None'),
-('ameyer3', '2025-03-26', 'Aidan', 'Meyer', '1541 Surry Hill Court', 'Charlottesville', 'VA', '22901', '4344222910', 'home', '4344222910', 'home', '2003-08-17', 'aidanmeyer32@gmail.com', 'Aidan', 'n/a', 'Father', NULL, 'volunteer', 'Active', NULL, '$2y$10$0R5pX4uTxS0JZ4rc7dGprOK4c/d1NEs0rnnaEmnW4sz8JIQVyNdBC', 'a', 'a', 0, 'Meyer', 0, 0, 70.00, 1, '2025-09-10', NULL),
-('BobVolunteer', '2025-04-29', 'Bob', 'SPCA', '123 Dog Ave', 'Dogville', 'VA', '54321', '9806761234', 'home', '1234567788', 'home', '2020-03-03', 'fred54321@gmail.com', 'Luke', 'n/a', 'Bff', NULL, 'volunteer', 'Active', NULL, '$2y$10$4wUwAW0yoizxi5UFy1/OZu.yfYY7rzUsuYcZCdvfplLj95r7OknvG', 'No epic skills', 'No interests', 0, 'Blair', 0, 0, 70.00, 0, NULL, 'None'),
-('lukeg', '2025-04-29', 'Luke', 'Gibson', '22 N Ave', 'Fredericksburg', 'VA', '22401', '1234567890', 'cellphone', '1234567890', 'cellphone', '2025-04-28', 'volunteer@volunteer.com', 'NoName', 'n/a', 'Brother', NULL, 'volunteer', 'Active', NULL, '$2y$10$KsNVJYhvO5D287GpKYsIPuci9FnL.Eng9R6lBpaetu2Y0yVJ7Uuiq', 'reading', 'none', 0, 'YesName', 0, 0, 0.00, 0, NULL, 'None'),
-('maddiev', '2025-04-28', 'maddie', 'van buren', '123 Blue st', 'fred', 'VA', '12343', '1234567890', 'cellphone', '1234567819', 'cellphone', '2003-05-17', 'mvanbure@mail.umw.edu', 'mommy', 'n/a', 'mom', NULL, 'volunteer', 'Active', NULL, '$2y$10$0mv3.e6gjqoIg.HfT5qVXOsI.Ca5E93DAy8BnT124W1PvMDxpfoxy', 'coding', 'yoga', 0, 'van buren', 0, 0, -8.98, 0, NULL, 'None'),
-('michael_smith', '2025-03-16', 'Michael', 'Smith', '789 Pine Street', 'Charlottesville', 'VA', '22903', '4345559876', 'mobile', '4345553322', 'work', '1995-08-22', 'michaelsmith@email.com', 'Sarah', '4345553322', 'Sister', 'email', 'volunteer', 'Active', '', '$2y$10$XYZ789xyz456LMN123DEF', 'Cooking, Basketball', 'Homeless Shelter Assistance', 0, 'Smith', 0, 1, 0.00, 0, NULL, NULL),
-('michellevb', '2025-04-29', 'Michelle', 'Van Buren', '1234 Red St', 'Freddy', 'VA', '22401', '1234567890', 'cellphone', '0987654321', 'cellphone', '1980-08-18', 'michelle.vb@gmail.com', 'Madison', 'n/a', 'daughter', NULL, 'volunteer', 'Active', NULL, '$2y$10$bkqOWUdIJoSa6kZoRo5KH.cerZkBQf74RYsponUUgefJxNc8ExppK', 'programming', 'doggies', 0, 'Van Buren', 0, 0, 60.00, 0, NULL, 'None'),
-('test_acc', '2025-04-29', 'test', 'test', 'test', 'test', 'VA', '22405', '5555555555', 'cellphone', '5555555555', 'cellphone', '2003-03-03', 'test@gmail.com', 'test', 'n/a', 't', NULL, 'volunteer', 'Active', NULL, '$2y$10$kpVA41EXvoJyv896uDBEF.fHCPmSlkVSaXjHojBl7DqbRnEm//kxy', '', '', 0, 'test', 0, 0, -4.99, 0, NULL, 'None'),
-('vmsroot', NULL, 'vmsroot', '', 'N/A', 'N/A', 'VA', 'N/A', '', 'N/A', 'N/A', 'N/A', NULL, '', 'vmsroot', 'N/A', 'N/A', 'email', 'superadmin', 'Active', 'System root user account', '$2y$10$.3p8xvmUqmxNztEzMJQRBesLDwdiRU3xnt/HOcJtsglwsbUk88VTO', 'N/A', 'N/A', 0, 'vmsroot', 0, 0, 0.00, 0, NULL, NULL),
-('Volunteer25', '2025-04-30', 'Volley', 'McTear', '123 Dog St', 'Dogville', 'VA', '56748', '9887765543', 'home', '6565651122', 'home', '2025-04-29', 'volly@gmail.com', 'Holly', 'n/a', 'Besty', NULL, 'volunteer', 'Active', NULL, '$2y$10$45gKdbjW78pNKX/5ROtb7eU9OykSCsP/QCyTAvqBtord4J7V3Ywga', 'None', 'None', 0, 'McTear', 0, 0, 10.00, 0, NULL, 'None');
+INSERT INTO `dbpersons` (`id`, `start_date`, `first_name`, `last_name`, `street_address`, `city`, `state`, `zip_code`, `phone1`, `over21`, `phone1type`, `emergency_contact_phone`, `emergency_contact_phone_type`, `birthday`, `email`, `email_prefs`, `emergency_contact_first_name`, `contact_num`, `emergency_contact_relation`, `contact_method`, `type`, `status`, `notes`, `password`, `affiliation`, `branch`, `archived`, `emergency_contact_last_name`) VALUES
+('acarmich@mail.umw.edu', '2025-12-01', 'John', 'Doe', NULL, 'Fredericksburg', 'VA', NULL, '5555555555', 'true', '', '', '', '', 'acarmich@mail.umw.edu', 'false', '', '', '', '', 'volunteer', '', '', '$2y$10$1CDYmdifcx5rfR80Ui8WLuM2ldqc4DTJiFbK1JMSLycE/0lLKPJUS', 'Family', 'Air Force', NULL, ''),
+('ameyer3', '2025-03-26', 'Aidan', 'Meyer', '1541 Surry Hill Court', 'Charlottesville', 'VA', '22901', '4344222910', NULL, 'home', '4344222910', 'home', '2003-08-17', 'aidanmeyer32@gmail.com', NULL, 'Aidan', 'n/a', 'Father', NULL, 'volunteer', 'Active', NULL, '$2y$10$0R5pX4uTxS0JZ4rc7dGprOK4c/d1NEs0rnnaEmnW4sz8JIQVyNdBC', NULL, NULL, 0, 'Meyer'),
+('armyuser', '2025-11-30', 'Army', 'Active Duty', NULL, 'FXBG', 'VA', NULL, '3243242342', 'true', '', '', '', '', 'example@example.com', 'false', '', '', '', '', '', '', '', '$2y$10$kdxwMq.xaGsYvl8gY/8l3.xwu9ABEhWernkR6kmro9QtNvvEjqPFi', 'Active duty', 'Army', NULL, ''),
+('BobVolunteer', '2025-04-29', 'Bob', 'SPCA', '123 Dog Ave', 'Dogville', 'VA', '54321', '9806761234', NULL, 'home', '1234567788', 'home', '2020-03-03', 'fred54321@gmail.com', NULL, 'Luke', 'n/a', 'Bff', NULL, 'volunteer', 'Active', NULL, '$2y$10$4wUwAW0yoizxi5UFy1/OZu.yfYY7rzUsuYcZCdvfplLj95r7OknvG', NULL, NULL, 0, 'Blair'),
+('Britorsk', '2026-02-05', 'Brian', 'Prelle', NULL, 'KING GEORGE', 'VA', NULL, '5402076085', 'true', '', '', '', '', 'brian2@prelle.net', 'false', '', '', '', '', '', '', '', '$2y$10$q9wFQJ/guFjlUnR7IfJt/.MRf5bDfK8FxebznfRt644twzYepM/bC', 'Family', 'Air Force', NULL, ''),
+('exampleuser', '2025-10-20', 'example', 'user', '', 'test', 'VA', '', '2344564645', NULL, '', '', '', '', 'example@test.com', NULL, '', 'n/a', '', NULL, 'v', 'Active', NULL, '$2y$10$J0NgBjoyg9F6YMyy/qQpv.f94OLM2r19sY80BZMhMdcl38SN5vdre', NULL, NULL, 0, ''),
+('fakename', '2025-12-10', 'fake', 'name', NULL, 'realtown', 'VA', NULL, '5555555555', 'true', '', '', '', '', 'fakeemail@email.email.com', 'true', '', '', '', '', '', '', '', '$2y$10$4h8ImkaTyMprwU3SzWrWx./NBI7yClMoqCkEbYJuA1/9cb0tSlUI.', 'Civilian', 'Marine Corp', NULL, ''),
+('firstName', '2025-12-10', 'firstName', 'lastName', NULL, 'homeTown', 'TX', NULL, '5555555555', 'true', '', '', '', '', 'realemail@gmail.com', 'true', '', '', '', '', '', '', '', '$2y$10$og/aLBzrg195Qph9d2M/DuX2DIPhP.0sVT3vtu/WUpGCse8B.k71m', 'Civilian', 'Navy', NULL, ''),
+('gabriel', '2026-02-02', 'Gabriel', 'Courtney', NULL, 'King George', 'VA', NULL, '5404295285', 'true', '', '', '', '', 'gabrielcourtney04@gmail.com', 'true', '', '', '', '', '', '', '', '$2y$10$4uvfLFyFy9Ui1i8Q1r0MWuFRGYfgvVh4.iUtvXksfVJm4pZpxxtSq', 'Active duty', 'Space Force', NULL, ''),
+('japper', '2026-02-02', 'Jennifer', 'Polack', NULL, 'Fredericksburg', 'VA', NULL, '5406541318', 'true', '', '', '', '', 'jenniferpolack@gmail.com', 'true', '', '', '', '', '', '', '', '$2y$10$mJzI.UGPGUmYgo7HxTamkeKlsmajzLwXM6su4NdxuHYHZXIGnb0xm', 'Family', 'Marine Corp', NULL, ''),
+('Jlipinsk', '2025-12-03', 'Jake', 'Lipinski', NULL, 'Williamsburg', 'VA', NULL, '7577903325', 'true', '', '', '', '', 'jlipinsk@mail.umw.edu', 'true', '', '', '', '', '', '', '', '$2y$10$qz33T0Sq760IITyYajCYOeWlHR/7sRJH.U609EUkF3R5zRiWWddkG', 'Civilian', 'Army', NULL, ''),
+('johnDoe123', '2026-02-07', 'John', 'Doe', NULL, 'Fredericksburg', 'VA', NULL, '2345678910', 'true', '', '', '', '', 'test@email.com', 'false', '', '', '', '', '', '', '', '$2y$10$LTVIuLeSZ4ferdNOe0JdTedaFHqFuEOAz7HDCQuZ4PG9kZrRJc7xS', 'Active duty', 'Navy', NULL, ''),
+('lukeg', '2025-04-29', 'Luke', 'Gibson', '22 N Ave', 'Fredericksburg', 'VA', '22401', '1234567890', NULL, 'cellphone', '1234567890', 'cellphone', '2025-04-28', 'volunteer@volunteer.com', NULL, 'NoName', 'n/a', 'Brother', NULL, 'volunteer', 'Active', NULL, '$2y$10$KsNVJYhvO5D287GpKYsIPuci9FnL.Eng9R6lBpaetu2Y0yVJ7Uuiq', NULL, NULL, 0, 'YesName'),
+('maddiev', '2025-04-28', 'maddie', 'van buren', '123 Blue st', 'fred', 'VA', '12343', '1234567890', NULL, 'cellphone', '1234567819', 'cellphone', '2003-05-17', 'mvanbure@mail.umw.edu', NULL, 'mommy', 'n/a', 'mom', NULL, 'volunteer', 'Active', NULL, '$2y$10$0mv3.e6gjqoIg.HfT5qVXOsI.Ca5E93DAy8BnT124W1PvMDxpfoxy', NULL, NULL, 0, 'van buren'),
+('michael_smith', '2025-03-16', 'Michael', 'Smith', '789 Pine Street', 'Charlottesville', 'VA', '22903', '4345559876', NULL, 'mobile', '4345553322', 'work', '1995-08-22', 'michaelsmith@email.com', NULL, 'Sarah', '4345553322', 'Sister', 'email', 'volunteer', 'Active', '', '$2y$10$XYZ789xyz456LMN123DEF', NULL, NULL, 0, 'Smith'),
+('michellevb', '2025-04-29', 'Michelle', 'Van Buren', '1234 Red St', 'Freddy', 'VA', '22401', '1234567890', NULL, 'cellphone', '0987654321', 'cellphone', '1980-08-18', 'michelle.vb@gmail.com', NULL, 'Madison', 'n/a', 'daughter', NULL, 'volunteer', 'Active', NULL, '$2y$10$bkqOWUdIJoSa6kZoRo5KH.cerZkBQf74RYsponUUgefJxNc8ExppK', NULL, NULL, 0, 'Van Buren'),
+('navyspouse', '2025-11-30', 'Navy', 'Spouse', NULL, 'FXBG', 'VA', NULL, '3543534543', 'true', '', '', '', '', 'example@example.com', 'false', '', '', '', '', '', '', '', '$2y$10$nqoIFq4ru0k1wLkg0E/rfupwez.x1Gg6ldEuKgC.jIQemgCEuDzkG', 'Family', 'Navy', NULL, ''),
+('olivia', '2026-02-04', 'Olivia', 'Blue', NULL, 'Fredericksburg', 'VA', NULL, '1112223333', 'false', '', '', '', '', 'oliviablue@gmail.com', 'false', '', '', '', '', '', '', '', '$2y$10$ew4nuUYBtx6.CbNBezMTYuAQGaxMJgxIs4I3uIx05Sb7SqxKHJO2S', 'Family', 'Marine Corp', NULL, ''),
+('test_acc', '2025-04-29', 'test', 'test', 'test', 'test', 'VA', '22405', '5555555555', NULL, 'cellphone', '5555555555', 'cellphone', '2003-03-03', 'test@gmail.com', NULL, 'test', 'n/a', 't', NULL, 'volunteer', 'Active', NULL, '$2y$10$kpVA41EXvoJyv896uDBEF.fHCPmSlkVSaXjHojBl7DqbRnEm//kxy', NULL, NULL, 0, 'test'),
+('test_person', '2025-10-26', 'Testina', 'Tester', NULL, 'Testville', 'VA', NULL, '5555555555', 'true', 'mobile', NULL, NULL, '1980-08-18', 'testing@gmail.com', 'false', NULL, 'n/a', NULL, NULL, NULL, NULL, NULL, '$2y$10$blAQaBgCChBv5qRtBFVVAe1m6gIfwPf/wJ8HxzLFTYiY3aWpvaW8e', 'civilian', 'Army', NULL, NULL),
+('test_persona', '2025-10-28', 'Testana', 'Tester', NULL, 'Testinaville', 'VA', NULL, '5555555555', 'true', NULL, NULL, NULL, NULL, 'testerana@gmail.com', 'true', NULL, 'n/a', NULL, NULL, NULL, NULL, NULL, '$2y$10$s90qlNAJE9EbgLhZbhG5vO4IGSM.PIbK3Ve9IvpfoicMwXbFEXQFi', 'active', 'air_force', NULL, NULL),
+('tester4', '2025-12-01', 'tester', 'testing', NULL, 'Fredericksburg', 'VA', NULL, '5405405405', 'true', '', '', '', '', 'tester@gmail.com', 'true', '', '', '', '', '', '', '', '$2y$10$nILE/qxdpSvIgROc1uQEV.MyflEdG0IuNLQQ1c1u54MSEYKlg2LC2', 'Active duty', 'Space Force', NULL, ''),
+('testing123', '2025-10-26', 'Test', 'User', NULL, 'City', 'VA', NULL, '', 'true', NULL, NULL, NULL, NULL, 'example@email.com', 'true', NULL, 'n/a', NULL, NULL, NULL, NULL, NULL, '$2y$10$XbXkJUMSAGo9m1/GZQ3faebtJWbPMZYm/AeTA3jpDCaxZBNnMclxC', 'civ', 'marine_corp', NULL, NULL),
+('toaster', '2025-12-08', 'toast', 'er', NULL, 'Fredericksburg', 'VA', NULL, '5405405405', 'true', '', '', '', '', 'toaster@gmail.com', 'false', '', '', '', '', '', '', '', '$2y$10$VzLJcSjn/WFh0jeI9iFAw.McczukN4ovZuzg9vgtKFlXL3i/O9oOq', 'Civilian', 'Navy', NULL, ''),
+('vmsroot', NULL, 'vmsroot', '', 'N/A', 'N/A', 'VA', 'N/A', '', NULL, 'N/A', 'N/A', 'N/A', NULL, '', NULL, 'vmsroot', 'N/A', 'N/A', 'email', 'superadmin', 'Active', 'System root user account', '$2y$10$.3p8xvmUqmxNztEzMJQRBesLDwdiRU3xnt/HOcJtsglwsbUk88VTO', NULL, NULL, 0, 'vmsroot'),
+('Volunteer25', '2025-04-30', 'Volley', 'McTear', '123 Dog St', 'Dogville', 'VA', '56748', '9887765543', NULL, 'home', '6565651122', 'home', '2025-04-29', 'volly@gmail.com', NULL, 'Holly', 'n/a', 'Besty', NULL, 'volunteer', 'Active', NULL, '$2y$10$45gKdbjW78pNKX/5ROtb7eU9OykSCsP/QCyTAvqBtord4J7V3Ywga', NULL, NULL, 0, 'McTear'),
+('Welp', '2025-12-04', 'Jake', 'Lipinski', NULL, 'Apple', 'VA', NULL, '7577903325', 'true', '', '', '', '', 'mcdonalds@happymeal.com', 'true', '', '', '', '', '', '', '', '$2y$10$LvWD62DJ6pwlVGnWenQkneWCFINzgbHgzyvaBdiLn72/WwM4wo7Iy', 'Active duty', 'Air Force', NULL, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dbscheduledemails`
+--
+
+CREATE TABLE `dbscheduledemails` (
+  `id` int NOT NULL,
+  `userID` varchar(256) COLLATE utf8mb4_general_ci NOT NULL,
+  `recipientID` varchar(256) COLLATE utf8mb4_general_ci NOT NULL,
+  `subject` text COLLATE utf8mb4_general_ci NOT NULL,
+  `body` text COLLATE utf8mb4_general_ci NOT NULL,
+  `scheduledSend` date NOT NULL,
+  `sent` tinyint(1) DEFAULT '0',
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `dbscheduledemails`
+--
+
+INSERT INTO `dbscheduledemails` (`id`, `userID`, `recipientID`, `subject`, `body`, `scheduledSend`, `sent`, `created`) VALUES
+(17, 'vmsroot', 'All Whiskey Valor Members', 'Scheduling an Email!', 'This is a scheduled email', '2025-12-04', 0, '2025-12-02 21:46:39'),
+(18, 'vmsroot', 'Jake Lipinski', 'Scheduled email to myself', 'Please work', '2025-12-04', 0, '2025-12-04 19:21:48'),
+(19, 'vmsroot', 'Evan Darnell', 'TEST SCHEDULE', 'This email will be sent on the morning of the selected send date.\r\n\r\nNote for me if this sends though, you made it', '2025-12-26', 0, '2025-12-09 15:56:46'),
+(20, 'vmsroot', 'jlipinsk@mail.umw.edu', 'Yippee', 'Work', '2025-12-10', 0, '2025-12-10 07:13:15'),
+(21, 'vmsroot', 'Jlipinsk', 'adfasf', 'ahg', '2025-12-10', 1, '2025-12-10 08:46:45'),
+(22, 'vmsroot', 'Jlipinsk', 'Work Please!', 'Test', '2025-12-10', 1, '2025-12-10 10:02:09'),
+(23, 'vmsroot', 'acarmich@mail.umw.edu', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(24, 'vmsroot', 'ameyer3', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(25, 'vmsroot', 'armyuser', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(26, 'vmsroot', 'BobVolunteer', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(27, 'vmsroot', 'edarnell', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(28, 'vmsroot', 'exampleuser', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(29, 'vmsroot', 'Jlipinsk', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(30, 'vmsroot', 'lukeg', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(31, 'vmsroot', 'maddiev', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(32, 'vmsroot', 'michael_smith', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(33, 'vmsroot', 'michellevb', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(34, 'vmsroot', 'navyspouse', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(35, 'vmsroot', 'test_acc', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(36, 'vmsroot', 'test_person', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(37, 'vmsroot', 'test_persona', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(38, 'vmsroot', 'tester4', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(39, 'vmsroot', 'testing123', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(40, 'vmsroot', 'toaster', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(41, 'vmsroot', 'Volunteer25', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(42, 'vmsroot', 'Welp', 'Test for Software Engineering Scheduled Emails', 'This is the full test for Scheduled Emails. By tomorrow\'s presentation this should have sent out in an email!', '2025-12-10', 1, '2025-12-10 10:04:36'),
+(43, 'vmsroot', 'acarmich@mail.umw.edu', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(44, 'vmsroot', 'ameyer3', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(45, 'vmsroot', 'armyuser', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(46, 'vmsroot', 'BobVolunteer', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(47, 'vmsroot', 'Britorsk', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(48, 'vmsroot', 'exampleuser', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(49, 'vmsroot', 'fakename', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(50, 'vmsroot', 'firstName', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(51, 'vmsroot', 'gabriel', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(52, 'vmsroot', 'japper', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(53, 'vmsroot', 'Jlipinsk', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(54, 'vmsroot', 'lukeg', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(55, 'vmsroot', 'maddiev', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(56, 'vmsroot', 'michael_smith', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(57, 'vmsroot', 'michellevb', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(58, 'vmsroot', 'navyspouse', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(59, 'vmsroot', 'olivia', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(60, 'vmsroot', 'test_acc', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(61, 'vmsroot', 'test_person', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(62, 'vmsroot', 'test_persona', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(63, 'vmsroot', 'tester4', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(64, 'vmsroot', 'testing123', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(65, 'vmsroot', 'toaster', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(66, 'vmsroot', 'Volunteer25', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05'),
+(67, 'vmsroot', 'Welp', 'the spungle', 'THIS ISN\'T SPAM', '2026-02-07', 1, '2026-02-06 21:28:05');
 
 -- --------------------------------------------------------
 
@@ -613,6 +881,36 @@ INSERT INTO `dbshifts` (`shift_id`, `person_id`, `date`, `startTime`, `endTime`,
 (32, 'lukeg', '2025-07-09', '10:57:46', '10:57:57', 0.00, 'Laundry'),
 (33, 'lukeg', '2025-07-09', '11:04:46', NULL, NULL, NULL),
 (34, 'vmsroot', '2025-09-10', '11:36:05', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dbsuggestions`
+--
+
+CREATE TABLE `dbsuggestions` (
+  `id` int NOT NULL,
+  `user_id` varchar(256) NOT NULL,
+  `title` varchar(256) NOT NULL,
+  `body` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+
+--
+-- Dumping data for table `dbsuggestions`
+--
+
+INSERT INTO `dbsuggestions` (`id`, `user_id`, `title`, `body`, `created_at`) VALUES
+(1, 'edarnell', 'TEST SUGGESTION', 'This suggestion is a test', '2025-12-08 15:25:28'),
+(2, 'edarnell', 'Suggestion here', 'SUGGESTING THIS', '2025-12-09 10:39:51'),
+(3, 'edarnell', 'Suggestion REAL', 'This is a good idea', '2025-12-09 10:41:14'),
+(4, 'edarnell', 'THIS is the REAL suggestion', 'Suggesting some really cool things', '2025-12-09 10:49:55'),
+(5, 'vmsroot', 'This is a test for styling', 'This is a styling test.', '2025-12-09 14:48:27'),
+(6, 'vmsroot', 'This is a test for styling', 'This is a styling test.', '2025-12-09 14:48:45'),
+(7, 'vmsroot', 'This is a test for styling', 'This is a styling test.', '2025-12-09 14:48:50'),
+(8, 'fakename', 'AAAAA', 'mAKE THIS WORK', '2025-12-10 11:43:42'),
+(9, 'fakename', 'A suggestion asefs', 'sasf', '2025-12-10 13:25:18'),
+(10, 'edarnell', 'Test Suggestion 12-10', 'TEST SUGGESTION BODY TEXT HERE', '2025-12-10 19:41:56');
 
 -- --------------------------------------------------------
 
@@ -690,14 +988,51 @@ INSERT INTO `user_groups` (`user_id`, `group_name`) VALUES
 ('BobVolunteer', 'test'),
 ('vmsroot', 'cool guys');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_verified_ids`
+--
+
+CREATE TABLE `user_verified_ids` (
+  `record_id` int NOT NULL,
+  `user_id` varchar(100) NOT NULL,
+  `id_type` varchar(50) NOT NULL,
+  `approved_at` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
+
+--
+-- Dumping data for table `user_verified_ids`
+--
+
+INSERT INTO `user_verified_ids` (`record_id`, `user_id`, `id_type`, `approved_at`) VALUES
+(1, 'edarnell', 'DL', '2025-12-08 20:28:26'),
+(2, 'edarnell', 'Military', '2025-12-09 15:51:37'),
+(3, 'fakename', 'Military', '2025-12-10 16:43:24'),
+(4, 'fakename', 'DL', '2025-12-10 18:28:47'),
+(5, 'fakename', 'Passport', '2025-12-10 18:28:50'),
+(6, 'edarnell', 'Other', '2025-12-11 00:44:50');
+
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `dbapplications`
+--
+ALTER TABLE `dbapplications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `dbarchived_volunteers`
 --
 ALTER TABLE `dbarchived_volunteers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dbattendance`
+--
+ALTER TABLE `dbattendance`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -707,9 +1042,16 @@ ALTER TABLE `dbdiscussions`
   ADD PRIMARY KEY (`author_id`(255),`title`);
 
 --
+-- Indexes for table `dbdrafts`
+--
+ALTER TABLE `dbdrafts`
+  ADD PRIMARY KEY (`draftID`);
+
+--
 -- Indexes for table `dbeventpersons`
 --
 ALTER TABLE `dbeventpersons`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `FKeventID` (`eventID`),
   ADD KEY `FKpersonID` (`userID`);
 
@@ -745,10 +1087,22 @@ ALTER TABLE `dbpersons`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `dbscheduledemails`
+--
+ALTER TABLE `dbscheduledemails`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `dbshifts`
 --
 ALTER TABLE `dbshifts`
   ADD PRIMARY KEY (`shift_id`);
+
+--
+-- Indexes for table `dbsuggestions`
+--
+ALTER TABLE `dbsuggestions`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `discussion_replies`
@@ -772,26 +1126,69 @@ ALTER TABLE `user_groups`
   ADD PRIMARY KEY (`user_id`,`group_name`);
 
 --
+-- Indexes for table `user_verified_ids`
+--
+ALTER TABLE `user_verified_ids`
+  ADD PRIMARY KEY (`record_id`),
+  ADD UNIQUE KEY `unique_user_id_type` (`user_id`,`id_type`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `dbapplications`
+--
+ALTER TABLE `dbapplications`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `dbattendance`
+--
+ALTER TABLE `dbattendance`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `dbdrafts`
+--
+ALTER TABLE `dbdrafts`
+  MODIFY `draftID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `dbeventpersons`
+--
+ALTER TABLE `dbeventpersons`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `dbevents`
 --
 ALTER TABLE `dbevents`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
 
 --
 -- AUTO_INCREMENT for table `dbmessages`
 --
 ALTER TABLE `dbmessages`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=429;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=473;
+
+--
+-- AUTO_INCREMENT for table `dbscheduledemails`
+--
+ALTER TABLE `dbscheduledemails`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `dbshifts`
 --
 ALTER TABLE `dbshifts`
   MODIFY `shift_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT for table `dbsuggestions`
+--
+ALTER TABLE `dbsuggestions`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `discussion_replies`
@@ -804,6 +1201,12 @@ ALTER TABLE `discussion_replies`
 --
 ALTER TABLE `monthly_hours_snapshot`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+--
+-- AUTO_INCREMENT for table `user_verified_ids`
+--
+ALTER TABLE `user_verified_ids`
+  MODIFY `record_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
