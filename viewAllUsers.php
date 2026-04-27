@@ -2,29 +2,31 @@
     session_cache_expire(30);
     session_start();
 
+    require_once('database/dbUsers.php');
+    require_once('include/output.php');
+
     $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
+
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
 
-    if ($accessLevel < 1) {
-        header('Location: login.php');
+    // admin-only
+    if ($accessLevel < 2) {
+        header('Location: index.php');
         die();
     }
 
-    include_once 'database/dbOrganizations.php';
-    include_once 'include/output.php';
-
-    $orgs = fetch_organizations();
+    $users = retrieve_all();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>UMW Alleviating Food Waste Volunteer Tracking | View All Organizations</title>
+    <title>UMW Alleviating Food Waste Volunteer Tracking | View All Users</title>
     <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
     <?php
     $tailwind_mode = true;
@@ -50,9 +52,19 @@
             background-color: white;
         }
 
-        .orgs-page-wrap {
+        .users-page-wrap {
             width: 100%;
             padding: 30px 5%;
+        }
+
+        .users-page-wrap h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .users-page-wrap .sub-text {
+            text-align: center;
+            margin-bottom: 25px;
         }
 
         .table-card {
@@ -68,46 +80,51 @@
 </head>
 <body>
 <main>
-    <div class="orgs-page-wrap">
+    <div class="users-page-wrap">
         <div class="main-content-box">
             <div class="text-center mb-8">
-                <h2>View All Organizations</h2>
+                <h2>View All Users</h2>
                 <div class="info-box">
-                    <p class="sub-text">Below is the full list of organizations.</p>
+                    <p class="sub-text">Below is the full list of active registered users.</p>
                 </div>
             </div>
 
             <div class="table-wrapper table-card">
-                <table class="general" id="org-table">
+                <table class="general" id="user-table">
                     <thead>
                         <tr>
                             <th style="width:4%;"></th>
-                            <th style="width:20%;">Name</th>
-                            <th style="width:22%;">Email</th>
-                            <th style="width:20%;">Location</th>
-                            <th style="width:34%;">Description</th>
+                            <th style="width:18%;">Name</th>
+                            <th style="width:14%;">Username</th>
+                            <th style="width:24%;">Email</th>
+                            <th style="width:16%;">Semester</th>
+                            <th style="width:12%;">Role</th>
+                            <th style="width:12%;">Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ($orgs): ?>
-                            <?php while ($row = mysqli_fetch_assoc($orgs)): ?>
+                        <?php if ($users && mysqli_num_rows($users) > 0): ?>
+                            <?php while ($row = mysqli_fetch_assoc($users)): ?>
+                                <?php if ($row['id'] === 'vmsroot') continue; ?>
                                 <tr>
                                     <td>
-                                        <a href="organization.php?id=<?php echo hsc($row['id']); ?>" class="event-link">👁</a>
+                                        <a href="viewProfile.php?id=<?php echo hsc($row['id']); ?>" class="event-link">👁</a>
                                     </td>
                                     <td>
-                                        <a href="organization.php?id=<?php echo hsc($row['id']); ?>" class="event-link">
-                                            <?php echo hsc($row['name']); ?>
+                                        <a href="viewProfile.php?id=<?php echo hsc($row['id']); ?>" class="event-link">
+                                            <?php echo hsc($row['first_name']) . ' ' . hsc($row['last_name']); ?>
                                         </a>
                                     </td>
+                                    <td><?php echo hsc($row['id']); ?></td>
                                     <td><?php echo hsc($row['email']); ?></td>
-                                    <td><?php echo hsc($row['location']); ?></td>
-                                    <td><?php echo hsc($row['description']); ?></td>
+                                    <td><?php echo hsc($row['semester']); ?></td>
+                                    <td><?php echo hsc($row['role']); ?></td>
+                                    <td><?php echo ($row['archived'] == 1) ? 'Archived' : 'Active'; ?></td>
                                 </tr>
                             <?php endwhile; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="5">There are currently no organizations to view.</td>
+                                <td colspan="7">There are currently no users to view.</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
@@ -115,7 +132,7 @@
             </div>
 
             <div class="text-center" style="margin-top: 35px;">
-                <a href="organizationManagement.php" class="return-button">Return to Organization Management</a>
+                <a href="volunteerManagement.php" class="return-button">Return to User Management</a>
             </div>
         </div>
     </div>

@@ -100,7 +100,7 @@ require_once('database/dbVolunteerActivity.php');
 </head>
 
 <?php
-    $rows = getImpactByOrg();
+    $rows = getImpactByOrg(isset($_GET['semester']) ? $_GET['semester'] : "All");
 ?>
 
 <body>
