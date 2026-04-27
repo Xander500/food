@@ -54,11 +54,6 @@ Instructors can:
 - view an analytics dashboard displaying the total hours volunteered, the total pounds of food rescued, impact by organization, impact by student, monthly impact charts, and a geographic display map for each semester.
 - mark individual users, organizations, and volunteer activity logs as archived (which will then be removed from view throughout the site) or as active (which will then be visib)
 
-
-
-
-Admins can create and edit events, view and approve sign-ups, and view sign-ups and volunteer hours.
-
 ## Entities
 There are three types of entities within the Volunteer Impact Tracking System (VITS).
 * `Users` refer to both student and instructor accounts. `dbusers` in the database.
@@ -205,15 +200,17 @@ Clearing your cache will help ensure that you're seeing the latest updates to th
 ### External Libraries and APIs
 The following library exists in the VITS code and was inherited from the Step VA version of the codebase: The only outside library utilized by the Step VA is the jQuery library. The version of jQuery used by the system is stored locally within the repo, within the lib folder. jQuery was used to implement form validation and the hiding/showing of certain page elements. Additionally, the Font Awesome library was used for some of the icon pictures. This library is linked in the headers of some files "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css".
 
-
-
-
 ### Potential Improvements
 Below is a list of improvements that could be made to the system in subsequent semesters.
 * Rename the database
 * Update the CSS for a more modern and consistent design
 * Update CSS and formatting to make a resposive and mobile-freindly layout
+* Update layout and tagging to be accessibilty friendly
 * Increase password security
+* Update functionality based on feedback from the classes who use the system
+* Heatmap view of geopgraphical distribution
+* Individual student map of volunteer location distribution
+* Update viewAllOrgs.php and viewAllUsers.php to have filters and pagination
 
 ## License
 The project remains under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl.txt).
