@@ -88,6 +88,10 @@
         <main class="date">
             <h2>New Activity Form</h2>
             <form id="new-event-form" method="POST">
+                <div class="info-box">
+                    <p>Add a new record of volunteer activity, which represents a student volunteering with an organization on a particular day.  You may set hours volunteered and pounds of food rescued to decimal point numbers if necessary.
+                    <br>An asterisk (*) indicates a required field.</p>
+                </div>
             <!-- FOODDB only shows if it is an admin, otherwise we just take from the session what the Volunteer ID is -->
                 <?php if ($_SESSION['access_level'] >= 2): ?>
                 <div class="event-sect">

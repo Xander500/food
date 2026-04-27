@@ -59,14 +59,37 @@ Instructors can:
 
 Admins can create and edit events, view and approve sign-ups, and view sign-ups and volunteer hours.
 
-Volunteers can create and edit their profile, sign up for events, check-in and check-out of events, and view their hours. Volunteer accounts can be archived by the Admin if the account is no longer in use.
+## Entities
+There are three types of entities within the Volunteer Impact Tracking System (VITS).
+* `Users` refer to both student and instructor accounts. `dbusers` in the database.
+* `Organizations` refer to non-profit organizations with whom students may volunteer. `dborganizations` in the database.
+* `VolunteerActivity` (also referred to ad `logs`) refers to a record of students volunteering with an organization on a particular day.  `dbvolunteeractivity` in the database.
 
-There is also a root admin account with username 'vmsroot'. The default password for this account is 'vmsroot'. This account has hardcoded Admin privileges. It is crucial that this account be given a strong password and that the password be easily remembered, as it cannot easily be reset. This account should be used for system administration purposes only.
+## User Types
+There are two types of users (also referred to as 'roles') within the Volunteer Impact Tracking System (VITS).
+* Students
+* Instructors
+
+Students can:
+- register an account, modify the personal information associated with their account, and reset their password.
+- add and modify organizations.
+- add, modify, and delete volunteer activity logs under their own account.
+- view and filter all active volunteer activity logs on the display page.
+- view their 'personal impact summary' to see aggregate details about their own logs.
+
+Instructors can:
+- register student accounts, modify the personal information associated with any account, manage the role for any account, and reset their own password.
+- add, modify, and delete organizations.
+- add, modify, and delete volunteer activity logs under any own account.
+- view and filter all active volunteer activity logs on the display page.
+- export User, Organization, and VolunteerActivity database reccords to CSV or EXCEL format files.
+- view an analytics dashboard displaying the total hours volunteered, the total pounds of food rescued, impact by organization, impact by student, monthly impact charts, and a geographic display map for each semester.
+- mark individual users, organizations, and volunteer activity logs as archived (which will then be removed from view throughout the site) or as active (which will then be visible).
 
 ## Features
 Below is an in-depth list of features that were implemented within the system
 * User registration and log in
-* Dashboard
+* Homepage
 * Volunteer Management
   * Change own password
   * View volunteer hours (print-friendly)
@@ -95,7 +118,7 @@ Below is an in-depth list of features that were implemented within the system
   * Approved sign-up
 
 ## Design Documentation
-Several types of diagrams describing the design of the Step VA, including sequence diagrams and use case diagrams, are available. Please contact Dr. Polack for access.
+Several types of diagrams describing the design of the VITS code, including sequence diagrams and use case diagrams, are available. Please contact Dr. Polack for access.
 
 ## "localhost" Installation
 Below are the steps required to run the project on your local machine for development and/or testing purposes.
@@ -104,25 +127,25 @@ Below are the steps required to run the project on your local machine for develo
   * For Mac, the htdocs path is `/Applications/XAMPP/xamppfiles/htdocs`
   * For Ubuntu, the htdocs path is `/opt/lampp/htdocs/`
   * For Windows, the htdocs path is `C:\xampp\htdocs`
-3. Clone the Step VA repo by running the following command: 'https://github.com/aidanmeyer32/FredSPCA.git'
+3. Clone the Step VA repo by running the following command: 'https://github.com/Xander500/food.git'
 4. Start the XAMPP MySQL server and Apache server
 5. Open the PHPMyAdmin console by navigating to [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/)
-6. Create a new database named `stepvadb`. With the database created, navigate to it by clicking on it in the lefthand pane
-7. Import the `FredSPCA.sql` file located in `FredSPCA/sql` into this new database
+6. Create a new database named `foodDb`. With the database created, navigate to it by clicking on it in the lefthand pane
+7. Import the `foodDb.sql` file located in `food/sql` into this new database
 8. Create a new user by navigating to `Privileges -> New -> Add user account`
 9. Enter the following credentials for the new user:
-  * Name: `stepvadb`
-  * Hostname: `Local`
-  * Password: `stepvadb`
+  * Name: `foodDb`
+  * Hostname: `localhost`
+  * Password: `foodDb`
   * Leave everything else untouched
-10. Navigate to [http://localhost/ODHS-Animal/](http://localhost/ODHS-Animal/) 
+10. Navigate to [http://localhost/food/](http://localhost/food/) 
 11. Log into the root user account using the username `vmsroot` with password `vmsroot`
 
 Installation is now complete.
 
 ## Reset root user credentials
 In the event of being locked out of the root user, the following steps will allow resetting the root user's login credentials:
-1. Using the PHPMyAdmin console, delete the `vmsroot` user row from the `dbPersons` table
+1. Using the PHPMyAdmin console, delete the `vmsroot` user row from the `dbusers` table
 2. Clear the SiteGround dynamic cache [using the steps outlined below](#clearing-the-siteground-cache)
 3. Navigate to food/insertAdmin.php. You should see a message that says `ROOT USER CREATION SUCCESS`
 4. You may now log in with the username and password `vmsroot`
@@ -134,7 +157,7 @@ Dr. Polack chose SiteGrounds as the platform on which to host the project. Below
 Access to the SiteGround Dashboard requires a SiteGround account with access. Access is managed by Dr. Polack.
 
 ### Localhost to Siteground
-Follow these steps to transfter your localhost version of the Step VA code to Siteground. For a video tutorial on how to complete these steps, contact Dr. Polack.
+Follow these steps to transfter your localhost version of the VITS code to Siteground. For a video tutorial on how to complete these steps, contact Dr. Polack.
 1. Create an FTP Account on Siteground, giving you the necessary FTP credentials. (Hostname, Username, Password, Port)
 2. Use FTP File Transfer Software (Filezilla, etc.) to transfer the files from your localhost folders to your siteground folders using the FTP credentials from step 1.
 3. Create the following database-related credentials on Siteground under the MySQL tab:
@@ -142,9 +165,9 @@ Follow these steps to transfter your localhost version of the Step VA code to Si
   - User - Create a user for the database by either selecting the 'Create User' button under the Users tab, or by selecting the 'Add New User' button from the newly created database under the Databases tab. User name is auto-generated and can be changed  if you like.
   - Password - Created when user is created. Password is auto generated and can be changed if you like.
 4. Access the newly created database by navigating to the PHPMyAdmin tab and selecting the 'Access PHPMyAdmin' button. This will redirect you to the PHPMyAdmin page for the database you just created. Navigate to the new database by selecting it from the database list on the left side of the page.
-5. Select the 'Import' option from the database options at the top of the page. Select the 'Choose File' button and import the "vms.sql" file from your software files.
-  - Ensure that you're keeping your .sql file up to date in order to reduce errors in your Siteground code. Keep in mind that Siteground is case-sensitive, and your database names in the Siteground files must be identical to the database names in the database.
-6. Navigate to the 'dbInfo.php' page in your Siteground files. Inside the connect() function, you will see a series of PHP variables. ($host, $database, $user, $pass) Change the server name in the 'if' statement to the name of your server, and change the $database, $user, and $pass variables to the database name, user name, and password that you created in step 3. 
+5. Select the 'Import' option from the database options at the top of the page. Select the 'Choose File' button and import the "foodDb.sql" file from your software files.
+  - Ensure that you're keeping your .sql file up to date in order to reduce errors in your Siteground code. Keep in mind that Siteground is case-sensitive, and your database names in the Siteground files must be identical to the database names in the database.  Best practice dictates listing them in all-lowercase.
+6. Navigate to the 'database/dbInfo.php' page in your Siteground files. Inside the connect() function, you will see a series of PHP variables. ($host, $database, $user, $pass) Change the server name in the 'if' statement to the name of your server, and change the $database, $user, and $pass variables to the database name, user name, and password that you created in step 3. 
 
 ### Clearing the SiteGround cache
 #### Chrome
@@ -163,11 +186,12 @@ Follow these steps to transfter your localhost version of the Step VA code to Si
 
 Clearing your cache will help ensure that you're seeing the latest updates to the application. If you continue experiencing issues, consider reaching out for further support.
 
-# TODO just tailwind?
 ### External Libraries and APIs
-The only outside library utilized by the Step VA is the jQuery library. The version of jQuery used by the system is stored locally within the repo, within the lib folder. jQuery was used to implement form validation and the hiding/showing of certain page elements. Additionally, the Font Awesome library was used for some of the icon pictures. This library is linked in the headers of some files "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css".
+The following library exists in the VITS code and was inherited from the Step VA version of the codebase: The only outside library utilized by the Step VA is the jQuery library. The version of jQuery used by the system is stored locally within the repo, within the lib folder. jQuery was used to implement form validation and the hiding/showing of certain page elements. Additionally, the Font Awesome library was used for some of the icon pictures. This library is linked in the headers of some files "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css".
 
-# TODO make sure we didn't already fix any of these, add any new
+
+
+
 ### Potential Improvements
 Below is a list of improvements that could be made to the system in subsequent semesters.
 * Rename the database

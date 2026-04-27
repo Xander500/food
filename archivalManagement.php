@@ -145,7 +145,7 @@ require_once('header.php');
         <h1>Archival Management</h1>
         <div class="div-blue"></div>
         <p>
-          Welcome to the archival management hub. From this menu, you will have access to operations such as archiving and unarchiving students, organizations and volunteer logs.
+          Welcome to the archival management hub. From this menu, you will have access to operations such as archiving and unarchiving students, organizations and volunteer logs.  You may also permeanantly deleate archived reccords.
         </p>
       </div>
 

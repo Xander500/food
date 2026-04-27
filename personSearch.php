@@ -189,6 +189,7 @@ require_once('header.php');
                 <label for="active">Active Users</label>
                 <input type="checkbox" id="archived" name="status[]" value="1" <?php echo ((($want_archived ?? true) || ($want_archived === false && $want_active === false)) ? 'checked' : '');?>>
                 <label for="archived">Archived Users</label>
+                <p>Use the checkboxes above to filter by status.  Active users appear throughout the site and when adding new volunteer activities.  Archived users are hidden from view.</p>
             </div>  
 
             <div class="text-center pt-4">

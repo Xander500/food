@@ -85,18 +85,20 @@ function make_a_volunteer_activity($result_row) {
     return $row['num'];
  }
 
-  function get_students_in_logs() {
+  function get_students_in_logs($want_archived = false) {
     $con=connect();
     $query = "SELECT DISTINCT u.id, u.first_name, u.last_name FROM dbvolunteeractivity AS va JOIN dbusers AS u ON u.id = va.volunteerID" .
+        ($want_archived ? "" : " WHERE va.archived = 0") .
         " ORDER BY last_name asc, first_name asc, id asc";
     $result = mysqli_query($con,$query);
     $rows = $result->fetch_all(MYSQLI_ASSOC);
     return $rows;
  }
 
-   function get_organizations_in_logs() {
+   function get_organizations_in_logs($want_archived = false) {
     $con=connect();
     $query = "SELECT DISTINCT o.id, o.name FROM dbvolunteeractivity AS va JOIN dborganizations AS o ON o.id = va.organizationID" .
+        ($want_archived ? "" : " WHERE va.archived = 0") .
         " ORDER BY name asc, id asc";
     $result = mysqli_query($con,$query);
     $rows = $result->fetch_all(MYSQLI_ASSOC);
