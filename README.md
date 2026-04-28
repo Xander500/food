@@ -37,34 +37,6 @@ There are two types of users (also referred to as 'roles') within the Volunteer 
 * Students
 * Instructors
 
-
-Students can:
-- register an account, modify the personal information associated with their account, and reset their password.
-- add and modify organizations.
-- add, modify, and delete volunteer activity logs under their own account.
-- view and filter all active volunteer activity logs on the display page.
-- view their 'personal impact summary' to see aggregate details about their own logs.
-
-Instructors can:
-- register student accounts, modify the personal information associated with any account, manage the role for any account, and reset their own password.
-- add, modify, and delete organizations.
-- add, modify, and delete volunteer activity logs under any own account.
-- view and filter all active volunteer activity logs on the display page.
-- export User, Organization, and VolunteerActivity database reccords to CSV or EXCEL format files.
-- view an analytics dashboard displaying the total hours volunteered, the total pounds of food rescued, impact by organization, impact by student, monthly impact charts, and a geographic display map for each semester.
-- mark individual users, organizations, and volunteer activity logs as archived (which will then be removed from view throughout the site) or as active (which will then be visib)
-
-## Entities
-There are three types of entities within the Volunteer Impact Tracking System (VITS).
-* `Users` refer to both student and instructor accounts. `dbusers` in the database.
-* `Organizations` refer to non-profit organizations with whom students may volunteer. `dborganizations` in the database.
-* `VolunteerActivity` (also referred to ad `logs`) refers to a record of students volunteering with an organization on a particular day.  `dbvolunteeractivity` in the database.
-
-## User Types
-There are two types of users (also referred to as 'roles') within the Volunteer Impact Tracking System (VITS).
-* Students
-* Instructors
-
 Students can:
 - register an account, modify the personal information associated with their account, and reset their password.
 - add and modify organizations.
@@ -205,7 +177,7 @@ Below is a list of improvements that could be made to the system in subsequent s
 * Rename the database
 * Update the CSS for a more modern and consistent design
 * Update CSS and formatting to make a resposive and mobile-freindly layout
-* Update layout and tagging to be accessibilty friendly
+* Update the accessibilty adaptor to function
 * Increase password security
 * Update functionality based on feedback from the classes who use the system
 * Heatmap view of geopgraphical distribution
