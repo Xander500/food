@@ -60,7 +60,7 @@
   <div class="h-48 relative" style="background-color: var(--page-background-color);"></div>
 
   <!-- Profile Content -->
-  <div class="max-w-6xl mx-auto px-4 -mt-20 relative z-10 flex flex-col md:flex-row gap-6">
+  <div class="max-w-6xl mx-auto px-4 -mt-20 relative flex flex-col md:flex-row gap-6">
 
     <!-- Left Box -->
     <div class="w-full md:w-1/3 bg-white border border-gray-300 rounded-2xl shadow-lg p-6 flex flex-col justify-between">
