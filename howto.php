@@ -77,8 +77,8 @@
                     <div class="sidebar-item">
                         <h1>Instructions</h1>
                         <ol>
-                            <li><a href="#share-register">Share Registration with Students</a></li>
-                            <li><a href="#student-locked-out">Student Locked Out of Account</a></li>
+                            <?php if ($sections['share_register'] == $accessLevel): ?><li><a href="#share-register">Share Registration with Students</a></li><?php endif; ?>
+                            <?php if ($sections['student_locked_out'] == $accessLevel): ?><li><a href="#student-locked-out">Student Locked Out of Account</a></li><?php endif; ?>
                             <li><a href="#add-log">Add a Volunteer Activity Log</a></li>
                             <li><a href="#view-logs">View All Volunteer Activity Logs</a></li>
                             <li><a href="#search-logs">Search Volunteer Activity Logs</a></li>
@@ -101,6 +101,7 @@
             </div>
 
             <div class="main-content-box">
+                <?php if ($sections['share_register'] == $accessLevel): ?>
                 <section id="share-register">
                     <h3 <?php if ($sections['share_register'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Share Registration with Students</h3>
                     <ul>
@@ -116,6 +117,8 @@
                         </li>
                     </ul>
                 </section>
+                <?php endif; ?>
+                <?php if ($sections['student_locked_out'] == $accessLevel): ?>
                 <section id="student-locked-out">
                     <h3 <?php if ($sections['student_locked_out'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Student Locked Out of Account</h3>
                     <ul>
@@ -126,6 +129,7 @@
                         <li>The student will be able to reset their password using the updated email address.</li>
                     </ul>
                 </section>
+                <?php endif; ?>
                 <section id="add-log">
                     <h3 <?php if ($sections['add_log'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Add a Volunteer Activity Log</h3>
                     <ul>
