@@ -807,7 +807,7 @@ if (date("H:i:s") > "18:19:59") {
                     </div>
                 </div>
                 <div class="nav-item">
-                    <a class="home-link" href="howto.php">Instructions</a>
+                    <a class="header-link" href="howto.php">Instructions</a>
                 </div>
             </div>
         </div>
@@ -867,7 +867,7 @@ if (date("H:i:s") > "18:19:59") {
     </div>
 </div>
                 <div class="nav-item">
-                    <a class="home-link" href="howto.php">Instructions</a>
+                    <a class="header-link" href="howto.php">Instructions</a>
                 </div>
             </div>
         </div>
