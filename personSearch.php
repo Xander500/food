@@ -192,7 +192,7 @@ require_once('header.php');
                 <p>Use the checkboxes above to filter by status.  Active users appear throughout the site and when adding new volunteer activities.  Archived users are hidden from view.</p>
             </div>  
 
-            <div class="text-center pt-4">
+            <div class="text-center pt-4" style="width: 50%; margin-left: auto; margin-right: auto;">
                 <input type="submit" value="Search" class="blue-button">
             </div>
 
