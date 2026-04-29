@@ -166,7 +166,7 @@ require_once('include/output.php');
             </div>
         </form>
         <div class="text-center" style="margin-top: 5%; font-size: 1.25rem;">
-            <a href="index.php" class="return-button">Return to Dashboard</a>
+            <a href="organizationManagement.php" class="return-button">Return to Organization Management</a>
         </div>
     </div>
 

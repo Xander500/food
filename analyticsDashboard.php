@@ -147,7 +147,7 @@ use function PHPSTORM_META\type;
             <div>
                 <?php include_once 'monthlyImpact.php'; ?>
                 <div class="text-center mt-6">
-                    <a href="index.php" class="return-button" style="font-size: 1.5rem; box-shadow: 0px 0px 20px 5px var(--main-color);">Return to Dashboard</a>
+                    <a href="index.php" class="return-button" style="font-size: 1.5rem; box-shadow: 0px 0px 20px 5px var(--main-color);">Return to Homepage</a>
                 </div>
             </div>
         </div>

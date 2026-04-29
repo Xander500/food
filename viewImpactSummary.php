@@ -40,11 +40,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UMW Alleviating Food Waste Volunteer Tracking | Personal Impact Summary</title>
+  <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <?php require_once('header.php'); ?>
 </head>
 
-<body class="bg-gray-100">
+<body>
 
   <?php if ($id === 'vmsroot'): ?>
     <div class="absolute left-[40%] top-[20%] bg-red-800 p-4 text-white rounded-xl text-xl">The root user does not have a profile.</div>
@@ -54,105 +55,85 @@
   <?php if (!$user): ?>
     <div class="absolute left-[40%] top-[20%] bg-red-800 p-4 text-white rounded-xl text-xl">User does not exist.</div>
     </body></html>
-    <?php die(); endif; ?>
-
-  <!-- Hero Banner -->
-  <div class="h-48 relative" style="background-color: var(--page-background-color);"></div>
+  <?php die(); endif; ?>
 
   <!-- Profile Content -->
-  <div class="max-w-6xl mx-auto px-4 -mt-20 relative flex flex-col md:flex-row gap-6">
-
+  <div class="impact-body">
     <!-- Left Box -->
-    <div class="w-full md:w-1/3 bg-white border border-gray-300 rounded-2xl shadow-lg p-6 flex flex-col justify-between">
+    <div class="impact-body-left">
       <div>
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="text-xl font-semibold">My Impact</h2>
-        </div>
-
-        <div class="space-y-2 divide-y divide-gray-300">
-          <div class="flex justify-between py-2">
-            <span class="font-medium">Joined</span>
+        <h2 class="profile-name">My Impact</h2>
+        <div class="profile-info">
+          <div class="profile-info-item">
+            <span>Joined</span>
             <span><?php echo hsc(date('m/d/Y', strtotime($user->get_start_date()))) ?></span>
           </div>
-          <div class="flex justify-between py-2">
-            <span class="font-medium">Semester</span>
+          <div class="profile-info-item">
+            <span>Semester</span>
             <span><?php echo hsc($user->get_semester()) ?></span>
           </div>
         </div>
 
-        <div class="mt-6 space-y-3">
-          <div class="rounded-xl p-4 text-center" style="background-color: #1F1F21;">
-            <p class="text-3xl font-bold" style="color: #C9AB81;"><?php echo number_format((float)$totalHours, 1) ?></p>
-            <p class="text-sm font-medium text-gray-300 mt-1">Total Hours Volunteered</p>
+        <div class="profile-impact-nums">
+          <div class="profile-impact-num">
+            <p class="profile-impact-num-top"><?php echo number_format((float)$totalHours, 1) ?></p>
+            <p>Total Hours Volunteered</p>
           </div>
-          <div class="rounded-xl p-4 text-center" style="background-color: #1F1F21;">
-            <p class="text-3xl font-bold" style="color: #92c44c;"><?php echo number_format((float)$totalPounds, 1) ?></p>
-            <p class="text-sm font-medium text-gray-300 mt-1">Pounds of Food Rescued</p>
+          <div class="profile-impact-num">
+            <p class="profile-impact-num-top"><?php echo number_format((float)$totalPounds, 1) ?></p>
+            <p>Pounds of Food Rescued</p>
           </div>
-          <div class="rounded-xl p-4 text-center" style="background-color: #1F1F21;">
-            <p class="text-3xl font-bold text-white"><?php echo (int)$totalLogs ?></p>
-            <p class="text-sm font-medium text-gray-300 mt-1">Activity Logs Submitted</p>
+          <div class="profile-impact-num">
+            <p class="profile-impact-num-top"><?php echo (int)$totalLogs ?></p>
+            <p>Activity Logs Submitted</p>
           </div>
         </div>
       </div>
 
-      <div class="mt-6 space-y-2">
-        <button onclick="window.location.href='viewProfile.php';"
-          class="text-lg font-medium w-full px-4 py-2 bg-[#92c44c] text-[#1F1F21] rounded-md hover:bg-[#1F1F21] hover:text-[#C9AB81] cursor-pointer">
-          View Profile
-        </button>
-        <button onclick="window.location.href='index.php';"
-          class="text-lg font-medium w-full px-4 py-2 border-2 border-gray-300 text-black rounded-md hover:border-[#1F1F21] cursor-pointer">
-          Return to Dashboard
-        </button>
+      <div class="profile-buttons">
+        <button style="width: 65%;" onclick="window.location.href='viewProfile.php';">View Profile</button>
+        <button style="width: 65%;" onclick="window.location.href='index.php';">Return to Homepage</button>
       </div>
     </div>
 
-    <div class="w-full md:w-2/3 flex flex-col gap-6">
-
-      <div class="bg-white rounded-2xl shadow-lg border border-gray-300 p-6">
-        <div class="flex border-b border-gray-300 mb-4">
-          <h3 class="text-lg font-medium text-[#2B2B2E] border-b-4 border-[#C9AB81] px-1 pb-2">
-            Breakdown by Organization
-          </h3>
-        </div>
-
-        <?php if (empty($orgBreakdown)): ?>
-          <p class="text-gray-500 italic">No activity logged yet.</p>
-        <?php else: ?>
-          <div class="overflow-x-auto">
-            <table class="w-full text-sm text-left">
-              <thead>
-                <tr class="text-xs font-semibold uppercase text-gray-500 border-b border-gray-200">
-                  <th class="py-2 pr-4">Organization</th>
-                  <th class="py-2 pr-4 text-right">Hours</th>
-                  <th class="py-2 text-right">Lbs. of Food</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-100">
-                <?php foreach ($orgBreakdown as $row): ?>
-                  <tr class="hover:bg-gray-50">
-                    <td class="py-2 pr-4 font-medium text-gray-800"><?php echo hsc($row['organization_name']) ?></td>
-                    <td class="py-2 pr-4 text-right text-gray-700"><?php echo number_format((float)$row['hours'], 1) ?></td>
-                    <td class="py-2 text-right text-gray-700"><?php echo number_format((float)$row['pounds'], 1) ?></td>
-                  </tr>
-                <?php endforeach; ?>
-              </tbody>
-              <tfoot>
-                <tr class="border-t-2 border-gray-300 font-semibold text-[#1F1F21]">
-                  <td class="py-2 pr-4">Total</td>
-                  <td class="py-2 pr-4 text-right"><?php echo number_format((float)$totalHours, 1) ?></td>
-                  <td class="py-2 text-right"><?php echo number_format((float)$totalPounds, 1) ?></td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
-        <?php endif; ?>
+    <div class="impact-body-right">
+      <div class="profile-tab-header">
+        <h3 class="tab-button profile-tab">Breakdown by Organization</h3>
       </div>
 
-
+      <?php if (empty($orgBreakdown)): ?>
+        <p class="text-gray-500 italic">No activity logged yet.</p>
+      <?php else: ?>
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Organization</th>
+                <th>Hours</th>
+                <th>Lbs. of Food</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($orgBreakdown as $row): ?>
+                <tr>
+                  <td><?php echo hsc($row['organization_name']) ?></td>
+                  <td><?php echo number_format((float)$row['hours'], 1) ?></td>
+                  <td><?php echo number_format((float)$row['pounds'], 1) ?></td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>Total:</td>
+                <td><?php echo number_format((float)$totalHours, 1) ?></td>
+                <td><?php echo number_format((float)$totalPounds, 1) ?></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      <?php endif; ?>
+      </div>
     </div>
   </div>
-
 </body>
 </html>
