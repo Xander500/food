@@ -110,7 +110,7 @@
         <?php 
             $confirmText = "Are you sure you want to delete this data?  This action is permanant and irrecoverable.";
             //! change for edit buttons for instructor
-            if ( $accessLevel >= 2): ?>
+            if ( $accessLevel >= 2 && $org_archival): ?>
                 <a href="deleteOrganization.php?id=<?= $id ?>" title="Delete Organization" class="delete-icon"
                     onclick="return confirm('<?= htmlspecialchars($confirmText, ENT_QUOTES) ?>');">
                     <i class="fas fa-trash" style="color: var(--main-color);"></i>
@@ -127,7 +127,7 @@
             <?php endif; ?>
         </p>
 
-        <div id="table-wrapper">
+        <div id="table-wrapper" class="entity-table">
             <table>
                 <tr>  
                     <td class="label">Name</td>
@@ -148,8 +148,8 @@
             </table>
         </div>
 
-        <a class="button cancel" href="organizationManagement.php" style="margin-left: auto; margin-right: auto;">Manage Organizations</a>
-        <a class="button cancel" href="index.php" style="margin-left: auto; margin-right: auto;">Return to Dashboard</a>
+        <a class="button cancel" href="organizationManagement.php" style="margin-left: auto; margin-right: auto; width: 50%;">Manage Organizations</a>
+        <a class="button cancel" href="index.php" style="margin-left: auto; margin-right: auto; width: 50%;">Return to Dashboard</a>
 
     </main>
 </body>

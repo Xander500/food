@@ -168,9 +168,10 @@
           </div>
         </div>
       </div>
+
       <div class="profile-buttons">
-        <button onclick="window.location.href='editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>';">Edit Profile</button>
-        <button onclick="window.location.href='volunteerManagement.php';">Return to Dashboard</button>
+        <button style="width: 65%;" onclick="window.location.href='editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>';">Edit Profile</button>
+        <button style="width: 65%;" onclick="window.location.href='volunteerManagement.php';">Return to Dashboard</button>
       </div>
     </div>
 

@@ -8,7 +8,7 @@
 	        <div class="text-center">
                 <h2 class="mb-8">Add Organization Form</h2>
                 <div class="info-box">
-                    <p>Add a reccord of a non-profit or community organization with whom students may volunteer.
+                    <p>Add a record of a non-profit or community organization with whom students may volunteer.
                         <br>An asterisk (*) indicates a required field.</p>
                 </div>
 	        </div>
@@ -23,7 +23,7 @@
                 <label for="location">Location</label>
                 <input type="text" id="location" name="location" placeholder="Enter the location of the organization">
 
-                <label for="email">E-mail</label>
+                <label for="email">* E-mail</label>
                 <input type="email" id="email" name="email" required placeholder="Enter the e-mail address of the organization">
             </fieldset>
             <input type="submit" name="registration-form" value="Submit" style="width: 35%; margin: auto;">

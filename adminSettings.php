@@ -117,13 +117,12 @@ $currentLogo = $config['logo']       ?? 'images/default_logo.png';
                        class="w-full p-3 border border-gray-300 rounded-lg bg-gray-100">
             </div>
 
-            <button type="submit"
-                    class="w-full bg-[#213e57] hover:bg-[#92c44c] text-white font-semibold py-3 rounded-lg transition duration-300">
-                Save Changes
-            </button>
+            <div style="text-align: center;">
+                <button type="submit" class="w-full bg-[#213e57] text-white font-semibold py-3 rounded-lg transition duration-300" style="width: 30%;">Save Changes</button>
+            </div>
         </form>
 
-        <a href="index.php" class="block text-center text-[#759d3d] mt-6 hover:underline">← Back to Dashboard</a>
+        <a href="index.php" class="block text-center text-[#759d3d] mt-6 hover:underline" style="font-weight: 500;">← Back to Homepage</a>
     </div>
 
 </body>
