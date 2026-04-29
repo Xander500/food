@@ -72,6 +72,7 @@
 
     $viewingOwnProfile = $id == $userID;
 
+    /*
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if (isset($_POST['url'])) {
         if (!update_profile_pic($id, $_POST['url'])) {
@@ -81,6 +82,7 @@
         }
       }
     }
+      */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -166,9 +168,10 @@
           </div>
         </div>
       </div>
+
       <div class="profile-buttons">
-        <button onclick="window.location.href='editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>';">Edit Profile</button>
-        <button onclick="window.location.href='volunteerManagement.php';">Return to Dashboard</button>
+        <button style="width: 65%;" onclick="window.location.href='editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>';">Edit Profile</button>
+        <button style="width: 65%;" onclick="window.location.href='volunteerManagement.php';">Return to Dashboard</button>
       </div>
     </div>
 

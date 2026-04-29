@@ -77,8 +77,8 @@
                     <div class="sidebar-item">
                         <h1>Instructions</h1>
                         <ol>
-                            <li><a href="#share-register">Share Registration with Students</a></li>
-                            <li><a href="#student-locked-out">Student Locked Out of Account</a></li>
+                            <?php if ($sections['share_register'] == $accessLevel): ?><li><a href="#share-register">Share Registration with Students</a></li><?php endif; ?>
+                            <?php if ($sections['student_locked_out'] == $accessLevel): ?><li><a href="#student-locked-out">Student Locked Out of Account</a></li><?php endif; ?>
                             <li><a href="#add-log">Add a Volunteer Activity Log</a></li>
                             <li><a href="#view-logs">View All Volunteer Activity Logs</a></li>
                             <li><a href="#search-logs">Search Volunteer Activity Logs</a></li>
@@ -101,6 +101,7 @@
             </div>
 
             <div class="main-content-box">
+                <?php if ($sections['share_register'] == $accessLevel): ?>
                 <section id="share-register">
                     <h3 <?php if ($sections['share_register'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Share Registration with Students</h3>
                     <ul>
@@ -116,6 +117,8 @@
                         </li>
                     </ul>
                 </section>
+                <?php endif; ?>
+                <?php if ($sections['student_locked_out'] == $accessLevel): ?>
                 <section id="student-locked-out">
                     <h3 <?php if ($sections['student_locked_out'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Student Locked Out of Account</h3>
                     <ul>
@@ -126,10 +129,11 @@
                         <li>The student will be able to reset their password using the updated email address.</li>
                     </ul>
                 </section>
+                <?php endif; ?>
                 <section id="add-log">
                     <h3 <?php if ($sections['add_log'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Add a Volunteer Activity Log</h3>
                     <ul>
-                        <li>To add records of your volunteer activities with a non-profit or volunteer organization on a particular date, navigate to the <a href="index.php" target="_blank">homepage</a> and select the <a href="link goes here" target="_blank">"Add Log" button</a> at the top of the page.</li>
+                        <li>To add records of your volunteer activities with a non-profit or volunteer organization on a particular date, navigate to the <a href="index.php" target="_blank">homepage</a> and select the <a href="addLog.php" target="_blank">"Add Log" button</a> at the top of the page.</li>
                         <li>Enter the details about your activity into the form and click "Create Activity."</li>
                         <li>You are required to provide information about the date, the duration (number of hours), and the organization.</li>
                         <li>You may additionally provide information about the location, the pounds of food rescued, and a description of the activity.</li>
@@ -139,7 +143,7 @@
                     <h3 <?php if ($sections['view_logs'] == 3) { echo 'class="aside_instructor-only"'; } ?>>View All Volunteer Activity Logs</h3>
                     <ul>
                         <li>To view volunteer activity logs, navigate to the <a href="index.php" target="_blank">log display table</a> on the <a href="index.php" target="_blank">homepage</a>.</li>
-                        <li>Scroll down until you see the section titled "View All Volunteer Activity."</li>
+                        <li>Scroll down until you see the log display table.</li>
                         <li>If there are numerous logs, the table will display only one page at a time. Page navigation links are found at the lower right corner of the table. Click the numbered buttons to view that page or the arrows to navigate pages.</li>
                         <li>By default, the logs are sorted by date. Click any column header link to sort by that field. An arrow will appear next to the selected header, indicating ascending or descending order. Click the header again to reverse the order.</li>
                         <li>To view the details of a single log, click the "👁" icon to the left of that log's row.</li>
@@ -188,7 +192,7 @@
                 <section id="view-own-logs">
                     <h3 <?php if ($sections['view_own_logs'] == 3) { echo 'class="aside_instructor-only"'; } ?>>View My Volunteer Activity Logs</h3>
                     <ul>
-                        <li>To view your own volunteer activity logs, navigate to the <a href="viewAllLogs.php" target="_blank">log display table</a> folowing the guide on how to <a href="#view-logs">View All Volunteer Activity Logs</a>.</li>
+                        <li>To view your own volunteer activity logs, navigate to the <a href="index.php" target="_blank">log display table</a> folowing the guide on how to <a href="#view-logs">View All Volunteer Activity Logs</a>.</li>
                         <li>Open the dropdown selection to search by student.  Select your own name.  Click the "Apply Filters" button."</li>
                     </ul>
                 </section>
@@ -198,7 +202,7 @@
                 <section id="view-impact-summary">
                     <h3 <?php if ($sections['view_impact_summary'] == 3) { echo 'class="aside_instructor-only"'; } ?>>View Your Personal Impact Summary</h3>
                     <ul>
-                        <li>To view your personal impact summary, navigate to the <a href="viewImpactSummary.php" target="_blank">"Personal Impact Summary" page</a> via the navigation bar dropdown at the top of any page.</li>
+                        <li>To view your personal impact summary, navigate to the <a href="viewImpactSummary.php" target="_blank">"Personal Impact Summary" page</a> via the navigation bar at the top of any page.</li>
                         <li>Your personal impact summary displays the total number of hours you have volunteered, the total pounds of food you have rescued, and the total number of your volunteer activity logs.  It also displays the number of hours and pounds of food rescued broken down by organizaiton.</li>
                         <li>Note: Volunteer activity logs do not require you to fill out the "Duration" and "Pounds of Food" fields.  The personal impact summary only reflects information recorded in volunteer activity logs.</li>
 
@@ -219,7 +223,7 @@
                 <section id="edit-org">
                     <h3 <?php if ($sections['edit_org'] == 3) { echo 'class="aside_instructor-only"'; } ?>>Edit Organization</h3>
                     <ul>
-                        <li>To edit a previously created organization, navigate to that organization's page by <a href="#search-orgs">searching for the organization</a> on the homepage.</li>
+                        <li>To edit a previously created organization, navigate to that organization's page by <a href="viewAllOrgs.php">searching for the organization</a> on the homepage.</li>
                         <li>On the organization's page, you will see the header "Organization Details" with a pencil icon to the right. Click the pencil to open the edit form.</li>
                         <li>Make your changes and click the "Update Organization" button.</li>
                     </ul>
@@ -300,7 +304,7 @@
                             <li>Click on a the "Update Status" link in the appropriate user's row in the search results.</li>
                             <li>Make your changes and click the "Update" button.</li>
                         </ul>
-                        <li>To set an organization's status to either archived or active, navigate to that organization's page by <a href="#search-orgs">searching for the organization</a>.</li>
+                        <li>To set an organization's status to either archived or active, navigate to that organization's page by <a href="viewAllOrgs.php">searching for the organization</a>.</li>
                         <ul>
                             <li>Update the organization's status by <a href="#edit-org">editing the organization as described in this guide</a>.</li>
                         </ul>

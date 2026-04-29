@@ -66,7 +66,8 @@ require_once('include/output.php');
         <div class="text-center mb-8">
             <h2>Find an Organization</h2>
             <div class="info-box">
-                <p class="sub-text">Use the fields below to filter and search for organizations.</p>
+                <p class="sub-text">Use the fields below to filter and search for organizations. You may only search and delete archived organizations. Deleting organizations is permanent and will remove all data associated with them, including volunteer activity logs.</p>        
+
             </div>
         </div>
 
@@ -91,8 +92,8 @@ require_once('include/output.php');
 
                     if (count($orgs) > 0) {
                         echo '
-                        <div class="section-box mb-6" style="background-color:#92c44c; padding:25px; border-radius:10px; max-width:900px; margin:0 auto 24px auto;">
-                            <h3 style="color:white;">Search Results</h3>
+                        <div class="delete-archive-search-results">
+                            <h3>Search Results</h3>
                             <form method="post" action="deleteOrganizationBulk.php" onsubmit="return confirm(\'Are you sure you want to delete the selected organizations?\');">
                                 <div class="search-results-table" style="margin-top:10px; display:flex; justify-content:center;">
                                     <table style="width:100%;">
@@ -123,9 +124,9 @@ require_once('include/output.php');
                                     </table>
                                 </div>
                                 <div class="text-center pt-4">
-                                    <p id="selected-org-count" style="margin-bottom:10px; color:white; font-weight:bold;">0 organizations selected</p>
+                                    <p id="selected-org-count" style="margin-bottom:10px; font-weight:bold;">0 organizations selected</p>
                                     <input type="hidden" name="bulk_delete" value="1">
-                                    <input type="submit" id="bulk-delete-org-btn" value="Delete Selected Organizations" class="blue-button" style="background-color: #b91c1c; opacity:0.5; cursor:not-allowed;" disabled>
+                                    <input type="submit" id="bulk-delete-org-btn" value="Delete Selected Organizations" class="blue-button" style="background-color: #b91c1c; opacity:0.5; cursor:not-allowed; border: none;" disabled>
                                 </div>
                             </form>
                         </div>';
@@ -146,13 +147,13 @@ require_once('include/output.php');
                 <label for="location">Location</label>
                 <input type="text" id="location" name="location" class="w-full" value="<?php if (isset($location)) echo hsc($_GET['location']); ?>" placeholder="Enter the location of the organization">
             </div>
-            <div class="text-center pt-4">
+            <div class="text-center pt-4" style="width: 40%; margin: auto;">
                 <input type="submit" value="Search" class="blue-button">
             </div>
         </form>
 
-        <div class="text-center" style="margin-top: 60px;">
-            <a href="index.php" class="return-button">Return to Dashboard</a>
+        <div class="text-center" style="margin-top: 60px; font-size: 1.25rem;">
+            <a href="archivalManagement.php" class="return-button">Return to Archive Management</a>
         </div>
     </div>
 </main>

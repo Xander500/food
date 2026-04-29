@@ -226,10 +226,6 @@ a {
     color: var(--accent-color);
 }
 
-a:hover {
-    color: var(--accent-color-hover);
-}
-
 #vms-logo {
     color: var(--page-font-color);
     font-weight: 450;
@@ -881,12 +877,13 @@ form#org-search.section-box,
 form.add-org-form .section-box,
 form.password-change .section-box,
 form.modUser .section-box,
-form.edit-org-form .section-box {
-    border: 3px solid var(--main-color);
+form.edit-org-form .section-box,
+.delete-archive-search-results {
+    border: 3px solid var(--main-color) !important;
     border-radius: 20px;
     padding: 15px;
     margin-bottom: 20px;
-    background-color: var(--accent-color);
+    background-color: var(--accent-color) !important;
     width: fit-content;
     min-width: 100%;
 }
@@ -1838,7 +1835,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 }
 
 main.analytics-body {
-    margin: 2%;
+    margin: 1%;
+    padding: 0.5rem !important;
     margin-top: 0;
 }
 
@@ -2044,6 +2042,7 @@ canvas {
 
 .profile-buttons {
     margin-top: 1.5rem;
+    text-align: center;
 }
 
 .profile-buttons button {
@@ -2220,7 +2219,9 @@ a.sorted-desc::after {
 
 .event-sect .choices__inner,
 .event-sect .choices__placeholder,
-.event-sect .choices__item {
+.event-sect .choices__item,
+.archive-search-dropdown .choices__item.choices__placeholder.choices__item--selectable,
+.archive-search-dropdown .choices__item {
     font-size: 1rem !important;
 }
 
@@ -2237,4 +2238,95 @@ a.sorted-desc::after {
     margin-right: auto;
     width: fit-content;
     font-size: 1.6rem;
+}
+
+input[type=checkbox] {
+    accent-color: var(--accent-color);
+}
+
+.impact-body {
+    max-width: 72rem;
+    display: flex;
+    margin-top: 7rem;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 1.5rem;
+}
+
+.impact-body-left {
+    width: 33.33%;
+    padding: 1.5rem;
+    background-color: var(--accent-color);
+    border: 3px solid var(--main-color);
+    border-radius: 1rem;
+    box-shadow: 5px 5px 20px 5px var(--main-color);
+}
+
+.profile-impact-nums {
+    margin-top: 1.5rem;
+}
+
+.profile-impact-num {
+    margin-bottom: 0.5rem;
+    border-radius: 0.75rem;
+    background-color: var(--main-color);
+    padding: 1rem;
+    color: white;
+}
+
+.profile-impact-num-top {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+}
+
+.profile-impact-num-bottom {
+    line-height: 1.25rem;
+}
+
+.impact-body-right {
+    width: 66.67%;
+    padding: 1.5rem;
+    background-color: var(--accent-color);
+    border: 3px solid var(--main-color);
+    border-radius: 1rem;
+    box-shadow: 5px 5px 20px 5px var(--main-color);
+    height: fit-content;
+}
+
+.impact-body-right table {
+    width: 90%;
+    margin-top: 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.impact-body-right table thead {
+    color: var(--page-font-color);
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    text-transform: uppercase;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 1rem;
+}
+
+.impact-body-right table thead tr th,
+.impact-body-right table tbody tr td,
+.impact-body-right table tfoot tr td {
+    text-align: center;
+    border: 3px solid white;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-weight: 600;
+    background-color: var(--main-color);
+    color: white;
+}
+
+.impact-body-right table tbody tr td {
+    font-weight: 500;
+}
+
+.impact-body-right table thead tr th {
+    color: var(--accent-color);
 }

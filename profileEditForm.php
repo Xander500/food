@@ -99,13 +99,13 @@
                     </select>
                 </div>
             </div>
-            <p>Select the semester you enrolled in the course MKTG 427.</p>
+            <p>Select the most reccent semester you enrolled in the course MKTG 427.</p>
             <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <input type="submit" name="profile-edit-form" value="Update Profile" style="width: 50%; margin: auto; margin-top: +0.5rem;">
+            <input type="submit" name="profile-edit-form" value="Update Profile" style="width: 40%; display: block; margin: auto; margin-top: +0.5rem;">
             <?php if ($editingSelf): ?>
-                <a class="button cancel" href="viewProfile.php" style="width: 50%; margin: auto;">Cancel</a>
+                <a class="button cancel" href="viewProfile.php" style="width: 40%; display: block; margin: auto; margin-top: +0.5rem;">Cancel</a>
             <?php else: ?>
-                <a class="button cancel" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="width: 50%; margin: auto;">Cancel</a>
+                <a class="button cancel" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="width: 40%; display: block; margin: auto; margin-top: +0.5rem;">Cancel</a>
             <?php endif ?>
         </fieldset>
     </form>
