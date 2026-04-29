@@ -91,7 +91,7 @@ require_once('header.php');
             </div>
         </div>
 
-                        <?php
+        <?php
             if (isset($_GET['name']) || isset($_GET['id']) || isset($_GET['role']) || isset($_GET['semester'])) {
                 require_once('include/input-validation.php');
                 require_once('database/dbUsers.php');
@@ -107,13 +107,12 @@ require_once('header.php');
                 $semester = $args['semester'];
                 $role = $args['role'];
 
-
                 if (!($name || $id || $semester || $role)) {
                     echo '<div class="error-block">At least one search criterion is required.</div>';
                 } else if (!valueConstrainedTo($role, ['Instructor', 'Student', ''])) {
                     echo '<div class="error-block">The system did not understand your request.</div>';
                 }else {
-                    echo '<div class="section-box mb-6" style="background-color:#92c44c; padding:25px; border-radius:10px; max-width:900px; margin:0 auto;"><h3 style="color:white;">Search Results</h3>';
+                    echo '<div class="delete-archive-search-results"><h3>Search Results</h3>';
                     $persons = search_users($name, $id, $semester, $role, ['0', '1']);
                     require_once('include/output.php');
 
@@ -150,19 +149,20 @@ require_once('header.php');
                                         <td><a href="deleteUser.php?id=' . hsc($person->get_id()) . '" onclick="return confirm(\'Are You Sure?  This action will permanently delete the user AND their volunteer activity.\');" class="text-blue-700 underline">Delete User</a></td>
                                     </tr>';
                         }
-echo '
-            </tbody>
-        </table>
-    </div>
-<div class="text-center pt-4">
-    <p id="selected-count" style="margin-bottom:10px; color:white; font-weight:bold;">0 users selected</p>
-    <input type="hidden" name="bulk_delete" value="1">
-    <input type="submit" id="bulk-delete-btn" value="Delete Selected Users" class="blue-button" style="background-color: #b91c1c; opacity:0.5; cursor:not-allowed;" disabled>
-</div>
-</form>';
-echo "</div>";
+                        echo '
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center pt-4">
+                            <p id="selected-count" style="margin: 10px auto; font-weight: bold;">0 users selected</p>
+                            <input type="hidden" name="bulk_delete" value="1">
+                            <input type="submit" id="bulk-delete-btn" value="Delete Selected Users" class="blue-button" style="background-color: #b91c1c; opacity:0.5; cursor:not-allowed; border: none; width: 50%;" disabled>
+                        </div>
+                        </form>
+                    </div>';
                     } else {
-                        echo '<div class="error-block">Your search returned no results.</div>';
+                        echo '<div class="error-block">Your search returned no results.</div>
+                        </div>';
                     }
                     echo '<h3 style="margin-top:20px;">Search Again</h3>';
                 }
@@ -170,8 +170,6 @@ echo "</div>";
         ?>
 
         <form id="person-search" class="section-box mb-4" method="get" style="max-width:900px; margin:20px auto 0 auto;">
-
-
 
             <div>
                 <label for="name">Name</label>
@@ -201,18 +199,16 @@ echo "</div>";
                 </select>
             </div>
 
-            <div class="text-center pt-4">
+            <div class="text-center pt-4" style="width: 40%; margin: auto;">
                 <input type="submit" value="Search" class="blue-button">
             </div>
 
         </form>
 
-
-
         <div class="text-center mt-6">
-            <div style="margin-top:20px; text-align:center;">
-    <a class="button cancel" href="index.php">Return to Dashboard</a>
-</div>
+            <div style="margin: 20px auto; text-align:center; width: 60%;">
+                <a class="button cancel" href="archivalManagement.php">Return to Archive Management</a>
+            </div>
         </div>
     </div>
 </main>

@@ -20,6 +20,7 @@ if ($_SESSION['access_level'] < 2) {
     <title>UMW Alleviating Food Waste Volunteer Tracking | Attendance Reports</title>
     <!--<script src="js/data-filters.js" defer></script>-->
     <link href="css/base.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="images/alleviatingFoodWasteLogo.png">
     <?php require_once('header.php'); ?>
 </head>
 <body>
@@ -27,20 +28,14 @@ if ($_SESSION['access_level'] < 2) {
     <?php require_once('database/dbUsers.php');?>
     <?php require_once('database/dbOrganizations.php');?>
 
-    <!-- Hero Section with Title -->
-        <div class="center-header">
-            <h1>Generate Reports</h1>
-        </div>
-                <!-- Info Section -->
-        <section class="section-box">
-            <p style="margin-top: 1rem;text-align:center;">
-                Use this tool to generate reports on volunteer activity. Reports are available in Excel or CSV format.
-                Currently, you can export the full data stored in the database.
-            </p>
-        </section>
+    <h2 style="margin-top: 1rem;">Generate Reports</h2>
 
-    <main>
-        <div class="main-content-box">
+    <main style="width: 50%; margin: auto;">
+        <p style="margin-top: 1rem;text-align:center;">
+            Use this tool to generate reports on volunteer activity. Reports are available in Excel or CSV format.
+            Currently, you can export the full data stored in the database.
+        </p>
+        <div class="main-content-box" style="margin-bottom: 0;">
             <!--<div class="text-center">
                 <p style="font-size: 18px; color: #c2c2c2ff; margin-top: 0.5rem; margin-bottom: 0.5rem;">Fiscal Year: <?= $fiscalYearStart ?> - <?= $fiscalYearEnd ?></p>
             </div>-->
@@ -57,26 +52,9 @@ if ($_SESSION['access_level'] < 2) {
                     </select>
                 </div>
 
-                <!-- Month (conditionally hidden)
-                <div id="monthField">
-                    <label for="month" class="font-semibold">Select Month:</label>
-                    <select name="month" id="month">
-                        <?php
-                        $months = [
-                            '10' => 'October', '11' => 'November', '12' => 'December', '01' => 'January',
-                            '02' => 'February', '03' => 'March', '04' => 'April', '05' => 'May',
-                            '06' => 'June', '07' => 'July', '08' => 'August', '09' => 'September'
-                        ];
-                        foreach ($months as $num => $name) {
-                            echo "<option value='$num'>$name</option>";
-                        }
-                        ?>
-                    </select>
-                </div> -->
-
                 <!-- Content Select -->
 
-                    <h4 style="margin-top: 1rem; margin-bottom: 0.5rem; font-weight: 600; color: var(--accent-color);">Field Selector</h4>
+                    <h4 style="margin-top: 1rem; margin-bottom: 0.5rem; font-weight: 600;">Field Selector</h4>
                     <p style="font-size: 16px; color: #c2c2c2ff; margin-top: 0.5rem; margin-bottom: 0.5rem;">If this field is selected, the report will include all entries, including those that are archived.</p>
                     <div id="field-picker">
                             <div class="checkbox-grouping">
@@ -98,13 +76,13 @@ if ($_SESSION['access_level'] < 2) {
                 <div style="text-align: center; margin-top: 2rem;">
                     <input type="hidden" value="<?php echo $_SESSION['_id']; ?>" name="admin" id="admin">
                     <input type="hidden" value="<?php echo date("d-M-Y H:i:s e") ?>" name="time" id="time">
-                    <input type="submit" value="Generate Report" class="button generate-btn">
+                    <input type="submit" value="Generate Report" class="button generate-btn" style="width: 40%;">
                 </div>
             </form>
 
         <!-- Return Button -->
         </div>
-        <div style="text-align: center; margin-top: 2rem;">
+        <div style="text-align: center;">
             <a href="index.php" class="button" style="display: inline-block; text-decoration: none; width: 41%;">Return to Dashboard</a>
         </div>
 

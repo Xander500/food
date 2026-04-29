@@ -950,46 +950,6 @@ document.querySelectorAll(".icon-butt").forEach(el => {
   window.addEventListener("resize", updateDateAndCheckBoxes);
   window.addEventListener("load", updateDateAndCheckBoxes);
 </script>
-<!-- Accessibility Button + Modal -->
-<button class="accessibility-btn" id="accessibilityBtn" aria-haspopup="dialog" aria-controls="accessibilityModal" title="Accessibility settings">
-    <img src="images/accessibility-menu.png" alt="Accessibility Menu">
-</button>
-
-<div class="accessibility-modal-backdrop" id="accessibilityBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="accessibility-modal" id="accessibilityModal">
-        <div class="modal-header">
-            <h3>Accessibility Settings</h3>
-            <button id="accessibilityClose" class="modal-close" style="max-width: 22%;">&times;</button>
-        </div>
-        <p class="modal-desc">Adjust font size, font style, and color scheme. Settings persist across pages and visits.</p>
-
-        <div class="accessibility-row">
-            <label for="acc-font-size">Font size</label>
-            <div style="display:flex; align-items:center; gap:8px;">
-                <input id="acc-font-size" type="range" min="12" max="24" step="1" value="14">
-                <span id="acc-font-size-value">14pt</span>
-            </div>
-        </div>
-
-        <div class="accessibility-row">
-            <label for="acc-font-family">Font style</label>
-            <select id="acc-font-family">
-                <option value="nunito">Nunito (default)</option>
-                <option value="quicksand">Quicksand</option>
-                <option value="comic">Comic Sans</option>
-                <option value="opendyslexic">OpenDyslexic</option>
-                <option value="times">Times New Roman</option>
-            </select>
-        </div>
-
-        <!-- Color scheme removed; keeping font controls only -->
-
-        <div class="accessibility-actions">
-            <button class="reset" id="accReset">Reset</button>
-            <button class="save" id="accSave">Save</button>
-        </div>
-    </div>
-</div>
 
 <script>
     (function(){

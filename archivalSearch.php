@@ -111,7 +111,7 @@ require_once('header.php');
                         $action_code = ($action == 'Archive') ? 1 : 0; // 1 for archive, 0 for unarchive
 
                         $changes = archive_users_by_semester($semester, $action_code);
-                        echo '<div class="success-block">'. (int) $changes . ' student account(s) associated with ' . hsc($semester) . ' have been'. ($action_code ? ' archived' : ' unarchived') . '.</div>';
+                        echo '<div class="success-block" style="margin-bottom: 0.5rem;">'. (int) $changes . ' student account(s) associated with ' . hsc($semester) . ' have been'. ($action_code ? ' archived' : ' unarchived') . '.</div>';
 
                         $persons = search_users($name="", $id="", $semester, $role="Student", $status=[]); //only care about searching semester //only want to apply to students
                         require_once('include/output.php');
@@ -199,7 +199,7 @@ require_once('header.php');
                 }
             }
         ?>         
-            <div>
+            <div class="archive-search-dropdown">
                 <label for="semester">Semester</label>
                 <select id="semester" name="semester" class="w-full">
                     <option value="" >You must select a semester</option>
@@ -227,13 +227,13 @@ require_once('header.php');
                 </select>
             </div>
 
-            <div class="text-center pt-4">
+            <div class="text-center pt-4" style="width: 40%; margin: auto;">
                 <input type="submit" value="Apply Action" class="blue-button">
             </div>
 
         </form>
         <div class="text-center mt-6">
-            <a href="index.php" class="return-button">Return to Dashboard</a>
+            <a href="archivalManagement.php" class="return-button">Return to Archive Management</a>
         </div>
     </div>
 
