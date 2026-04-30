@@ -172,6 +172,8 @@ Clearing your cache will help ensure that you're seeing the latest updates to th
 ### External Libraries and APIs
 The following library exists in the VITS code and was inherited from the Step VA version of the codebase: The only outside library utilized by the Step VA is the jQuery library. The version of jQuery used by the system is stored locally within the repo, within the lib folder. jQuery was used to implement form validation and the hiding/showing of certain page elements. Additionally, the Font Awesome library was used for some of the icon pictures. This library is linked in the headers of some files "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css".
 
+The VITS Project uses three external libraries: choices.js to create searchable dropdown menues to enhance the user exeperience, leaflet.js to generate an interactive map display of volunteer activity, and PHPMailer to send password reset emails.  Both choices.js and leaflet.js use an external javascript library, linked in the header sections of HTML pages.  PHPMailer requires its own password and account.  Contact Dr. Polack for more information.
+
 ### Potential Improvements
 Below is a list of improvements that could be made to the system in subsequent semesters.
 * Rename the database
